@@ -9,7 +9,7 @@
                     <div class="breadcrumbs w-full text-sm">
                         <ul>
                             <li>
-                                <a href="{{ route('news.index') }}">@lang('web.news')</a>
+                                <a href="{{ route('news.index',['category'=> $category->slug]) }}">@lang('web.news')</a>
                             </li>
                             <li>{{ $post->category->title }}</li>
                         </ul>

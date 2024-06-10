@@ -13,8 +13,8 @@ class NewsController extends Controller
     {
         $posts = Category::query()->where('slug',$slug)->with(['children'=> function ($query){
             $query->with('posts');
-        }])->get(); 
-        dd($posts);
+        }])->get();
+        // dd($posts);
         // Post::query()
         //         ->with('category')
         //         ->published()
@@ -27,8 +27,10 @@ class NewsController extends Controller
 
     public function show(Post $post): View
     {
+        $category = Category::query()->where('id',$post->category_id)->first();
         return view('web.news.show', [
             'post' => $post,
+            'category' => $category,
         ]);
     }
 }

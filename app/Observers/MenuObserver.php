@@ -25,13 +25,13 @@ class MenuObserver
             $parentMenu = Menu::find($menu->parent_id);
             if ($parentMenu) {
                 $parentSlug = $parentMenu->slug;
-                $menu->link = URL::to('/') . '/' . $parentSlug . '/' . $menu->slug;
+                $menu->link = URL::to('/') . '/' . 'danh-muc' . '/' . $parentSlug . '/' . $menu->slug;
             } else {
                 // Xử lý trường hợp không tìm thấy menu cha (nếu cần)
-                $menu->link = URL::to('/') . '/' . $menu->slug;
+                $menu->link = URL::to('/') . '/' . 'danh-muc' . '/' . $menu->slug;
             }
         } else {
-            $menu->link = URL::to('/') . '/' . $menu->slug;
+            $menu->link = URL::to('/') . '/' . 'danh-muc' . '/' . $menu->slug;
         }
 
         $this->menuservice->deleteCachedMenu();

@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         ]);
         User::factory()->create([
             'name' => 'Cuong',
-            'email' => 'Cuong@gmail.com',
+            'email' => 'Cuong1@gmail.com',
             'password' => 'cuong1211',
             'display_name' => 'Cuong',
             'category_id' => 1,
