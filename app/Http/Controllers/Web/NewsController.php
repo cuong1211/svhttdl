@@ -11,7 +11,7 @@ class NewsController extends Controller
 {
     public function index($slug): View
     {
-        $posts = Category::query()->where('slug',$slug)->with(['children'=> function ($query){
+        $posts = Category::query()->where('slug', $slug)->with(['children' => function ($query) {
             $query->with('posts');
         }])->get();
         // dd($posts);
@@ -24,10 +24,28 @@ class NewsController extends Controller
             'posts' => $posts,
         ]);
     }
+    public function getChild($parentSlug, $slug): View
+    {
+        $category = Category::query()->where('slug', $slug)->first();
+        $category_title = $category->title;
 
+        $posts =  Post::query()->where('category_id', $category->id)
+            ->with('category')
+            ->published()
+            ->orderByDesc('published_at')
+            ->paginate(10);
+        // dd($posts);
+        // foreach ($posts as $post) {
+        //     dd($post->getFirstMedia('featured_image')->getUrl());
+        // }
+        return view('web.child.index', [
+            'posts' => $posts,
+            'category_title' => $category_title,
+        ]);
+    }
     public function show(Post $post): View
     {
-        $category = Category::query()->where('id',$post->category_id)->first();
+        $category = Category::query()->where('id', $post->category_id)->first();
         return view('web.news.show', [
             'post' => $post,
             'category' => $category,

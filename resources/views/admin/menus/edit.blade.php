@@ -103,7 +103,7 @@
                         </label>
 
                         <div class="flex justify-end gap-4">
-                            <a href="{{ route('admin.categories.index') }}"
+                            <a href="{{ route('admin.menus.index') }}"
                                 class="btn-light btn">@lang('admin.btn.cancel')</a>
                             <button type="submit" class="btn btn-success ml-2">@lang('admin.btn.submit')</button>
                         </div>

@@ -17,11 +17,12 @@
                                             <div class="flex gap-3">
                                                 @if ($index == 0)
                                                     <!-- Phần tử đầu tiên hiển thị đầy đủ ảnh và nội dung giới hạn 500 ký tự -->
+                                                    
                                                     <a href="{{ route('news.show', $post) }}"
                                                         class="h-32 w-48 flex-none overflow-hidden">
-                                                        {{-- <img class="h-auto w-full transition-all group-hover:scale-110"
-                                                    src="{{ $post->getFirstMedia('featured_image')->getUrl('thumb') }}"
-                                                    alt="" /> --}}
+                                                        <img class="h-auto w-full transition-all group-hover:scale-110"
+                                                    src="{{ $post->getFirstMedia('featured_image')->getUrl('') }}"
+                                                    alt="" />
                                                     </a>
                                                     <div class="flex flex-col items-start justify-between">
                                                         <div>

@@ -5,12 +5,23 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use Illuminate\View\View;
 use App\Models\Menu;
+use App\Models\Category;
 
 class HomeController extends Controller
 {
     public function __invoke(): View
     {
-        return view('web.home');
+        $posts = Category::query()->where('slug','tin-tuc-su-kien')->with(['children' => function ($query) {
+            $query->with('posts')->limit(5);
+        }])->get();
+        // dd($posts);
+        // Post::query()
+        //         ->with('category')
+        //         ->published()
+        //         ->orderByDesc('published_at')
+        //         ->paginate(10)
+        // dd($posts);
+        return view('web.home',compact('posts'));
     }
     public function showMenu()
     {
