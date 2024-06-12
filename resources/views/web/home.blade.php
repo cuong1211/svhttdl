@@ -21,62 +21,77 @@
                     <x-website.partners /> --}}
                     @foreach ($posts as $category)
                         @foreach ($category->children as $category_title)
-                            <div class="container mx-auto space-y-8 mb-12">
-                                <h1 class="text-4xl font-bold mb-6">{{ $category_title->title }}</h1>
+                            <div class="container mx-auto space-y-8 mb-12 bg-white shadow-md p-6">
+                                <h1 class="text-justify font-roboto text-xl font-extrabold tracking-tight text-blue-700 group-hover:text-blue-800 mb-6">{{ $category_title->title }}</h1>
                                 <!-- Dòng 1: Tin tức mới nhất -->
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                <div class="grid grid-cols-8 md:grid-cols-3">
                                     @foreach ($category_title->posts as $index => $post)
                                         <!-- Tin tức mới nhất -->
                                         @if ($index == 0)
-                                            <div class="md:col-span-2 bg-white p-6 rounded-lg shadow-md">
-                                                <div class="grid grid-cols-2 gap-4">
-                                                    <div class="col-span-1">
+                                            <div class="md:col-span-6 ">
+                                                <div class="grid grid-cols-2 gap-3">
+                                                    <div class="">
                                                         <img src="{{ $post->getFirstMedia('featured_image')->getUrl() }}"
                                                             alt="{{ $post->title }}"
-                                                            class="w-full h-48 object-cover rounded-md">
+                                                            class="w-full h-full object-cover ">
                                                     </div>
-                                                    <div class="col-span-1">
-                                                        <a href="{{ route('news.show', $post) }}"
-                                                            class="group-hover:underline">
-                                                            <h3
-                                                                class="line-clamp-2 text-lg font-semibold leading-5 text-blue-950">
+                                                    <div class="">
+                                                        <a href="{{ route('news.show', $post) }}" class="">
+                                                            <h3 class=" text-lg font-semibold leading-5 text-blue-950">
                                                                 {{ $post->title }}
                                                             </h3>
                                                         </a>
                                                         <p class="mt-2 line-clamp-3 text-sm text-slate-500">
-                                                            {{ Str::limit(html_entity_decode(strip_tags($post->content)), 500) }}
+                                                            {{ Str::limit(html_entity_decode(strip_tags(app\Models\Post::query()->where('id', $post->id)->first()->content->toTrixHtml())),500) }}
                                                         </p>
+                                                        <div class="tooltip tooltip-top flex items-center gap-2 text-green-700"
+                                                            data-tip="{{ $post->published_post_date }}">
+                                                            <x-heroicon-m-calendar class="size-4" />
+                                                            <span
+                                                                class="text-xs">{{ $post->published_post_date_thumb }}</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         @elseif ($index == 1)
                                             <!-- Tin tức bên phải không có ảnh -->
-                                            <div class="md:col-span-1 bg-white p-6 rounded-lg shadow-md">
-                                                <a href="{{ route('news.show', $post) }}" class="group-hover:underline">
+                                            <div class="md:col-span-2  ">
+                                                <a href="{{ route('news.show', $post) }}" class="">
                                                     <h3
                                                         class="line-clamp-2 text-lg font-semibold leading-5 text-blue-950">
                                                         {{ $post->title }}
                                                     </h3>
                                                 </a>
                                                 <p class="mt-2 line-clamp-3 text-sm text-slate-500">
-                                                    {{ Str::limit(html_entity_decode(strip_tags($post->content)), 500) }}
+                                                    {{ Str::limit(html_entity_decode(strip_tags(app\Models\Post::query()->where('id', $post->id)->first()->content->toTrixHtml())),500) }}
+
                                                 </p>
+                                                <div class="tooltip tooltip-top flex items-center gap-2 text-green-700"
+                                                    data-tip="{{ $post->published_post_date }}">
+                                                    <x-heroicon-m-calendar class="size-4" />
+                                                    <span class="text-xs">{{ $post->published_post_date_thumb }}</span>
+                                                </div>
                                             </div>
                                         @endif
                                     @endforeach
                                 </div>
 
                                 <!-- Dòng 2: Các tin tức chỉ tiêu đề phân bổ thành 3 cột -->
-                                <div class="grid grid-cols-3 md:grid-cols-3 gap-8 mt-6">
+                                <div class="grid grid-cols-3 md:grid-cols-3 ">
                                     @foreach ($category_title->posts as $index => $post)
                                         @if ($index > 1)
-                                            <div class="bg-white p-6 rounded-lg shadow-md">
-                                                <a href="{{ route('news.show', $post) }}" class="group-hover:underline">
+                                            <div class="p-6 ">
+                                                <a href="{{ route('news.show', $post) }}" class="">
                                                     <h3
-                                                        class="line-clamp-2 text-lg font-semibold leading-5 text-blue-950">
+                                                        class=" text-lg font-semibold leading-5 text-blue-950">
                                                         {{ $post->title }}
                                                     </h3>
                                                 </a>
+                                                <div class="tooltip tooltip-top flex items-center gap-2 text-green-700"
+                                                    data-tip="{{ $post->published_post_date }}">
+                                                    <x-heroicon-m-calendar class="size-4" />
+                                                    <span class="text-xs">{{ $post->published_post_date_thumb }}</span>
+                                                </div>
                                             </div>
                                         @endif
                                     @endforeach

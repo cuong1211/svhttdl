@@ -35,9 +35,6 @@ class NewsController extends Controller
             ->orderByDesc('published_at')
             ->paginate(10);
         // dd($posts);
-        // foreach ($posts as $post) {
-        //     dd($post->getFirstMedia('featured_image')->getUrl());
-        // }
         return view('web.child.index', [
             'posts' => $posts,
             'category_title' => $category_title,

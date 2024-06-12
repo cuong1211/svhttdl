@@ -33,7 +33,7 @@
                                                                     {{ $post->title }}</h3>
                                                             </a>
                                                             <p class="mt-2 line-clamp-3 text-sm text-slate-500">
-                                                                {{ Str::limit(html_entity_decode(strip_tags($post->content)), 500) }}
+                                                                {!! $post->content !!}
                                                             </p>
                                                         </div>
                                                         <div class="tooltip tooltip-top flex items-center gap-2 text-green-700"

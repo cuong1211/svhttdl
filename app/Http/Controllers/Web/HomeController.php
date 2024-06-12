@@ -6,14 +6,19 @@ use App\Http\Controllers\Controller;
 use Illuminate\View\View;
 use App\Models\Menu;
 use App\Models\Category;
+use App\Models\Post;
 
 class HomeController extends Controller
 {
     public function __invoke(): View
     {
-        $posts = Category::query()->where('slug','tin-tuc-su-kien')->with(['children' => function ($query) {
-            $query->with('posts')->limit(5);
+        $posts = Category::query()->where('slug', 'tin-tuc-su-kien')->with(['children' => function ($query) {
+            $query->with(['posts' => function ($q) {
+                $q->published()
+                    ->orderByDesc('published_at');
+            }])->limit(5);
         }])->get();
+
         // dd($posts);
         // Post::query()
         //         ->with('category')
@@ -21,7 +26,7 @@ class HomeController extends Controller
         //         ->orderByDesc('published_at')
         //         ->paginate(10)
         // dd($posts);
-        return view('web.home',compact('posts'));
+        return view('web.home', compact('posts'));
     }
     public function showMenu()
     {
