@@ -1,50 +1,45 @@
 <x-website-layout>
+    @include('web.employee.css')
     <section>
-        <style>
-            html,
-            body {
-                width: 100%;
-                height: 100%;
-                padding: 0;
-                margin: 0;
-                overflow: hidden;
-                font-family: Helvetica;
-            }
+        <div class="bg-gray-100 flex items-center justify-center h-screen">
 
-            #tree {
-                width: 100%;
-                height: 100%;
-            }
-        </style>
-        <div class="mx-auto mt-6 max-w-7xl px-3 sm:px-6 md:items-center lg:px-8">
-            <div id="tree"></div>
+            <div class="container">
+                <h1 class="level-1 rectangle">Ban giám đốc sở</h1>
+                <ol class="level-2-wrapper">
+                    <li>
+                        <h2 class="level-2 rectangle">Quản lý nhà nước</h2>
+                        <ol class="level-3-wrapper" style="--n">
+                            @foreach ($employees as $employee)
+                                @if ($employee->type == 'Quản lý nhà nước')
+                                    <li>
+                                        <h3 class="level-3 rectangle">{{ $employee->name }}</h3>
+                                    </li>
+                                @endif
+                            @endforeach
+
+                        </ol>
+                    </li>
+                    <li>
+                        <h2 class="level-2 rectangle">Đơn vị sự nghiệp</h2>
+                        <ol class="level-3-wrapper">
+                            @foreach ($employees as $employee)
+                                @if ($employee->type == 'Đơn vị sự nghiệp')
+                                    <li>
+                                        <h3 class="level-3 rectangle">{{ $employee->name }}</h3>
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ol>
+                    </li>
+                </ol>
+            </div>
         </div>
-
     </section>
     @push('scripts_bottom')
-        
         <script>
-            let chart = new OrgChart(document.getElementById("tree"), {
-                mouseScrool: OrgChart.action.none,
-                nodeBinding: {
-                    field_0: "name"
-                },
-                enableDragDrop: true,
-                nodes: [{
-                        id: 1,
-                        name: "Amber McKenzie"
-                    },
-                    {
-                        id: 2,
-                        pid: 1,
-                        name: "Ava Field"
-                    },
-                    {
-                        id: 3,
-                        pid: 1,
-                        name: "Peter Stevens"
-                    }
-                ]
+            document.querySelectorAll('.level-3-wrapper').forEach(wrapper => {
+                const itemCount = wrapper.querySelectorAll('li').length;
+                wrapper.style.setProperty('--n', itemCount);
             });
         </script>
     @endpush

@@ -17,6 +17,7 @@
     <script src="{{ asset('vendor') }}/orgchart/orgchart.js"></script>
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @stack('css_custom')
 </head>
 
 <body class="font-roboto antialiased">
