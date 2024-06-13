@@ -31,6 +31,24 @@
                         </label>
                         <label class="form-control w-full">
                             <div class="label">
+                                <span class="label-text">Loại phòng ban</span>
+                            </div>
+                            <select name="type" required @class([
+                                'input',
+                                'input-bordered',
+                                'input-error' => $errors->has('type'),
+                                'w-full',
+                            ])>
+                                <option value="">@lang('admin.select')</option>
+                                @foreach (App\Enums\DepartmentTypeEnum::cases() as $type)
+                                    <option @selected($type->value == old('type')) value="{{ $type->value }}">
+                                        {{ $type->value}}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </label>
+                        <label class="form-control w-full">
+                            <div class="label">
                                 <span class="label-text">@lang('admin.departments.description')</span>
                             </div>
                             <textarea name="description" id="description" cols="30" rows="10" @class([

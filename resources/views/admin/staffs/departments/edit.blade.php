@@ -16,7 +16,8 @@
         <div class="mt-6">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="bg-white px-8 pb-8 pt-0 shadow sm:rounded-lg">
-                    <form action="{{ route('admin.departments.update', $department) }}" method="POST" class="space-y-4 needs-validation" novalidate>
+                    <form action="{{ route('admin.departments.update', $department) }}" method="POST"
+                        class="space-y-4 needs-validation" novalidate>
                         @csrf
                         @method('PUT')
 
@@ -32,7 +33,24 @@
                                     'w-full',
                                 ]) />
                         </label>
-
+                        <label class="form-control w-full">
+                            <div class="label">
+                                <span class="label-text">Loại phòng ban</span>
+                            </div>
+                            <select name="type" required @class([
+                                'input',
+                                'input-bordered',
+                                'input-error' => $errors->has('type'),
+                                'w-full',
+                            ])>
+                                <option value="">@lang('admin.select')</option>
+                                @foreach (App\Enums\DepartmentTypeEnum::cases() as $type)
+                                    <option value="{{ $type->value }}" {{ $department->type == $type ? 'selected' : '' }}>
+                                        {{ $type->value }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </label>
                         <label class="form-control w-full">
                             <div class="label">
                                 <span class="label-text">@lang('admin.departments.description')</span>
@@ -43,12 +61,11 @@
                                 'input-error' => $errors->has('description'),
                                 'w-full',
                             ])>{!! $department->description !!}</textarea>
-                            
+
                         </label>
 
                         <div class="flex justify-end gap-4">
-                            <a href="{{ route('admin.departments.index') }}"
-                                class="btn-light btn">@lang('admin.btn.cancel')</a>
+                            <a href="{{ route('admin.departments.index') }}" class="btn-light btn">@lang('admin.btn.cancel')</a>
                             <button type="submit" class="btn btn-success ml-2">@lang('admin.btn.submit')</button>
                         </div>
                     </form>

@@ -74,9 +74,9 @@ class DepartmentController extends Controller
     public function update(DepartmentRequest $request, $id): RedirectResponse
     {
         $department = Department::findOrFail($id);
-
         $department->update([
             'name' => $request->name,
+            'type' => $request->type, // Add this line
             'description' => $request->description,
         ]);
 

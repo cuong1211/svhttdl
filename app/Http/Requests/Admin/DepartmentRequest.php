@@ -15,6 +15,7 @@ class DepartmentRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255|unique:departments,name,'.$this->department,
+            'type' => 'nullable|string|max:255', // Add this line
             'description' => 'nullable',
         ];
     }
