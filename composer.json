@@ -10,7 +10,7 @@
         "davidhsianturi/blade-bootstrap-icons": "^1.5",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
-        "spatie/laravel-medialibrary": "^11.4",
+        "spatie/laravel-medialibrary": "^11.6",
         "tonysm/rich-text-laravel": "^3.1",
         "yajra/laravel-datatables": "^11.0"
     },
