@@ -9,29 +9,10 @@
             --white: white;
         }
 
-        * {
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-        }
-
+       
         ol {
             list-style: none;
         }
-
-        body {
-            margin: 50px 0 100px;
-            text-align: center;
-            font-family: "Inter", sans-serif;
-        }
-
-        .container {
-            max-width: 1000px;
-            padding: 0 10px;
-            margin: 0 auto;
-            color: var(--white);
-        }
-
         .rectangle {
             position: relative;
             padding: 20px;
@@ -40,7 +21,7 @@
 
 
         /* LEVEL-1 STYLES
-            –––––––––––––––––––––––––––––––––––––––––––––––––– */
+                –––––––––––––––––––––––––––––––––––––––––––––––––– */
         .level-1 {
             width: 50%;
             margin: 0 auto 40px;
@@ -60,7 +41,7 @@
 
 
         /* LEVEL-2 STYLES
-            –––––––––––––––––––––––––––––––––––––––––––––––––– */
+                –––––––––––––––––––––––––––––––––––––––––––––––––– */
         .level-2-wrapper {
             position: relative;
             display: grid;
@@ -134,26 +115,30 @@
 
 
         /* LEVEL-3 STYLES
-            –––––––––––––––––––––––––––––––––––––––––––––––––– */
+                –––––––––––––––––––––––––––––––––––––––––––––––––– */
         .level-3-wrapper {
             position: relative;
             display: grid;
             grid-template-columns: repeat(var(--n), 1fr);
-            grid-column-gap: 20px;
-            width: 90%;
-            margin: 0 auto;
+            grid-column-gap: 10px;
+            margin: 0 20px;
         }
 
         .level-3-wrapper::before {
             content: "";
             position: absolute;
             top: -20px;
-            left: calc((100% / var(--n)) / 2 - 5px);
+            left: 40px;
             /* adjustment = 5px */
-            width: calc(100% - (100% / var(--n)) + 10px);
+            width: calc(100% - 80px);
             /* adjustment width */
             height: 2px;
             background: var(--black);
+        }
+
+        .level-3-wrapper>li {
+            width: 80px;
+
         }
 
         .level-3-wrapper>li::before {
@@ -170,11 +155,13 @@
         .level-3 {
             margin-bottom: 20px;
             background: var(--level-3);
+
+            height: 260px;
         }
 
 
         /* LEVEL-4 STYLES
-            –––––––––––––––––––––––––––––––––––––––––––––––––– */
+                –––––––––––––––––––––––––––––––––––––––––––––––––– */
         .level-4-wrapper {
             position: relative;
             width: 80%;
@@ -213,7 +200,7 @@
 
 
         /* MQ STYLES
-            –––––––––––––––––––––––––––––––––––––––––––––––––– */
+                –––––––––––––––––––––––––––––––––––––––––––––––––– */
         @media screen and (max-width: 700px) {
             .rectangle {
                 padding: 20px 10px;
