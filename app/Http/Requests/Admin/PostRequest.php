@@ -18,6 +18,7 @@ class PostRequest extends FormRequest
             'title' => 'required',
             'content' => 'required',
             'published_at' => 'required|date', // Ensure this is a valid date
+            'type'=> 'nullable'
         ];
     }
 

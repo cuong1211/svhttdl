@@ -22,18 +22,22 @@
                         @method('PUT') <!-- Đảm bảo sử dụng method PUT hoặc PATCH cho update -->
                         <label class="form-control w-full">
                             <div class="label">
-                                <span class="label-text">@lang('admin.staffs.name')</span>
+                                <span class="label-text text-base text-black font-medium">@lang('admin.staffs.name')</span>
                             </div>
                             <input type="text" name="name" value="{{ old('name', $staff->name) }}" placeholder="name..." @class([
-                                'input',
-                                'input-bordered',
+                                'border',
+                                            'border-gray-300',
+                                            'bg-white',
+                                            'text-black',
+                                            'p-2',
+                                            'rounded-md',
                                 'input-error' => $errors->has('name'),
                                 'w-full',
                             ]) />
                         </label>
                         <label class="form-control w-full">
                             <div class="label" for="departments">
-                                <span class="label-text">@lang('admin.departments')</span>
+                                <span class="label-text text-base text-black font-medium">@lang('admin.departments')</span>
                             </div>
                             @foreach ($departments as $department)
                                 <div class="flex items-center mb-2">
@@ -43,7 +47,7 @@
                                         @elseif($staff->departments->contains($department))
                                             checked
                                         @endif
-                                        class="input input-bordered w-4 h-4 mr-2"
+                                        class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md flex items-center gap-2 bg-white w-4 h-4 mr-2"
                                     >
                                     <label for="dept{{ $department->id }}" class="select-none">{{ $department->name }}</label>
                                 </div>
@@ -55,7 +59,7 @@
                         
                         <label class="form-control w-full">
                             <div class="label">
-                                <span class="label-text">@lang('admin.content')</span>
+                                <span class="label-text text-base text-black font-medium">@lang('admin.content')</span>
                             </div>
                             <textarea name="content" id="content" class="form-input rounded-md shadow-sm mt-1 block w-full" rows="5">{{ old('content', $staff->content) }}</textarea>
                         </label>
@@ -67,7 +71,7 @@
                             </div>
                             <label class="block">
                                 <span class="sr-only">Choose photo</span>
-                                <div class="input input-bordered flex items-center gap-2 border px-3 py-2">
+                                <div class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md flex items-center gap-2 bg-white flex items-center gap-2 border px-3 py-2">
                                     File:
                                     <span
                                         id="selected_file_name">{{ $staff->getFirstMedia('staff_image')->name }}</span>

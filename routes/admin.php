@@ -18,7 +18,10 @@ use App\Http\Controllers\Admin\Document\DocumentController;
 use App\Http\Controllers\Admin\Document\SignerDocumentController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\Custom\MenuController;
+use App\Http\Controllers\Admin\Custom\AdController;
+use App\Http\Controllers\Admin\Custom\AddOnController;
+use App\Http\Controllers\Admin\Custom\BannerController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/dashboard', function () {
@@ -66,6 +69,15 @@ Route::middleware('auth')->group(function () {
 
         //Menu
         Route::resource('menus', MenuController::class);
+
+        //ads
+        Route::resource('ads', AdController::class);
+
+        //add-on
+        Route::resource('addons', AddonController::class);
+
+        // banner
+        Route::resource('banners', BannerController::class);
     });
 });
 

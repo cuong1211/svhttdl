@@ -14,11 +14,16 @@ class HomePost extends Component
         $posts = Post::query()
             ->with('category')
             ->latest()->take(6)->get();
-        $latestPost = $posts->first();
-
+        // $latestPost = $posts->first();
+        $hotnews = Post::query()
+            ->with('category')
+            ->where('type', 'Tin nổi bật')
+            ->latest()->take(3)->get();
+        // dd($hotnews);
         return view('components.website.home-post', [
             'posts' => $posts,
-            'latestPost' => $latestPost,
+            // 'latestPost' => $latestPost,
+            'hotnews' => $hotnews,
         ]);
     }
 }

@@ -1,110 +1,138 @@
 <x-website-layout>
-    {{-- <section class="bg-[#2213390] bg-white">
-        <div class="mx-auto max-w-7xl flex-col justify-between px-3 sm:px-6 md:items-center lg:flex lg:flex-row lg:px-8">
-            <video
-                class="w-full"
-                autoplay
-                loop
-                muted
-                src="{{ asset('files/videos/slider_3.mp4') }}"
-            ></video>
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        .banner_top {
+            margin-bottom: 5px;
+        }
+
+        .banner_bottom {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .text {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            /* number of lines to show */
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+    </style>
+    {{-- tin main --}}
+    <x-website.home-post />
+
+
+
+    {{-- tin noi bat --}}
+    {{-- banner --}}
+    <div class="banner_top">
+        <div class="_banner fade">
+            <img style="width: 100%;" src="{{$banner_mid->getFirstMedia('banner_image')->getUrl()}}" />
         </div>
-    </section> --}}
-    <section>
-        <div class="mx-auto mt-6 max-w-7xl px-3 sm:px-6 md:items-center lg:px-8">
-            <div class="grid grid-cols-8 gap-4">
-                <div class="col-span-8 space-y-10 md:col-span-6 lg:col-span-6">
-                    <x-website.home-post />
-                    {{-- <x-website.education-program />
-                    <x-website.staff />
-                    <x-website.infrastructure />
-                    <x-website.partners /> --}}
-                    @foreach ($posts as $category)
-                        @foreach ($category->children as $category_title)
-                            <div class="container mx-auto space-y-8 mb-12 bg-white shadow-md p-6">
-                                <h1 class="text-justify font-roboto text-xl font-extrabold tracking-tight text-blue-700 group-hover:text-blue-800 mb-6">{{ $category_title->title }}</h1>
-                                <!-- Dòng 1: Tin tức mới nhất -->
-                                <div class="grid grid-cols-8 md:grid-cols-3">
-                                    @foreach ($category_title->posts as $index => $post)
-                                        <!-- Tin tức mới nhất -->
-                                        @if ($index == 0)
-                                            <div class="md:col-span-6 ">
-                                                <div class="grid grid-cols-2 gap-3">
-                                                    <div class="">
-                                                        <img src="{{ $post->getFirstMedia('featured_image')->getUrl() }}"
-                                                            alt="{{ $post->title }}"
-                                                            class="w-full h-full object-cover ">
-                                                    </div>
-                                                    <div class="">
-                                                        <a href="{{ route('news.show', $post) }}" class="">
-                                                            <h3 class=" text-lg font-semibold leading-5 text-blue-950">
-                                                                {{ $post->title }}
-                                                            </h3>
-                                                        </a>
-                                                        <p class="mt-2 line-clamp-3 text-sm text-slate-500">
-                                                            {{ Str::limit(html_entity_decode(strip_tags(app\Models\Post::query()->where('id', $post->id)->first()->content->toTrixHtml())),500) }}
-                                                        </p>
-                                                        <div class="tooltip tooltip-top flex items-center gap-2 text-green-700"
-                                                            data-tip="{{ $post->published_post_date }}">
-                                                            <x-heroicon-m-calendar class="size-4" />
-                                                            <span
-                                                                class="text-xs">{{ $post->published_post_date_thumb }}</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @elseif ($index == 1)
-                                            <!-- Tin tức bên phải không có ảnh -->
-                                            <div class="md:col-span-2  ">
-                                                <a href="{{ route('news.show', $post) }}" class="">
-                                                    <h3
-                                                        class="line-clamp-2 text-lg font-semibold leading-5 text-blue-950">
-                                                        {{ $post->title }}
-                                                    </h3>
-                                                </a>
-                                                <p class="mt-2 line-clamp-3 text-sm text-slate-500">
-                                                    {{ Str::limit(html_entity_decode(strip_tags(app\Models\Post::query()->where('id', $post->id)->first()->content->toTrixHtml())),500) }}
+    </div>
 
-                                                </p>
-                                                <div class="tooltip tooltip-top flex items-center gap-2 text-green-700"
-                                                    data-tip="{{ $post->published_post_date }}">
-                                                    <x-heroicon-m-calendar class="size-4" />
-                                                    <span class="text-xs">{{ $post->published_post_date_thumb }}</span>
-                                                </div>
-                                            </div>
-                                        @endif
-                                    @endforeach
-                                </div>
 
-                                <!-- Dòng 2: Các tin tức chỉ tiêu đề phân bổ thành 3 cột -->
-                                <div class="grid grid-cols-3 md:grid-cols-3 ">
-                                    @foreach ($category_title->posts as $index => $post)
-                                        @if ($index > 1)
-                                            <div class="p-6 ">
-                                                <a href="{{ route('news.show', $post) }}" class="">
-                                                    <h3
-                                                        class=" text-lg font-semibold leading-5 text-blue-950">
-                                                        {{ $post->title }}
-                                                    </h3>
-                                                </a>
-                                                <div class="tooltip tooltip-top flex items-center gap-2 text-green-700"
-                                                    data-tip="{{ $post->published_post_date }}">
-                                                    <x-heroicon-m-calendar class="size-4" />
-                                                    <span class="text-xs">{{ $post->published_post_date_thumb }}</span>
-                                                </div>
-                                            </div>
-                                        @endif
-                                    @endforeach
+    {{-- tin tuc  --}}
+    <div class="cols-2">
+        @foreach ($posts as $category)
+            @foreach ($category->children as $category_title)
+                <div class="groupnews_home">
+                    <div
+                        style="font-size: 36px; width: 100%; border-bottom: 3px solid transparent;   border-image: linear-gradient(0.25turn, rgba(38,109,192), rgba(11,143,121));    border-image-slice: 1; ">
+                        <a href="{{route('news.child',['parentSlug'=>$category->slug,'slug'=>$category_title->slug])}}">
+                            <b>{{ $category_title->title }}</b></a>
+                    </div>
+                    <div class="groupnews_home_content">
+                        @foreach ($category_title->posts as $index => $post)
+                            @if ($index == 0)
+                                <div class="groupnews_item">
+                                    <a href="{{ route('news.show', $post) }}"><img
+                                            src='{{ $post->getFirstMedia('featured_image')->getUrl() }}'
+                                            alt='' style="height: 245px"/></a>
+                                    <h3>
+                                        <a href="{{ route('news.show', $post) }}"><span>{{ $post->title }}</span></a>
+                                    </h3>
+                                    <p class="text text-gray-800 text-justify">
+                                    </p>
                                 </div>
-                            </div>
+                            @endif
                         @endforeach
-                    @endforeach
+                        <ul class="othernews">
+                            @foreach ($category_title->posts as $index => $post)
+                                @if ($index > 0)
+                                    <li
+                                        style="background:url('images/point_yellow.png') no-repeat left 5px;  overflow: hidden;  text-overflow: ellipsis;text-align: justify;">
+                                        <a href="{{ route('news.show', $post) }}">
+                                            {{ $post->title }}
+                                        </a>
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            @endforeach
+        @endforeach
 
-                </div>
-                <div class="col-span-8 hidden space-y-3 md:col-span-2 lg:block">
-                    <x-website.announcement />
-                </div>
-            </div>
+    </div>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Create three equal columns that floats next to each other */
+        .column_link {
+            float: left;
+            width: 33.3%;
+            padding: 10px;
+            height: 80px;
+        }
+
+        /* Clear floats after the columns */
+        .row_link:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+        @media screen and (max-width: 600px) {
+            .column_link {
+                width: 100%;
+            }
+        }
+    </style>
+
+    <div
+        style="font-size: 36px; width: 100%; border-bottom: 3px solid transparent;   border-image: linear-gradient(0.25turn, rgba(255,249,34), rgba(255,0,128), rgba(56,2,155,0));    border-image-slice: 1; ">
+        <b>&nbsp; </b>
+    </div>
+    {{-- add-on --}}
+    <div style="width: 100%; height: auto; background-color: #fff; float: left;">
+        <div class="column_link">
+            <a href="https://dichvucong.gov.vn/p/home/dvc-trang-chu.html" target="blank"><img
+                    src="images/dcvqg.png" /></a>
         </div>
-    </section>
+        <div class="column_link">
+            <a href="https://bvhttdl.gov.vn/" target="blank"><img src="images/bvh.png" /></a>
+        </div>
+        <div class="column_link">
+            <a href="https://dulichvietnam.com.vn/" target="blank"><img src="images/dlvn.png" /></a>
+        </div>
+        <div class="column_link">
+            <a href="http://dulich.backan.gov.vn/" target="blank"><img src="images/dlbk.png" /></a>
+        </div>
+        <div class="column_link">
+            <a href="https://backan.gov.vn/Pages/trang-chu.aspx" target="blank"><img src="images/cong_tt.png" /></a>
+        </div>
+        <div class="column_link">
+            <a href="#" target="blank"><img src="images/tvs.png" /></a>
+        </div>
+    </div>
 </x-website-layout>

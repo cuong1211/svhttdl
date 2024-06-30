@@ -1,4 +1,3 @@
-
 {{-- duck --}}
 <x-app-layout>
     <div class="p-6">
@@ -26,92 +25,125 @@
                             <div class="alert alert-error">
                                 {{ $message }}
                             </div>
-                        @endif
-                        <input type="hidden" name="user_id" value="{{ auth()->id() }}">
-                        <label class="form-control w-full">
-                            <div class="label">
-                                <span class="label-text">@lang('admin.menus.order')</span>
-                            </div>
-                            <input type="number" min="0" max="99" name="order"
-                                value="{{ $selectedMenu->order }}" @class([
-                                    'input',
-                                    'input-bordered',
-                                    'input-error' => $errors->has('order'),
+                            @endif
+                            <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+                            <label class="form-control w-full">
+                                <div class="label">
+                                    <span class="label-text text-base text-black font-medium">@lang('admin.menus.order')</span>
+                                </div>
+                                <input type="number" min="0" max="99" name="order"
+                                    value="{{ $selectedMenu->order }}" @class([
+                                        'border',
+                                        'border-gray-300',
+                                        'bg-white',
+                                        'text-black',
+                                        'p-2',
+                                        'rounded-md',
+                                        'input-error' => $errors->has('order'),
+                                        'w-full',
+                                    ]) />
+                            </label>
+
+                            <label class="form-control w-full">
+                                <div class="label">
+                                    <span class="label-text text-base text-black font-medium">@lang('admin.categories.title')</span>
+                                </div>
+                                <input type="text" name="title" value="{{ $selectedMenu->title }}"
+                                    @class([
+                                        'border',
+                                        'border-gray-300',
+                                        'bg-white',
+                                        'text-black',
+                                        'p-2',
+                                        'rounded-md',
+                                        'input-error' => $errors->has('title'),
+                                        'w-full',
+                                    ]) />
+                            </label>
+
+                            <label class="form-control w-full">
+                                <div class="label">
+                                    <span class="label-text text-base text-black font-medium">@lang('admin.menus.title_en')</span>
+                                </div>
+                                <input type="text" name="title_en" value="{{ $selectedMenu->title_en }}"
+                                    @class([
+                                        'border',
+                                        'border-gray-300',
+                                        'bg-white',
+                                        'text-black',
+                                        'p-2',
+                                        'rounded-md',
+                                        'input-error' => $errors->has('title_en'),
+                                        'w-full',
+                                    ]) />
+                            </label>
+                            <label class="form-control w-full">
+                                <div class="label">
+                                    <span class="label-text text-base text-black font-medium">@lang('admin.menus.url')</span>
+                                </div>
+                                <input type="text" name="link" placeholder="Url" @class([
+                                    'border',
+                                    'border-gray-300',
+                                    'bg-white',
+                                    'text-black',
+                                    'p-2',
+                                    'rounded-md',
+                                    'input-error' => $errors->has('link'),
                                     'w-full',
-                                ]) />
-                        </label>
-
-                        <label class="form-control w-full">
-                            <div class="label">
-                                <span class="label-text">@lang('admin.categories.title')</span>
-                            </div>
-                            <input type="text" name="title" value="{{ $selectedMenu->title }}"
-                                @class([
-                                    'input',
-                                    'input-bordered',
-                                    'input-error' => $errors->has('title'),
+                                ])
+                                    value="{{ old('link') }}" />
+                            </label>
+                            <label class="form-control w-full">
+                                <div class="label">
+                                    <span class="label-text text-base text-black font-medium">@lang('admin.categories.parent')</span>
+                                </div>
+                                <select name="parent_id" @class([
+                                    'border',
+                                    'border-gray-300',
+                                    'bg-white',
+                                    'text-black',
+                                    'p-2',
+                                    'rounded-md',
                                     'w-full',
-                                ]) />
-                        </label>
+                                ])>
+                                    <option value="">@lang('admin.categories.select_parent')</option>
+                                    @foreach ($menus as $category)
+                                        <x-admin.forms.select.category :category="$category" :selectedCategory="$selectedMenu" />
+                                    @endforeach
+                                </select>
+                            </label>
 
-                        <label class="form-control w-full">
-                            <div class="label">
-                                <span class="label-text">@lang('admin.menus.title_en')</span>
-                            </div>
-                            <input type="text" name="title_en" value="{{ $selectedMenu->title_en }}"
-                                @class([
-                                    'input',
-                                    'input-bordered',
-                                    'input-error' => $errors->has('title_en'),
+                            <label class="form-control w-full">
+                                <div class="label">
+                                    <span class="label-text text-base text-black font-medium">@lang('admin.categories.in_menu')</span>
+                                </div>
+                                <select name="in_menu" @class([
+                                    'border',
+                                    'border-gray-300',
+                                    'bg-white',
+                                    'text-black',
+                                    'p-2',
+                                    'rounded-md',
                                     'w-full',
-                                ]) />
-                        </label>
-                        <label class="form-control w-full">
-                            <div class="label">
-                                <span class="label-text">@lang('admin.menus.url')</span>
-                            </div>
-                            <input type="text" name="link" placeholder="Url" @class([
-                                'input',
-                                'input-bordered',
-                                'input-error' => $errors->has('link'),
-                                'w-full',
-                            ])
-                                value="{{ old('link') }}" />
-                        </label>
-                        <label class="form-control w-full">
-                            <div class="label">
-                                <span class="label-text">@lang('admin.categories.parent')</span>
-                            </div>
-                            <select name="parent_id" @class(['input', 'input-bordered', 'w-full'])>
-                                <option value="">@lang('admin.categories.select_parent')</option>
-                                @foreach ($menus as $category)
-                                    <x-admin.forms.select.category :category="$category" :selectedCategory="$selectedMenu" />
-                                @endforeach
-                            </select>
-                        </label>
+                                ])>
+                                    <option value="0" {{ $selectedMenu->in_menu ? '' : 'selected' }}>
+                                        @lang('admin.false')
+                                    </option>
+                                    <option value="1" {{ $selectedMenu->in_menu ? 'selected' : '' }}>
+                                        @lang('admin.true')
+                                    </option>
+                                </select>
+                            </label>
 
-                        <label class="form-control w-full">
-                            <div class="label">
-                                <span class="label-text">@lang('admin.categories.in_menu')</span>
+                            <div class="flex justify-end gap-4">
+                                <a href="{{ route('admin.menus.index') }}" class="btn-light btn">@lang('admin.btn.cancel')</a>
+                                <button type="submit" class="btn btn-success ml-2">@lang('admin.btn.submit')</button>
                             </div>
-                            <select name="in_menu" @class(['input', 'input-bordered', 'w-full'])>
-                                <option value="0" {{ $selectedMenu->in_menu ? '' : 'selected' }}>@lang('admin.false')
-                                </option>
-                                <option value="1" {{ $selectedMenu->in_menu ? 'selected' : '' }}>@lang('admin.true')
-                                </option>
-                            </select>
-                        </label>
+                        </form>
 
-                        <div class="flex justify-end gap-4">
-                            <a href="{{ route('admin.menus.index') }}"
-                                class="btn-light btn">@lang('admin.btn.cancel')</a>
-                            <button type="submit" class="btn btn-success ml-2">@lang('admin.btn.submit')</button>
-                        </div>
-                    </form>
-
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    </div>
-</x-app-layout>
+        </div>
+    </x-app-layout>

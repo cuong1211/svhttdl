@@ -18,11 +18,15 @@
                         <div class="space-y-4">
                             <label class="form-control w-full">
                                 <div class="label" for="album_id">
-                                    <span class="label-text">@lang('admin.album')</span>
+                                    <span class="label-text text-base text-black font-medium">@lang('admin.album')</span>
                                 </div>
                                 <select name="album_id" required @class([
-                                    'input',
-                                    'input-bordered',
+                                    'border',
+                                            'border-gray-300',
+                                            'bg-white',
+                                            'text-black',
+                                            'p-2',
+                                            'rounded-md',
                                     'input-error' => $errors->has('album_id'),
                                     'w-full',
                                 ])>
@@ -36,7 +40,7 @@
                             </label>
                             <label class="form-control w-full">
                                 <div class="label">
-                                    <span class="label-text">@lang('admin.post.title')</span>
+                                    <span class="label-text text-base text-black font-medium">@lang('admin.post.title')</span>
                                 </div>
                                 <input type="text" name="name"
                                     value="{{ old('name', $cooperation->name) }}"
@@ -49,7 +53,7 @@
                             </label>
                             <label class="form-control w-full">
                                     <div class="label">
-                                        <span class="label-text">@lang('admin.cooperations.link')</span>
+                                        <span class="label-text text-base text-black font-medium">@lang('admin.cooperations.link')</span>
                                     </div>
                                     <input type="text" name="link_website"
                                         value="{{ old('link_website', $cooperation->link_website) }}"
@@ -62,7 +66,7 @@
                                 </label>
                             <label class="form-control w-full">
                                 <div class="label">
-                                    <span class="label-text">@lang('admin.description')</span>
+                                    <span class="label-text text-base text-black font-medium">@lang('admin.description')</span>
                                 </div>
                                 <textarea name="description" id="description" class="hidden" column="description">
                                     {!! $cooperation->description !!}
@@ -77,7 +81,7 @@
                                 </div>
                                 <label class="block">
                                     <span class="sr-only">Choose cooperation</span>
-                                    <div class="input input-bordered flex items-center gap-2 border px-3 py-2">
+                                    <div class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md flex items-center gap-2 bg-white flex items-center gap-2 border px-3 py-2">
                                         File:
                                         <span
                                             id="selected_file_name">{{ $cooperation->getFirstMedia('album_cooperation')->name }}</span>

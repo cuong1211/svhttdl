@@ -7,67 +7,112 @@
                 @lang('admin.add')
             </span>
         </div>
+
         <div class="mt-6">
+
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                @if ($errors->any())
+                    <div class="alert alert-danger text-black">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="bg-white px-8 pb-8 pt-0 shadow sm:rounded-lg">
                     <div class="space-y-4">
-                        <form action="{{ route('admin.categories.posts.store', $category->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('admin.categories.posts.store', $category->id) }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
 
                             <div class="space-y-4">
                                 <input type="hidden" name="category_id" value="{{ $category->id }}">
 
+
+                                <label class="form-control w-full">
+                                    <div class="label">
+                                        <span
+                                            class="label-text text-base text-black font-medium">@lang('admin.post.title')</span>
+                                    </div>
+                                    <input type="text" name="title" placeholder="Type here"
+                                        value="{{ old('title') }}" @class([
+                                            'border',
+                                            'border-gray-300',
+                                            'bg-white',
+                                            'text-black',
+                                            'p-2',
+                                            'rounded-md',
+                                            'input-error' => $errors->has('title'),
+                                            'w-full',
+                                        ]) />
+                                    @if ($errors->has('title'))
+                                        <div class="text-red-500 text-sm">{{ $errors->first('title') }}</div>
+                                    @endif
+
+                                </label>
                                 <div class="flex">
                                     <x-admin.forms.calendar />
                                 </div>
                                 <label class="form-control w-full">
                                     <div class="label">
-                                        <span class="label-text">@lang('admin.post.title')</span>
-                                    </div>
-                                    <input type="text" name="title" placeholder="Type here"
-                                        value="{{ old('title') }}" @class([
-                                            'input',
-                                            'input-bordered',
-                                            'input-error' => $errors->has('title'),
-                                            'w-full',
-                                        ]) />
-                                        @if($errors->has('title'))
-                                        <div class="text-red-500 text-sm">{{ $errors->first('title') }}</div>
-                                    @endif
-
-                                </label>
-                                <label class="form-control w-full">
-                                    <div class="label">
-                                        <span class="label-text">@lang('admin.content')</span>
+                                        <span
+                                            class="label-text text-base text-black font-medium text-base text-black font-medium">@lang('admin.content')</span>
                                     </div>
                                     <textarea name="content" id="content" class="form-input rounded-md shadow-sm mt-1 block w-full" rows="5">{{ old('content', $post->content ?? '') }}</textarea>
 
                                 </label>
                                 <label class="form-control w-full">
                                     <div class="label" for="tags">
-                                        <span class="label-text">@lang('admin.post.tag')</span>
+                                        <span
+                                            class="label-text text-base text-black font-medium text-base text-black font-medium">@lang('admin.post.tag')</span>
                                     </div>
                                     <input type="text" name="tags" id="tags" value="{{ old('tags') }}"
-                                        placeholder="Enter tags separated by spaces" @class([
-                                            'input',
-                                            'input-bordered',
+                                        placeholder="Nhập tag bài viết" @class([
+                                            'border',
+                                            'border-gray-300',
+                                            'bg-white',
+                                            'text-black',
+                                            'p-2',
+                                            'rounded-md',
                                             'input-error' => $errors->has('tags'),
                                             'w-full',
                                             'h-fit',
                                         ]) />
                                 </label>
-                                <div class="flex items-center space-x-6">
-                                    <div class="shrink-0">
-                                        <img id="preview_img" class="h-16 w-16 rounded-full object-cover"
-                                            src="https://lh3.googleusercontent.com/a-/AFdZucpC_6WFBIfaAbPHBwGM9z8SxyM1oV4wB4Ngwp_UyQ=s96-c"
-                                            alt="Current photo" />
+                                <label class="form-control w-full">
+                                    <div class="label" for="tags">
+                                        <span
+                                            class="label-text text-base text-black font-medium text-base text-black font-medium">Bài
+                                            viết thuộc các nhóm tin</span>
                                     </div>
-                                    <label class="block">
+                                    @foreach (App\Enums\PostTypeEnum::cases() as $type)
+                                        <div class="flex items-center mb-4">
+                                            <input id="{{ $type->value }}" type="checkbox" value="{{ $type->value }}"
+                                                class="w-4 h-4 text-blue-700 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                            <label for="{{ $type->value }}"
+                                                class="ms-2  text-black dark:text-gray-300 text-base">{{ $type->value }}</label>
+
+                                        </div>
+                                    @endforeach
+
+                                </label>
+                                <div class="flex items-center space-x-6">
+                                    <label class="form-control w-full">
+                                        <div class="label" for="tags">
+                                            <span class="label-text text-base text-black font-medium">Thumbnail</span>
+                                        </div>
                                         <span class="sr-only">Choose photo</span>
                                         <input type="file" name="image" onchange="loadFile(event)"
                                             class="file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 block w-full text-sm text-slate-500 file:mr-4 file:rounded-full file:border-0 file:px-4 file:py-2 file:text-sm file:font-semibold" />
                                     </label>
                                 </div>
+                                <div class="shrink-0">
+                                    <img id="preview_img" class="h-32 w-32 object-cover rounded"
+                                        src="https://lh3.googleusercontent.com/a-/AFdZucpC_6WFBIfaAbPHBwGM9z8SxyM1oV4wB4Ngwp_UyQ=s96-c"
+                                        alt="Current photo" />
+                                </div>
+
                                 <div class="flex justify-end gap-4">
                                     <a href="{{ route('admin.categories.posts.index', $category->slug) }}"
                                         class="btn-light btn">@lang('admin.btn.cancel')</a>
@@ -77,16 +122,6 @@
                                 </div>
                             </div>
                         </form>
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
                     </div>
                 </div>
             </div>

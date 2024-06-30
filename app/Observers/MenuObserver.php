@@ -20,18 +20,23 @@ class MenuObserver
     {
         $menu->title = Str::ucfirst($menu->title);
         $menu->slug = Str::slug($menu->title);
-        if ($menu->parent_id) {
-            // Lấy menu cha từ cơ sở dữ liệu
-            $parentMenu = Menu::find($menu->parent_id);
-            if ($parentMenu) {
-                $parentSlug = $parentMenu->slug;
-                $menu->link = URL::to('/') . '/' . 'danh-muc' . '/' . $parentSlug . '/' . $menu->slug;
+        $link = $menu->link;
+        if (!$link) {
+            if ($menu->parent_id) {
+                // Lấy menu cha từ cơ sở dữ liệu
+                $parentMenu = Menu::find($menu->parent_id);
+                if ($parentMenu) {
+                    $parentSlug = $parentMenu->slug;
+                    $menu->link = URL::to('/') . '/' . 'danh-muc' . '/' . $parentSlug . '/' . $menu->slug;
+                } else {
+                    // Xử lý trường hợp không tìm thấy menu cha (nếu cần)
+                    $menu->link = URL::to('/') . '/' . 'danh-muc' . '/' . $menu->slug;
+                }
             } else {
-                // Xử lý trường hợp không tìm thấy menu cha (nếu cần)
                 $menu->link = URL::to('/') . '/' . 'danh-muc' . '/' . $menu->slug;
             }
         } else {
-            $menu->link = URL::to('/') . '/' . 'danh-muc' . '/' . $menu->slug;
+            $menu->link = $link;
         }
 
         $this->menuservice->deleteCachedMenu();

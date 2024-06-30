@@ -25,7 +25,7 @@ class CategoryController extends Controller
                 fn ($query) => $query->where('title', 'like', '%' . $request->search . '%')
             )
             ->latest()
-            ->get();
+            ->paginate(12);
 
         return view('admin.categories.index', [
             'categories' => $categories,
@@ -44,6 +44,8 @@ class CategoryController extends Controller
 
     public function store(CategoryRequest $request): RedirectResponse
     {
+        $data = $request->validated();
+        // dd($data);
         $category = Category::create($request->all());
 
         return back()->with([

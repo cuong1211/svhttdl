@@ -15,29 +15,42 @@
         @endif
         <div class="mt-6">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                @if ($errors->any())
+                    <div class="alert alert-danger text-black">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="bg-white px-8 pb-8 pt-0 shadow sm:rounded-lg">
                     <form action="{{ route('admin.staffs.store') }}" method="POST" class="space-y-4 needs-validation"
                         novalidate enctype="multipart/form-data">
                         @csrf
                         <label class="form-control w-full">
                             <div class="label">
-                                <span class="label-text">@lang('admin.staffs.name')</span>
+                                <span class="label-text text-base text-black font-medium">@lang('admin.staffs.name')</span>
                             </div>
                             <input type="text" name="name" placeholder="name..." @class([
-                                'input',
-                                'input-bordered',
+                                'border',
+                                'border-gray-300',
+                                'bg-white',
+                                'text-black',
+                                'p-2',
+                                'rounded-md',
                                 'input-error' => $errors->has('name'),
                                 'w-full',
                             ]) />
                         </label>
                         <label class="form-control w-full">
                             <div class="label" for="departments">
-                                <span class="label-text">@lang('admin.departments')</span>
+                                <span class="label-text text-base text-black font-medium">@lang('admin.departments')</span>
                             </div>
-                            {{-- <select name="departments[]" id="departments" class="input input-bordered w-full" multiple>
+                            {{-- <select name="departments[]" id="departments" class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md flex items-center gap-2 bg-white w-full" multiple>
                                 @foreach ($departments as $department)
                                     <option value="{{ $department->id }}"
-                                        @if(is_array(old('departments')) && in_array($department->id, old('departments')))
+                                        @if (is_array(old('departments')) && in_array($department->id, old('departments')))
                                             selected
                                         @elseif(isset($staff) && $staff->departments->contains($department->id))
                                             selected
@@ -49,9 +62,11 @@
                             </select> --}}
                             <select name="departments[]" id="departments" class="form-control">
                                 <option value="0">[Chọn phòng ban]</option>
-                                    @foreach ($departments as $department)
-                                        <option value="{{ $department->id }}" {{ $department->id == $department->id ? 'selected' : '' }}>{{ $department->name }}</option>
-                                    @endforeach
+                                @foreach ($departments as $department)
+                                    <option value="{{ $department->id }}"
+                                        {{ $department->id == $department->id ? 'selected' : '' }}>
+                                        {{ $department->name }}</option>
+                                @endforeach
                             </select>
                             @error('departments')
                                 <p class="text-red-500 text-xs italic">{{ $message }}</p>
@@ -59,12 +74,12 @@
                         </label>
                         <label class="form-control w-full">
                             <div class="label" for="positions">
-                                <span class="label-text">@lang('admin.positions')</span>
+                                <span class="label-text text-base text-black font-medium">@lang('admin.positions')</span>
                             </div>
-                            {{-- <select name="positions[]" id="positions" class="input input-bordered w-full" multiple>
+                            {{-- <select name="positions[]" id="positions" class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md flex items-center gap-2 bg-white w-full" multiple>
                                 @foreach ($positions as $position)
                                     <option value="{{ $position->id }}"
-                                        @if(is_array(old('positions')) && in_array($position->id, old('positions')))
+                                        @if (is_array(old('positions')) && in_array($position->id, old('positions')))
                                             selected
                                         @elseif(isset($staff) && $staff->positions->contains($position->id))
                                             selected
@@ -76,20 +91,22 @@
                             </select> --}}
                             <select name="positions[]" id="positions" class="form-control">
                                 <option value="0">[Chọn phòng ban]</option>
-                                    @foreach ($positions as $position)
-                                        <option value="{{ $position->id }}" {{ $position->id == $position->id ? 'selected' : '' }}>{{ $position->name }}</option>
-                                    @endforeach
+                                @foreach ($positions as $position)
+                                    <option value="{{ $position->id }}"
+                                        {{ $position->id == $position->id ? 'selected' : '' }}>{{ $position->name }}
+                                    </option>
+                                @endforeach
                             </select>
                             @error('position')
                                 <p class="text-red-500 text-xs italic">{{ $message }}</p>
                             @enderror
                         </label>
-                        
-                        
+
+
 
                         <label class="form-control w-full">
                             <div class="label">
-                                <span class="label-text">@lang('admin.content')</span>
+                                <span class="label-text text-base text-black font-medium">@lang('admin.content')</span>
                             </div>
                             <textarea name="content" id="content" class="form-input rounded-md shadow-sm mt-1 block w-full" rows="5">{{ old('content', $post->content ?? '') }}</textarea>
 
@@ -121,20 +138,20 @@
         </div>
     </div>
     @pushonce('bottom_scripts')
-    <x-admin.forms.tinymce-config column="content" />
-    <script>
-        var loadFile = function(event) {
-            var input = event.target
-            var file = input.files[0]
-            var type = file.type
+        <x-admin.forms.tinymce-config column="content" />
+        <script>
+            var loadFile = function(event) {
+                var input = event.target
+                var file = input.files[0]
+                var type = file.type
 
-            var output = document.getElementById('preview_img')
+                var output = document.getElementById('preview_img')
 
-            output.src = URL.createObjectURL(event.target.files[0])
-            output.onload = function() {
-                URL.revokeObjectURL(output.src) // free memory
+                output.src = URL.createObjectURL(event.target.files[0])
+                output.onload = function() {
+                    URL.revokeObjectURL(output.src) // free memory
+                }
             }
-        }
-    </script>
-@endpushonce
+        </script>
+    @endpushonce
 </x-app-layout>

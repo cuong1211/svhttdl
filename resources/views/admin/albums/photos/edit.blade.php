@@ -16,11 +16,15 @@
                         @method('patch')
                         <label class="form-control w-full">
                             <div class="label" for="album_id">
-                                <span class="label-text">@lang('admin.album')</span>
+                                <span class="label-text text-base text-black font-medium">@lang('admin.album')</span>
                             </div>
                             <select name="album_id" required @class([
-                                'input',
-                                'input-bordered',
+                                'border',
+                                            'border-gray-300',
+                                            'bg-white',
+                                            'text-black',
+                                            'p-2',
+                                            'rounded-md',
                                 'input-error' => $errors->has('album_id'),
                                 'w-full',
                             ])>
@@ -34,7 +38,7 @@
                         </label>
                         <label class="form-control w-full">
                                     <div class="label">
-                                        <span class="label-text">@lang('admin.post.title')</span>
+                                        <span class="label-text text-base text-black font-medium">@lang('admin.post.title')</span>
                                     </div>
                                     <input type="text" name="name" value="{{ old('name', $photo->name) }}"
                                     placeholder="title photo..." @class([
@@ -46,7 +50,7 @@
                                 </label>
                         <label class="form-control w-full">
                             <div class="label">
-                                <span class="label-text">@lang('admin.content')</span>
+                                <span class="label-text text-base text-black font-medium">@lang('admin.content')</span>
                             </div>
                             <textarea name="content" id="content" class="hidden">
                                 {!! $photo->content !!}
@@ -60,7 +64,7 @@
                             </div>
                             <label class="block">
                                 <span class="sr-only">Choose photo</span>
-                                <div class="input input-bordered flex items-center gap-2 border px-3 py-2">
+                                <div class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md flex items-center gap-2 bg-white flex items-center gap-2 border px-3 py-2">
                                     File:
                                     <span
                                         id="selected_file_name">{{ $photo->getFirstMedia('album_photo')->name }}</span>

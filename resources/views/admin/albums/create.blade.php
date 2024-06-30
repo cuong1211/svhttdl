@@ -10,49 +10,66 @@
 
         <div class="mt-6">
             <div class="overflow-hidden bg-white p-6 sm:rounded-lg">
-                    <form action="{{ route('admin.albums.store') }}" method="POST" class="space-y-4 needs-validation" novalidate>
-                        @csrf
-                        <label class="form-control w-full">
-                            <div class="label">
-                                <span class="label-text">@lang('admin.albums.name')</span>
-                            </div>
-                            <input name="name" type="text" placeholder="Type here"
-                                @class([
-                                    'input',
-                                    'input-bordered',
-                                    'input-error' => $errors->has('name'),
-                                    'w-full',
-                                ]) />
-                        </label>
-                        <label class="form-control w-full">
-                                <div class="label">
-                                    <span class="label-text">@lang('admin.albums.type')</span>
-                                </div>
-                                <select name="type" required @class([
-                                    'input',
-                                    'input-bordered',
-                                    'input-error' => $errors->has('type'),
-                                    'w-full',
-                                ])>
-                                    <option value="">@lang('admin.select')</option>
-                                    @foreach (App\Enums\AlbumTypeEnum::cases() as $type)
-                                        <option @selected($type->value == old('type')) value="{{ $type->value }}">
-                                            @lang('admin.' . $type->value)
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </label>
-                        <div class="flex justify-end gap-4">
-                            <a href="{{ route('admin.albums.index') }}" class="btn-light btn">
-                                @lang('admin.btn.cancel')
-                            </a>
-                            <button type="submit" class="btn btn-success ml-2">
-                                @lang('admin.btn.submit')
-                            </button>
+                @if ($errors->any())
+                    <div class="alert alert-danger text-black">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <form action="{{ route('admin.albums.store') }}" method="POST" class="space-y-4 needs-validation"
+                    novalidate>
+                    @csrf
+                    <label class="form-control w-full">
+                        <div class="label">
+                            <span class="label-text text-base text-black font-medium">@lang('admin.albums.name')</span>
                         </div>
-                    </form>
-                </div>
+                        <input name="name" type="text" placeholder="Type here" @class([
+                            'border',
+                            'border-gray-300',
+                            'bg-white',
+                            'text-black',
+                            'p-2',
+                            'rounded-md',
+                            'input-error' => $errors->has('name'),
+                            'w-full',
+                        ]) />
+                    </label>
+                    <label class="form-control w-full">
+                        <div class="label">
+                            <span class="label-text text-base text-black font-medium">@lang('admin.albums.type')</span>
+                        </div>
+                        <select name="type" required @class([
+                            'border',
+                            'border-gray-300',
+                            'bg-white',
+                            'text-black',
+                            'p-2',
+                            'rounded-md',
+                            'input-error' => $errors->has('type'),
+                            'w-full',
+                        ])>
+                            <option value="">@lang('admin.select')</option>
+                            @foreach (App\Enums\AlbumTypeEnum::cases() as $type)
+                                <option @selected($type->value == old('type')) value="{{ $type->value }}">
+                                    @lang('admin.' . $type->value)
+                                </option>
+                            @endforeach
+                        </select>
+                    </label>
+                    <div class="flex justify-end gap-4">
+                        <a href="{{ route('admin.albums.index') }}" class="btn-light btn">
+                            @lang('admin.btn.cancel')
+                        </a>
+                        <button type="submit" class="btn btn-success ml-2">
+                            @lang('admin.btn.submit')
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
     </div>
 </x-app-layout>

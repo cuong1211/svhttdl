@@ -16,13 +16,13 @@
                         >
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
-                                    <label class="input input-bordered flex items-center gap-2">
+                                    <label class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md flex items-center gap-2 bg-white flex items-center gap-2">
                                         <input
                                             name="search"
                                             type="text"
                                             class="grow"
                                             placeholder="Search by name"
-                                            style="border: unset"
+                                            style="border: unset; color:black""
                                             value="{{ request()->search }}"
                                         />
                                         <button type="submit">
@@ -38,11 +38,11 @@
                                     </label>
                                 </div>
                                 <a
-                                    class="btn-ghosdt btn"
+                                    class="bg-blue-700 btn border-blue-500"
                                     href="{{ route('admin.videos.create') }}"
                                 >
-                                    <x-heroicon-s-plus class="size-4" />
-                                    <span>@lang('admin.add')</span>
+                                    <x-heroicon-s-plus class="size-4 text-white" />
+                                    <span class="text-white">@lang('admin.add')</span>
                                 </a>
                             </div>
                         </form>

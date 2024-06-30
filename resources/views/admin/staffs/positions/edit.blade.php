@@ -22,12 +22,16 @@
 
                         <label class="form-control w-full">
                             <div class="label">
-                                <span class="label-text">@lang('admin.positions.name')</span>
+                                <span class="label-text text-base text-black font-medium">@lang('admin.positions.name')</span>
                             </div>
                             <input type="text" name="name" value="{{ $position->name }}"
                                 @class([
-                                    'input',
-                                    'input-bordered',
+                                    'border',
+                                            'border-gray-300',
+                                            'bg-white',
+                                            'text-black',
+                                            'p-2',
+                                            'rounded-md',
                                     'input-error' => $errors->has('name'),
                                     'w-full',
                                 ]) />
@@ -35,11 +39,15 @@
 
                         <label class="form-control w-full">
                             <div class="label">
-                                <span class="label-text">@lang('admin.positions.description')</span>
+                                <span class="label-text text-base text-black font-medium">@lang('admin.positions.description')</span>
                             </div>
                             <textarea name="description" id="description" cols="30" rows="10" @class([
-                                'input',
-                                'input-bordered',
+                                'border',
+                                            'border-gray-300',
+                                            'bg-white',
+                                            'text-black',
+                                            'p-2',
+                                            'rounded-md',
                                 'input-error' => $errors->has('description'),
                                 'w-full',
                             ])>{!! $position->description !!}</textarea>

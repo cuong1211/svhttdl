@@ -33,9 +33,11 @@
                             class="w-full">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
-                                    <label class="input input-bordered flex items-center gap-2">
-                                        <input name="search" type="text" class="grow" placeholder="Search by name"
-                                            style="border: unset" value="{{ request()->search }}" />
+                                    <label class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md items-center gap-2 flex"
+                                        style="border: 1px solid black;">
+                                        <input name="search" type="text" class="grow"
+                                            placeholder="Tìm kiếm theo tên" style="border: unset; color:black"; color:black"
+                                            value="{{ request()->search }}" />
                                         <button type="submit">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
                                                 fill="currentColor" class="h-4 w-4 opacity-70">
@@ -46,17 +48,17 @@
                                         </button>
                                     </label>
                                 </div>
-                                <a class="btn-ghosdt btn"
+                                <a class="bg-blue-700 btn border-blue-500"
                                     href="{{ route('admin.categories.posts.create', ['category' => $category]) }}">
-                                    <x-heroicon-s-plus class="size-4" />
-                                    <span>@lang('admin.add')</span>
+                                    <x-heroicon-s-plus class="size-4 text-white" />
+                                    <span class="text-white">@lang('admin.add')</span>
                                 </a>
                             </div>
                         </form>
                     </div>
-                    <table class="table">
+                    <table class="table text-black text-base text-center">
                         <!-- head -->
-                        <thead>
+                        <thead class="text-black text-base">
                             <tr>
                                 <th>#</th>
                                 <th>@lang('admin.post.title')</th>

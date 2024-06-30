@@ -132,9 +132,33 @@
                     </details>
                 </li>
                 <li>
-                    <a @class(['active' => request()->routeIs('admin.menus.*'),]) href="{{ route('admin.menus.index') }}">
-                        @lang('admin.menus')
-                    </a>
+                    <details @if (request()->routeIs('admin.menus.*', 'admin.ads.*', 'admin.addons.*')) open @endif
+                        class="{{ request()->routeIs('admin.menus.*', 'admin.ads.*', 'admin.addons.*') ? 'open' : '' }}">
+                        <summary>Tùy chỉnh</summary>
+                        <ul>
+                            <li>
+                                <a @class(['active' => request()->routeIs('admin.menus.*')]) href="{{ route('admin.menus.index') }}">
+                                    @lang('admin.menus')
+                                </a>
+                            </li>
+
+                            <li>
+                                <a @class(['active' => request()->routeIs('admin.ads.*')]) href="{{ route('admin.ads.index') }}">
+                                    Quản lý quảng cáo
+                                </a>
+                            </li>
+                            <li>
+                                <a @class(['active' => request()->routeIs('admin.banners.*')]) href="{{ route('admin.banners.index') }}">
+                                    Quản lý banner
+                                </a>
+                            </li>
+                            <li>
+                                <a @class(['active' => request()->routeIs('admin.addons.*')]) href="{{ route('admin.addons.index') }}">
+                                    Quản lý Addons
+                                </a>
+                            </li>
+                        </ul>
+                    </details>
                 </li>
             </ul>
         </div>

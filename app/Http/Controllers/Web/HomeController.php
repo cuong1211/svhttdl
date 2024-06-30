@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\banner;
 use Illuminate\View\View;
 use App\Models\Menu;
 use App\Models\Category;
@@ -16,9 +17,9 @@ class HomeController extends Controller
             $query->with(['posts' => function ($q) {
                 $q->published()
                     ->orderByDesc('published_at');
-            }])->limit(5);
+            }])->limit(4);
         }])->get();
-
+        $banner_mid = banner::query()->where('position', 2)->where('is_active', 1)->first();
         // dd($posts);
         // Post::query()
         //         ->with('category')
@@ -26,7 +27,7 @@ class HomeController extends Controller
         //         ->orderByDesc('published_at')
         //         ->paginate(10)
         // dd($posts);
-        return view('web.home', compact('posts'));
+        return view('web.home', compact('posts', 'banner_mid'));
     }
     public function showMenu()
     {

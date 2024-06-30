@@ -18,7 +18,7 @@
                     />
                     <label class="form-control w-full max-w-xs">
                         <span class="label">
-                            <span class="label-text">@lang('admin.' . $field)</span>
+                            <span class="label-text text-base text-black font-medium text-base text-black">@lang('admin.' . $field)</span>
                         </span>
                         <input
                             type="text"
@@ -28,7 +28,7 @@
                             x-model="datepickerValue"
                             @click="showDatepicker = !showDatepicker"
                             @keydown.escape="showDatepicker = false"
-                            class="input input-bordered pr-12"
+                            class="border border-gray-300 bg-white text-black p-2 rounded-md pr-12"
                             placeholder="Select date"
                         />
                         <x-heroicon-s-calendar  class="absolute size-6 bottom-3 right-4 text-slate-500"/>

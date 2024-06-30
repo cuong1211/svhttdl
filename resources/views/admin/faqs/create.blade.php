@@ -9,82 +9,91 @@
         </div>
         <div class="mt-6">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                @if ($errors->any())
+                    <div class="alert alert-danger text-black">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="bg-white px-8 pb-8 pt-0 shadow sm:rounded-lg">
-                        <form action="{{ route('admin.faqs.store') }}" method="POST" class="needs-validation" novalidate>
-                            @csrf
-                            <div class="space-y-4">
-                                <label class="form-control w-full">
-                                        <div class="label">
-                                            <span class="label-text">@lang('admin.faqs.name')</span>
-                                        </div>
-                                        <input type="text" name="name" placeholder="Put name"
-                                        @class([
-                                            'input',
-                                            'input-bordered',
-                                            'input-error' => $errors->has('name'),
-                                            'w-full',
-                                        ]) />
-                                    </label>
-                                <label class="form-control w-full">
-                                        <div class="label">
-                                            <span class="label-text">@lang('admin.faqs.email')</span>
-                                        </div>
-                                        <input type="text" name="email" placeholder="email..."
-                                        @class([
-                                            'input',
-                                            'input-bordered',
-                                            'input-error' => $errors->has('email'),
-                                            'w-full',
-                                        ]) />
-                                    </label>
-                                <label class="form-control w-full">
-                                        <div class="label">
-                                            <span class="label-text">@lang('admin.faqs.phone')</span>
-                                        </div>
-                                        <input type="text" name="phone" placeholder="0987...."
-                                        @class([
-                                            'input',
-                                            'input-bordered',
-                                            'input-error' => $errors->has('phone'),
-                                            'w-full',
-                                        ]) />
-                                    </label>
-                                <label class="form-control w-full">
-                                        <div class="label">
-                                            <span class="label-text">@lang('admin.faqs.address')</span>
-                                        </div>
-                                        <input type="text" name="address" placeholder="address.."
-                                        @class([
-                                            'input',
-                                            'input-bordered',
-                                            'input-error' => $errors->has('address'),
-                                            'w-full',
-                                        ]) />
-                                    </label>
-                                <label class="form-control w-full">
-                                    <div class="label">
-                                        <span class="label-text">@lang('admin.faqs.question')</span>
-                                    </div>
-                                    <textarea name="question" id="question" class="hidden">
+                    <form action="{{ route('admin.faqs.store') }}" method="POST" class="needs-validation" novalidate>
+                        @csrf
+                        <div class="space-y-4">
+                            <label class="form-control w-full">
+                                <div class="label">
+                                    <span class="label-text text-base text-black font-medium">@lang('admin.faqs.name')</span>
+                                </div>
+                                <input type="text" name="name" placeholder="Put name"
+                                    @class([
+                                        'input',
+                                        'input-bordered',
+                                        'input-error' => $errors->has('name'),
+                                        'w-full',
+                                    ]) />
+                            </label>
+                            <label class="form-control w-full">
+                                <div class="label">
+                                    <span class="label-text text-base text-black font-medium">@lang('admin.faqs.email')</span>
+                                </div>
+                                <input type="text" name="email" placeholder="email..."
+                                    @class([
+                                        'input',
+                                        'input-bordered',
+                                        'input-error' => $errors->has('email'),
+                                        'w-full',
+                                    ]) />
+                            </label>
+                            <label class="form-control w-full">
+                                <div class="label">
+                                    <span class="label-text text-base text-black font-medium">@lang('admin.faqs.phone')</span>
+                                </div>
+                                <input type="text" name="phone" placeholder="0987...."
+                                    @class([
+                                        'input',
+                                        'input-bordered',
+                                        'input-error' => $errors->has('phone'),
+                                        'w-full',
+                                    ]) />
+                            </label>
+                            <label class="form-control w-full">
+                                <div class="label">
+                                    <span class="label-text text-base text-black font-medium">@lang('admin.faqs.address')</span>
+                                </div>
+                                <input type="text" name="address" placeholder="address.."
+                                    @class([
+                                        'input',
+                                        'input-bordered',
+                                        'input-error' => $errors->has('address'),
+                                        'w-full',
+                                    ]) />
+                            </label>
+                            <label class="form-control w-full">
+                                <div class="label">
+                                    <span class="label-text text-base text-black font-medium">@lang('admin.faqs.question')</span>
+                                </div>
+                                <textarea name="question" id="question" class="hidden">
                                         {{ old('question') }}
                                     </textarea>
-                                </label>
+                            </label>
 
-                                <div class="flex justify-end gap-4">
-                                    <a href="{{ route('admin.faqs.index') }}" class="btn-light btn">@lang('admin.btn.cancel')
-                                    </a>
-                                    <button type="submit" class="btn btn-success ml-2">
-                                        @lang('admin.btn.submit')
-                                    </button>
-                                </div>
+                            <div class="flex justify-end gap-4">
+                                <a href="{{ route('admin.faqs.index') }}" class="btn-light btn">@lang('admin.btn.cancel')
+                                </a>
+                                <button type="submit" class="btn btn-success ml-2">
+                                    @lang('admin.btn.submit')
+                                </button>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+    </div>
     @pushonce('bottom_scripts')
-        <x-admin.forms.tinymce-config column="question"/>
+        <x-admin.forms.tinymce-config column="question" />
     @endpushonce
 </x-app-layout>

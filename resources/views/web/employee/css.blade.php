@@ -1,29 +1,35 @@
-@push('css_custom')
+@push('styles')
     <style>
         :root {
-            --level-1: #3653b7;
-            --level-2: #3653b7;
-            --level-3: #3653b7;
-            --level-4: #3653b7;
+            --level-1: #64b2de;
+            --level-2: #64b2de;
+            --level-3: #64b2de;
+            --level-4: #64b2de;
             --black: black;
             --white: white;
         }
 
-       
+       .container{
+            width: 100%;
+            color: var(--white);
+            justify-content: center;
+            text-align: center;
+       }
         ol {
             list-style: none;
         }
         .rectangle {
             position: relative;
-            padding: 20px;
+            padding: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            border-radius: 5px;
         }
 
 
         /* LEVEL-1 STYLES
                 –––––––––––––––––––––––––––––––––––––––––––––––––– */
         .level-1 {
-            width: 50%;
+            width: 20%;
             margin: 0 auto 40px;
             background: var(--level-1);
         }
@@ -85,7 +91,7 @@
         }
 
         .level-2 {
-            width: 70%;
+            width: 35%;
             margin: 0 auto 40px;
             background: var(--level-2);
         }
@@ -120,24 +126,24 @@
             position: relative;
             display: grid;
             grid-template-columns: repeat(var(--n), 1fr);
-            grid-column-gap: 10px;
-            margin: 0 20px;
+            grid-column-gap: 17px;
+            margin: 0 9px;
         }
 
         .level-3-wrapper::before {
             content: "";
             position: absolute;
             top: -20px;
-            left: 40px;
+            left: 35px;
             /* adjustment = 5px */
-            width: calc(100% - 80px);
+            width: calc(100% - 70px);
             /* adjustment width */
             height: 2px;
             background: var(--black);
         }
 
         .level-3-wrapper>li {
-            width: 80px;
+            width: 70px;
 
         }
 
@@ -156,7 +162,7 @@
             margin-bottom: 20px;
             background: var(--level-3);
 
-            height: 260px;
+            height: 120px;
         }
 
 

@@ -1,52 +1,48 @@
 <x-website-layout>
-    <section>
-        <div class="mx-auto max-w-7xl px-3 sm:px-6 md:items-center lg:px-8">
-            <div class="grid grid-cols-8 gap-4">
-                <div class="col-span-8 space-y-3 md:col-span-6 lg:col-span-6">
-                    <div class="border-b-2 border-blue-700">
-                        <h2 class="inline-block bg-blue-700 px-6 py-3 text-xl font-bold text-white">{{$category_title}}
-                        </h2>
-                    </div>
-                    <ul class="space-y-4">
-                        @foreach ($posts as $index => $post)
-                            <li>
-                                <article class="group">
-                                    <div class="flex gap-3">
-                                        <a href="{{ route('news.show', $post) }}"
-                                            class="h-32 w-48 flex-none overflow-hidden">
-                                            <img class="h-auto w-full transition-all group-hover:scale-110"
-                                                src="{{ $post->getFirstMedia('featured_image')->getUrl() }}"
-                                                alt="" />
-                                        </a>
-                                        <div class="flex flex-col items-start justify-between">
-                                            <div>
-                                                <a href="{{ route('news.show', $post) }}" class="group-hover:underline">
-                                                    <h3
-                                                        class="line-clamp-2 text-lg font-semibold leading-5 text-blue-950">
-                                                        {{ $post->title }}</h3>
-                                                </a>
-                                                <p class="mt-2 line-clamp-3 text-sm text-slate-500">
-                                                    {{ Str::limit(html_entity_decode(strip_tags($post->content)), 500) }}
-                                                </p>
-                                            </div>
-                                            <div class="tooltip tooltip-top flex items-center gap-2 text-green-700"
-                                                data-tip="{{ $post->published_post_date }}">
-                                                <x-heroicon-m-calendar class="size-4" />
-                                                <span class="text-xs">{{ $post->published_post_date_thumb }}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </article>
-                            </li>
-                        @endforeach
-                    </ul>
-
-                    {{ $posts->links('pagination.web-tailwind') }}
-                </div>
-                <div class="col-span-8 hidden space-y-3 md:col-span-2 lg:block">
-                    <x-website.announcement />
-                </div>
+    <ul class="UL_Link_Menu">
+        <li class="Lv_1">
+            <a href="index-2.html">Trang chủ</a>
+        </li>
+        <li class="Lv_3">
+            <span class="Arrow_Link_Menu"></span>
+            <a href="indexd5f1.html?com=tin-tuc">Tin tức – sự kiện</a>
+        </li>
+        <li class="Lv_3">
+            <span class="Arrow_Link_Menu"></span>
+            <a> {{ $category_title}}</a>
+        </li>
+    </ul>
+    @foreach ($posts as $index => $post)
+        <div class="listnews_item">
+            <div class="listnews_item_img">
+                <a href="{{ route('news.show', $post) }}">
+                    <img src="{{ $post->getFirstMedia('featured_image')->getUrl() }}" alt="">
+                </a>
+            </div>
+            <div class="listnews_item_title">
+                <a href="index1526.html?com=tintuc_ct&amp;id_news=369">{{ $post->title }}</a>
+            </div>
+            <div class="listnews_item_des">
+                {{ Str::limit(html_entity_decode(strip_tags($post->content)), 500) }}
+            </div>
+            <div class="listnews_item_date">
+                <span> Ngày đăng: {{ $post->published_post_date }}/ Lượt xem: 3</span>
             </div>
         </div>
-    </section>
+    @endforeach
+    </table>
+    <ul class="pagination" style="float: right;">
+        <li class='active'><a href='indexa6d2.html?com=danhmuc_tin&amp;id_category=2&amp;page=1'>1</a></li>
+        <li><a href='index38f0.html?com=danhmuc_tin&amp;id_category=2&amp;page=2'>2</a></li>
+        <li><a href='index5575.html?com=danhmuc_tin&amp;id_category=2&amp;page=3'>3</a></li>
+        <li><a href='index2127.html?com=danhmuc_tin&amp;id_category=2&amp;page=4'>4</a></li>
+        <li><a href='index23a2.html?com=danhmuc_tin&amp;id_category=2&amp;page=5'>5</a></li>
+        <li><a href='indexbc8b.html?com=danhmuc_tin&amp;id_category=2&amp;page=6'>6</a></li>
+        <li><a href='index991c.html?com=danhmuc_tin&amp;id_category=2&amp;page=7'>7</a></li>
+        <li><a href='index2f55.html?com=danhmuc_tin&amp;id_category=2&amp;page=8'>8</a></li>
+        <li><a href='index5b56.html?com=danhmuc_tin&amp;id_category=2&amp;page=9'>9</a></li>
+        <li><a href='indexccb3.html?com=danhmuc_tin&amp;id_category=2&amp;page=10'>10</a></li>
+        <li><a href='index9260.html?com=danhmuc_tin&amp;id_category=2&amp;page=11'>11</a></li>
+    </ul>
+
 </x-website-layout>

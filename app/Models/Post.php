@@ -106,7 +106,7 @@ class Post extends Model implements HasMedia
     protected function publishedPostDate(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->published_at->translatedFormat('l, d/m/Y'),
+            get: fn () => $this->published_at->translatedFormat('d/m/Y'),
         );
     }
 

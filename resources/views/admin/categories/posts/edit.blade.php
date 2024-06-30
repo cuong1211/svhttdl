@@ -20,41 +20,62 @@
 
                             <div class="space-y-4">
                                 <div class="flex">
-                                    <x-admin.forms.calendar :publish_at="$post->published_at"/>
+                                    <x-admin.forms.calendar :publish_at="$post->published_at" />
                                 </div>
 
                                 <label class="form-control w-full">
                                     <div class="label">
-                                        <span class="label-text">@lang('admin.post.title')</span>
+                                        <span
+                                            class="label-text text-base text-black font-medium">@lang('admin.post.title')</span>
                                     </div>
                                     <input type="text" name="title" placeholder="Type here"
                                         value="{{ old('title', $post->title) }}" @class([
-                                            'input',
-                                            'input-bordered',
+                                            'border',
+                                            'border-gray-300',
+                                            'bg-white',
+                                            'text-black',
+                                            'p-2',
+                                            'rounded-md',
                                             'w-full',
                                             'input-error' => $errors->has('title'),
                                         ]) />
                                 </label>
                                 <label class="form-control w-full">
                                     <div class="label">
-                                        <span class="label-text">@lang('admin.content')</span>
+                                        <span
+                                            class="label-text text-base text-black font-medium">@lang('admin.content')</span>
                                     </div>
                                     <textarea name="content" id="content" class="form-input rounded-md shadow-sm mt-1 block w-full" rows="5">{{ old('content', $post->content) }}</textarea>
                                 </label>
                                 <label class="form-control w-full">
                                     <div class="label">
-                                        <span class="label-text">@lang('admin.post.tag')</span>
+                                        <span
+                                            class="label-text text-base text-black font-medium">@lang('admin.post.tag')</span>
                                     </div>
                                     <input type="text" name="tags" id="tags"
                                         value="{{ old('tags', $tagNames) }}"
                                         placeholder="Enter tags separated by spaces" @class([
-                                            'input',
-                                            'input-bordered',
+                                            'border',
+                                            'border-gray-300',
+                                            'bg-white',
+                                            'text-black',
+                                            'p-2',
+                                            'rounded-md',
                                             'input-error' => $errors->has('tags'),
                                             'w-full',
                                             'h-fit',
                                         ]) />
                                 </label>
+                                @foreach (App\Enums\PostTypeEnum::cases() as $type)
+                                    <div class="flex items-center mb-4">
+                                        <input id="{{ $type->value }}" type="checkbox" value="{{ $type->value }}"
+                                            name="type" {{ $post->type == $type->value ? 'checked' : '' }}
+                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="{{ $type->value }}"
+                                            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ $type->value }}</label>
+
+                                    </div>
+                                @endforeach
                                 <div class="flex items-center space-x-6">
                                     <div class="shrink-0">
                                         <img id="preview_img" class="h-16 w-16 rounded-full object-cover"
@@ -63,7 +84,8 @@
                                     </div>
                                     <label class="block">
                                         <span class="sr-only">Choose photo</span>
-                                        <div class="input input-bordered flex items-center gap-2 border px-3 py-2">
+                                        <div
+                                            class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md flex items-center gap-2 bg-white flex items-center gap-2 border px-3 py-2">
                                             File:
                                             <span
                                                 id="selected_file_name">{{ $post->getFirstMedia('featured_image')->name }}</span>

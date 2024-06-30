@@ -7,65 +7,84 @@
                 @lang('admin.add')
             </span>
         </div>
-        @if (session('icon') && session('heading') && session('message'))
-            <div class="alert alert-{{ session('icon') === 'success' ? 'success' : 'danger' }}" role="alert">
-                <strong>{{ session('heading') }}:</strong>
-                {{ session('message') }}
-            </div>
-        @endif
         <div class="mt-6">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                @if ($errors->any())
+                    <div class="alert alert-danger text-black">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="bg-white px-8 pb-8 pt-0 shadow sm:rounded-lg">
                     <form action="{{ route('admin.staffs.store') }}" method="POST" class="space-y-4 needs-validation"
                         novalidate enctype="multipart/form-data">
                         @csrf
                         <label class="form-control w-full">
                             <div class="label">
-                                <span class="label-text">@lang('admin.staffs.name')</span>
+                                <span class="label-text text-base text-black font-medium">@lang('admin.staffs.name')</span>
                             </div>
                             <input type="text" name="name" placeholder="name..." @class([
-                                'input',
-                                'input-bordered',
+                                'border',
+                                'border-gray-300',
+                                'bg-white',
+                                'text-black',
+                                'p-2',
+                                'rounded-md',
                                 'input-error' => $errors->has('name'),
                                 'w-full',
                             ]) />
                         </label>
                         <label class="form-control w-full">
                             <div class="label" for="department_id">
-                                <span class="label-text">@lang('admin.departments')</span>
+                                <span class="label-text text-base text-black font-medium">@lang('admin.departments')</span>
                             </div>
                             <select name="department_id" required @class([
-                                'input',
-                                'input-bordered',
+                                'border',
+                                'border-gray-300',
+                                'bg-white',
+                                'text-black',
+                                'p-2',
+                                'rounded-md',
                                 'input-error' => $errors->has('department_id'),
                                 'w-full',
                             ])>
                                 <option value="">Select </option>
                                 @foreach ($departments as $department)
-                                    <option value="{{ $department->id }}" {{ old('department_id') == $department->id ? 'selected' : '' }}>{{ $department->name }}</option>
+                                    <option value="{{ $department->id }}"
+                                        {{ old('department_id') == $department->id ? 'selected' : '' }}>
+                                        {{ $department->name }}</option>
                                 @endforeach
                             </select>
                         </label>
                         <label class="form-control w-full">
                             <div class="label" for="position_id">
-                                <span class="label-text">@lang('admin.positions')</span>
+                                <span class="label-text text-base text-black font-medium">@lang('admin.positions')</span>
                             </div>
                             <select name="position_id" required @class([
-                                'input',
-                                'input-bordered',
+                                'border',
+                                'border-gray-300',
+                                'bg-white',
+                                'text-black',
+                                'p-2',
+                                'rounded-md',
                                 'input-error' => $errors->has('position_id'),
                                 'w-full',
                             ])>
                                 <option value="">Select </option>
                                 @foreach ($positions as $position)
-                                    <option value="{{ $position->id }}" {{ old('position_id') == $position->id ? 'selected' : '' }}>{{ $position->name }}</option>
+                                    <option value="{{ $position->id }}"
+                                        {{ old('position_id') == $position->id ? 'selected' : '' }}>
+                                        {{ $position->name }}</option>
                                 @endforeach
                             </select>
                         </label>
-                       
+
                         <label class="form-control w-full">
                             <div class="label">
-                                <span class="label-text">@lang('admin.content')</span>
+                                <span class="label-text text-base text-black font-medium">@lang('admin.content')</span>
                             </div>
                             <textarea name="content" id="content" class="form-input rounded-md shadow-sm mt-1 block w-full" rows="5">{{ old('content', $post->content ?? '') }}</textarea>
 
@@ -97,20 +116,20 @@
         </div>
     </div>
     @pushonce('bottom_scripts')
-    <x-admin.forms.tinymce-config column="content" />
-    <script>
-        var loadFile = function(event) {
-            var input = event.target
-            var file = input.files[0]
-            var type = file.type
+        <x-admin.forms.tinymce-config column="content" />
+        <script>
+            var loadFile = function(event) {
+                var input = event.target
+                var file = input.files[0]
+                var type = file.type
 
-            var output = document.getElementById('preview_img')
+                var output = document.getElementById('preview_img')
 
-            output.src = URL.createObjectURL(event.target.files[0])
-            output.onload = function() {
-                URL.revokeObjectURL(output.src) // free memory
+                output.src = URL.createObjectURL(event.target.files[0])
+                output.onload = function() {
+                    URL.revokeObjectURL(output.src) // free memory
+                }
             }
-        }
-    </script>
-@endpushonce
+        </script>
+    @endpushonce
 </x-app-layout>

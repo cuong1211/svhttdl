@@ -82,16 +82,18 @@ class PostController extends Controller
     public function update(PostRequest $request, $categoryId, $postId): RedirectResponse
     {
         $post = Post::findOrFail($postId);
-
+        // dd($request->all());
         DB::beginTransaction();
+        // dd($post->type);
         try {
             $post->update([
                 'title' => $request->title,
                 'content' => $request->content,
                 'published_at' => $request->published_at,
                 'category_id' => $categoryId,
+                'type' => $request->type,
+                
             ]);
-
             if ($request->tags) {
                 $tagIds = collect(json_decode($request->tags, true))->pluck('value')->map(function ($name) {
                     return Tag::firstOrCreate(['name' => trim($name)])->id;

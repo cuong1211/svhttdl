@@ -43,9 +43,18 @@ class NewsController extends Controller
     public function show(Post $post): View
     {
         $category = Category::query()->where('id', $post->category_id)->first();
+        // dd($category);
+        $otherPosts = Post::query()
+            ->where('category_id', $post->category_id)
+            ->where('id', '!=', $post->id)
+            ->published()
+            ->latest()
+            ->take(10)
+            ->get();
         return view('web.news.show', [
             'post' => $post,
             'category' => $category,
+            'otherPosts' => $otherPosts,
         ]);
     }
 }

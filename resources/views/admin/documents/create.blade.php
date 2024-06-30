@@ -21,11 +21,15 @@
                         @csrf
                         <label class="form-control w-full">
                             <div class="label">
-                                <span class="label-text">@lang('admin.documents.name')</span>
+                                <span class="label-text text-base text-black font-medium">@lang('admin.documents.name')</span>
                             </div>
                             <input type="text" name="name" placeholder="name..." value="{{ old('name', ($document->name) ?? '')}}" @class([
-                                'input',
-                                'input-bordered',
+                                'border',
+                                            'border-gray-300',
+                                            'bg-white',
+                                            'text-black',
+                                            'p-2',
+                                            'rounded-md',
                                 'input-error' => $errors->has('name'),
                                 'w-full',
                             ]) />
@@ -34,11 +38,15 @@
                             <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                             <label class="form-control w-full">
                                 <span class="label">
-                                    <span class="label-text">@lang('admin.document.reference.number')</span>
+                                    <span class="label-text text-base text-black font-medium">@lang('admin.document.reference.number')</span>
                                 </span>
                                 <input type="text" name="reference_number" placeholder="Ví dụ: 05/KH-SVHTTDL" @class([
-                                    'input',
-                                    'input-bordered',
+                                    'border',
+                                            'border-gray-300',
+                                            'bg-white',
+                                            'text-black',
+                                            'p-2',
+                                            'rounded-md',
                                     'input-error' => $errors->has('reference_number'),
                                     'w-full',
                                 ]) value="{{ old('reference_number', ($document->reference_number) ?? '')}}" />
@@ -48,7 +56,7 @@
                        
                         <label class="form-control w-full">
                             <div class="label">
-                                <span class="label-text">@lang('admin.content')</span>
+                                <span class="label-text text-base text-black font-medium">@lang('admin.content')</span>
                             </div>
                             <textarea name="content" id="content" class="form-input rounded-md shadow-sm mt-1 block w-full" rows="5">{{ old('content', $post->content ?? '') }}</textarea>
 
@@ -56,11 +64,15 @@
                         
                         <label class="form-control w-full">
                             <div class="label" for="type_id">
-                                <span class="label-text">@lang('admin.documents.types')</span>
+                                <span class="label-text text-base text-black font-medium">@lang('admin.documents.types')</span>
                             </div>
                             <select name="type_id" required @class([
-                                'input',
-                                'input-bordered',
+                                'border',
+                                            'border-gray-300',
+                                            'bg-white',
+                                            'text-black',
+                                            'p-2',
+                                            'rounded-md',
                                 'input-error' => $errors->has('type_id'),
                                 'w-full',
                             ])>
@@ -72,11 +84,15 @@
                         </label>
                         <label class="form-control w-full">
                             <div class="label" for="signer_id">
-                                <span class="label-text">@lang('admin.documents.signers')</span>
+                                <span class="label-text text-base text-black font-medium">@lang('admin.documents.signers')</span>
                             </div>
                             <select name="signer_id" required @class([
-                                'input',
-                                'input-bordered',
+                                'border',
+                                            'border-gray-300',
+                                            'bg-white',
+                                            'text-black',
+                                            'p-2',
+                                            'rounded-md',
                                 'input-error' => $errors->has('signer_id'),
                                 'w-full',
                             ])>
@@ -88,11 +104,15 @@
                         </label>
                         <label class="form-control w-full">
                             <div class="label">
-                                <span class="label-text">@lang('admin.notes')</span>
+                                <span class="label-text text-base text-black font-medium">@lang('admin.notes')</span>
                             </div>
                             <input type="text" name="notes" placeholder="Nhập nội dung ghi chú..." @class([
-                                'input',
-                                'input-bordered',
+                                'border',
+                                            'border-gray-300',
+                                            'bg-white',
+                                            'text-black',
+                                            'p-2',
+                                            'rounded-md',
                                 'input-error' => $errors->has('notes'),
                                 'w-full',
                             ]) value="{{ old('notes', ($document->notes) ?? '')}}"  />

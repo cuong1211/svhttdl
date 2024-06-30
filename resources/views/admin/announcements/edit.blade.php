@@ -17,7 +17,7 @@
                         <div class="flex gap-4">
                             <label class="form-control w-full">
                                 <div class="label">
-                                    <span class="label-text">@lang('admin.post.title')</span>
+                                    <span class="label-text text-base text-black font-medium">@lang('admin.post.title')</span>
                                 </div>
                                 <input type="text" name="title" placeholder="Type here"
                                         value="{{ $announcement->title }}" @class([
@@ -32,7 +32,7 @@
                         </div>
                         <label class="form-control w-full">
                             <div class="label">
-                                <span class="label-text">@lang('admin.content')</span>
+                                <span class="label-text text-base text-black font-medium">@lang('admin.content')</span>
                             </div>
                             <textarea name="content" id="content" class="hidden">
                                 {!! $announcement->content !!}

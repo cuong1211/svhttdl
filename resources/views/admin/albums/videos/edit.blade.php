@@ -16,11 +16,15 @@
                             @method('patch')
                             <label class="form-control w-full">
                                 <div class="label" for="album_id">
-                                    <span class="label-text">@lang('admin.album')</span>
+                                    <span class="label-text text-base text-black font-medium">@lang('admin.album')</span>
                                 </div>
                                 <select name="album_id" required @class([
-                                    'input',
-                                    'input-bordered',
+                                    'border',
+                                            'border-gray-300',
+                                            'bg-white',
+                                            'text-black',
+                                            'p-2',
+                                            'rounded-md',
                                     'input-error' => $errors->has('album_id'),
                                     'w-full',
                                 ])>
@@ -35,7 +39,7 @@
                             </label>
                             <label class="form-control w-full">
                                 <div class="label">
-                                    <span class="label-text">@lang('admin.post.title')</span>
+                                    <span class="label-text text-base text-black font-medium">@lang('admin.post.title')</span>
                                 </div>
                                 <input type="text" name="name" value="{{ old('name', $video->name) }}"
                                     placeholder="title video..." @class([
@@ -47,11 +51,15 @@
                             </label>
                             <label class="form-control w-full">
                                 <div class="label" for="source">
-                                    <span class="label-text">@lang('admin.videos.source')</span>
+                                    <span class="label-text text-base text-black font-medium">@lang('admin.videos.source')</span>
                                 </div>
                                 <select name="source" required @class([
-                                    'input',
-                                    'input-bordered',
+                                    'border',
+                                            'border-gray-300',
+                                            'bg-white',
+                                            'text-black',
+                                            'p-2',
+                                            'rounded-md',
                                     'input-error' => $errors->has('source'),
                                     'w-full',
                                 ])>
@@ -65,7 +73,7 @@
                             </label>
                             <label class="form-control w-full">
                                         <div class="label">
-                                            <span class="label-text">@lang('admin.videos.videoID')</span>
+                                            <span class="label-text text-base text-black font-medium">@lang('admin.videos.videoID')</span>
                                         </div>
                                         <input type="text" name="video_id"
                                             value="{{ old('video_id', $video->video_id) }}"

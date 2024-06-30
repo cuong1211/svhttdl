@@ -18,7 +18,7 @@
                         @method('patch')
                         <label class="form-control w-full">
                             <div class="label">
-                                <span class="label-text">@lang('admin.albums.name')</span>
+                                <span class="label-text text-base text-black font-medium">@lang('admin.albums.name')</span>
                             </div>
                             <input
                                 type="text"
@@ -26,8 +26,12 @@
                                 placeholder="Type here"
                                 value="{{ old('name', $album->name) }}"
                                 @class([
-                                    'input',
-                                    'input-bordered',
+                                    'border',
+                                            'border-gray-300',
+                                            'bg-white',
+                                            'text-black',
+                                            'p-2',
+                                            'rounded-md',
                                     'input-error' => $errors->has('name'),
                                     'w-full',
                                 ])
@@ -35,7 +39,7 @@
                         </label>
                         <label class="form-control w-full">
                                 <div class="label">
-                                    <span class="label-text">@lang('admin.albums.type')</span>
+                                    <span class="label-text text-base text-black font-medium">@lang('admin.albums.type')</span>
                                 </div>
                                 <select
                                     name="type"

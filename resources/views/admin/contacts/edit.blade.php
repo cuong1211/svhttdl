@@ -16,48 +16,64 @@
                         @method('patch')
                         <label class="form-control w-full">
                             <div class="label">
-                                <span class="label-text">@lang('admin.contacts.name')</span>
+                                <span class="label-text text-base text-black font-medium">@lang('admin.contacts.name')</span>
                             </div>
                             <input type="text" name="name" value="{{ old('name', $contact->name) }}"
                                 placeholder="Put name" @class([
-                                    'input',
-                                    'input-bordered',
+                                    'border',
+                                            'border-gray-300',
+                                            'bg-white',
+                                            'text-black',
+                                            'p-2',
+                                            'rounded-md',
                                     'input-error' => $errors->has('name'),
                                     'w-full',
                                 ]) />
                         </label>
                         <label class="form-control w-full">
                             <div class="label">
-                                <span class="label-text">@lang('admin.contacts.email')</span>
+                                <span class="label-text text-base text-black font-medium">@lang('admin.contacts.email')</span>
                             </div>
                             <input type="text" name="email" value="{{ old('email', $contact->email) }}"
                                 placeholder="email..." @class([
-                                    'input',
-                                    'input-bordered',
+                                    'border',
+                                            'border-gray-300',
+                                            'bg-white',
+                                            'text-black',
+                                            'p-2',
+                                            'rounded-md',
                                     'input-error' => $errors->has('email'),
                                     'w-full',
                                 ]) />
                         </label>
                         <label class="form-control w-full">
                             <div class="label">
-                                <span class="label-text">@lang('admin.contacts.phone')</span>
+                                <span class="label-text text-base text-black font-medium">@lang('admin.contacts.phone')</span>
                             </div>
                             <input type="text" name="phone" value="{{ old('phone', $contact->phone) }}"
                                 placeholder="0987...." @class([
-                                    'input',
-                                    'input-bordered',
+                                    'border',
+                                            'border-gray-300',
+                                            'bg-white',
+                                            'text-black',
+                                            'p-2',
+                                            'rounded-md',
                                     'input-error' => $errors->has('phone'),
                                     'w-full',
                                 ]) />
                         </label>
                         <label class="form-control w-full">
                                 <div class="label min-h">
-                                    <span class="label-text">@lang('admin.contacts.content')</span>
+                                    <span class="label-text text-base text-black font-medium">@lang('admin.contacts.content')</span>
                                 </div>
                                 <textarea name="content" id="content" @class([
                                     'w-full',
-                                    'input',
-                                    'input-bordered',
+                                    'border',
+                                            'border-gray-300',
+                                            'bg-white',
+                                            'text-black',
+                                            'p-2',
+                                            'rounded-md',
                                     'input-error' => $errors->has('content'),
                                     'min-h-72',
                                 ])> {!! old('content', $contact->content) !!}</textarea>
