@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\Custom\MenuController;
 use App\Http\Controllers\Admin\Custom\AdController;
 use App\Http\Controllers\Admin\Custom\AddOnController;
 use App\Http\Controllers\Admin\Custom\BannerController;
+use App\Http\Controllers\Admin\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/dashboard', function () {
@@ -78,6 +79,9 @@ Route::middleware('auth')->group(function () {
 
         // banner
         Route::resource('banners', BannerController::class);
+
+        //user
+        Route::resource('users', UserController::class);
     });
 });
 

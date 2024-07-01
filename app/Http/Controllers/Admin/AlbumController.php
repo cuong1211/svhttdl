@@ -16,7 +16,7 @@ class AlbumController extends Controller
             'albums' => Album::query()
                 ->when(
                     $request->search,
-                    fn ($query) => $query->where('name', 'like', '%'.$request->search.'%')
+                    fn ($query) => $query->where('name', 'like', '%' . $request->search . '%')
                 )
                 ->latest()
                 ->paginate(10),
@@ -33,13 +33,22 @@ class AlbumController extends Controller
 
     public function store(Request $request)
     {
+        dd($request->all());
         $request->validate([
             'name' => 'required|string|max:255',
             'type' => 'required',
         ]);
-        Album::create($request->all());
+        $album = Album::create($request->all());
+        if ($request->hasFile('image')) {
+            $imageFile = $request->file('image');
+            dd($imageFile);
+            $album->addMedia($imageFile->getRealPath())
+                ->usingFileName($imageFile->getClientOriginalName())
+                ->usingName($imageFile->getClientOriginalName())
+                ->toMediaCollection('album_thumb');
+        }
 
-        return redirect()->route('admin.albums.index')->with('success', 'Album created successfully.');
+        return redirect()->route('admin.albums.index')->with('success', 'Tạo album thành công.');
     }
 
     /**
@@ -61,8 +70,16 @@ class AlbumController extends Controller
         ]);
 
         $album->update($request->all());
+        if ($request->hasFile('image')) {
+            $imageFile = $request->file('image');
+            $album->clearMediaCollection('album_thumb');
+            $album->addMedia($imageFile->getRealPath())
+                ->usingFileName($imageFile->getClientOriginalName())
+                ->usingName($imageFile->getClientOriginalName())
+                ->toMediaCollection('album_thumb');
+        }
 
-        return redirect()->route('admin.albums.index')->with('success', 'Album updated successfully.');
+        return redirect()->route('admin.albums.index')->with('success', 'Cập nhập album thành công.');
     }
 
     /**
@@ -72,6 +89,6 @@ class AlbumController extends Controller
     {
         $album->delete();
 
-        return redirect()->route('admin.albums.index')->with('success', 'Album deleted successfully.');
+        return redirect()->route('admin.albums.index')->with('success', 'Xóa album thành công.');
     }
 }

@@ -36,7 +36,7 @@
                                                 @lang('admin.post.title')
                                             </span>
                                         </div>
-                                        <input type="text" name="title" placeholder="Type here"
+                                        <input type="text" name="title" placeholder="Nhập tên"
                                             value="{{ old('title') }}"
                                             class="border border-gray-300 bg-white text-black p-2 rounded-md w-full @error('title') input-error @enderror" />
                                         @error('title')

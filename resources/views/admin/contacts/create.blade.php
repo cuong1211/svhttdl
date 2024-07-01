@@ -71,7 +71,7 @@
                             <div class="label min-h">
                                 <span class="label-text text-base text-black font-medium">@lang('admin.contacts.content')</span>
                             </div>
-                            <textarea name="content" id="content" placeholder="Type here" @class([
+                            <textarea name="content" id="content" placeholder="Nhập tên" @class([
                                 'w-full',
                                 'border',
                                 'border-gray-300',

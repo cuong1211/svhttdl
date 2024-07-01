@@ -18,7 +18,9 @@ class Document extends Model implements HasMedia
     protected $guarded = [];
 
     protected $table = 'document';
-
+    protected $casts = [
+        'published_at' => 'datetime:Y-m-d H:i:s',
+    ];
     public function signers()
     {
         return $this->belongsTo(Signer::class, 'signer_id');
@@ -43,6 +45,11 @@ class Document extends Model implements HasMedia
             ->useDisk('document');
     }
 
+    public function getPublishedAtViAttribute()
+    {
+        return ucfirst(Carbon::parse($this->published_at)->translatedFormat('l, d/m/Y'));
+    }
+
     protected function updatedAtVi(): Attribute
     {
         return Attribute::make(
@@ -50,10 +57,34 @@ class Document extends Model implements HasMedia
         );
     }
 
-    protected function createdAtVi(): Attribute
+    protected function publishedPostDate(): Attribute
     {
         return Attribute::make(
-            get: fn () => Carbon::parse($this->created_at)->format('d.m.Y h:i'),
+            get: fn () => $this->published_at->translatedFormat('d/m/Y'),
+        );
+    }
+
+    protected function publishedPostDateThumb(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->published_at->diffForHumans(),
+        );
+    }
+
+    public function getPublishedDateAttribute()
+    {
+        return Carbon::parse($this->published_at)->format('M d, Y H:i');
+    }
+
+    public function getPublishedDateSearchAttribute()
+    {
+        return Carbon::parse($this->published_at)->diffForHumans();
+    }
+
+    protected function publishedAt(): Attribute
+    {
+        return Attribute::make(
+            set: fn ($value) => \Carbon\Carbon::parse($value)->format('Y-m-d'),
         );
     }
 }

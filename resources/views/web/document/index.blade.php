@@ -1,4 +1,31 @@
 <x-website-layout>
+    <style>
+        .w3-blue,
+        .w3-hover-blue:hover {
+            color: #fff !important;
+            background-color: #2196F3 !important;
+        }
+
+        .w3-bar {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .w3-bar .w3-button {
+            white-space: normal;
+        }
+
+        .w3-bar .w3-bar-item {
+            padding: 8px 16px;
+            float: left;
+            width: auto;
+            border: none;
+            display: block;
+            outline: 0;
+            background-color: inherit;
+            color: inherit;
+        }
+    </style>
     <ul class="UL_Link_Menu">
         <li class="Lv_1">
             <a href="index-2.html">Trang chủ</a>
@@ -40,10 +67,10 @@
                             <td style="text-align: left; margin-left: 10px; text-align: justify;"><a
                                     href="index141a.html?com=chitiet_vb&amp;id_vanban=26">{{ $item->name }}</a></td>
                             <td style="text-align: left; margin-left: 10px; text-align: justify;"><a
-                                    href="index141a.html?com=chitiet_vb&amp;id_vanban=26">{{ $item->published_at }}</a>
+                                    href="index141a.html?com=chitiet_vb&amp;id_vanban=26">{{ $item->published_at->translatedFormat('d/m/Y') }}</a>
                             </td>
                             <td><a class="fa fa-download" target="_blank"
-                                    href="{{ $item->getFirstMedia('document_file')->getUrl() }}">Tải về</a>
+                                    href="{{ $item->getFirstMedia('document_file')->getUrl() }}"></a>
                             </td>
                         </tr>
                         @php

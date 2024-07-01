@@ -6,7 +6,7 @@
             selector: 'textarea#{{ $column }}',
             images_file_types: 'jpg,svg,webp',
             file_picker_types: 'file image media',
-            plugins: 'image code table lists',
+            plugins: 'image code table lists link',
             toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright alignjustify | indent outdent | bullist numlist | code | table | link image',
             /* enable title field in the Image dialog*/
             image_title: true,

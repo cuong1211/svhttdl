@@ -7,5 +7,8 @@ use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
-    //
+    public function index()
+    {
+        return view('web.image.index');
+    }   
 }

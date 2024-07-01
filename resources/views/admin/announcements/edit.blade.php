@@ -19,7 +19,7 @@
                                 <div class="label">
                                     <span class="label-text text-base text-black font-medium">@lang('admin.post.title')</span>
                                 </div>
-                                <input type="text" name="title" placeholder="Type here"
+                                <input type="text" name="title" placeholder="Nhập tên"
                                         value="{{ $announcement->title }}" @class([
                                             'input',
                                             'input-bordered',

@@ -46,7 +46,7 @@
                         <thead class="text-black text-base">
                             <tr>
                                 <th class="text-center">#</th>
-                                <th class="text-center">Thứ tự</th>
+                                <th class="text-center w-3">Thứ tự</th>
                                 <th class="text-center">Tiêu đề</th>
                                 <th class="text-center">Đường dẫn</th>
                                 <th class="text-center">Ngày tạo</th>
@@ -62,7 +62,7 @@
                                     </th>
                                     <td class="text-center">
                                         {{ $addon->order }}</td>
-                                    <td class="size-5 text-center">
+                                    <td class="text-center">
                                         <div class="text-center">{{ $addon->title }}</div>
                                     </td>
                                     <td class="text-center">
