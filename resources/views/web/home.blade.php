@@ -114,25 +114,5 @@
         <b>&nbsp; </b>
     </div>
     {{-- add-on --}}
-    <div style="width: 100%; height: auto; background-color: #fff; float: left;">
-        <div class="column_link">
-            <a href="https://dichvucong.gov.vn/p/home/dvc-trang-chu.html" target="blank"><img
-                    src="images/dcvqg.png" /></a>
-        </div>
-        <div class="column_link">
-            <a href="https://bvhttdl.gov.vn/" target="blank"><img src="images/bvh.png" /></a>
-        </div>
-        <div class="column_link">
-            <a href="https://dulichvietnam.com.vn/" target="blank"><img src="images/dlvn.png" /></a>
-        </div>
-        <div class="column_link">
-            <a href="http://dulich.backan.gov.vn/" target="blank"><img src="images/dlbk.png" /></a>
-        </div>
-        <div class="column_link">
-            <a href="https://backan.gov.vn/Pages/trang-chu.aspx" target="blank"><img src="images/cong_tt.png" /></a>
-        </div>
-        <div class="column_link">
-            <a href="#" target="blank"><img src="images/tvs.png" /></a>
-        </div>
-    </div>
+    <x-website.ads />
 </x-website-layout>

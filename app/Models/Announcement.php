@@ -28,7 +28,12 @@ class Announcement extends Model
     {
         return ucfirst(Carbon::parse($this->published_at)->translatedFormat('l, d/m/Y'));
     }
-
+    protected function publishedPostDate(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->published_at->translatedFormat('d/m/Y'),
+        );
+    }
     protected function updatedAtVi(): Attribute
     {
         return Attribute::make(

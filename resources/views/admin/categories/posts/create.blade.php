@@ -29,31 +29,25 @@
                             <div class="space-y-4">
                                 <input type="hidden" name="category_id" value="{{ $category->id }}">
 
-
-                                <label class="form-control w-full">
-                                    <div class="label">
-                                        <span
-                                            class="label-text text-base text-black font-medium">@lang('admin.post.title')</span>
+                                <div class="grid grid-cols-4 gap-2">
+                                    <label class=" md:col-span-3">
+                                        <div class="label">
+                                            <span class="label-text text-base text-black font-medium">
+                                                @lang('admin.post.title')
+                                            </span>
+                                        </div>
+                                        <input type="text" name="title" placeholder="Type here"
+                                            value="{{ old('title') }}"
+                                            class="border border-gray-300 bg-white text-black p-2 rounded-md w-full @error('title') input-error @enderror" />
+                                        @error('title')
+                                            <div class="text-red-500 text-sm">{{ $message }}</div>
+                                        @enderror
+                                    </label>
+                                    <div class="flex">
+                                        <x-admin.forms.calendar />
                                     </div>
-                                    <input type="text" name="title" placeholder="Type here"
-                                        value="{{ old('title') }}" @class([
-                                            'border',
-                                            'border-gray-300',
-                                            'bg-white',
-                                            'text-black',
-                                            'p-2',
-                                            'rounded-md',
-                                            'input-error' => $errors->has('title'),
-                                            'w-full',
-                                        ]) />
-                                    @if ($errors->has('title'))
-                                        <div class="text-red-500 text-sm">{{ $errors->first('title') }}</div>
-                                    @endif
-
-                                </label>
-                                <div class="flex">
-                                    <x-admin.forms.calendar />
                                 </div>
+
                                 <label class="form-control w-full">
                                     <div class="label">
                                         <span

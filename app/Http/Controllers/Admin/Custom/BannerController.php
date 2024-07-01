@@ -74,6 +74,7 @@ class BannerController extends Controller
         $banner->update($data);
         if ($request->hasFile('image')) {
             $imageFile = $request->file('image');
+            $banner->clearMediaCollection('banner_image');
             $banner->addMedia($imageFile->getRealPath())
                 ->usingFileName($imageFile->getClientOriginalName())
                 ->usingName($imageFile->getClientOriginalName())

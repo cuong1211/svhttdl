@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin\Custom;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Custom\AddOnRequest;
 use Illuminate\Http\Request;
+use App\Models\addon;
 
 class AddOnController extends Controller
 {
@@ -12,7 +14,8 @@ class AddOnController extends Controller
      */
     public function index()
     {
-        //
+        $addon = addon::query()->latest()->paginate(10);
+        return view('admin.custom.addon.index', ['addon' => $addon]);
     }
 
     /**
@@ -20,15 +23,28 @@ class AddOnController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.custom.addon.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AddOnRequest $request)
     {
-        //
+        $data = $request->validated();
+        $addon = addon::create($data);
+        if ($request->hasFile('image')) {
+            $imageFile = $request->file('image');
+            $addon->addMedia($imageFile->getRealPath())
+                ->usingFileName($imageFile->getClientOriginalName())
+                ->usingName($imageFile->getClientOriginalName())
+                ->toMediaCollection('addon_image');
+        }
+        return redirect()->route('admin.addons.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Thêm mới addon thành công',
+        ]);
     }
 
     /**
@@ -44,15 +60,30 @@ class AddOnController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('admin.custom.addon.edit', ['addons' => addon::findOrFail($id)]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(AddOnRequest $request, string $id)
     {
-        //
+        $data = $request->validated();
+        $addon = addon::findOrFail($id);
+        $addon->update($data);
+        if ($request->hasFile('image')) {
+            $imageFile = $request->file('image');
+            $addon->clearMediaCollection('addon_image');
+            $addon->addMedia($imageFile->getRealPath())
+                ->usingFileName($imageFile->getClientOriginalName())
+                ->usingName($imageFile->getClientOriginalName())
+                ->toMediaCollection('addon_image');
+        }
+        return redirect()->route('admin.addons.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Cập nhật addon thành công',
+        ]);
     }
 
     /**
@@ -60,6 +91,11 @@ class AddOnController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        addon::findOrFail($id)->delete();
+        return redirect()->route('admin.addons.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Xóa addon thành công',
+        ]);
     }
 }

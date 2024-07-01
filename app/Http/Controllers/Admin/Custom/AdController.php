@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin\Custom;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Custom\AdsRequest;
+use App\Models\ads;
 use Illuminate\Http\Request;
 
 class AdController extends Controller
@@ -12,7 +14,8 @@ class AdController extends Controller
      */
     public function index()
     {
-        //
+        $ads = ads::query()->latest()->paginate(10);
+        return view('admin.custom.ads.index', ['ads' => $ads]);
     }
 
     /**
@@ -20,15 +23,28 @@ class AdController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.custom.ads.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AdsRequest $request)
     {
-        //
+        $data = $request->validated();
+        $ads = ads::create($data);
+        if ($request->hasFile('image')) {
+            $imageFile = $request->file('image');
+            $ads->addMedia($imageFile->getRealPath())
+                ->usingFileName($imageFile->getClientOriginalName())
+                ->usingName($imageFile->getClientOriginalName())
+                ->toMediaCollection('ads_image');
+        }
+        return redirect()->route('admin.ads.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Thêm mới ads thành công',
+        ]);
     }
 
     /**
@@ -36,7 +52,6 @@ class AdController extends Controller
      */
     public function show(string $id)
     {
-        //
     }
 
     /**
@@ -44,15 +59,30 @@ class AdController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('admin.custom.ads.edit', ['ads' => ads::findOrFail($id)]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(AdsRequest $request, string $id)
     {
-        //
+        $data = $request->validated();
+        $ads = ads::findOrFail($id);
+        $ads->update($data);
+        if ($request->hasFile('image')) {
+            $imageFile = $request->file('image');
+            $ads->clearMediaCollection('ads_image');
+            $ads->addMedia($imageFile->getRealPath())
+                ->usingFileName($imageFile->getClientOriginalName())
+                ->usingName($imageFile->getClientOriginalName())
+                ->toMediaCollection('ads_image');
+        }
+        return redirect()->route('admin.ads.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Cập nhật ads thành công',
+        ]);
     }
 
     /**
@@ -60,6 +90,11 @@ class AdController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        ads::findOrFail($id)->delete();
+        return redirect()->route('admin.ads.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Xóa ads thành công',
+        ]);
     }
 }

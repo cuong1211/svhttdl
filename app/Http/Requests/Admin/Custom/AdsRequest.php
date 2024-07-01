@@ -11,7 +11,7 @@ class AdsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,38 @@ class AdsRequest extends FormRequest
      */
     public function rules(): array
     {
+        $arr = explode('@', $this->route()->getActionName());
+        $action = $arr[1];
+        switch ($action) {
+            case 'store': {
+                    return [
+                        'title' => 'required',
+                        'order' => 'nullable',
+                        'url' => 'required',
+                        'image' => 'required',
+                    
+                    ];
+                }
+            case 'update': {
+                    return [
+                        'title' => 'required',
+                        'order' => 'nullable',
+                        'url' => 'required',
+                        'image' => 'nullable',
+                    ];
+                }
+            default:
+                break;
+        }
+    }
+    public function messages()
+    {
         return [
-            //
+            'title.required' => 'Tiêu đề không được để trống',
+            'order.required' => 'Thứ tự không được để trống',
+            'url.required' => 'Đường dẫn không được để trống',
+            'image.required' => 'Hình ảnh không được để trống',
+
         ];
     }
 }

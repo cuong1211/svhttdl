@@ -11,6 +11,11 @@ class Announcement extends Component
 {
     public function render(): View|Closure|string
     {
+        // dd(AnnouncementModel::query()
+        //     ->published()
+        //     ->orderByDesc('published_at')
+        //     ->take(10)
+        //     ->get());
         return view('components.website.announcement', [
             'announcements' => AnnouncementModel::query()
                 ->published()

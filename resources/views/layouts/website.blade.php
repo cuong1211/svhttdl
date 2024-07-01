@@ -23,9 +23,9 @@
 
     <link rel="icon" href="images/science-symbol.ico" type="image/x-icon">
     <link rel="shortcut icon" href="images/science-symbol.ico" type="image/x-icon">
-    <link rel="stylesheet" href="../cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="mix/appaa4caa4c.css?id=aca541bc3119d366502f">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRbbI-IH80_-AgZbiq1lKAkcOoavIWTEc"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <style>
         #table_articles {
@@ -297,107 +297,9 @@
                     </div>
                 </div>
 
-                <div class="notification-box">
-                    <div class="notification-header" style="text-align: center;">
-                        <a href="index788c.html?com=video">VIDEO</a>
-                    </div>
-                    <div>
-                        <iframe src="https://drive.google.com/file/d/1FAmbegjkoxRpFnu-j4c7D0XkgtL3NZDJ/preview"
-                            width="100%" height="auto" allowfullscreen="true"></iframe>
-                    </div>
-                </div>
-                <div>
-                    <div class="notification-box">
-                        <div class="notification-header">
-                            <svg xmlns="http://www.w3.org/2000/svg" style="color:#ddd;" width="20"
-                                fill="#fff" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                            </svg>
-                            <a href="indexe13f.html?com=thong-bao">THÔNG BÁO MỚI</a>
-                        </div>
-                        <div class="notification-body">
-                            <ul id="notification">
-                                <li><a href="index2527.html?com=thongbao_ct&amp;id_tb=46">Thông báo Về việc phát động
-                                        Cuộc thi Ảnh đẹp Du lịch Bắc Kạn năm 2024</a>
-                                </li>
-                                <li><a href="indexfe02.html?com=thongbao_ct&amp;id_tb=45">Thông báo về việc thuê môi
-                                        trường rừng để kinh doanh du lịch trong Khu Bảo tồn loài - sinh cảnh Nam Xuân
-                                        Lạc</a>
-                                </li>
-                                <li><a href="index3458.html?com=thongbao_ct&amp;id_tb=44">Kế hoạch công tác năm 2024 -
-                                        Thư viện tỉnh Bắc Kạn</a>
-                                </li>
-                                <li><a href="index8003.html?com=thongbao_ct&amp;id_tb=43">Kế hoạch công tác năm 2024 -
-                                        TT Huấn luyện thi đấu TDTT</a>
-                                </li>
-                                <li><a href="index38a0.html?com=thongbao_ct&amp;id_tb=42">Thông báo tuyển dụng viên
-                                        chức, chỉ tiêu năm 2023</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="reception-btn" style="margin-bottom: 5px;">
-                    <a href="index1d06.html?com=gopy-duthao">
-                        <img style="width:100%;" src="upload/images/lien_ket_linnk/duthao.png" alt="">
-                    </a>
-                </div>
-                <div id="reception-btn" style="margin-bottom: 5px;">
-                    <a href="https://hscvsovh.backan.gov.vn/sovhttdl/qlvb/lichct.nsf">
-                        <img style="width:100%;" src="upload/images/lien_ket_linnk/lich_ct.png" alt="">
-                    </a>
-                </div>
-                <div id="reception-btn" style="margin-bottom: 5px;">
-                    <a
-                        href="https://mail.backan.gov.vn/owa/auth/logon.aspx?replaceCurrent=1&amp;url=https%3a%2f%2fmail.backan.gov.vn%2fowa%2f">
-                        <img style="width:100%;" src="upload/images/lien_ket_linnk/hom_thu.png" alt="">
-                    </a>
-                </div>
-                <div id="reception-btn" style="margin-bottom: 5px;">
-                    <a href="indexe610.html?com=lien-he">
-                        <img style="width:100%;" src="upload/images/lien_ket_linnk/duong_day_nong.png"
-                            alt="">
-                    </a>
-                </div>
-                <div id="reception-btn" style="margin-bottom: 5px;">
-                    <a href="index95f5.html?com=danhmuc_tin&amp;id_category=10">
-                        <img style="width:100%;" src="upload/images/lien_ket_linnk/tt_hc.png" alt="">
-                    </a>
-                </div>
-                <div id="reception-btn" style="margin-bottom: 5px;">
-                    <a href="index62ce.html?com=danhmuc_tin&amp;id_category=25">
-                        <img style="width:100%;" src="upload/images/lien_ket_linnk/cong_khai.png" alt="">
-                    </a>
-                </div>
-                <div id="reception-btn" style="margin-bottom: 5px;">
-                    <a href="index56c7.html?com=danhmuc_tin&amp;id_category=22">
-                        <img style="width:100%;" src="upload/images/lien_ket_linnk/hoatdong_doanthe.png"
-                            alt="">
-                    </a>
-                </div>
-                <div id="reception-btn" style="margin-bottom: 5px;">
-                    <a href="index4a48.html?com=danhmuc_tin&amp;id_category=21">
-                        <img style="width:100%;" src="upload/images/lien_ket_linnk/phobien_phapluat.png"
-                            alt="">
-                    </a>
-                </div>
-                <div id="reception-btn" style="margin-bottom: 5px;">
-                    <a href="index93d0.html?com=galery">
-                        <img style="width:100%;" src="upload/images/lien_ket_linnk/tv_anh.png" alt="">
-                    </a>
-                </div>
-                <div id="reception-btn" style="margin-bottom: 5px;">
-                    <a href="indexa1ec.html?com=danhmuc_tin&amp;id_category=26">
-                        <img style="width:100%;" src="upload/images/chuyendoiso.png" alt="">
-                    </a>
-                </div>
-                <div id="reception-btn" style="margin-bottom: 5px;">
-                    <a href="#">
-                        <img style="width:100%;" src="#" alt="">
-                    </a>
-                </div>
+                <x-website.video />
+                <x-website.announcement />
+                <x-website.addon />
             </div>
 
         </div>

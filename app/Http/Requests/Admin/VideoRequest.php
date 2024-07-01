@@ -18,6 +18,7 @@ class VideoRequest extends FormRequest
             'name' => 'required|string|max:255',
             'video_id' => 'required|string',
             'source' => 'required|max:2048',
+            'is_active' => 'required|boolean',
         ];
     }
 

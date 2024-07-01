@@ -76,9 +76,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-span-8 hidden space-y-3 md:col-span-2 lg:block">
-                    <x-website.announcement />
-                </div>
             </div>
         </div>
     </section>
