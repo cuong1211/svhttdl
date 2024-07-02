@@ -21,7 +21,7 @@
                                     <label class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md items-center gap-2 flex"
                                         style="border: 1px solid black;">
                                         <input name="search" type="text" class="grow"
-                                            placeholder="Tìm kiếm theo tên" style="border: unset; color:black"; color:black"
+                                            placeholder="Tìm kiếm theo tiêu đề" style="border: unset; color:black"
                                             value="{{ request()->search }}" />
                                         <button type="submit">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"

@@ -126,7 +126,7 @@
                             <a href="{{ route('admin.videos.index') }}" class="btn-light btn">
                                 @lang('admin.btn.cancel')
                             </a>
-                            <button type="submit" class="btn btn-success ml-2">
+                            <button type="submit" class="btn bg-blue-700 ml-2 text-white">
                                 @lang('admin.btn.submit')
                             </button>
                         </div>

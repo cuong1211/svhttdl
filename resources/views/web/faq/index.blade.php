@@ -30,7 +30,7 @@
 
     </div>
     <div class="col-lg-12">
-        <a href="{{route('faq.create')}}" class="btn btn-primary" style="float: right; ">Đặt câu
+        <a href="{{ route('faq.create') }}" class="btn btn-primary" style="float: right; ">Đặt câu
             hỏi</a>
     </div>
     <div class="col-lg-12">
@@ -51,21 +51,19 @@
                                 style="width: 100%; text-align: center;">
 
                                 <tbody>
-                                    <tr style="color: #333333; ">
-                                        <td style="text-align: left; margin-left: 10px;">
-                                            <a href="index.php?com=chitiet-ch&amp;id_cauhoi=1"
-                                                style="text-decoration: none;"><span
-                                                    style="color: #1E4283; font-size: 15px;"><b>Hỏi về nhân sự phòng X
-                                                        quang chẩn đoán răng hàm mặt</b></span></a><br>
-                                            <span style="text-align: justify;">Xin hỏi để thành lập phòng Xquang nha
-                                                khoa, ngoài các tiêu chuẩn về cơ sở vật chất thì tiêu chuẩn về nhân sự
-                                                cần gì ạ?một bác sĩ răng hàm mặt có chứng chỉ an toàn bức xạ 2 nội dung
-                                                thì có đủ đứng phòng xquang chưa?</span><br>
-                                            <span style="float: right;">Vũ Hồng Quân (quanvu797@gmail.com) - Thái
-                                                Nguyên</span>
+                                    @foreach ($faqs as $item)
+                                        <tr style="color: #333333; ">
+                                            <td style="text-align: left; margin-left: 10px;">
+                                                <a href="{{ route('faq.show', ['faq' => $item->id]) }}"
+                                                    style="text-decoration: none;"><span
+                                                        style="color: #1E4283; font-size: 15px;"><b>{{ $item->title }}</b></span></a><br>
+                                                <span style="text-align: justify;">{!! $item->question !!}</span><br>
+                                                <span style="float: right;">{{ $item->name }} ({{ $item->email }}) -
+                                                    {{ $item->address }}</span>
 
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

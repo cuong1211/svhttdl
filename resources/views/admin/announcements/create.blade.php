@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="p-6">
         <div class="text-gray-800 text-normal font-semibold leading-tight">
-            <span class="text-gray-800 text-normal flex items-center gap-2 font-semibold leading-tight">
+            <span class="text-gray-800 text-normal flex items-center gap-2 font-semibold leading-tight text-black">
                 @lang('admin.announcements')
                 <x-heroicon-m-arrow-small-right class="size-4" />
                 @lang('admin.add')
@@ -51,9 +51,9 @@
                         </label>
 
                         <div class="flex justify-end gap-4">
-                            <a href="{{ route('admin.announcements.index') }}" class="btn-light btn">@lang('admin.btn.cancel')
+                            <a href="{{ route('admin.announcements.index') }}" class="btn text-white">@lang('admin.btn.cancel')
                             </a>
-                            <button type="submit" class="btn btn-success ml-2">
+                            <button type="submit" class="btn bg-blue-700 ml-2 text-white">
                                 @lang('admin.btn.submit')
                             </button>
                         </div>

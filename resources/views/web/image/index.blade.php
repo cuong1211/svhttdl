@@ -11,25 +11,22 @@
             @foreach ($albums as $albums)
                 <div class="du_an_galery_top">
                     <div class="hinh_anh_galery">
-                        <a href="{{route('image.show', ['album' => $albums->id])}}"
-                            title="{{$albums->name}}"><img
-                                src="{{$albums->getFirstMedia('album_thumb')->getUrl('') }}">
+                        <a href="{{ route('image.show', ['album' => $albums->id]) }}" title="{{ $albums->name }}"><img
+                                src="{{ $albums->getFirstMedia('album_thumb')->getUrl('') }}">
                         </a>
-                    </div><a href="{{route('image.show', ['album' => $albums->id])}}"
-                        title="{{$albums->name}}">
+                    </div><a href="{{ route('image.show', ['album' => $albums->id]) }}" title="{{ $albums->name }}">
                     </a>
-                    <div class="tieu_de_galery_"><a href="{{route('image.show', ['album' => $albums->id])}}"
-                            title="{{$albums->name}}">
+                    <div class="tieu_de_galery_"><a href="{{ route('image.show', ['album' => $albums->id]) }}"
+                            title="{{ $albums->name }}">
                         </a>
                         <h4
                             style="color: #fdc215; font-size: 14px; text-align: center; font-weight: bold; margin-top: 7px; overflow: ;  white-space: wrap; text-overflow: ellipsis;">
-                            <a href="{{route('image.show', ['album' => $albums->id])}}"
-                                title="{{$albums->name}}"><b
+                            <a href="{{ route('image.show', ['album' => $albums->id]) }}" title="{{ $albums->name }}"><b
                                     style="color: #06009e;">Tên Album: </b></a>
-                            <p class="content"><a href="{{route('image.show', ['album' => $albums->id])}}"
-                                    title="{{$albums->name}}"></a><a
-                                    href="{{route('image.show', ['album' => $albums->id])}}"
-                                    title="{{$albums->name}}">{{$albums->name}}</a></p>
+                            <p class="content"><a href="{{ route('image.show', ['album' => $albums->id]) }}"
+                                    title="{{ $albums->name }}"></a><a
+                                    href="{{ route('image.show', ['album' => $albums->id]) }}"
+                                    title="{{ $albums->name }}">{{ $albums->name }}</a></p>
                         </h4>
                     </div>
                     <div class="du_an_galery_bottom">

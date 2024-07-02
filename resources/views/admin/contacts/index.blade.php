@@ -21,7 +21,7 @@
                                             name="search"
                                             type="text"
                                             class="grow"
-                                            placeholder="Search by name"
+                                            placeholder="Tìm kiếm theo tiêu đề"
                                             style="border: unset; color:black""
                                             value="{{ request()->search }}"
                                         />

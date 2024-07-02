@@ -109,7 +109,7 @@
 
                                 <div class="flex justify-end gap-4">
                                     <a href="{{ route('admin.categories.posts.index', $category->slug) }}"
-                                        class="btn-light btn">@lang('admin.btn.cancel')</a>
+                                        class="btn-light btn text-white">@lang('admin.btn.cancel')</a>
                                     <button type="submit" class="btn btn-success ml-2">
                                         @lang('admin.btn.submit')
                                     </button>

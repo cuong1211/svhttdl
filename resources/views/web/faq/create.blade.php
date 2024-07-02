@@ -126,11 +126,12 @@
             <div id="demo1" class="collapse">
                 <div id="lienhe">
                     <div class="form">
-                        <form method="post" name="contact" action="#">
+                        <form method="post" action="{{route('faq.store')}}">
+                            @csrf
                             <div class="top-form">
                                 <div class="inner-form">
                                     <div class="label" style="color:#000; font-size: 12px;">Họ và tên (*)</div>
-                                    <input style="height: 20px;" type="text" name="ten_nghoi" required=""
+                                    <input style="height: 20px;" type="text" name="name" required=""
                                         placeholder="Nguyễn Văn An">
                                 </div>
                                 <div class="inner-form">
@@ -140,28 +141,28 @@
                                 </div>
                                 <div class="inner-form">
                                     <div class="label" style="color:#000; font-size: 12px;">Điện thoại</div>
-                                    <input style="height: 20px;" type="text" name="sdt" placeholder="1234567890">
+                                    <input style="height: 20px;" type="text" name="phone" placeholder="1234567890">
                                 </div>
                             </div>
                             <div class="top-form">
                                 <div class="inner-form">
                                     <div class="label" style="color:#000; font-size: 12px;">Địa chỉ </div>
-                                    <input style="height: 20px;" type="text" name="dia_chi">
+                                    <input style="height: 20px;" type="text" name="address">
                                 </div>
                             </div>
                             <div class="middle-form">
                                 <div class="inner-form">
                                     <div class="label" style="color:#000; font-size: 12px;">Tiêu đề (*)</div>
-                                    <input style="width: 98%;" type="text" name="ten_cauhoi" required="">
+                                    <input style="width: 98%;" type="text" name="title" required="">
                                 </div>
                             </div>
                             <div class="bottom-form" style="margin-left: 10px;">
                                 <div class="inner-form">
                                     <div class="label" style="color:#000; font-size: 12px;">Nội dung (*)</div>
-                                    <textarea id="text" name="noi_dung" required=""></textarea>
+                                    <textarea id="text" name="question" required=""></textarea>
                                 </div>
                             </div>
-                            <input type="submit" value="Gửi câu hỏi" name="submit" class="btn1 blue">
+                            <input type="submit" value="Gửi câu hỏi" class="btn1 blue">
                         </form>
                         <br>
                         <br>

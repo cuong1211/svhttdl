@@ -31,8 +31,12 @@ route::get('/image', [ImageController::class, 'index'])->name('image.index');
 route::get('/image/{album:id}', [ImageController::class, 'show'])->name('image.show');
 route::get('/faq', [FaqController::class, 'index'])->name('faq.index');
 route::get('/faq/create', [FaqController::class, 'create'])->name('faq.create');
+route::post('/faq/store', [FaqController::class, 'store'])->name('faq.store');
 route::get('/faq/{faq:id}', [FaqController::class, 'show'])->name('faq.show');
+route::get('/faq/done/success', [FaqController::class, 'success'])->name('faq.success');
 route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
+route::get('/contact/done/success', [ContactController::class, 'success'])->name('contact.success');
 Route::get('/danh-muc/{category:slug}', [NewsController::class, 'index'])->name('news.index');
 Route::get('/danh-muc/{parentSlug}/{slug}', [NewsController::class, 'getChild'])->name('news.child');
 

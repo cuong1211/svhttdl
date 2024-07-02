@@ -122,50 +122,11 @@
         <div class="panel panel-primary">
             <div id="demo1" class="collapse">
                 <div id="lienhe">
-                    <div style="font-size: 16px; text-align: center">
-                        <h2>SỞ VĂN HÓA, THỂ THAO & DU LỊCH TỈNH BẮC KẠN</h2>
-                        <strong>Địa chỉ: </strong> Tổ 7, phường Nguyễn Thị Minh Khai, thành phố Bắc Kạn, tỉnh Bắc Kạn <br>
-                        <strong>Điện thoại: </strong>0209.3872.652; <br>
-                        <strong>Email: </strong>svhttdl@backan.gov.vn
-                    </div>
                     <div style="text-align: center; font-size: 20px; color: #0013C8; padding-top:10px; ">
-                        <h2 style="font-weight: bold; font-family: Times New Roman;">LIÊN HỆ </h2>
-                    </div>
-                    <div class="form">
-                        <form method="post" action="{{ route('contact.store') }}">
-                            @csrf
-                            <div class="top-form">
-                                <div class="inner-form">
-                                    <div class="label" style="color:#000; font-size: 12px;">Họ và tên (*)</div>
-                                    <input style="height: 20px;" type="text" name="name" required=""
-                                        placeholder="Nguyễn Văn An">
-                                </div>
-                                <div class="inner-form">
-                                    <div class="label" style="color:#000; font-size: 12px;">Email (*)</div>
-                                    <input style="height: 20px;" type="text" name="email"
-                                        placeholder="vanan@gmail.com">
-                                </div>
-                                <div class="inner-form">
-                                    <div class="label" style="color:#000; font-size: 12px;">Điện thoại</div>
-                                    <input style="height: 20px;" type="text" name="phone" placeholder="1234567890">
-                                </div>
-                            </div>
-                            <div class="middle-form">
-                                <div class="inner-form">
-                                    <div class="label" style="color:#000; font-size: 12px;">Tiêu đề (*)</div>
-                                    <input style="width: 98%;" type="text" name="title" required="">
-                                </div>
-                            </div>
-                            <div class="bottom-form" style="margin-left: 10px;">
-                                <div class="inner-form">
-                                    <div class="label" style="color:#000; font-size: 12px;">Nội dung (*)</div>
-                                    <textarea id="text" name="content" required=""></textarea>
-                                </div>
-                            </div>
-                            <input type="submit" value="Gửi liên hệ" class="btn1 blue">
-                        </form>
-                        <br>
-                        <br>
+                        <h2 style="font-weight: bold; font-family: Times New Roman;">Câu hỏi của bạn đã được gửi thành
+                            công</h2>
+                        <a style="font-weight: bold; font-family: Times New Roman; color; white"
+                            href="{{ route('faq.index') }}">Quay lại trang hỏi đáp</a>
                     </div>
                 </div>
             </div>
