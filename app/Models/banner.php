@@ -43,7 +43,7 @@ class banner extends Model implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('featured_image')
+        $this->addMediaCollection('banner_image')
             ->singleFile()
             ->useDisk('banner');
     }

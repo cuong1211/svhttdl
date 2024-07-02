@@ -10,7 +10,7 @@
         <div class="mt-6">
             <div class="overflow-hidden bg-white p-6 sm:rounded-lg">
                 <form action="{{ route('admin.albums.update', ['album' => $album->id]) }}" method="POST"
-                    class="space-y-4 needs-validation" novalidate>
+                    class="space-y-4 needs-validation" novalidate enctype="multipart/form-data">
                     @csrf
                     @method('patch')
                     <label class="form-control w-full">
@@ -29,49 +29,59 @@
                                 'w-full',
                             ]) />
                     </label>
-                    <label class="form-control w-full">
-                        <div class="label">
-                            <span class="label-text text-base text-black font-medium">@lang('admin.albums.type')</span>
+                    <div class="grid grid-cols-2">
+                        <div class="flex items-center space-x-6">
+                            <label class="form-control w-full">
+                                <div class="label" for="tags">
+                                    <span class="label-text text-base text-black font-medium">Hình ảnh</span>
+                                </div>
+                                <div
+                                    class="input border border-gray-300 bg-white text-black p-2 rounded-md flex items-center gap-2 px-3 py-2">
+                                    File:
+                                    <span id="selected_file_name">
+                                        @if ($album->getFirstMedia('album_thumb'))
+                                            {{ $album->getFirstMedia('album_thumb')->name }}
+                                        @else
+                                        @endif
+                                    </span>
+                                </div>
+                                <span class="sr-only">Chọn hình ảnh</span>
+                                <input type="file" name="image" onchange="loadFile(event)" placeholder="Chọn"
+                                    class="file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 block w-full text-sm text-slate-500 file:mr-4 file:rounded-full file:border-0 file:px-4 file:py-2 file:text-sm file:font-semibold" />
+                            </label>
+                            </label>
                         </div>
-                        <select name="type" required @class([
-                            'input',
-                            'input-bordered',
-                            'input-error' => $errors->has('type'),
-                            'w-full',
-                        ])>
-                            @foreach (App\Enums\AlbumTypeEnum::cases() as $type)
-                                <option value="{{ $type->value }}" {{ $album->type == $type ? 'selected' : '' }}>
-                                    @lang('admin.' . $type->value)
-                                </option>
-                            @endforeach
-                        </select>
-                    </label>
-                    <div class="flex items-center space-x-6">
-                        <label class="form-control w-full">
-                            <div class="label" for="tags">
-                                <span class="label-text text-base text-black font-medium">Hình ảnh</span>
+                        <label class="form-control w-50">
+                            <div class="label">
+                                <span class="label-text text-base text-black font-medium">@lang('admin.albums.type')</span>
                             </div>
-                            <div
-                                class="input border border-gray-300 bg-white text-black p-2 rounded-md flex items-center gap-2 px-3 py-2">
-                                File:
-                                <span id="selected_file_name">{{ $album->getFirstMedia('album_thumb')->name }}</span>
-                            </div>
-                            <span class="sr-only">Chọn hình ảnh</span>
-                            <input type="file" name="image" onchange="loadFile(event)"
-                                class="file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 block w-full text-sm text-slate-500 file:mr-4 file:rounded-full file:border-0 file:px-4 file:py-2 file:text-sm file:font-semibold" />
-                        </label>
+                            <select name="type" required @class([
+                                'border',
+                                'border-gray-300',
+                                'bg-white',
+                                'text-black',
+                                'p-2',
+                                'rounded-md',
+                                'input-error' => $errors->has('type'),
+                                'w-full',
+                            ])>
+                                @foreach (App\Enums\AlbumTypeEnum::cases() as $type)
+                                    <option value="{{ $type->value }}" {{ $album->type == $type ? 'selected' : '' }}>
+                                        @lang('admin.' . $type->value)
+                                    </option>
+                                @endforeach
+                            </select>
                         </label>
                     </div>
                     <div class="shrink-0">
-                        <img id="preview_img" class="h-32 w-64 object-cover rounded"
-                            src="{{ $album->getFirstMedia('album_thumb')->getUrl('') }}"
-                            alt="{{ $album->getFirstMedia('album_thumb')->name }}" />
-                    </div>
-                    <div class="flex justify-end gap-4">
-                        <a href="{{ route('admin.addons.index') }}" class="btn-light btn">@lang('admin.btn.cancel')</a>
-                        <button type="submit" class="btn btn-success ml-2">
-                            @lang('admin.btn.submit')
-                        </button>
+                        @if ($album->getFirstMedia('album_thumb'))
+                            <img id="preview_img" class="h-32 w-64 object-cover rounded"
+                                src="{{ $album->getFirstMedia('album_thumb')->getUrl('') }}"
+                                alt="{{ $album->getFirstMedia('album_thumb')->name }}" />
+                        @else
+                            <img id="preview_img" class="h-32 w-64 object-cover rounded" src="" alt=""
+                                style="display:none" />
+                        @endif
                     </div>
                     <div class="flex justify-end gap-4">
                         <a href="{{ route('admin.albums.index') }}" class="btn-light btn">@lang('admin.btn.cancel')

@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="mix/appaa4caa4c.css?id=aca541bc3119d366502f">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRbbI-IH80_-AgZbiq1lKAkcOoavIWTEc"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    @stack('styles')
 
     <style>
         #table_articles {

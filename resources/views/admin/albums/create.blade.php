@@ -20,7 +20,7 @@
                     </div>
                 @endif
                 <form action="{{ route('admin.albums.store') }}" method="POST" class="space-y-4 needs-validation"
-                    novalidate>
+                    novalidate enctype="multipart/form-data">
                     @csrf
                     <label class="form-control w-full">
                         <div class="label">
@@ -37,43 +37,46 @@
                             'w-full',
                         ]) />
                     </label>
-                    <label class="form-control w-full">
-                        <div class="label">
-                            <span class="label-text text-base text-black font-medium">@lang('admin.albums.type')</span>
+                    <div class="grid grid-cols-2">
+                        <div class="flex items-center space-x-6">
+                            <label class="form-control w-20">
+                                <div class="label" for="tags">
+                                    <span class="label-text text-base text-black font-medium">Hình ảnh</span>
+                                </div>
+                                <span class="sr-only">Chọn ảnh đại diện</span>
+                                <input type="file" name="image" onchange="loadFile(event)"
+                                    class="file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 block w-full text-sm text-slate-500 file:mr-4 file:rounded-full file:border-0 file:px-4 file:py-2 file:text-sm file:font-semibold" />
+                            </label>
                         </div>
-                        <select name="type" required @class([
-                            'border',
-                            'border-gray-300',
-                            'bg-white',
-                            'text-black',
-                            'p-2',
-                            'rounded-md',
-                            'input-error' => $errors->has('type'),
-                            'w-full',
-                        ])>
-                            <option value="">@lang('admin.select')</option>
-                            @foreach (App\Enums\AlbumTypeEnum::cases() as $type)
-                                <option @selected($type->value == old('type')) value="{{ $type->value }}">
-                                    @lang('admin.' . $type->value)
-                                </option>
-                            @endforeach
-                        </select>
-                    </label>
-                    <div class="flex items-center space-x-6">
-                        <label class="form-control w-20">
-                            <div class="label" for="tags">
-                                <span class="label-text text-base text-black font-medium">Hình ảnh</span>
+                        <label class="form-control w-full">
+                            <div class="label">
+                                <span class="label-text text-base text-black font-medium">@lang('admin.albums.type')</span>
                             </div>
-                            <span class="sr-only">Chọn ảnh đại diện</span>
-                            <input type="file" name="image" onchange="loadFile(event)"
-                                class="file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 block w-full text-sm text-slate-500 file:mr-4 file:rounded-full file:border-0 file:px-4 file:py-2 file:text-sm file:font-semibold" />
+                            <select name="type" required @class([
+                                'border',
+                                'border-gray-300',
+                                'bg-white',
+                                'text-black',
+                                'p-2',
+                                'rounded-md',
+                                'input-error' => $errors->has('type'),
+                                'w-full',
+                            ])>
+                                <option value="">@lang('admin.select')</option>
+                                @foreach (App\Enums\AlbumTypeEnum::cases() as $type)
+                                    <option @selected($type->value == old('type')) value="{{ $type->value }}">
+                                        @lang('admin.' . $type->value)
+                                    </option>
+                                @endforeach
+                            </select>
                         </label>
                     </div>
-                    <div class="shrink-0" >
-                        <img id="preview_img" class="h-40 w-72 object-cover rounded" src="" alt="" style="display:none"/>
+                    <div class="shrink-0">
+                        <img id="preview_img" class="h-40 w-72 object-cover rounded" src="" alt=""
+                            style="display:none" />
                     </div>
                     <div class="flex justify-end gap-4">
-                        <a href="{{ route('admin.albums.index') }}" class="btn-light btn" >
+                        <a href="{{ route('admin.albums.index') }}" class="btn-light btn">
                             @lang('admin.btn.cancel')
                         </a>
                         <button type="submit" class="btn btn-success ml-2">
@@ -86,10 +89,6 @@
     </div>
     </div>
     @pushonce('bottom_scripts')
-        <x-admin.forms.tinymce-config column="content" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" />
-        <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.min.js"></script>
-
         <script>
             var loadFile = function(event) {
                 document.getElementById('preview_img').style.display = 'block'

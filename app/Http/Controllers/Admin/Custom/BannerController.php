@@ -31,7 +31,7 @@ class BannerController extends Controller
      */
     public function store(BannerRequest $request)
     {
-        // dd($request->all());
+        dd($request->all());
         $data = $request->validated();
         $banner = banner::create($data);
         if ($request->hasFile('image')) {

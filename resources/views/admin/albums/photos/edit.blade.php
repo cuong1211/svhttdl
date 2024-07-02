@@ -59,7 +59,7 @@
                         <div class="flex items-center space-x-6">
                             <div class="shrink-0">
                                 <img id="preview_img" class="h-16 w-16 rounded-full object-cover"
-                                    src="{{ $photo->getFirstMedia('album_photo')->getUrl('thumb') }}"
+                                    src="{{ $photo->getFirstMedia('album_photo')->getUrl('') }}"
                                     alt="{{ $photo->getFirstMedia('album_photo')->name }}" />
                             </div>
                             <label class="block">

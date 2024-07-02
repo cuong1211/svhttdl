@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\AlbumRequest;
 use App\Models\Album;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -31,17 +32,14 @@ class AlbumController extends Controller
         return view('admin.albums.create');
     }
 
-    public function store(Request $request)
+    public function store(AlbumRequest $request)
     {
-        dd($request->all());
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'type' => 'required',
-        ]);
+        // dd($request->all());
+        $request->validated();
         $album = Album::create($request->all());
         if ($request->hasFile('image')) {
             $imageFile = $request->file('image');
-            dd($imageFile);
+            // dd($imageFile);
             $album->addMedia($imageFile->getRealPath())
                 ->usingFileName($imageFile->getClientOriginalName())
                 ->usingName($imageFile->getClientOriginalName())
@@ -62,7 +60,7 @@ class AlbumController extends Controller
             ]);
     }
 
-    public function update(Request $request, Album $album)
+    public function update(AlbumRequest $request, Album $album)
     {
         $request->validate([
             'name' => 'required|string|max:255',
