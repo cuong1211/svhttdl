@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="p-6">
-        <div class="text-gray-800 text-normal font-semibold leading-tight">
-            <span class="text-gray-800 text-normal flex items-center gap-2 font-semibold leading-tight">
+        <div class="text-black text-normal font-semibold leading-tight">
+            <span class="text-black text-normal flex items-center gap-2 font-semibold leading-tight">
                 @lang('admin.album')
                 <x-heroicon-m-arrow-small-right class="size-4" />
                 @lang('admin.create')
@@ -71,6 +71,7 @@
                             </select>
                         </label>
                     </div>
+                    {{-- duck --}}
                     <div class="shrink-0">
                         <img id="preview_img" class="h-40 w-72 object-cover rounded" src="" alt=""
                             style="display:none" />

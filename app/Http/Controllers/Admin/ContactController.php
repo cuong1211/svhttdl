@@ -32,7 +32,11 @@ class ContactController extends Controller
     {
         Contact::create($request->all());
 
-        return back();
+        return redirect()->route('admin.contacts.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Tạo liên hệ thành công',
+        ]);
     }
 
     /**
@@ -64,7 +68,7 @@ class ContactController extends Controller
         return redirect()->route('admin.contacts.index')->with([
             'icon' => 'success',
             'heading' => 'Success',
-            'message' => 'Update successfully',
+            'message' => 'Cập nhập liên hệ thành công',
         ]);
     }
 

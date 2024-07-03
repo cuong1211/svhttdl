@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="p-6">
-        <div class="text-gray-800 text-normal font-semibold leading-tight">
-            <span class="text-gray-800 text-normal flex items-center gap-2 font-semibold leading-tight">
+        <div class="text-black text-normal font-semibold leading-tight">
+            <span class="text-black text-normal flex items-center gap-2 font-semibold leading-tight">
                 @lang('admin.announcements')
             </span>
         </div>
@@ -21,8 +21,9 @@
                                     <label
                                         class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md flex items-center gap-2 "
                                         style="border: 1px solid black;">
-                                        <input name="search" type="text" class="grow" placeholder="Tìm kiếm theo tiêu đề"
-                                            style="border: unset; color:black" value="{{ request()->search }}" />
+                                        <input name="search" type="text" class="grow"
+                                            placeholder="Tìm kiếm theo tiêu đề" style="border: unset; color:black"
+                                            value="{{ request()->search }}" />
                                         <button type="submit">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
                                                 fill="currentColor" class="h-4 w-4 opacity-70">
@@ -74,12 +75,30 @@
                                                 <x-heroicon-o-trash class="size-4 text-red-500" />
                                             </button>
                                         </form>
-
+                                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                                         <script>
+                                            $(document).ready(function() {
+                                                setTimeout(function() {
+                                                    $(".alert").fadeOut(2000);
+                                                }, 3000); // thông báo sẽ ẩn sau 3 giây
+                                            });
+
                                             function confirmDelete(announcementId) {
-                                                if (confirm('Are you sure you want to delete this announcement?')) {
-                                                    document.getElementById('delete-form-' + announcementId).submit()
-                                                }
+                                                Swal.fire({
+                                                    title: 'Bạn có chắc chắn muốn xóa không?',
+                                                    text: "Dữ liệu bị xóa sẽ không thể khôi phục lại được!",
+                                                    icon: 'warning',
+                                                    showCancelButton: true,
+                                                    confirmButtonColor: '#3085d6',
+                                                    cancelButtonColor: '#d33',
+                                                    confirmButtonText: 'Có',
+                                                    cancelButtonText: 'Không'
+                                                }).then((result) => {
+                                                    if (result.isConfirmed) {
+                                                        $('#delete-form-' + announcementId).submit();
+                                                    }
+                                                })
                                             }
                                         </script>
                                     </td>

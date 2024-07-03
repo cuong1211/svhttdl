@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="p-6">
-        <div class="text-gray-800 text-normal font-semibold leading-tight">
-            <span class="text-gray-800 text-normal flex items-center gap-2 font-semibold leading-tight">
+        <div class="text-black text-normal font-semibold leading-tight">
+            <span class="text-black text-normal flex items-center gap-2 font-semibold leading-tight">
                 {{ app()->getLocale() === 'en' ? $category->title_en : $category->title }}
                 <x-heroicon-m-arrow-small-right class="size-4" />
                 @lang('admin.add')
@@ -29,8 +29,8 @@
                             <div class="space-y-4">
                                 <input type="hidden" name="category_id" value="{{ $category->id }}">
 
-                                <div class="grid grid-cols-4 gap-2">
-                                    <label class=" md:col-span-3">
+                                <div class="flex gap-4">
+                                    <label class="form-control w-full">
                                         <div class="label">
                                             <span class="label-text text-base text-black font-medium">
                                                 @lang('admin.post.title')

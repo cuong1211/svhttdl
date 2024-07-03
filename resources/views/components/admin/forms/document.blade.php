@@ -44,7 +44,7 @@
                             <div>
                                 <span
                                     x-text="MONTH_NAMES[month]"
-                                    class="text-gray-800 text-lg font-bold"
+                                    class="text-black text-lg font-bold"
                                 ></span>
                                 <span
                                     x-text="year"
@@ -98,7 +98,7 @@
                                 >
                                     <div
                                         x-text="day"
-                                        class="text-gray-800 text-center text-xs font-medium"
+                                        class="text-black text-center text-xs font-medium"
                                     ></div>
                                 </div>
                             </template>

@@ -57,7 +57,7 @@
                                     <h3>
                                         <a href="{{ route('news.show', $post) }}"><span>{{ $post->title }}</span></a>
                                     </h3>
-                                    <p class="text text-gray-800 text-justify">
+                                    <p class="text text-black text-justify">
                                     </p>
                                 </div>
                             @endif

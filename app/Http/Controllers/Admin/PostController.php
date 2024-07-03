@@ -63,7 +63,12 @@ class PostController extends Controller
         }
         $category = Category::findOrFail($request->category_id);
 
-        return redirect()->route('admin.categories.posts.index', ['slug' => $category->slug])->with('success', 'Post created successfully.');
+        return redirect()->route('admin.categories.posts.index', ['slug' => $category->slug])->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Tạo bài viết thành công',
+        
+        ]);
     }
 
     /**
@@ -116,7 +121,11 @@ class PostController extends Controller
             DB::commit();
             $category = Category::findOrFail($categoryId);
 
-            return redirect()->route('admin.categories.posts.index', ['slug' => $category->slug])->with('success', 'Post updated successfully.');
+            return redirect()->route('admin.categories.posts.index', ['slug' => $category->slug])->with([
+                'icon' => 'success',
+                'heading' => 'Success',
+                'message' => 'Cập nhật bài viết thành công',
+            ]);
         } catch (\Exception $e) {
             DB::rollBack();
 

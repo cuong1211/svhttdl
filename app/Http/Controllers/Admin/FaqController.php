@@ -39,7 +39,11 @@ class FaqController extends Controller
         ]);
         $faq->save();
 
-        return redirect()->route('admin.faqs.index');
+        return redirect()->route('admin.faqs.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Tạo câu hỏi thành công',
+        ]);
     }
 
     /**
@@ -68,7 +72,11 @@ class FaqController extends Controller
             $faq->update(['answer_at' => now()->format('d.m.Y h:i')]);
         }
 
-        return redirect()->route('admin.faqs.index');
+        return redirect()->route('admin.faqs.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Cập nhập câu hỏi thành công',
+        ]);
     }
 
     /**

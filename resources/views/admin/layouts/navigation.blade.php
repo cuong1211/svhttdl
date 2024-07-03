@@ -9,7 +9,7 @@
                 <!-- Logo -->
                 <div class="flex shrink-0 items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="text-gray-800 block h-9 w-auto fill-current" />
+                        <x-application-logo class="text-black block h-9 w-auto fill-current" />
                     </a>
                 </div>
 
@@ -234,7 +234,7 @@
         <!-- Responsive Settings Options -->
         <div class="border-gray-200 border-t pb-1 pt-4">
             <div class="px-4">
-                <div class="text-gray-800 text-base font-medium">{{ Auth::user()->name }}</div>
+                <div class="text-black text-base font-medium">{{ Auth::user()->name }}</div>
                 <div class="text-gray-500 text-sm font-medium">{{ Auth::user()->email }}</div>
             </div>
 

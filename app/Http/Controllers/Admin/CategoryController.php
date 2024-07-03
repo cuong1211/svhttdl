@@ -48,7 +48,7 @@ class CategoryController extends Controller
         // dd($data);
         $category = Category::create($request->all());
 
-        return back()->with([
+        return redirect()->route('admin.categories.index')->with([
             'icon' => 'success',
             'heading' => 'Success',
             'message' => 'Thêm mới danh mục thành công',
@@ -69,6 +69,7 @@ class CategoryController extends Controller
 
         return redirect()->route('admin.categories.index')->with([
             'icon' => 'success',
+            'heading' => 'Success',
             'message' => 'Cập nhật danh mục thành công',
         ]);
     }
@@ -84,7 +85,6 @@ class CategoryController extends Controller
         }
 
         $category->delete();
-
         return back()->with([
             'icon' => 'success',
             'heading' => 'Success',

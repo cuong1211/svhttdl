@@ -23,7 +23,7 @@
                                         style="border: 1px solid black;">
                                         <input name="search" type="text" class="grow"
                                             placeholder="Tìm kiếm theo tiêu đề" style="border: unset; color:black";
-                                            color:black" value="{{ request()->search }}" />
+                                            value="{{ request()->search }}" />
                                         <button type="submit">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
                                                 fill="currentColor" class="h-4 w-4 opacity-70">
@@ -60,7 +60,7 @@
                                     <th class="text-center">
                                         {{ $loop->index + 1 }}
                                     </th>
-                                    <td class="size-5 text-center">
+                                    <td class="text-center">
                                         <div class="text-center">{{ $banner->title }}</div>
                                     </td>
                                     <td class="text-center">

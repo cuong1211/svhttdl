@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="p-6">
-        <div class="text-gray-800 text-normal font-semibold leading-tight">
-            <span class="text-gray-800 text-normal flex items-center gap-2 font-semibold leading-tight">
+        <div class="text-black text-normal font-semibold leading-tight">
+            <span class="text-black text-normal flex items-center gap-2 font-semibold leading-tight">
                 {{ app()->getLocale() === 'en' ? $category->title_en : $category->title }}
             </span>
         </div>
@@ -79,7 +79,7 @@
                                     <td>{{ $post->publishedAtVi }}</td>
                                     <td>{{ $post->updatedAtVi }}</td>
 
-                                    <td class="flex gap-3">
+                                    <td class="flex gap-3 items-center justify-center">
                                         <a
                                             href="{{ route('admin.categories.posts.edit', ['category' => $category->id, 'post' => $post->id]) }}">
                                             <x-heroicon-s-pencil-square class="size-4 text-green-600" />
@@ -93,11 +93,30 @@
                                                 <x-heroicon-o-trash class="size-4 text-red-500" />
                                             </button>
                                         </form>
+                                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                                         <script>
+                                            $(document).ready(function() {
+                                                setTimeout(function() {
+                                                    $(".alert").fadeOut(2000);
+                                                }, 3000); // thông báo sẽ ẩn sau 3 giây
+                                            });
+
                                             function confirmDelete(postId) {
-                                                if (confirm('Are you sure you want to delete this post?')) {
-                                                    document.getElementById('delete-form-' + postId).submit();
-                                                }
+                                                Swal.fire({
+                                                    title: 'Bạn có chắc chắn muốn xóa không?',
+                                                    text: "Dữ liệu bị xóa sẽ không thể khôi phục lại được!",
+                                                    icon: 'warning',
+                                                    showCancelButton: true,
+                                                    confirmButtonColor: '#3085d6',
+                                                    cancelButtonColor: '#d33',
+                                                    confirmButtonText: 'Có',
+                                                    cancelButtonText: 'Không'
+                                                }).then((result) => {
+                                                    if (result.isConfirmed) {
+                                                        $('#delete-form-' + postId).submit();
+                                                    }
+                                                })
                                             }
                                         </script>
                                     </td>

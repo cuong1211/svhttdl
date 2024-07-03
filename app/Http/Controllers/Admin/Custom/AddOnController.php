@@ -43,7 +43,7 @@ class AddOnController extends Controller
         return redirect()->route('admin.addons.index')->with([
             'icon' => 'success',
             'heading' => 'Success',
-            'message' => 'Thêm mới addon thành công',
+            'message' => 'Thêm mới quảng cáo thành công',
         ]);
     }
 
@@ -82,7 +82,7 @@ class AddOnController extends Controller
         return redirect()->route('admin.addons.index')->with([
             'icon' => 'success',
             'heading' => 'Success',
-            'message' => 'Cập nhật addon thành công',
+            'message' => 'Cập nhật quảng cáo thành công',
         ]);
     }
 
@@ -95,7 +95,7 @@ class AddOnController extends Controller
         return redirect()->route('admin.addons.index')->with([
             'icon' => 'success',
             'heading' => 'Success',
-            'message' => 'Xóa addon thành công',
+            'message' => 'Xóa quảng cáo thành công',
         ]);
     }
 }

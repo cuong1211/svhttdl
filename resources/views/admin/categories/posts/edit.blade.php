@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="p-6">
-        <div class="text-gray-800 text-normal font-semibold leading-tight">
-            <span class="text-gray-800 text-normal flex items-center gap-2 font-semibold leading-tight">
+        <div class="text-black text-normal font-semibold leading-tight">
+            <span class="text-black text-normal flex items-center gap-2 font-semibold leading-tight">
                 {{ app()->getLocale() === 'en' ? $category->title_en : $category->title }}
                 <x-heroicon-m-arrow-small-right class="size-4" />
                 @lang('admin.edit')
@@ -19,27 +19,27 @@
                             <input type="hidden" name="category_id" value="{{ $category->id }}">
 
                             <div class="space-y-4">
-                                <div class="flex">
+                                <div class="flex gap-4">
+                                    <label class="form-control w-full">
+                                        <div class="label">
+                                            <span
+                                                class="label-text text-base text-black font-medium">@lang('admin.post.title')</span>
+                                        </div>
+                                        <input type="text" name="title" placeholder="Nhập tên"
+                                            value="{{ old('title', $post->title) }}" @class([
+                                                'border',
+                                                'border-gray-300',
+                                                'bg-white',
+                                                'text-black',
+                                                'p-2',
+                                                'rounded-md',
+                                                'w-full',
+                                                'input-error' => $errors->has('title'),
+                                            ]) />
+                                    </label>
                                     <x-admin.forms.calendar :publish_at="$post->published_at" />
                                 </div>
 
-                                <label class="form-control w-full">
-                                    <div class="label">
-                                        <span
-                                            class="label-text text-base text-black font-medium">@lang('admin.post.title')</span>
-                                    </div>
-                                    <input type="text" name="title" placeholder="Nhập tên"
-                                        value="{{ old('title', $post->title) }}" @class([
-                                            'border',
-                                            'border-gray-300',
-                                            'bg-white',
-                                            'text-black',
-                                            'p-2',
-                                            'rounded-md',
-                                            'w-full',
-                                            'input-error' => $errors->has('title'),
-                                        ]) />
-                                </label>
                                 <label class="form-control w-full">
                                     <div class="label">
                                         <span
@@ -76,6 +76,7 @@
 
                                     </div>
                                 @endforeach
+                                {{-- duck --}}
                                 <div class="flex items-center space-x-6">
                                     <div class="shrink-0">
                                         <img id="preview_img" class="h-16 w-16 rounded-full object-cover"

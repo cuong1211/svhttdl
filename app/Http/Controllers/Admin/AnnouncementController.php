@@ -39,7 +39,11 @@ class AnnouncementController extends Controller
         ]);
         $announcement->save();
 
-        return redirect()->route('admin.announcements.index');
+        return redirect()->route('admin.announcements.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Tạo thông báo thành công',
+        ]);
     }
 
     /**
@@ -63,7 +67,7 @@ class AnnouncementController extends Controller
         return redirect()->route('admin.announcements.index')->with([
             'icon' => 'success',
             'heading' => 'Success',
-            'message' => 'Update successfully',
+            'message' => 'Cập nhập thông báo thành công',
         ]);
     }
 

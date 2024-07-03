@@ -81,7 +81,7 @@ class PositionController extends Controller
         ]);
 
         return redirect()->route('admin.positions.index')->with([
-            'icon' => 'info',
+            'icon' => 'success',
             'heading' => 'Cập nhật',
             'message' => ' Cập nhật chức vụ thành công',
         ]);

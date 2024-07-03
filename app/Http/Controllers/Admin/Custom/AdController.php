@@ -43,7 +43,7 @@ class AdController extends Controller
         return redirect()->route('admin.ads.index')->with([
             'icon' => 'success',
             'heading' => 'Success',
-            'message' => 'Thêm mới ads thành công',
+            'message' => 'Thêm mới liên kết thành công',
         ]);
     }
 
@@ -81,7 +81,7 @@ class AdController extends Controller
         return redirect()->route('admin.ads.index')->with([
             'icon' => 'success',
             'heading' => 'Success',
-            'message' => 'Cập nhật ads thành công',
+            'message' => 'Cập nhật liên kết thành công',
         ]);
     }
 
@@ -94,7 +94,7 @@ class AdController extends Controller
         return redirect()->route('admin.ads.index')->with([
             'icon' => 'success',
             'heading' => 'Success',
-            'message' => 'Xóa ads thành công',
+            'message' => 'Xóa liên kết thành công',
         ]);
     }
 }

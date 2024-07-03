@@ -1,8 +1,8 @@
 {{-- duck --}}
 <x-app-layout>
     <div class="p-6">
-        <div class="text-gray-800 text-normal font-semibold leading-tight">
-            <span class="text-gray-800 text-normal flex items-center gap-2 font-semibold leading-tight">
+        <div class="text-black text-normal font-semibold leading-tight">
+            <span class="text-black text-normal flex items-center gap-2 font-semibold leading-tight">
                 @lang('admin.categories.list')
                 <x-heroicon-m-arrow-small-right class="size-4" />
                 @lang('admin.edit')
