@@ -91,7 +91,7 @@
                                     'input-error' => $errors->has('link'),
                                     'w-full',
                                 ])
-                                    value="{{ old('link') }}" />
+                                    value="{{ $selectedMenu->link }}" />
                             </label>
                             <label class="form-control w-full">
                                 <div class="label">

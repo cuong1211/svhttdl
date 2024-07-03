@@ -36,7 +36,7 @@
                                                 @lang('admin.post.title')
                                             </span>
                                         </div>
-                                        <input type="text" name="title" placeholder="Nhập tên"
+                                        <input type="text" name="title" placeholder="Nhập tiêu đề bài viết..."
                                             value="{{ old('title') }}"
                                             class="border border-gray-300 bg-white text-black p-2 rounded-md w-full @error('title') input-error @enderror" />
                                         @error('title')
@@ -47,11 +47,36 @@
                                         <x-admin.forms.calendar />
                                     </div>
                                 </div>
-
+                                <label class="form-control w-full">
+                                    <div class="label">
+                                        <span class="label-text text-base text-black font-medium">
+                                            Tóm tắt
+                                        </span>
+                                    </div>
+                                    <textarea type="text" name="description" placeholder="Nhập tóm tắt bài viết..." value="{{ old('description') }}"
+                                        class="border border-gray-300 bg-white text-black p-2 rounded-md w-full @error('title') input-error @enderror">
+                                    </textarea>
+                                    @error('title')
+                                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                                    @enderror
+                                </label>
+                                <label class="form-control w-full">
+                                    <div class="label">
+                                        <span class="label-text text-base text-black font-medium">
+                                            Tác giả
+                                        </span>
+                                    </div>
+                                    <input type="text" name="author" placeholder="Nhập tác giả."
+                                        value="{{ old('title') }}"
+                                        class="border border-gray-300 bg-white text-black p-2 rounded-md w-full @error('title') input-error @enderror" />
+                                    @error('title')
+                                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                                    @enderror
+                                </label>
                                 <label class="form-control w-full">
                                     <div class="label">
                                         <span
-                                            class="label-text text-base text-black font-medium text-base text-black font-medium">@lang('admin.content')</span>
+                                            class="label-text text-base text-black font-medium">@lang('admin.content')</span>
                                     </div>
                                     <textarea name="content" id="content" class="form-input rounded-md shadow-sm mt-1 block w-full" rows="5">{{ old('content', $post->content ?? '') }}</textarea>
 
@@ -59,7 +84,7 @@
                                 <label class="form-control w-full">
                                     <div class="label" for="tags">
                                         <span
-                                            class="label-text text-base text-black font-medium text-base text-black font-medium">@lang('admin.post.tag')</span>
+                                            class="label-text text-base text-black font-medium">@lang('admin.post.tag')</span>
                                     </div>
                                     <input type="text" name="tags" id="tags" value="{{ old('tags') }}"
                                         placeholder="Nhập tag bài viết" @class([
@@ -76,13 +101,13 @@
                                 </label>
                                 <label class="form-control w-full">
                                     <div class="label" for="tags">
-                                        <span
-                                            class="label-text text-base text-black font-medium text-base text-black font-medium">Bài
+                                        <span class="label-text text-base text-black font-medium">Bài
                                             viết thuộc các nhóm tin</span>
                                     </div>
                                     @foreach (App\Enums\PostTypeEnum::cases() as $type)
                                         <div class="flex items-center mb-4">
-                                            <input id="{{ $type->value }}" type="checkbox" value="{{ $type->value }}"
+                                            <input id="{{ $type->value }}" type="checkbox"
+                                                value="{{ $type->value }}"
                                                 class="w-4 h-4 text-blue-700 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                             <label for="{{ $type->value }}"
                                                 class="ms-2  text-black dark:text-gray-300 text-base">{{ $type->value }}</label>

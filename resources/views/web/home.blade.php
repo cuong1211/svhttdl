@@ -32,7 +32,7 @@
     {{-- banner --}}
     <div class="banner_top">
         <div class="_banner fade">
-            <img style="width: 100%;" src="{{$banner_mid->getFirstMedia('banner_image')->getUrl()}}" />
+            <img style="width: 100%;" src="{{ $banner_mid->getFirstMedia('banner_image')->getUrl() }}" />
         </div>
     </div>
 
@@ -44,16 +44,21 @@
                 <div class="groupnews_home">
                     <div
                         style="font-size: 36px; width: 100%; border-bottom: 3px solid transparent;   border-image: linear-gradient(0.25turn, rgba(38,109,192), rgba(11,143,121));    border-image-slice: 1; ">
-                        <a href="{{route('news.child',['parentSlug'=>$category->slug,'slug'=>$category_title->slug])}}">
+                        <a
+                            href="{{ route('news.child', ['parentSlug' => $category->slug, 'slug' => $category_title->slug]) }}">
                             <b>{{ $category_title->title }}</b></a>
                     </div>
                     <div class="groupnews_home_content">
                         @foreach ($category_title->posts as $index => $post)
                             @if ($index == 0)
                                 <div class="groupnews_item">
-                                    <a href="{{ route('news.show', $post) }}"><img
-                                            src='{{ $post->getFirstMedia('featured_image')->getUrl() }}'
-                                            alt='' style="height: 245px"/></a>
+                                    <a href="{{ route('news.show', $post) }}">
+                                        @if ($post->getFirstMedia('featured_image'))
+                                            <img src='{{ $post->getFirstMedia('featured_image')->getUrl() }}'
+                                                alt='' style="height: 245px" />
+                                        @endif
+
+                                    </a>
                                     <h3>
                                         <a href="{{ route('news.show', $post) }}"><span>{{ $post->title }}</span></a>
                                     </h3>

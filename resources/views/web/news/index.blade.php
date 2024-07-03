@@ -27,37 +27,41 @@
         </style>
     @endpush
     @foreach ($posts as $category)
-        @foreach ($category->children as $category_title)
-            <div class="khungtin" style=" float: left; width: 100%; margin-bottom: 5px; ">
-                <div class="groupnews_head bg_blue">
-                    <a class='group_header_link' href="">{{ $category_title->title }}</a>
-                </div>
-                @foreach ($category_title->posts as $index => $post)
-                    @if ($index == 0)
-                        <div class="groupnews_item2">
-                            <a href="{{ route('news.show', $post) }}">
-                                <img src='{{ $post->getFirstMedia('featured_image')->getUrl('') }}' />
-                            </a>
-                            <h3>
-                                <a href="{{ route('news.show', $post) }}">
-                                    <span><b>{{ $post->title }}</b></span>
-                                </a>
-                            </h3>
-                            <p></p>
-                        </div>
-                    @endif
-                @endforeach
-
-                <ul class="othernews">
+        @if ($category->children->count() > 0)
+            @foreach ($category->children as $category_title)
+                <div class="khungtin" style=" float: left; width: 100%; margin-bottom: 5px; ">
+                    <div class="groupnews_head bg_blue">
+                        <a class='group_header_link' href="">{{ $category_title->title }}</a>
+                    </div>
                     @foreach ($category_title->posts as $index => $post)
-                        @if ($index > 0 )
-                            <li>
-                                <a href="{{ route('news.show', $post) }}">{{ $post->title }} </a>
-                            </li>
+                        @if ($index == 0)
+                            <div class="groupnews_item2">
+                                <a href="{{ route('news.show', $post) }}">
+                                    @if ($post->getFirstMedia('featured_image'))
+                                        <img src='{{ $post->getFirstMedia('featured_image')->getUrl('') }}' />
+                                    @endif
+                                </a>
+                                <h3>
+                                    <a href="{{ route('news.show', $post) }}">
+                                        <span><b>{{ $post->title }}</b></span>
+                                    </a>
+                                </h3>
+                                <p></p>
+                            </div>
                         @endif
                     @endforeach
-                </ul>
-            </div>
-        @endforeach
+
+                    <ul class="othernews">
+                        @foreach ($category_title->posts as $index => $post)
+                            @if ($index > 0 and $index < 10)
+                                <li>
+                                    <a href="{{ route('news.show', $post) }}">{{ $post->title }} </a>
+                                </li>
+                            @endif
+                        @endforeach
+                    </ul>
+                </div>
+            @endforeach
+        @endif
     @endforeach
 </x-website-layout>

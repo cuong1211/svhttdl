@@ -20,11 +20,11 @@
                             </div>
                             <select name="album_id" required @class([
                                 'border',
-                                            'border-gray-300',
-                                            'bg-white',
-                                            'text-black',
-                                            'p-2',
-                                            'rounded-md',
+                                'border-gray-300',
+                                'bg-white',
+                                'text-black',
+                                'p-2',
+                                'rounded-md',
                                 'input-error' => $errors->has('album_id'),
                                 'w-full',
                             ])>
@@ -37,17 +37,21 @@
                             </select>
                         </label>
                         <label class="form-control w-full">
-                                    <div class="label">
-                                        <span class="label-text text-base text-black font-medium">@lang('admin.post.title')</span>
-                                    </div>
-                                    <input type="text" name="name" value="{{ old('name', $photo->name) }}"
-                                    placeholder="title photo..." @class([
-                                        'input',
-                                        'input-bordered',
-                                        'input-error' => $errors->has('name'),
-                                        'w-full',
-                                    ]) />
-                                </label>
+                            <div class="label">
+                                <span class="label-text text-base text-black font-medium">@lang('admin.post.title')</span>
+                            </div>
+                            <input type="text" name="name" value="{{ old('name', $photo->name) }}"
+                                placeholder="title photo..." @class([
+                                    'border',
+                                    'border-gray-300',
+                                    'bg-white',
+                                    'text-black',
+                                    'p-2',
+                                    'rounded-md',
+                                    'input-error' => $errors->has('name'),
+                                    'w-full',
+                                ]) />
+                        </label>
                         <label class="form-control w-full">
                             <div class="label">
                                 <span class="label-text text-base text-black font-medium">@lang('admin.content')</span>
@@ -56,23 +60,33 @@
                                 {!! $photo->content !!}
                             </textarea>
                         </label>
-                        <div class="flex items-center space-x-6">
-                            <div class="shrink-0">
-                                <img id="preview_img" class="h-16 w-16 rounded-full object-cover"
-                                    src="{{ $photo->getFirstMedia('album_photo')->getUrl('') }}"
-                                    alt="{{ $photo->getFirstMedia('album_photo')->name }}" />
-                            </div>
-                            <label class="block">
-                                <span class="sr-only">Choose photo</span>
-                                <div class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md flex items-center gap-2 bg-white flex items-center gap-2 border px-3 py-2">
-                                    File:
-                                    <span
-                                        id="selected_file_name">{{ $photo->getFirstMedia('album_photo')->name }}</span>
-                                </div>
 
-                                <input class="hidden" type="file" name="image" onchange="loadFile(event)"
+
+                        <div class="flex items-center space-x-6">
+                            <label class="form-control w-full">
+                                <div class="label" for="tags">
+                                    <span class="label-text text-base text-black font-medium">Hình ảnh</span>
+                                </div>
+                                <div
+                                    class="input border border-gray-300 bg-white text-black p-2 rounded-md flex items-center gap-2 px-3 py-2">
+                                    File:
+                                    <span id="selected_file_name">
+                                        @if ($photo->getFirstMedia('album_photo'))
+                                            {{ $photo->getFirstMedia('album_photo')->name }}
+                                        @else
+                                        @endif
+                                    </span>
+                                </div>
+                                <span class="sr-only">Chọn hình ảnh</span>
+                                <input type="file" name="image" onchange="loadFile(event)" placeholder="Chọn"
                                     class="file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 block w-full text-sm text-slate-500 file:mr-4 file:rounded-full file:border-0 file:px-4 file:py-2 file:text-sm file:font-semibold" />
                             </label>
+                            </label>
+                        </div>
+                        <div class="shrink-0">
+                            <img id="preview_img" class="h-40 w-72 object-cover rounded"
+                                src="{{ $photo->getFirstMedia('album_photo')->getUrl('') }}"
+                                alt="{{ $photo->getFirstMedia('album_photo')->name }}" />
                         </div>
                         <div class="flex justify-end gap-4">
                             <a href="{{ route('admin.photos.index') }}" class="btn-light btn">@lang('admin.btn.cancel')
@@ -87,7 +101,7 @@
         </div>
     </div>
     @pushonce('bottom_scripts')
-        <x-admin.forms.tinymce-config column="content"/>
+        <x-admin.forms.tinymce-config column="content" />
         <script>
             var loadFile = function(event) {
                 var input = event.target

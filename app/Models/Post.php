@@ -22,7 +22,6 @@ class Post extends Model implements HasMedia
 
     protected $casts = [
         'published_at' => 'datetime:Y-m-d H:i:s',
-        'content' => AsRichTextContent::class,
     ];
 
     /*

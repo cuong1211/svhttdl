@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
 
-Route::get('/tin-tuc/{post:slug}', [NewsController::class, 'show'])->name('news.show');
+Route::get('/tin-tuc/{post:id}', [NewsController::class, 'show'])->name('news.show');
 route::get('/danh-muc/gioi-thieu/thong-tin-chung', fn () => view('web.about'))->name('about');
 route::get('/danh-muc/gioi-thieu/co-cau-to-chuc', [EmployeeController::class, 'index'])->name('employee.index');
 route::get('/nhan-vien/{employee:id}', [EmployeeController::class, 'show'])->name('employee.show');
@@ -38,6 +38,6 @@ route::get('/contact', [ContactController::class, 'index'])->name('contact.index
 route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
 route::get('/contact/done/success', [ContactController::class, 'success'])->name('contact.success');
 Route::get('/danh-muc/{category:slug}', [NewsController::class, 'index'])->name('news.index');
-Route::get('/danh-muc/{parentSlug}/{slug}', [NewsController::class, 'getChild'])->name('news.child');
+Route::get('/danh-muc/{parentId}/{Id}', [NewsController::class, 'getChild'])->name('news.child');
 
 require __DIR__ . '/admin.php';

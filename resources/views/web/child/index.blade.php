@@ -9,21 +9,23 @@
         </li>
         <li class="Lv_3">
             <span class="Arrow_Link_Menu"></span>
-            <a> {{ $category_title}}</a>
+            <a> {{ $category_title }}</a>
         </li>
     </ul>
     @foreach ($posts as $index => $post)
         <div class="listnews_item">
             <div class="listnews_item_img">
                 <a href="{{ route('news.show', $post) }}">
-                    <img src="{{ $post->getFirstMedia('featured_image')->getUrl() }}" alt="">
+                    @if ($post->getFirstMedia('featured_image'))
+                        <img src='{{ $post->getFirstMedia('featured_image')->getUrl('') }}' alt='' />
+                    @endif
                 </a>
             </div>
             <div class="listnews_item_title">
-                <a href="index1526.html?com=tintuc_ct&amp;id_news=369">{{ $post->title }}</a>
+                <a href="{{ route('news.show', $post) }}">{{ $post->title }}</a>
             </div>
             <div class="listnews_item_des">
-                {{ Str::limit(html_entity_decode(strip_tags($post->content)), 500) }}
+                {{ $post->description }}
             </div>
             <div class="listnews_item_date">
                 <span> Ngày đăng: {{ $post->published_post_date }}/ Lượt xem: 3</span>

@@ -19,7 +19,6 @@ class HomePost extends Component
             ->with('category')
             ->where('type', 'Tin nổi bật')
             ->latest()->take(3)->get();
-        // dd($hotnews);
         return view('components.website.home-post', [
             'posts' => $posts,
             // 'latestPost' => $latestPost,

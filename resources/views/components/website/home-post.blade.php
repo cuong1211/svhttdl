@@ -2,11 +2,13 @@
     <div class="tintop_left_left">
         <div id="featured">
             @foreach ($posts as $post)
-                <div id="fragment-{{ $post->id }}" class="ui-tabs-panel"><img
-                        src='{{ $post->getFirstMedia('featured_image')->getUrl('') }}' alt='' />
+                <div id="fragment-{{ $post->id }}" class="ui-tabs-panel">
+                    @if ($post->getFirstMedia('featured_image'))
+                        <img src='{{ $post->getFirstMedia('featured_image')->getUrl('') }}' alt='' />
+                    @endif
                     <div class="info">
                         <h2>
-                            <a href='{{ route('news.show', $post) }}'>
+                            <a href='{{ route('news.show', ['post' => $post]) }}'>
                                 {{ $post->title }}
                             </a>
                         </h2>
@@ -19,12 +21,17 @@
                 <li style="line-height: 1px;">&ensp;</li>
                 @foreach ($posts as $post)
                     <li class="ui-tabs-nav-item" id="nav-fragment-1">
-                        <a href="#fragment-{{ $post->id }}"><img
-                                src='{{ $post->getFirstMedia('featured_image')->getUrl('') }}'
-                                alt='{{ $post->title }}' />
+                        <a href="#fragment-{{ $post->id }}">
+                            @if ($post->getFirstMedia('featured_image'))
+                                <img src='{{ $post->getFirstMedia('featured_image')->getUrl('') }}'
+                                    alt='{{ $post->title }}' />
+                            @endif
                         </a>
-                        <a href="{{ route('news.show', $post) }}"><span>{{ $post->title }}
-                            </span></a>
+                        <a href='{{ route('news.show', ['post' => $post]) }}'>
+                            <span>
+                                {{ $post->title }}
+                            </span>
+                        </a>
                     </li>
                 @endforeach
             </ul>

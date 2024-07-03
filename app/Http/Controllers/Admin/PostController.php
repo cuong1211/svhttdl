@@ -39,8 +39,11 @@ class PostController extends Controller
             'user_id' => auth()->id(),
             'category_id' => $request->category_id,
             'title' => $request->title,
+            'description' => $request->description,
             'content' => $request->content,
+            'author' => $request->author,
             'published_at' => $request->published_at,
+            'type' => $request->type,
         ]);
 
         $post->save();
@@ -93,7 +96,9 @@ class PostController extends Controller
         try {
             $post->update([
                 'title' => $request->title,
+                'description' => $request->description,
                 'content' => $request->content,
+                'author' => $request->author,
                 'published_at' => $request->published_at,
                 'category_id' => $categoryId,
                 'type' => $request->type,

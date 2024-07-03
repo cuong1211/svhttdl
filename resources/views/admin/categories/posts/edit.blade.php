@@ -39,7 +39,41 @@
                                     </label>
                                     <x-admin.forms.calendar :publish_at="$post->published_at" />
                                 </div>
-
+                                <label class="form-control w-full">
+                                    <div class="label">
+                                        <span class="label-text text-base text-black font-medium">Mô tả</span>
+                                    </div>
+                                    <input type="text" name="description" placeholder="Nhập mô tả"
+                                        value="{{ old('description', $post->description) }}"
+                                        @class([
+                                            'border',
+                                            'border-gray-300',
+                                            'bg-white',
+                                            'text-black',
+                                            'p-2',
+                                            'rounded-md',
+                                            'w-full',
+                                            'input-error' => $errors->has('title'),
+                                        ]) />
+                                </label>
+                                <label class="form-control w-full">
+                                    <div class="label">
+                                        <span class="label-text text-base text-black font-medium">Tác giả</span>
+                                    </div>
+                                    <textarea type="text" name="author" placeholder="Nhập tên" value="{{ old('author', $post->author) }}"
+                                        @class([
+                                            'border',
+                                            'border-gray-300',
+                                            'bg-white',
+                                            'text-black',
+                                            'p-2',
+                                            'rounded-md',
+                                            'w-full',
+                                            'input-error' => $errors->has('title'),
+                                        ])>
+                                        {{ $post->author }}
+                                    </textarea>
+                                </label>
                                 <label class="form-control w-full">
                                     <div class="label">
                                         <span
@@ -79,17 +113,20 @@
                                 {{-- duck --}}
                                 <div class="flex items-center space-x-6">
                                     <div class="shrink-0">
-                                        <img id="preview_img" class="h-16 w-16 rounded-full object-cover"
-                                            src="{{ $post->getFirstMedia('featured_image')->getUrl('') }}"
-                                            alt="{{ $post->getFirstMedia('featured_image')->name }}" />
+                                        @if ($post->getFirstMedia('featured_image'))
+                                            <img id="preview_img" class="h-16 w-16 rounded-full object-cover"
+                                                src="{{ $post->getFirstMedia('featured_image')->getUrl('') }}"
+                                                alt="{{ $post->getFirstMedia('featured_image')->name }}" />
+                                        @endif
                                     </div>
                                     <label class="block">
                                         <span class="sr-only">Choose photo</span>
                                         <div
-                                            class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md flex items-center gap-2 bg-white flex items-center gap-2 border px-3 py-2">
+                                            class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md flex items-center gap-2 px-3 py-2">
                                             File:
-                                            <span
-                                                id="selected_file_name">{{ $post->getFirstMedia('featured_image')->name }}</span>
+                                            @if($post->getFirstMedia('featured_image'))
+                                                <span id="selected_file_name">{{ $post->getFirstMedia('featured_image')->name }}</span>
+                                            @endif
                                         </div>
 
                                         <input class="hidden" type="file" name="image" onchange="loadFile(event)"

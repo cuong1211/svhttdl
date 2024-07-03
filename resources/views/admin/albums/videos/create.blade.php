@@ -95,8 +95,7 @@
                         </label>
                         <label class="form-control w-full">
                             <div class="label">
-                                <span
-                                    class="label-text text-base text-black font-medium text-base text-black font-medium">Hiển
+                                <span class="label-text text-base text-black font-medium">Hiển
                                     thị chính</span>
                             </div>
                             <div class="flex items-center mb-4">
@@ -108,19 +107,18 @@
                             </div>
                         </label>
                         <div class="flex items-center space-x-6">
-                            <label class="form-control w-full">
+                            <label class="form-control w-20">
                                 <div class="label" for="tags">
-                                    <span class="label-text text-base text-black font-medium">Thumbnail</span>
+                                    <span class="label-text text-base text-black font-medium">Hình ảnh</span>
                                 </div>
-                                <span class="sr-only">Choose photo</span>
+                                <span class="sr-only">Chọn ảnh đại diện</span>
                                 <input type="file" name="image" onchange="loadFile(event)"
                                     class="file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 block w-full text-sm text-slate-500 file:mr-4 file:rounded-full file:border-0 file:px-4 file:py-2 file:text-sm file:font-semibold" />
                             </label>
                         </div>
                         <div class="shrink-0">
-                            <img id="preview_img" class="h-32 w-32 object-cover rounded"
-                                src="https://lh3.googleusercontent.com/a-/AFdZucpC_6WFBIfaAbPHBwGM9z8SxyM1oV4wB4Ngwp_UyQ=s96-c"
-                                alt="Current photo" />
+                            <img id="preview_img" class="h-40 w-72 object-cover rounded" src="" alt=""
+                                style="display:none" />
                         </div>
                         <div class="flex justify-end gap-4">
                             <a href="{{ route('admin.videos.index') }}" class="btn-light btn">
@@ -136,19 +134,20 @@
         </div>
     </div>
     @pushonce('bottom_scripts')
-    <script>
-        var loadFile = function(event) {
-            var input = event.target
-            var file = input.files[0]
-            var type = file.type
+        <script>
+            var loadFile = function(event) {
+                document.getElementById('preview_img').style.display = 'block'
+                var input = event.target
+                var file = input.files[0]
+                var type = file.type
 
-            var output = document.getElementById('preview_img')
+                var output = document.getElementById('preview_img')
 
-            output.src = URL.createObjectURL(event.target.files[0])
-            output.onload = function() {
-                URL.revokeObjectURL(output.src) // free memory
+                output.src = URL.createObjectURL(event.target.files[0])
+                output.onload = function() {
+                    URL.revokeObjectURL(output.src) // free memory
+                }
             }
-        }
-    </script>
-@endpushonce
+        </script>
+    @endpushonce
 </x-app-layout>

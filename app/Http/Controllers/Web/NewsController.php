@@ -12,7 +12,7 @@ class NewsController extends Controller
     public function index($slug): View
     {
         $posts = Category::query()->where('slug', $slug)->with(['children' => function ($query) {
-            $query->with('posts');
+            $query->with('posts')->paginate(10);
         }])->get();
         // dd($posts);
         // Post::query()
@@ -24,16 +24,16 @@ class NewsController extends Controller
             'posts' => $posts,
         ]);
     }
-    public function getChild($parentSlug, $slug): View
+    public function getChild($parentId, $Id): View
     {
-        $category = Category::query()->where('slug', $slug)->first();
+        $category = Category::query()->where('id', $Id)->first();
         $category_title = $category->title;
-
-        $posts =  Post::query()->where('category_id', $category->id)
+        $posts =  Post::query()->where('category_id', $Id)
             ->with('category')
-            ->published()
+            // ->published()
             ->orderByDesc('published_at')
             ->paginate(10);
+            // ->get();
         // dd($posts);
         return view('web.child.index', [
             'posts' => $posts,
@@ -51,6 +51,7 @@ class NewsController extends Controller
             ->latest()
             ->take(10)
             ->get();
+            // dd($otherPosts);
         return view('web.news.show', [
             'post' => $post,
             'category' => $category,
