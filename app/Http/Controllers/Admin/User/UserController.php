@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Staff\Department;
 use App\Models\User;
+use App\Models\User\Categorie;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -30,8 +32,9 @@ class UserController extends Controller
      */
     public function create()
     {
-
-        return view('admin.users.create', compact('departments', 'positions'));
+        $departments = Department::query()->get();
+        $role = Categorie::query()->get();
+        return view('admin.users.create', compact('departments','role'));
     }
 
     /**
@@ -41,23 +44,20 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'content' => 'required|string',
-            'departments' => 'required|array',
-            'positions' => 'required|array',
-            'departments.*' => 'exists:departments,id',
-            'positions.*' => 'exists:positions,id',
+            'departments' => 'required|in:departments,id',
+            'role' => 'required|in:categories,id',
         ]);
 
         $user = User::create($request->only(['name', 'content']));
         $user->departments()->attach($request->departments);
         $user->positions()->attach($request->positions);
-        if ($request->hasFile('image')) {
-            $imageFile = $request->file('image');
-            $user->addMedia($imageFile->getRealPath())
-                ->usingFileName($imageFile->getClientOriginalName())
-                ->usingName($imageFile->getClientOriginalName())
-                ->toMediaCollection('user_image');
-        }
+        // if ($request->hasFile('image')) {
+        //     $imageFile = $request->file('image');
+        //     $user->addMedia($imageFile->getRealPath())
+        //         ->usingFileName($imageFile->getClientOriginalName())
+        //         ->usingName($imageFile->getClientOriginalName())
+        //         ->toMediaCollection('user_image');
+        // }
 
         return redirect()->route('admin.users.index')->with('success', 'user created successfully.');
     }

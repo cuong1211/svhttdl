@@ -69,8 +69,15 @@
                             <td style="text-align: left; margin-left: 10px; text-align: justify;"><a
                                     href="index141a.html?com=chitiet_vb&amp;id_vanban=26">{{ $item->published_at->translatedFormat('d/m/Y') }}</a>
                             </td>
-                            <td><a class="fa fa-download" target="_blank"
-                                    href="{{ $item->getFirstMedia('document_file')->getUrl() }}"></a>
+                            <td>
+                                @if ($item->getFirstMedia('document_file'))
+                                    <a class="fa fa-download" target="_blank"
+                                        href="{{ $item->getFirstMedia('document_file')->getUrl() }}"></a>
+                                @else
+                                {{-- make url form host + $item->document_file --}}
+                                    <a class="fa fa-download" target="_blank"
+                                        href="{{ asset('/' . $item->document_file) }}"></a>
+                                @endif
                             </td>
                         </tr>
                         @php

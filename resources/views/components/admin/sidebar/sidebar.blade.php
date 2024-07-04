@@ -125,7 +125,7 @@
                             <li>
                                 <a class="{{ request()->routeIs('admin.signers.*') ? 'active' : '' }}"
                                     href="{{ route('admin.signers.index') }}">
-                                    @lang('admin.signers.list')
+                                    Thể loại
                                 </a>
                             </li>
                         </ul>
@@ -155,6 +155,25 @@
                             <li>
                                 <a @class(['active' => request()->routeIs('admin.addons.*')]) href="{{ route('admin.addons.index') }}">
                                     Quản lý Addons
+                                </a>
+                            </li>
+                        </ul>
+                    </details>
+                </li>
+                <li>
+                    <details @if (request()->routeIs('admin.menus.*', 'admin.ads.*', 'admin.addons.*')) open @endif
+                        class="{{ request()->routeIs('admin.menus.*', 'admin.ads.*', 'admin.addons.*') ? 'open' : '' }}">
+                        <summary>Tài khoản</summary>
+                        <ul>
+                            <li>
+                                <a @class(['active' => request()->routeIs('admin.users.*')]) href="{{ route('admin.users.index') }}">
+                                    Quản lý tài khoản
+                                </a>
+                            </li>
+
+                            <li>
+                                <a @class(['active' => request()->routeIs('admin.roles.*')]) href="{{ route('admin.roles.index') }}">
+                                    Quản lý quyền hạn
                                 </a>
                             </li>
                         </ul>

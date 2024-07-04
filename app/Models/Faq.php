@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Tonysm\RichTextLaravel\Casts\AsRichTextContent;
 use Tonysm\RichTextLaravel\Models\Traits\HasRichText;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Faq extends Model
 {
     use HasFactory;
     use HasRichText;
-
+    use SoftDeletes;
     protected $table = 'faqs';
 
     protected $guarded = [];

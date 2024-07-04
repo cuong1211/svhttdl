@@ -2,8 +2,8 @@
 
 namespace App\Enums;
 
-enum PostTypeEnum: string
+enum PostTypeEnum: INT
 {
-    case NEW = 'Tin tức mới';
-    case HOT = 'Tin nổi bật';
+    case NEW = 0;
+    case HOT =  1;
 }

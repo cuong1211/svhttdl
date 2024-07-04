@@ -37,7 +37,7 @@ route::get('/faq/done/success', [FaqController::class, 'success'])->name('faq.su
 route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
 route::get('/contact/done/success', [ContactController::class, 'success'])->name('contact.success');
-Route::get('/danh-muc/{category:slug}', [NewsController::class, 'index'])->name('news.index');
+Route::get('/danh-muc/{category:id}', [NewsController::class, 'index'])->name('news.index');
 Route::get('/danh-muc/{parentId}/{Id}', [NewsController::class, 'getChild'])->name('news.child');
 
 require __DIR__ . '/admin.php';

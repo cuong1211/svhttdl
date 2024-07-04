@@ -9,12 +9,13 @@ use Illuminate\Support\Carbon;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Staff extends Model implements HasMedia
 {
     use HasFactory;
     use InteractsWithMedia;
-
+    use SoftDeletes;
     protected $guarded = [];
 
     protected $table = 'staff';

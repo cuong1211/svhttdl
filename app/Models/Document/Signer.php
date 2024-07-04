@@ -8,19 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Signer extends Model implements HasMedia
 {
     use HasFactory;
     use InteractsWithMedia;
-
+    use SoftDeletes;
     protected $guarded = [];
 
     protected $table = 'document_signers';
 
     public function documents()
     {
-        return $this->hasMany(Document::class);
+        return $this->hasMany(Document::class, 'tag_id', 'id');
     }
 
     protected function updatedAtVi(): Attribute

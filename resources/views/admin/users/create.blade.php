@@ -30,9 +30,9 @@
                         @csrf
                         <label class="form-control w-full">
                             <div class="label">
-                                <span class="label-text text-base text-black font-medium">@lang('admin.staffs.name')</span>
+                                <span class="label-text text-base text-black font-medium">Tên</span>
                             </div>
-                            <input type="text" name="name" placeholder="name..." @class([
+                            <input type="text" name="name" placeholder="Tên..." @class([
                                 'border',
                                 'border-gray-300',
                                 'bg-white',
@@ -47,24 +47,10 @@
                             <div class="label" for="departments">
                                 <span class="label-text text-base text-black font-medium">@lang('admin.departments')</span>
                             </div>
-                            {{-- <select name="departments[]" id="departments" class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md flex items-center gap-2 bg-white w-full" multiple>
+                            <select name="departments" id="departments" class="form-control">
+                                <option value="0">Chọn phòng ban</option>
                                 @foreach ($departments as $department)
-                                    <option value="{{ $department->id }}"
-                                        @if (is_array(old('departments')) && in_array($department->id, old('departments')))
-                                            selected
-                                        @elseif(isset($staff) && $staff->departments->contains($department->id))
-                                            selected
-                                        @endif
-                                    >
-                                        {{ $department->name }}
-                                    </option>
-                                @endforeach
-                            </select> --}}
-                            <select name="departments[]" id="departments" class="form-control">
-                                <option value="0">[Chọn phòng ban]</option>
-                                @foreach ($departments as $department)
-                                    <option value="{{ $department->id }}"
-                                        {{ $department->id == $department->id ? 'selected' : '' }}>
+                                    <option value="{{ $department->id }}">
                                         {{ $department->name }}</option>
                                 @endforeach
                             </select>
@@ -73,27 +59,14 @@
                             @enderror
                         </label>
                         <label class="form-control w-full">
-                            <div class="label" for="positions">
-                                <span class="label-text text-base text-black font-medium">@lang('admin.positions')</span>
+                            <div class="label" for="category_id">
+                                <span class="label-text text-base text-black font-medium">Loại tài khoản</span>
                             </div>
-                            {{-- <select name="positions[]" id="positions" class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md flex items-center gap-2 bg-white w-full" multiple>
-                                @foreach ($positions as $position)
-                                    <option value="{{ $position->id }}"
-                                        @if (is_array(old('positions')) && in_array($position->id, old('positions')))
-                                            selected
-                                        @elseif(isset($staff) && $staff->positions->contains($position->id))
-                                            selected
-                                        @endif
-                                    >
-                                        {{ $position->name }}
-                                    </option>
-                                @endforeach
-                            </select> --}}
-                            <select name="positions[]" id="positions" class="form-control">
-                                <option value="0">[Chọn phòng ban]</option>
-                                @foreach ($positions as $position)
-                                    <option value="{{ $position->id }}"
-                                        {{ $position->id == $position->id ? 'selected' : '' }}>{{ $position->name }}
+                            <select name="category_id" id="category_id" class="form-control">
+                                <option value="0">Chọn</option>
+                                @foreach ($role as $role)
+                                    <option value="{{ $role->id }}">
+                                        {{ $role->name }}
                                     </option>
                                 @endforeach
                             </select>
@@ -101,28 +74,38 @@
                                 <p class="text-red-500 text-xs italic">{{ $message }}</p>
                             @enderror
                         </label>
-
-
-
                         <label class="form-control w-full">
                             <div class="label">
-                                <span class="label-text text-base text-black font-medium">@lang('admin.content')</span>
+                                <span class="label-text text-base text-black font-medium">Mật khẩu</span>
                             </div>
-                            <textarea name="content" id="content" class="form-input rounded-md shadow-sm mt-1 block w-full" rows="5">{{ old('content', $post->content ?? '') }}</textarea>
-
+                            <input type="text" name="name" placeholder="Mật khẩu..."
+                                @class([
+                                    'border',
+                                    'border-gray-300',
+                                    'bg-white',
+                                    'text-black',
+                                    'p-2',
+                                    'rounded-md',
+                                    'input-error' => $errors->has('name'),
+                                    'w-full',
+                                ]) />
                         </label>
-                        <div class="flex items-center space-x-6">
-                            <div class="shrink-0">
-                                <img id="preview_img" class="h-16 w-16 rounded-full object-cover"
-                                    src="https://lh3.googleusercontent.com/a-/AFdZucpC_6WFBIfaAbPHBwGM9z8SxyM1oV4wB4Ngwp_UyQ=s96-c"
-                                    alt="Current photo" />
+                        <label class="form-control w-full">
+                            <div class="label">
+                                <span class="label-text text-base text-black font-medium">Nhập lại mật khẩu</span>
                             </div>
-                            <label class="block">
-                                <span class="sr-only">Choose photo</span>
-                                <input type="file" name="image" onchange="loadFile(event)"
-                                    class="file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 block w-full text-sm text-slate-500 file:mr-4 file:rounded-full file:border-0 file:px-4 file:py-2 file:text-sm file:font-semibold" />
-                            </label>
-                        </div>
+                            <input type="text" name="name" placeholder="Nhập lại mật khẩu..."
+                                @class([
+                                    'border',
+                                    'border-gray-300',
+                                    'bg-white',
+                                    'text-black',
+                                    'p-2',
+                                    'rounded-md',
+                                    'input-error' => $errors->has('name'),
+                                    'w-full',
+                                ]) />
+                        </label>
                         <div class="flex justify-end gap-4">
                             <a href="{{ route('admin.staffs.index') }}" class="btn-light btn">
                                 @lang('admin.btn.cancel')

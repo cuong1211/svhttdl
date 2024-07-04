@@ -9,12 +9,13 @@ use Illuminate\Support\Carbon;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Document extends Model implements HasMedia
 {
     use HasFactory;
     use InteractsWithMedia;
-
+    use SoftDeletes;
     protected $guarded = [];
 
     protected $table = 'document';
@@ -23,7 +24,7 @@ class Document extends Model implements HasMedia
     ];
     public function signers()
     {
-        return $this->belongsTo(Signer::class, 'signer_id');
+        return $this->belongsTo(Signer::class, 'tag_id');
     }
     public function types()
     {

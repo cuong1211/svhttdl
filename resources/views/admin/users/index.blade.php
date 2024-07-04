@@ -6,11 +6,11 @@
             </span>
         </div>
         @if (session('icon') && session('heading') && session('message'))
-        <div class="alert alert-{{ session('icon') === 'success' ? 'success' : 'danger' }}" role="alert">
-            <strong>{{ session('heading') }}:</strong>
-            {{ session('message') }}
-        </div>
-    @endif
+            <div class="alert alert-{{ session('icon') === 'success' ? 'success' : 'danger' }}" role="alert">
+                <strong>{{ session('heading') }}:</strong>
+                {{ session('message') }}
+            </div>
+        @endif
         <div class="mt-6">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="overflow-x-auto">
@@ -18,9 +18,11 @@
                         <form action="{{ route('admin.users.index') }}" method="GET" class="w-full">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
-                                    <label class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md flex items-center gap-2 bg-white flex items-center gap-2">
+                                    <label
+                                        class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md flex items-center gap-2"
+                                        style="border: 1px solid black;">
                                         <input name="search" type="text" class="grow"
-                                            placeholder="Tìm kiếm theo tiêu đề" style="border: unset; color:black""
+                                            placeholder="Tìm kiếm theo tiêu đề" style="border: unset; color:black"
                                             value="{{ request()->search }}" />
                                         <button type="submit">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
@@ -39,30 +41,35 @@
                             </div>
                         </form>
                     </div>
-                    <table class="table">
+                    <table class="table text-black text-base">
                         <!-- head -->
-                        <thead>
+                        <thead class="text-black text-base ">
                             <tr>
-                                <th>#</th>
-                                <th>@lang('admin.users.name')</th>
-                                <th>@lang('admin.categories')</th>
-                                <th>@lang('admin.created_at')</th>
-                                <th>@lang('admin.updated_at')</th>
-                                <th>@lang('admin.funtion')</th>
+                                <th class="text-center font-semibold">#</th>
+                                <th class="text-center font-semibold">Tên tài khoản</th>
+                                <th class="text-center font-semibold">Email</th>
+                                {{-- <th>SĐT</th> --}}
+                                <th>Tên hiển thị</th>
+                                <th class="text-center font-semibold">@lang('admin.created_at')</th>
+                                <th class="text-center font-semibold">@lang('admin.updated_at')</th>
+                                <th class="text-center font-semibold">@lang('admin.funtion')</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($users as $user)
                                 <tr>
-                                    <th>
+                                    <th class="text-center">
                                         {{ $loop->index + 1 }}
                                     </th>
-                                    <td>{{ $user->name }}</td>
-                                    <td>{{ $user->departments->pluck('name')->join(', ') }}</td>
-                                    <td>{{ $user->createdAtVi }}</td>
-                                    <td>{{ $user->updatedAtVi }}</td>
+                                    <td class="text-center">{{ $user->name }}</td>
+                                    <td class="text-center">{{ $user->email }}</td>
+                                    {{-- <td>{{ $user->phone }}</td> --}}
+                                    <td class="text-center">{{ $user->display_name }}</td>
+                                    {{-- <td>{{ $user->departments->name->join(', ') }}</td> --}}
+                                    <td class="text-center">{{ $user->createdAtVi }}</td>
+                                    <td class="text-center">{{ $user->updatedAtVi }}</td>
 
-                                    <td class="flex gap-3">
+                                    <td class="flex gap-3 items-center justify-center">
                                         <a href="{{ route('admin.users.edit', $user->id) }}"><x-heroicon-s-pencil-square
                                                 class="size-4 text-green-600" /></a>
                                         <form id="delete-form-{{ $user->id }}"

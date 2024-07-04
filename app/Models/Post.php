@@ -10,11 +10,13 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Tonysm\RichTextLaravel\Casts\AsRichTextContent;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model implements HasMedia
 {
     use HasFactory;
     use InteractsWithMedia;
+    use SoftDeletes;
 
     protected $guarded = [];
 

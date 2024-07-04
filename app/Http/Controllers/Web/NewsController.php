@@ -9,10 +9,10 @@ use App\Models\Category;
 
 class NewsController extends Controller
 {
-    public function index($slug): View
+    public function index($id): View
     {
-        $posts = Category::query()->where('slug', $slug)->with(['children' => function ($query) {
-            $query->with('posts')->paginate(10);
+        $posts = Category::query()->where('parent_id', $id)->with(['children' => function ($query) {
+            $query->with('posts')->take(10);
         }])->get();
         // dd($posts);
         // Post::query()

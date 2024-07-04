@@ -39,51 +39,162 @@
 
     {{-- tin tuc  --}}
     <div class="cols-2">
-        @foreach ($posts as $category)
-            @foreach ($category->children as $category_title)
-                <div class="groupnews_home">
-                    <div
-                        style="font-size: 36px; width: 100%; border-bottom: 3px solid transparent;   border-image: linear-gradient(0.25turn, rgba(38,109,192), rgba(11,143,121));    border-image-slice: 1; ">
-                        <a
-                            href="{{ route('news.child', ['parentSlug' => $category->slug, 'slug' => $category_title->slug]) }}">
-                            <b>{{ $category_title->title }}</b></a>
-                    </div>
-                    <div class="groupnews_home_content">
-                        @foreach ($category_title->posts as $index => $post)
-                            @if ($index == 0)
-                                <div class="groupnews_item">
-                                    <a href="{{ route('news.show', $post) }}">
-                                        @if ($post->getFirstMedia('featured_image'))
-                                            <img src='{{ $post->getFirstMedia('featured_image')->getUrl() }}'
-                                                alt='' style="height: 245px" />
-                                        @endif
-
-                                    </a>
-                                    <h3>
-                                        <a href="{{ route('news.show', $post) }}"><span>{{ $post->title }}</span></a>
-                                    </h3>
-                                    <p class="text text-black text-justify">
-                                    </p>
-                                </div>
-                            @endif
-                        @endforeach
-                        <ul class="othernews">
-                            @foreach ($category_title->posts as $index => $post)
-                                @if ($index > 0)
-                                    <li
-                                        style="background:url('images/point_yellow.png') no-repeat left 5px;  overflow: hidden;  text-overflow: ellipsis;text-align: justify;">
-                                        <a href="{{ route('news.show', $post) }}">
-                                            {{ $post->title }}
-                                        </a>
-                                    </li>
+        <div class="groupnews_home">
+            <div
+                style="font-size: 36px; width: 100%; border-bottom: 3px solid transparent;   border-image: linear-gradient(0.25turn, rgba(38,109,192), rgba(11,143,121));    border-image-slice: 1; ">
+                <a href="{{ route('news.child', ['parentId' => $post_van_hoa->parent_id, 'Id' => $post_van_hoa->id]) }}">
+                    <b>Văn hóa</b></a>
+            </div>
+            <div class="groupnews_home_content">
+                @foreach ($post_van_hoa->posts as $index => $post)
+                    @if ($index == 0)
+                        <div class="groupnews_item">
+                            <a href="{{ route('news.show', $post) }}">
+                                @if ($post->getFirstMedia('featured_image'))
+                                    <img src='{{ $post->getFirstMedia('featured_image')->getUrl() }}' alt=''
+                                        style="height: 245px" />
                                 @endif
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            @endforeach
-        @endforeach
 
+                            </a>
+                            <h3>
+                                <a href="{{ route('news.show', $post) }}"><span>{{ $post->title }}</span></a>
+                            </h3>
+                            <p class="text text-black text-justify">
+                            </p>
+                        </div>
+                    @endif
+                @endforeach
+                <ul class="othernews">
+                    @foreach ($post_van_hoa->posts as $index => $post)
+                        @if ($index > 0)
+                            <li
+                                style="background:url('images/point_yellow.png') no-repeat left 5px;  overflow: hidden;  text-overflow: ellipsis;text-align: justify;">
+                                <a href="{{ route('news.show', $post) }}">
+                                    {{ $post->title }}
+                                </a>
+                            </li>
+                        @endif
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+        <div class="groupnews_home">
+            <div
+                style="font-size: 36px; width: 100%; border-bottom: 3px solid transparent;   border-image: linear-gradient(0.25turn, rgba(38,109,192), rgba(11,143,121));    border-image-slice: 1; ">
+                <a href="{{ route('news.child', ['parentId' => $post_du_lich->parent_id, 'Id' => $post_du_lich->id]) }}">
+                    <b>Du lịch</b></a>
+            </div>
+            <div class="groupnews_home_content">
+                @foreach ($post_du_lich->posts as $index => $post)
+                    @if ($index == 0)
+                        <div class="groupnews_item">
+                            <a href="{{ route('news.show', $post) }}">
+                                @if ($post->getFirstMedia('featured_image'))
+                                    <img src='{{ $post->getFirstMedia('featured_image')->getUrl() }}' alt=''
+                                        style="height: 245px" />
+                                @endif
+
+                            </a>
+                            <h3>
+                                <a href="{{ route('news.show', $post) }}"><span>{{ $post->title }}</span></a>
+                            </h3>
+                            <p class="text text-black text-justify">
+                            </p>
+                        </div>
+                    @endif
+                @endforeach
+                <ul class="othernews">
+                    @foreach ($post_du_lich->posts as $index => $post)
+                        @if ($index > 0)
+                            <li
+                                style="background:url('images/point_yellow.png') no-repeat left 5px;  overflow: hidden;  text-overflow: ellipsis;text-align: justify;">
+                                <a href="{{ route('news.show', $post) }}">
+                                    {{ $post->title }}
+                                </a>
+                            </li>
+                        @endif
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+        <div class="groupnews_home">
+            <div
+                style="font-size: 36px; width: 100%; border-bottom: 3px solid transparent;   border-image: linear-gradient(0.25turn, rgba(38,109,192), rgba(11,143,121));    border-image-slice: 1; ">
+                <a href="{{ route('news.child', ['parentId' => $post_the_thao->parent_id, 'Id' => $post_the_thao->id]) }}">
+                    <b>Thể thao</b></a>
+            </div>
+            <div class="groupnews_home_content">
+                @foreach ($post_the_thao->posts as $index => $post)
+                    @if ($index == 0)
+                        <div class="groupnews_item">
+                            <a href="{{ route('news.show', $post) }}">
+                                @if ($post->getFirstMedia('featured_image'))
+                                    <img src='{{ $post->getFirstMedia('featured_image')->getUrl() }}' alt=''
+                                        style="height: 245px" />
+                                @endif
+
+                            </a>
+                            <h3>
+                                <a href="{{ route('news.show', $post) }}"><span>{{ $post->title }}</span></a>
+                            </h3>
+                            <p class="text text-black text-justify">
+                            </p>
+                        </div>
+                    @endif
+                @endforeach
+                <ul class="othernews">
+                    @foreach ($post_the_thao->posts as $index => $post)
+                        @if ($index > 0)
+                            <li
+                                style="background:url('images/point_yellow.png') no-repeat left 5px;  overflow: hidden;  text-overflow: ellipsis;text-align: justify;">
+                                <a href="{{ route('news.show', $post) }}">
+                                    {{ $post->title }}
+                                </a>
+                            </li>
+                        @endif
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+        <div class="groupnews_home">
+            <div
+                style="font-size: 36px; width: 100%; border-bottom: 3px solid transparent;   border-image: linear-gradient(0.25turn, rgba(38,109,192), rgba(11,143,121));    border-image-slice: 1; ">
+                <a href="{{ route('news.child', ['parentId' => $post_gia_dinh->parent_id, 'Id' => $post_gia_dinh->id]) }}">
+                    <b>Gia đình</b></a>
+            </div>
+            <div class="groupnews_home_content">
+                @foreach ($post_gia_dinh->posts as $index => $post)
+                    @if ($index == 0)
+                        <div class="groupnews_item">
+                            <a href="{{ route('news.show', $post) }}">
+                                @if ($post->getFirstMedia('featured_image'))
+                                    <img src='{{ $post->getFirstMedia('featured_image')->getUrl() }}' alt=''
+                                        style="height: 245px" />
+                                @endif
+
+                            </a>
+                            <h3>
+                                <a href="{{ route('news.show', $post) }}"><span>{{ $post->title }}</span></a>
+                            </h3>
+                            <p class="text text-black text-justify">
+                            </p>
+                        </div>
+                    @endif
+                @endforeach
+                <ul class="othernews">
+                    @foreach ($post_gia_dinh->posts as $index => $post)
+                        @if ($index > 0)
+                            <li
+                                style="background:url('images/point_yellow.png') no-repeat left 5px;  overflow: hidden;  text-overflow: ellipsis;text-align: justify;">
+                                <a href="{{ route('news.show', $post) }}">
+                                    {{ $post->title }}
+                                </a>
+                            </li>
+                        @endif
+                    @endforeach
+                </ul>
+            </div>
+        </div>
     </div>
 
     <style>
