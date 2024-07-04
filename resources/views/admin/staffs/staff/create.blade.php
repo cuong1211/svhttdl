@@ -7,6 +7,12 @@
                 @lang('admin.add')
             </span>
         </div>
+        @if (session('icon') && session('heading') && session('message'))
+            <div class="alert alert-{{ session('icon') === 'success' ? 'success' : 'danger' }}" role="alert">
+                <strong>{{ session('heading') }}:</strong>
+                {{ session('message') }}
+            </div>
+        @endif
         <div class="mt-6">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 @if ($errors->any())
@@ -90,16 +96,18 @@
 
                         </label>
                         <div class="flex items-center space-x-6">
-                            <div class="shrink-0">
-                                <img id="preview_img" class="h-16 w-16 rounded-full object-cover"
-                                    src="https://lh3.googleusercontent.com/a-/AFdZucpC_6WFBIfaAbPHBwGM9z8SxyM1oV4wB4Ngwp_UyQ=s96-c"
-                                    alt="Current photo" />
-                            </div>
-                            <label class="block">
-                                <span class="sr-only">Choose photo</span>
+                            <label class="form-control w-20">
+                                <div class="label" for="tags">
+                                    <span class="label-text text-base text-black font-medium">Hình ảnh</span>
+                                </div>
+                                <span class="sr-only">Chọn ảnh đại diện</span>
                                 <input type="file" name="image" onchange="loadFile(event)"
                                     class="file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 block w-full text-sm text-slate-500 file:mr-4 file:rounded-full file:border-0 file:px-4 file:py-2 file:text-sm file:font-semibold" />
                             </label>
+                        </div>
+                        <div class="shrink-0">
+                            <img id="preview_img" class="h-40 w-72 object-cover rounded" src="" alt=""
+                                style="display:none" />
                         </div>
                         <div class="flex justify-end gap-4">
                             <a href="{{ route('admin.staffs.index') }}" class="btn-light btn">
@@ -119,6 +127,7 @@
         <x-admin.forms.tinymce-config column="content" />
         <script>
             var loadFile = function(event) {
+                document.getElementById('preview_img').style.display = 'block'
                 var input = event.target
                 var file = input.files[0]
                 var type = file.type
