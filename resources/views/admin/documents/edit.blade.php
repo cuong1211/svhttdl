@@ -16,24 +16,25 @@
         <div class="mt-6">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="bg-white px-8 pb-8 pt-0 shadow sm:rounded-lg">
-                    <form action="{{ route('admin.documents.update', $document->id) }}" method="POST" class="space-y-4 needs-validation"
-                        novalidate enctype="multipart/form-data">
+                    <form action="{{ route('admin.documents.update', $document->id) }}" method="POST"
+                        class="space-y-4 needs-validation" novalidate enctype="multipart/form-data">
                         @csrf
                         @method('PUT') <!-- Đảm bảo sử dụng method PUT hoặc PATCH cho update -->
                         <label class="form-control w-full">
                             <div class="label">
                                 <span class="label-text text-base text-black font-medium">@lang('admin.documents.name')</span>
                             </div>
-                            <input type="text" name="name" placeholder="name..." value="{{ old('name', ($document->name) ?? '')}}" @class([
-                                'border',
-                                            'border-gray-300',
-                                            'bg-white',
-                                            'text-black',
-                                            'p-2',
-                                            'rounded-md',
-                                'input-error' => $errors->has('name'),
-                                'w-full',
-                            ]) />
+                            <input type="text" name="name" placeholder="name..."
+                                value="{{ old('name', $document->name ?? '') }}" @class([
+                                    'border',
+                                    'border-gray-300',
+                                    'bg-white',
+                                    'text-black',
+                                    'p-2',
+                                    'rounded-md',
+                                    'input-error' => $errors->has('name'),
+                                    'w-full',
+                                ]) />
                         </label>
                         <div class="flex gap-4">
                             <input type="hidden" name="user_id" value="{{ auth()->id() }}">
@@ -41,20 +42,22 @@
                                 <span class="label">
                                     <span class="label-text text-base text-black font-medium">@lang('admin.document.reference.number')</span>
                                 </span>
-                                <input type="text" name="reference_number" placeholder="Ví dụ: 05/KH-SVHTTDL" @class([
-                                    'border',
-                                            'border-gray-300',
-                                            'bg-white',
-                                            'text-black',
-                                            'p-2',
-                                            'rounded-md',
-                                    'input-error' => $errors->has('reference_number'),
-                                    'w-full',
-                                ]) value="{{ old('reference_number', ($document->reference_number) ?? '')}}" />
+                                <input type="text" name="reference_number" placeholder="Ví dụ: 05/KH-SVHTTDL"
+                                    @class([
+                                        'border',
+                                        'border-gray-300',
+                                        'bg-white',
+                                        'text-black',
+                                        'p-2',
+                                        'rounded-md',
+                                        'input-error' => $errors->has('reference_number'),
+                                        'w-full',
+                                    ])
+                                    value="{{ old('reference_number', $document->reference_number ?? '') }}" />
                             </label>
                             <x-admin.forms.document name="published_at" value="{{ old('published_at') }}" />
                         </div>
-                       
+
                         <label class="form-control w-full">
                             <div class="label">
                                 <span class="label-text text-base text-black font-medium">@lang('admin.content')</span>
@@ -67,7 +70,7 @@
                                 <span class="label-text text-base text-black font-medium">@lang('admin.types')</span>
                             </div>
                             <select name="types[]" id="" class="form-control">
-                                
+
                                 @foreach ($types as $type)
                                     <option value="{{ $type->id }}"
                                         {{ $type->type_id == $type->id ? 'selected' : '' }}>
@@ -84,7 +87,7 @@
                                 <span class="label-text text-base text-black font-medium">@lang('admin.signers')</span>
                             </div>
                             <select name="signers[]" id="" class="form-control">
-                                
+
                                 @foreach ($signers as $signer)
                                     <option value="{{ $signer->id }}"
                                         {{ $signer->signer_id == $signer->id ? 'selected' : '' }}>
@@ -140,16 +143,17 @@
                             <div class="label">
                                 <span class="label-text text-base text-black font-medium">@lang('admin.notes')</span>
                             </div>
-                            <input type="text" name="notes" placeholder="Nhập nội dung ghi chú..." @class([
-                                'border',
-                                            'border-gray-300',
-                                            'bg-white',
-                                            'text-black',
-                                            'p-2',
-                                            'rounded-md',
-                                'input-error' => $errors->has('notes'),
-                                'w-full',
-                            ]) value="{{ old('notes', ($document->notes) ?? '')}}"  />
+                            <input type="text" name="notes" placeholder="Nhập nội dung ghi chú..."
+                                @class([
+                                    'border',
+                                    'border-gray-300',
+                                    'bg-white',
+                                    'text-black',
+                                    'p-2',
+                                    'rounded-md',
+                                    'input-error' => $errors->has('notes'),
+                                    'w-full',
+                                ]) value="{{ old('notes', $document->notes ?? '') }}" />
                         </label>
                         <div class="flex items-center space-x-6">
                             <div class="shrink-0">
@@ -159,7 +163,8 @@
                             </div>
                             <label class="block">
                                 <span class="sr-only">Choose photo</span>
-                                <div class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md flex items-center gap-2 bg-white flex items-center gap-2 border px-3 py-2">
+                                <div
+                                    class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md flex items-center gap-2 bg-white flex items-center gap-2 border px-3 py-2">
                                     File:
                                     <span
                                         id="selected_file_name">{{ $document->getFirstMedia('document_file')->name }}</span>
@@ -184,20 +189,20 @@
         </div>
     </div>
     @pushonce('bottom_scripts')
-    <x-admin.forms.tinymce-config column="content" />
-    <script>
-        var loadFile = function(event) {
-            var input = event.target
-            var file = input.files[0]
-            var type = file.type
+        <x-admin.forms.tinymce-config column="content" />
+        <script>
+            var loadFile = function(event) {
+                var input = event.target
+                var file = input.files[0]
+                var type = file.type
 
-            var output = document.getElementById('preview_img')
+                var output = document.getElementById('preview_img')
 
-            output.src = URL.createObjectURL(event.target.files[0])
-            output.onload = function() {
-                URL.revokeObjectURL(output.src) // free memory
+                output.src = URL.createObjectURL(event.target.files[0])
+                output.onload = function() {
+                    URL.revokeObjectURL(output.src) // free memory
+                }
             }
-        }
-    </script>
-@endpushonce
+        </script>
+    @endpushonce
 </x-app-layout>

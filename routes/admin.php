@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('tags', TagController::class);
 
         //post of category
-        Route::get('category/{slug}', [PostController::class, 'index'])->name('categories.posts.index');
+        Route::get('category/{category:id}', [PostController::class, 'index'])->name('categories.posts.index');
         Route::get('category/{category}/posts/create', [PostController::class, 'create'])->name('categories.posts.create');
         Route::post('category/{category}/posts', [PostController::class, 'store'])->name('categories.posts.store');
         Route::get('category/{category}/posts/{post}/edit', [PostController::class, 'edit'])->name('categories.posts.edit');

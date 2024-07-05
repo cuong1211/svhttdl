@@ -1,4 +1,5 @@
 <x-website-layout>
+
     <ul class="UL_Link_Menu">
         <li class="Lv_1">
             <a href="index-2.html">Trang chủ</a>
@@ -18,6 +19,8 @@
                 <a href="{{ route('news.show', $post) }}">
                     @if ($post->getFirstMedia('featured_image'))
                         <img src='{{ $post->getFirstMedia('featured_image')->getUrl('') }}' alt='' />
+                    @else
+                        <img src='{{ asset($post->image) }}' alt='' />
                     @endif
                 </a>
             </div>
@@ -33,18 +36,8 @@
         </div>
     @endforeach
     </table>
-    <ul class="pagination" style="float: right;">
-        <li class='active'><a href='indexa6d2.html?com=danhmuc_tin&amp;id_category=2&amp;page=1'>1</a></li>
-        <li><a href='index38f0.html?com=danhmuc_tin&amp;id_category=2&amp;page=2'>2</a></li>
-        <li><a href='index5575.html?com=danhmuc_tin&amp;id_category=2&amp;page=3'>3</a></li>
-        <li><a href='index2127.html?com=danhmuc_tin&amp;id_category=2&amp;page=4'>4</a></li>
-        <li><a href='index23a2.html?com=danhmuc_tin&amp;id_category=2&amp;page=5'>5</a></li>
-        <li><a href='indexbc8b.html?com=danhmuc_tin&amp;id_category=2&amp;page=6'>6</a></li>
-        <li><a href='index991c.html?com=danhmuc_tin&amp;id_category=2&amp;page=7'>7</a></li>
-        <li><a href='index2f55.html?com=danhmuc_tin&amp;id_category=2&amp;page=8'>8</a></li>
-        <li><a href='index5b56.html?com=danhmuc_tin&amp;id_category=2&amp;page=9'>9</a></li>
-        <li><a href='indexccb3.html?com=danhmuc_tin&amp;id_category=2&amp;page=10'>10</a></li>
-        <li><a href='index9260.html?com=danhmuc_tin&amp;id_category=2&amp;page=11'>11</a></li>
-    </ul>
+    {{ $posts->render('web.paginate') }}
+
+
 
 </x-website-layout>

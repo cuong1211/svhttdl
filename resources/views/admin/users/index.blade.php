@@ -48,8 +48,9 @@
                                 <th class="text-center font-semibold">#</th>
                                 <th class="text-center font-semibold">Tên tài khoản</th>
                                 <th class="text-center font-semibold">Email</th>
-                                {{-- <th>SĐT</th> --}}
-                                <th>Tên hiển thị</th>
+                                <th class="text-center font-semibold">Tên hiển thị</th>
+                                <th class="text-center font-semibold">Loại tài khoản</th>
+                                <th class="text-center font-semibold">Phòng ban</th>
                                 <th class="text-center font-semibold">@lang('admin.created_at')</th>
                                 <th class="text-center font-semibold">@lang('admin.updated_at')</th>
                                 <th class="text-center font-semibold">@lang('admin.funtion')</th>
@@ -63,10 +64,11 @@
                                     </th>
                                     <td class="text-center">{{ $user->name }}</td>
                                     <td class="text-center">{{ $user->email }}</td>
-                                    {{-- <td>{{ $user->phone }}</td> --}}
+                         
                                     <td class="text-center">{{ $user->display_name }}</td>
-                                    {{-- <td>{{ $user->departments->name->join(', ') }}</td> --}}
-                                    <td class="text-center">{{ $user->createdAtVi }}</td>
+                                    <td class="text-center">{{ $user->categories->name }}</td>
+                                    <td class="text-center">{{ $user->departments->name}}</td>
+                                    <td class="text-center">{{ $user->createddAtVi }}</td>
                                     <td class="text-center">{{ $user->updatedAtVi }}</td>
 
                                     <td class="flex gap-3 items-center justify-center">

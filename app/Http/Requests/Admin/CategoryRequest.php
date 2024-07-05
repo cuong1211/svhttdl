@@ -19,7 +19,7 @@ class CategoryRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('categories')->ignore($this->category->id ?? null),
+                // Rule::unique('categories')->ignore($this->category->id ?? null),
             ],
             'order' => 'nullable',
             'in_menu' => 'required|boolean',

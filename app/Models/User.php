@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Staff\Department;
+use App\Models\User\Categorie;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Carbon;
 
 class User extends Authenticatable
 {
@@ -50,11 +54,32 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
+    public function departments()
+    {
+        return $this->belongsTo(Department::class, 'department_id');
+    }
+    public function categories()
+    {
+        return $this->belongsTo(Categorie::class, 'category_id');
+    }
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    protected function createddAtVi(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => Carbon::parse($this->created_at)->format('d/m/Y h:i'),
+        );
+    }
+
+    protected function updatedAtVi(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => Carbon::parse($this->updated_at)->format('d/m/Y h:i'),
+        );
     }
 }

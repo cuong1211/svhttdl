@@ -37,6 +37,8 @@ route::get('/faq/done/success', [FaqController::class, 'success'])->name('faq.su
 route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
 route::get('/contact/done/success', [ContactController::class, 'success'])->name('contact.success');
+route::get('don-vi-su-nghiep/{category:id}/menu/{menu:id}',[HomeController::class,'getChild'])->name('home.child.index');
+route::get('don-vi-su-nghiep/{category:id}/menu/{menu:id}/post/{post:id}',[HomeController::class,'getPost'])->name('home.child.post');
 Route::get('/danh-muc/{category:id}', [NewsController::class, 'index'])->name('news.index');
 Route::get('/danh-muc/{parentId}/{Id}', [NewsController::class, 'getChild'])->name('news.child');
 

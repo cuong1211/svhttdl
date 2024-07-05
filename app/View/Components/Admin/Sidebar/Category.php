@@ -5,6 +5,7 @@ namespace App\View\Components\Admin\Sidebar;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use App\Models\Category as Catemodel;
 
 class Category extends Component
 {

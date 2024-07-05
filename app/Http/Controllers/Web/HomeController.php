@@ -13,12 +13,7 @@ class HomeController extends Controller
 {
     public function __invoke(): View
     {
-        // $posts = Category::query()->where('slug', 'tin-tuc-su-kien')->with(['children' => function ($query) {
-        //     $query->with(['posts' => function ($q) {
-        //         $q->published()
-        //             ->orderByDesc('published_at');
-        //     }])->limit(4);
-        // }])->get();
+      
         $post_van_hoa = Category::query()->where('id',9)->with(['posts' => function ($q) {
             $q->published()
                 ->orderByDesc('published_at')
@@ -40,13 +35,7 @@ class HomeController extends Controller
                 ->take(5);
         }])->first();
         $banner_mid = banner::query()->where('position', 2)->where('is_active', 1)->first();
-        // dd($posts);
-        // Post::query()
-        //         ->with('category')
-        //         ->published()
-        //         ->orderByDesc('published_at')
-        //         ->paginate(10)
-        // dd($posts);
+       
         return view('web.home', compact('banner_mid','post_van_hoa','post_du_lich','post_the_thao','post_gia_dinh'));
     }
     public function showMenu()
@@ -54,4 +43,28 @@ class HomeController extends Controller
         $menus = Menu::with('children')->whereNull('parent_id')->orderBy('order')->get();
         return view('layouts.website', compact('menus'));
     }
+    public function getChild($category_id, $menu_id){
+        $posts = Post::query()->where('category_id', $category_id)->paginate(10);
+        // dd($post);
+        return view('web.child',compact('posts', 'menu_id', 'category_id'));
+    }
+    public function getPost($category_id, $menu_id, $id): View
+    {
+        $category = Category::query()->where('id', $category_id)->first();
+        $post = Post::query()->where('id', $id)->first();
+        $otherPosts = Post::query()
+            ->where('category_id', $post->category_id)
+            ->where('id', '!=', $post->id)
+            ->published()
+            ->latest()
+            ->take(10)
+            ->get();
+            // dd($otherPosts);
+        return view('web.news.show', [
+            'post' => $post,
+            'category' => $category,
+            'otherPosts' => $otherPosts,
+        ]);
+    }
+             
 }

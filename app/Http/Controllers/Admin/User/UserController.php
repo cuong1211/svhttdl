@@ -21,8 +21,10 @@ class UserController extends Controller
                 $request->search,
                 fn ($query) => $query->where('name', 'like', '%' . $request->search . '%')
             )
+            ->with('departments', 'categories')
             ->latest()
             ->get();
+        // dd($users);
         return view('admin.users.index', [
             'users' => $users,
         ]);
@@ -55,7 +57,7 @@ class UserController extends Controller
         //         ->toMediaCollection('user_image');
         // }
 
-        return redirect()->route('admin.users.index')->with('success', 'user created successfully.');
+        return redirect()->route('admin.users.index')->with('success', 'Tạo tài khoản thành công.');
     }
 
     /**
@@ -63,28 +65,22 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        // $departments = Department::all();
+        $departments = Department::all();
         // $positions = Position::all();
-
-        return view('admin.users.user.edit', compact('user', 'departments', 'positions'));
+        $role = Categorie::query()->get();
+        return view('admin.users.edit', compact('user', 'departments','role'));
     }
 
     /**
      * Update the specified user in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'content' => 'required|string',
-            'departments' => 'required|array',
-            'departments.*' => 'exists:departments,id',
-        ]);
+        
 
-        $user->update($request->only(['name', 'content']));
-        $user->departments()->sync($request->departments);
-        $user->positions()->sync($request->positions);
-        // dd($user);
+        // dd($request);
+        $data = $request->validated();
+        $user->update($data);
         if ($request->hasFile('image')) {
             $imageFile = $request->file('image');
             $user->clearMediaCollection('user_image');
@@ -94,7 +90,7 @@ class UserController extends Controller
                 ->toMediaCollection('user_image');
         }
 
-        return redirect()->route('admin.users.index')->with('success', 'user updated successfully.');
+        return redirect()->route('admin.users.index')->with('success', 'Cập nhập tài khoản thành công.');
     }
 
     /**
@@ -102,9 +98,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->departments()->detach();
         $user->delete();
 
-        return redirect()->route('admin.users.index')->with('success', 'user deleted successfully.');
+        return redirect()->route('admin.users.index')->with('success', 'Xóa tài khoản thành công.');
     }
 }

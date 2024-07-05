@@ -9,6 +9,7 @@ use Illuminate\Support\Carbon;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\User;
 
 class Department extends Model implements HasMedia
 {
@@ -24,7 +25,10 @@ class Department extends Model implements HasMedia
     {
         return $this->hasMany(Staff::class);
     }
-
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
     protected function updatedAtVi(): Attribute
     {
         return Attribute::make(

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UserRequest extends FormRequest
 {
@@ -21,12 +22,10 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-        $input = $this->all();
-        $input['password'] = trim($input['password']);
-        $this->replace($input);
 
         $arr = explode('@', $this->route()->getActionName());
         $action = $arr[1];
+        // dd($action);
         switch ($action) {
             case 'store': {
                     return [
@@ -49,7 +48,15 @@ class UserRequest extends FormRequest
                     return [
                         'name' => 'required|regex: /^[ a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/|max:255|min:2',
                         // 'name'=>['required','max:255','min:2','alpha'],
-                        'email' => 'required|max:255|email|regex:/^[A-Za-z0-9.@+]*$/|email:rfc,dns|unique:users,email,' . $this->user,
+                        'email' => [
+                            'required',
+                            'max:255',
+                            'email',
+                            'regex:/^[A-Za-z0-9.@+]*$/',
+                            'email:rfc,dns',
+                            Rule::unique('users')
+                                ->ignore($this->user->id),
+                        ],
                         'phone' => 'nullable|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|max:15',
                         'address' => 'nullable|max:255',
                         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -57,8 +64,7 @@ class UserRequest extends FormRequest
                         'provide_id' => 'nullable|integer',
                         'department_id' => 'required| not in:0',
                         'category_id' => 'required| not in:0',
-                        'display_name' => 'required|max:255',
-                        'password' => 'required|min:8|max:255',
+                        'display_name' => 'required|max:255'
                     ];
                 }
             default:

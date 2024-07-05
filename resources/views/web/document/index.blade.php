@@ -25,6 +25,9 @@
             background-color: inherit;
             color: inherit;
         }
+        a{
+            color: black;
+        }
     </style>
     <ul class="UL_Link_Menu">
         <li class="Lv_1">
@@ -89,7 +92,7 @@
             </div>
 
             <!-- Similar modification for Tab2 and Tab3 -->
-
+            {{ $docs->render('web.paginate') }}
             <script>
                 function openCity(cityName) {
                     var i;

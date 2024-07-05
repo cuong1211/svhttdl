@@ -13,9 +13,9 @@ use Illuminate\View\View;
 
 class PostController extends Controller
 {
-    public function index($slug)
+    public function index($id)
     {
-        $category = Category::where('slug', $slug)->firstOrFail();
+        $category = Category::where('id', $id)->firstOrFail();
         $posts = $category->posts()->orderBy('published_at', 'desc')->paginate(10);
 
         return view('admin.categories.posts.index', [
@@ -66,7 +66,7 @@ class PostController extends Controller
         }
         $category = Category::findOrFail($request->category_id);
 
-        return redirect()->route('admin.categories.posts.index', ['slug' => $category->slug])->with([
+        return redirect()->route('admin.categories.posts.index', ['category' => $category->id])->with([
             'icon' => 'success',
             'heading' => 'Success',
             'message' => 'Tạo bài viết thành công',
