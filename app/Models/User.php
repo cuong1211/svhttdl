@@ -24,6 +24,12 @@ class User extends Authenticatable
         'display_name',
         'category_id',
         'password',
+        'phone',
+        'address',
+        'image',
+        'state',
+        'provide_id',
+        'department_id',
     ];
     // Thiết lập các giá trị mặc định
     protected $attributes = [

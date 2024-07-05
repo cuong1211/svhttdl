@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\UserRequest;
 use App\Models\Staff\Department;
 use App\Models\User;
 use App\Models\User\Categorie;
@@ -40,17 +41,12 @@ class UserController extends Controller
     /**
      * Store a newly created user in storage.
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'departments' => 'required|in:departments,id',
-            'role' => 'required|in:categories,id',
-        ]);
-
-        $user = User::create($request->only(['name', 'content']));
-        $user->departments()->attach($request->departments);
-        $user->positions()->attach($request->positions);
+        // dd($request->all());
+        $data = $request->validated();
+        $user = User::create($data);
+        // $user->departments()->attach($request->departments);
         // if ($request->hasFile('image')) {
         //     $imageFile = $request->file('image');
         //     $user->addMedia($imageFile->getRealPath())
