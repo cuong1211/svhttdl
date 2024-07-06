@@ -53,7 +53,7 @@ class FaqController extends Controller
     {
         $faq->timestamps = false;
         $faq->update([
-            'read_at' => now()->format('d.m.Y h:i'),
+            'read_at' => now()->format('d/m/Y h:i'),
         ]);
         $faq->timestamps = true;
 

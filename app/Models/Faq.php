@@ -30,7 +30,7 @@ class Faq extends Model
     protected function createdAtVi(): Attribute
     {
         return Attribute::make(
-            get: fn () => Carbon::parse($this->created_at)->format('d.m.Y h:i'),
+            get: fn () => Carbon::parse($this->created_at)->format('d/m/Y h:i'),
         );
     }
 }

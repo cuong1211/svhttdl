@@ -26,7 +26,7 @@
                             <div class="label">
                                 <span class="label-text text-base text-black font-medium">@lang('admin.departments.name')</span>
                             </div>
-                            <input type="text" name="name" placeholder="name..." @class([
+                            <input type="text" name="name" placeholder="Tên phòng ban..." @class([
                                 'border',
                                 'border-gray-300',
                                 'bg-white',

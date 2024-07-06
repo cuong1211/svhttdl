@@ -44,12 +44,12 @@
                         <!-- head -->
                         <thead class="text-black text-base">
                             <tr>
-                                <th class="text-center ">#</th>
-                                <th class="text-center">@lang('admin.categories.order')</th>
-                                <th class="text-center">@lang('admin.categories.title')</th>
-                                <th class="text-center">@lang('admin.categories.created_at')</th>
-                                <th class="text-center">@lang('admin.categories.updated_at')</th>
-                                <th class="text-center">@lang('admin.funtion')</th>
+                                <th class="text-center font-semibold">#</th>
+                                <th class="text-center font-semibold">@lang('admin.categories.order')</th>
+                                <th class="text-center font-semibold">@lang('admin.categories.title')</th>
+                                <th class="text-center font-semibold">@lang('admin.categories.created_at')</th>
+                                <th class="text-center font-semibold">@lang('admin.categories.updated_at')</th>
+                                <th class="text-center font-semibold">@lang('admin.funtion')</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -58,10 +58,10 @@
                                     <th class="text-center">
                                         {{ $loop->index + 1 }}
                                     </th>
-                                    <td class="size-5 text-center">
+                                    <td class="w-12 text-center">
                                         <div class=" bg-blue-700 text-white">{{ $category->order }}</div>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-left">
                                         {{ app()->getLocale() === 'en' ? $category->title_en : $category->title }}</td>
                                     <td class="text-center">{{ $category->createdAtVi }}</td>
                                     <td class="text-center">{{ $category->updatedAtVi }}</td>

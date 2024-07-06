@@ -59,7 +59,7 @@
                             @foreach ($cooperations as $cooperation)
                                 <tr>
                                     <th class="text-center">{{ $cooperations->firstItem() + $loop->index }}</th>
-                                    <td class="text-center">
+                                    <td class="text-left">
                                         <a target="_blank"
                                             href="{{ Str::startsWith($cooperation->link_website, ['http://', 'https://']) ? $cooperation->link_website : 'http://' . $cooperation->link_website }}">
                                             {{ $cooperation->name }}
@@ -81,12 +81,30 @@
                                                 <x-heroicon-o-trash class="size-4 text-red-500" />
                                             </button>
                                         </form>
-
+                                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                                         <script>
+                                            $(document).ready(function() {
+                                                setTimeout(function() {
+                                                    $(".alert").fadeOut(2000);
+                                                }, 3000); // thông báo sẽ ẩn sau 3 giây
+                                            });
+
                                             function confirmDelete(cooperationId) {
-                                                if (confirm('Are you sure you want to delete this cooperation?')) {
-                                                    document.getElementById('delete-form-' + cooperationId).submit()
-                                                }
+                                                Swal.fire({
+                                                    title: 'Bạn có chắc chắn muốn xóa không?',
+                                                    text: "Dữ liệu bị xóa sẽ không thể khôi phục lại được!",
+                                                    icon: 'warning',
+                                                    showCancelButton: true,
+                                                    confirmButtonColor: '#3085d6',
+                                                    cancelButtonColor: '#d33',
+                                                    confirmButtonText: 'Có',
+                                                    cancelButtonText: 'Không'
+                                                }).then((result) => {
+                                                    if (result.isConfirmed) {
+                                                        $('#delete-form-' + cooperationId).submit();
+                                                    }
+                                                })
                                             }
                                         </script>
                                     </td>

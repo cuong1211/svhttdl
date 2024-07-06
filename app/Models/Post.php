@@ -94,13 +94,13 @@ class Post extends Model implements HasMedia
     */
     public function getPublishedAtViAttribute()
     {
-        return ucfirst(Carbon::parse($this->published_at)->translatedFormat('l, d/m/Y'));
+        return ucfirst(Carbon::parse($this->published_at)->translatedFormat('d/m/Y h:i'));
     }
 
     protected function updatedAtVi(): Attribute
     {
         return Attribute::make(
-            get: fn () => Carbon::parse($this->updated_at)->format('d.m.Y h:i'),
+            get: fn () => Carbon::parse($this->updated_at)->format('d/m/Y h:i'),
         );
     }
 

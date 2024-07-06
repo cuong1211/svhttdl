@@ -6,11 +6,11 @@
             </span>
         </div>
         @if (session('icon') && session('heading') && session('message'))
-        <div class="alert alert-{{ session('icon') === 'success' ? 'success' : 'danger' }}" role="alert">
-            <strong>{{ session('heading') }}:</strong>
-            {{ session('message') }}
-        </div>
-    @endif
+            <div class="alert alert-{{ session('icon') === 'success' ? 'success' : 'danger' }}" role="alert">
+                <strong>{{ session('heading') }}:</strong>
+                {{ session('message') }}
+            </div>
+        @endif
         <div class="mt-6">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="overflow-x-auto">
@@ -18,9 +18,11 @@
                         <form action="{{ route('admin.departments.index') }}" method="GET" class="w-full">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
-                                    <label class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md flex items-center gap-2 bg-white flex items-center gap-2">
+                                    <label
+                                        class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md flex items-center gap-2"
+                                        style="border: 1px solid black;">
                                         <input name="search" type="text" class="grow"
-                                            placeholder="Tìm kiếm theo tiêu đề" style="border: unset; color:black""
+                                            placeholder="Tìm kiếm theo tiêu đề" style="border: unset; color:black"
                                             value="{{ request()->search }}" />
                                         <button type="submit">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
@@ -32,35 +34,36 @@
                                         </button>
                                     </label>
                                 </div>
-                                <a class="bg-blue-700 btn border-blue-500" href="{{ route('admin.departments.create') }}">
+                                <a class="bg-blue-700 btn border-blue-500"
+                                    href="{{ route('admin.departments.create') }}">
                                     <x-heroicon-s-plus class="size-4 text-white" />
                                     <span class="text-white">@lang('admin.add')</span>
                                 </a>
                             </div>
                         </form>
                     </div>
-                    <table class="table">
+                    <table class="table text-black text-base">
                         <!-- head -->
-                        <thead>
+                        <thead class="text-black text-base">
                             <tr>
-                                <th>#</th>
-                                <th>@lang('admin.departments.name')</th>
-                                <th>@lang('admin.created_at')</th>
-                                <th>@lang('admin.updated_at')</th>
-                                <th>@lang('admin.funtion')</th>
+                                <th class="text-center font-semibold">#</th>
+                                <th class="text-center font-semibold">@lang('admin.departments.name')</th>
+                                <th class="text-center font-semibold">@lang('admin.created_at')</th>
+                                <th class="text-center font-semibold">@lang('admin.updated_at')</th>
+                                <th class="text-center font-semibold">@lang('admin.funtion')</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($departments as $department)
                                 <tr>
-                                    <th>
+                                    <th class="text-center">
                                         {{ $loop->index + 1 }}
                                     </th>
-                                    <td>{{ $department->name }}</td>
-                                    <td>{{ $department->createdAtVi }}</td>
-                                    <td>{{ $department->updatedAtVi }}</td>
+                                    <td class="text-left">{{ $department->name }}</td>
+                                    <td class="text-center">{{ $department->createdAtVi }}</td>
+                                    <td class="text-center">{{ $department->updatedAtVi }}</td>
 
-                                    <td class="flex gap-3">
+                                    <td class="flex gap-3 items-center justify-center">
                                         <a href="{{ route('admin.departments.edit', $department->id) }}"><x-heroicon-s-pencil-square
                                                 class="size-4 text-green-600" /></a>
                                         <form id="delete-form-{{ $department->id }}"
@@ -73,18 +76,30 @@
                                             </button>
                                         </form>
 
+                                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                                         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                                         <script>
                                             $(document).ready(function() {
                                                 setTimeout(function() {
                                                     $(".alert").fadeOut(2000);
-                                                }, 5000); // thông báo sẽ ẩn sau 5 giây
+                                                }, 3000); // thông báo sẽ ẩn sau 3 giây
                                             });
 
-                                            function confirmDelete(categoryId) {
-                                                if (confirm("@lang('admin.departments.delete')")) {
-                                                    document.getElementById('delete-form-' + categoryId).submit();
-                                                }
+                                            function confirmDelete(departmentId) {
+                                                Swal.fire({
+                                                    title: 'Bạn có chắc chắn muốn xóa không?',
+                                                    text: "Dữ liệu bị xóa sẽ không thể khôi phục lại được!",
+                                                    icon: 'warning',
+                                                    showCancelButton: true,
+                                                    confirmButtonColor: '#3085d6',
+                                                    cancelButtonColor: '#d33',
+                                                    confirmButtonText: 'Có',
+                                                    cancelButtonText: 'Không'
+                                                }).then((result) => {
+                                                    if (result.isConfirmed) {
+                                                        $('#delete-form-' + departmentId).submit();
+                                                    }
+                                                })
                                             }
                                         </script>
 

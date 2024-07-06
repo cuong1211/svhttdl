@@ -40,19 +40,19 @@
                         <!-- head -->
                         <thead class="text-black text-base">
                             <tr>
-                                <th class="text-center">#</th>
-                                <th class="text-center">@lang('admin.photos.name')</th>
-                                <th class="text-center">@lang('admin.photos.album_name')</th>
-                                <th class="text-center">@lang('admin.photos.created_at')</th>
-                                <th class="text-center">@lang('admin.photos.updated_at')</th>
-                                <th class="text-center">@lang('admin.funtion')</th>
+                                <th class="text-center font-semibold">#</th>
+                                <th class="text-center font-semibold">@lang('admin.photos.name')</th>
+                                <th class="text-center font-semibold">@lang('admin.photos.album_name')</th>
+                                <th class="text-center font-semibold">@lang('admin.photos.created_at')</th>
+                                <th class="text-center font-semibold">@lang('admin.photos.updated_at')</th>
+                                <th class="text-center font-semibold">@lang('admin.funtion')</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($photos as $photo)
                                 <tr>
                                     <th class="text-center">{{ $photos->firstItem() + $loop->index }}</th>
-                                    <td class="text-center">{{ $photo->name }}</td>
+                                    <td class="text-left">{{ $photo->name }}</td>
                                     <td class="text-center">{{ $photo->album->name }}</td>
                                     <td class="text-center">{{ $photo->createddAtVi }}</td>
                                     <td class="text-center">{{ $photo->updatedAtVi }}</td>

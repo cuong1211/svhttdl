@@ -46,7 +46,7 @@ class ContactController extends Controller
     {
         $contact->timestamps = false;
         $contact->update([
-            'read_at' => now()->format('d.m.Y h:i'),
+            'read_at' => now()->format('d/m/Y h:i'),
         ]);
         $contact->timestamps = true;
 

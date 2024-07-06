@@ -40,19 +40,19 @@
                         <!-- head -->
                         <thead class="text-black text-base">
                             <tr>
-                                <th class="text-center">#</th>
-                                <th class="text-center">@lang('admin.videos.name')</th>
-                                <th class="text-center">@lang('admin.videos.album_name')</th>
-                                <th class="text-center">@lang('admin.videos.created_at')</th>
-                                <th class="text-center">@lang('admin.videos.updated_at')</th>
-                                <th class="text-center">@lang('admin.funtion')</th>
+                                <th class="text-center font-semibold">#</th>
+                                <th class="text-center font-semibold">@lang('admin.videos.name')</th>
+                                <th class="text-center font-semibold">@lang('admin.videos.album_name')</th>
+                                <th class="text-center font-semibold">@lang('admin.videos.created_at')</th>
+                                <th class="text-center font-semibold">@lang('admin.videos.updated_at')</th>
+                                <th class="text-center font-semibold">@lang('admin.funtion')</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($videos as $video)
                                 <tr>
                                     <th class="text-center">{{ $videos->firstItem() + $loop->index }}</th>
-                                    <td class="text-center">{{ $video->name }}</td>
+                                    <td class="text-left">{{ $video->name }}</td>
                                     <td class="text-center">{{ $video->album->name }}</td>
                                     <td class="text-center">{{ $video->createddAtVi }}</td>
                                     <td class="text-center">{{ $video->updatedAtVi }}</td>

@@ -37,18 +37,18 @@
                         <!-- head -->
                         <thead class="text-black text-base">
                             <tr>
-                                <th class="text-center">#</th>
-                                <th class="text-center">@lang('admin.albums.name')</th>
-                                <th class="text-center">@lang('admin.created_at')</th>
-                                <th class="text-center">@lang('admin.updated_at')</th>
-                                <th class="text-center">@lang('admin.funtion')</th>
+                                <th class="text-center font-semibold">#</th>
+                                <th class="text-center font-semibold">@lang('admin.albums.name')</th>
+                                <th class="text-center font-semibold">@lang('admin.created_at')</th>
+                                <th class="text-center font-semibold">@lang('admin.updated_at')</th>
+                                <th class="text-center font-semibold">@lang('admin.funtion')</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($albums as $album)
                                 <tr>
                                     <th class="text-center">{{ $albums->firstItem() + $loop->index }}</th>
-                                    <td class="text-center">{{ $album->name }}</td>
+                                    <td class="text-left">{{ $album->name }}</td>
                                     <td class="text-center">{{ $album->createddAtVi }}</td>
                                     <td class="text-center">{{ $album->updatedAtVi }}</td>
                                     <td class="flex gap-3 items-center justify-center">

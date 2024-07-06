@@ -33,11 +33,12 @@
                             class="w-full">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
-                                    <label class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md items-center gap-2 flex"
+                                    <label
+                                        class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md items-center gap-2 flex"
                                         style="border: 1px solid black;">
                                         <input name="search" type="text" class="grow"
-                                            placeholder="Tìm kiếm theo tiêu đề" style="border: unset; color:black"; color:black"
-                                            value="{{ request()->search }}" />
+                                            placeholder="Tìm kiếm theo tiêu đề" style="border: unset; color:black";
+                                            color:black" value="{{ request()->search }}" />
                                         <button type="submit">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
                                                 fill="currentColor" class="h-4 w-4 opacity-70">
@@ -60,10 +61,10 @@
                         <!-- head -->
                         <thead class="text-black text-base">
                             <tr>
-                                <th>#</th>
-                                <th>@lang('admin.post.title')</th>
-                                <th>@lang('admin.post.category_of')</th>
-                                <th>@lang('admin.post.published_at')</th>
+                                <th class="text-center font-semibold">#</th>
+                                <th class="text-center font-semibold">@lang('admin.post.title')</th>
+                                <th class="text-center font-semibold">@lang('admin.post.category_of')</th>
+                                <th class="text-center font-semibold">@lang('admin.post.published_at')</th>
                                 {{-- ngày đăng --}}
                                 <th>@lang('admin.post.updated_at')</th>
                                 {{-- ngày cập nhật --}}
@@ -73,11 +74,11 @@
                         <tbody>
                             @foreach ($posts as $post)
                                 <tr>
-                                    <th>{{ $posts->firstItem() + $loop->index }}</th>
-                                    <td>{{ $post->title }}</td>
-                                    <td>{{ $post->category->title }}</td>
-                                    <td>{{ $post->publishedAtVi }}</td>
-                                    <td>{{ $post->updatedAtVi }}</td>
+                                    <th class="text-center">{{ $posts->firstItem() + $loop->index }}</th>
+                                    <td class="text-left">{{ $post->title }}</td>
+                                    <td class="text-center">{{ $post->category->title }}</td>
+                                    <td class="text-center">{{ $post->publishedAtVi }}</td>
+                                    <td class="text-center">{{ $post->updatedAtVi }}</td>
 
                                     <td class="flex gap-3 items-center justify-center">
                                         <a

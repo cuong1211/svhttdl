@@ -46,20 +46,20 @@
                         <!-- head -->
                         <thead class="text-black text-base">
                             <tr>
-                                <th class="text-center">#</th>
-                                <th class="text-center">@lang('admin.announcement.title')</th>
-                                <th class="text-center">@lang('admin.announcement.created_at')</th>
+                                <th class="text-center font-semibold">#</th>
+                                <th class="text-center font-semibold">@lang('admin.announcement.title')</th>
+                                <th class="text-center font-semibold">@lang('admin.announcement.created_at')</th>
                                 {{-- ngày đăng --}}
-                                <th class="text-center">@lang('admin.announcement.updated_at')</th>
+                                <th class="text-center font-semibold">@lang('admin.announcement.updated_at')</th>
                                 {{-- ngày cập nhật --}}
-                                <th class="text-center">@lang('admin.funtion')</th>
+                                <th class="text-center font-semibold">@lang('admin.funtion')</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($announcements as $announcement)
                                 <tr>
                                     <td class="text-center">{{ $announcements->firstItem() + $loop->index }}</td>
-                                    <td class="text-center">{{ $announcement->title }}</td>
+                                    <td class="text-left">{{ $announcement->title }}</td>
                                     <td class="text-center">{{ $announcement->publishedAtVi }}</td>
                                     <td class="text-center">{{ $announcement->updatedAtVi }}</td>
 

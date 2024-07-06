@@ -27,14 +27,14 @@ class Signer extends Model implements HasMedia
     protected function updatedAtVi(): Attribute
     {
         return Attribute::make(
-            get: fn () => Carbon::parse($this->updated_at)->format('d.m.Y h:i'),
+            get: fn () => Carbon::parse($this->updated_at)->format('d/m/Y h:i'),
         );
     }
 
     protected function createdAtVi(): Attribute
     {
         return Attribute::make(
-            get: fn () => Carbon::parse($this->created_at)->format('d.m.Y h:i'),
+            get: fn () => Carbon::parse($this->created_at)->format('d/m/Y h:i'),
         );
     }
 }

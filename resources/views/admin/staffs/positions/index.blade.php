@@ -6,11 +6,11 @@
             </span>
         </div>
         @if (session('icon') && session('heading') && session('message'))
-        <div class="alert alert-{{ session('icon') === 'success' ? 'success' : 'danger' }}" role="alert">
-            <strong>{{ session('heading') }}:</strong>
-            {{ session('message') }}
-        </div>
-    @endif
+            <div class="alert alert-{{ session('icon') === 'success' ? 'success' : 'danger' }}" role="alert">
+                <strong>{{ session('heading') }}:</strong>
+                {{ session('message') }}
+            </div>
+        @endif
         <div class="mt-6">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="overflow-x-auto">
@@ -18,9 +18,11 @@
                         <form action="{{ route('admin.positions.index') }}" method="GET" class="w-full">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
-                                    <label class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md flex items-center gap-2 bg-white flex items-center gap-2">
+                                    <label
+                                        class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md flex items-center gap-2"
+                                        style="border: 1px solid black;">
                                         <input name="search" type="text" class="grow"
-                                            placeholder="Tìm kiếm theo tiêu đề" style="border: unset; color:black""
+                                            placeholder="Tìm kiếm theo tiêu đề" style="border: unset; color:black"
                                             value="{{ request()->search }}" />
                                         <button type="submit">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
@@ -39,28 +41,28 @@
                             </div>
                         </form>
                     </div>
-                    <table class="table">
+                    <table class="table text-black text-base">
                         <!-- head -->
-                        <thead>
+                        <thead class="text-black text-base">
                             <tr>
-                                <th>#</th>
-                                <th>@lang('admin.positions.name')</th>
-                                <th>@lang('admin.created_at')</th>
-                                <th>@lang('admin.updated_at')</th>
-                                <th>@lang('admin.funtion')</th>
+                                <th class="text-center font-semibold">#</th>
+                                <th class="text-left font-semibold">@lang('admin.positions.name')</th>
+                                <th class="text-center font-semibold">@lang('admin.created_at')</th>
+                                <th class="text-center font-semibold">@lang('admin.updated_at')</th>
+                                <th class="text-center font-semibold">@lang('admin.funtion')</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($positions as $position)
                                 <tr>
-                                    <th>
+                                    <th class="text-center">
                                         {{ $loop->index + 1 }}
                                     </th>
-                                    <td>{{ $position->name }}</td>
-                                    <td>{{ $position->createdAtVi }}</td>
-                                    <td>{{ $position->updatedAtVi }}</td>
+                                    <td class="text-left">{{ $position->name }}</td>
+                                    <td class="text-center">{{ $position->createdAtVi }}</td>
+                                    <td class="text-center">{{ $position->updatedAtVi }}</td>
 
-                                    <td class="flex gap-3">
+                                    <td class="flex gap-3 items-center justify-center">
                                         <a href="{{ route('admin.positions.edit', $position->id) }}"><x-heroicon-s-pencil-square
                                                 class="size-4 text-green-600" /></a>
                                         <form id="delete-form-{{ $position->id }}"
@@ -73,18 +75,30 @@
                                             </button>
                                         </form>
 
+                                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                                         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                                         <script>
                                             $(document).ready(function() {
                                                 setTimeout(function() {
                                                     $(".alert").fadeOut(2000);
-                                                }, 5000); // thông báo sẽ ẩn sau 5 giây
+                                                }, 3000); // thông báo sẽ ẩn sau 3 giây
                                             });
 
-                                            function confirmDelete(categoryId) {
-                                                if (confirm('Are you sure you want to delete this category?')) {
-                                                    document.getElementById('delete-form-' + categoryId).submit();
-                                                }
+                                            function confirmDelete(positionId) {
+                                                Swal.fire({
+                                                    title: 'Bạn có chắc chắn muốn xóa không?',
+                                                    text: "Dữ liệu bị xóa sẽ không thể khôi phục lại được!",
+                                                    icon: 'warning',
+                                                    showCancelButton: true,
+                                                    confirmButtonColor: '#3085d6',
+                                                    cancelButtonColor: '#d33',
+                                                    confirmButtonText: 'Có',
+                                                    cancelButtonText: 'Không'
+                                                }).then((result) => {
+                                                    if (result.isConfirmed) {
+                                                        $('#delete-form-' + positionId).submit();
+                                                    }
+                                                })
                                             }
                                         </script>
 
