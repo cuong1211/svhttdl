@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Http\Requests\MenuRequest;
-use App\Models\Menu;
+use App\Models\Menu as MenuModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;
@@ -22,7 +22,7 @@ class MenuService
     public function cachedMenu(): Collection
     {
         return Cache::rememberForever('menu', function () {
-            return Menu::query()
+            return MenuModel::query()
                 ->with('children')
                 ->whereNull('parent_id')
                 ->where('in_menu', true)
@@ -37,17 +37,17 @@ class MenuService
     }
     public function getMenuList()
     {
-        $menu = Menu::orderBy("id","asc")->get();
+        $menu = MenuModel::query()->latest()->paginate(10);
         return $menu;
     }
     public function create($data)
     {
-        $create = Menu::create($data);
+        $create = MenuModel::create($data);
         return $create;
     }
     public function edit($data, $id)
     {
-        $Menu = Menu::find($id)
+        $Menu = MenuModel::find($id)
             ->update([
                 'name' => $data['name'],
                 'slug' => $data['slug'],
@@ -56,7 +56,7 @@ class MenuService
     }
     public function delete($id)
     {
-        $delete = Menu::find($id)
+        $delete = MenuModel::find($id)
             ->delete();
         return $delete;
     }

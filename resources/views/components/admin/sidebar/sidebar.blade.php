@@ -1,4 +1,4 @@
-<aside class="w-80 flex-none overflow-y-auto bg-blue-700">
+<aside class="w-80 flex-none overflow-y-auto bg-blue-700 transition-width" id="sidebar">
     <div class="h-auto items-end border-blue-950 text-white">
         <h1 class="sticky top-0 flex items-center divide-x bg-blue-900 p-3 shadow">
             <span class="font-roboto text-xl font-extrabold tracking-wider">Sở-VHTTDL</span>
@@ -30,6 +30,7 @@
                                 @foreach ($categories as $category)
                                     <x-admin.sidebar.category :category="$category" />
                                 @endforeach
+
                             </ul>
                         </details>
                     </li>
@@ -188,6 +189,7 @@
                                 @foreach ($categories as $category)
                                     <x-admin.sidebar.category :category="$category" />
                                 @endforeach
+
                             </ul>
                         </details>
                     </li>
@@ -199,6 +201,7 @@
                             <ul class="menu">
                                 @foreach ($menu as $menu)
                                     <x-admin.sidebar.category :category="$menu" />
+                                    {{-- <x-admin.sidebar.new-category :category="$menu" /> --}}
                                 @endforeach
                             </ul>
                         </details>

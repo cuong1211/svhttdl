@@ -8,110 +8,64 @@
             </span>
         </div>
         <div class="mt-6">
-            <a
-                href="{{ route('admin.faqs.index') }}"
-                class="bg-gray-300 text-gray-700 hover:bg-gray-400 active:bg-gray-500 focus:border-gray-500 focus:ring-gray-300 inline-flex items-center rounded-md px-4 py-2 text-xs font-semibold uppercase tracking-widest transition focus:outline-none focus:ring disabled:opacity-25"
-            >
+            <a href="{{ route('admin.faqs.index') }}"
+                class="bg-gray-300 text-black hover:bg-gray-400 active:bg-gray-500 focus:border-gray-500 focus:ring-gray-300 inline-flex items-center rounded-md px-4 py-2 text-xs font-semibold uppercase tracking-widest transition focus:outline-none focus:ring disabled:opacity-25">
                 <x-heroicon-o-arrow-left class="mr-2 size-4" />
                 @lang('admin.back')
             </a>
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="border-gray-200 border-b bg-white p-6">
-                    <div class="stats shadow">
-                        <div class="stat">
-                            <div class="stat-figure text-secondary">
-                                <div class="avatar online">
-                                    <div class="w-16 rounded-full">
-                                        <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="stat-figure text-primary">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    class="inline-block h-8 w-8 stroke-current"
-                                >
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                                </svg>
-                            </div>
-                            <div class="stat-value text-primary">{{ $faq->name }}</div>
+                    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+                        <div class="col-span-1">
+                            <h3 class="text-black text-lg font-medium leading-6">@lang('admin.contacts.name'):</h3>
+                            <p class="text-black mt-1 max-w-2xl text-base">{{ $faq->name }}</p>
                         </div>
-
-                        <div class="stat">
-                            <div class="stat-title">{{ $faq->email }}</div>
-                            <div class="stat-desc">{{ $faq->phone }}</div>
-                            <div class="stat-desc">{{ $faq->address }}</div>
-                            <p class="text-gray-500 mt-1 max-w-2xl text-sm">
-                                @lang('admin.faqs.read_at')
-                                :{{ $faq->read_at ? $faq->read_at : 'Not read yet' }}
-                            </p>
+                        <div class="col-span-1">
+                            <h3 class="text-black text-lg font-medium leading-6">@lang('admin.contacts.email'):</h3>
+                            <p class="text-black mt-1 max-w-2xl text-base">{{ $faq->email }}</p>
+                        </div>
+                        <div class="col-span-1">
+                            <h3 class="text-black text-lg font-medium leading-6">@lang('admin.contacts.phone'):</h3>
+                            <p class="text-black mt-1 max-w-2xl text-base">{{ $faq->phone }}</p>
+                        </div>
+                        <div class="col-span-1">
+                            <h3 class="text-black text-lg font-medium leading-6">@lang('admin.contacts.read_at'):</h3>
+                            <p class="text-black mt-1 max-w-2xl text-base">
+                                {{ $faq->read_at ? $faq->read_at : 'Not read yet' }}</p>
                         </div>
                     </div>
-                    <div class="grid w-fit grid-cols-1 gap-4 md:grid-cols-1">
-                        <div class="chat chat-start flex">
-                            <h3 class="text-gray-900 text-lg font-medium leading-6">
-                                @lang('admin.faqs.question')
-                                :
-                            </h3>
-                            <div class="chat-bubble">{!! $faq->question !!}</div>
-                            <p class="text-gray-500 ml-auto mt-1 max-w-2xl text-sm">
-                                @lang('admin.faqs.created_at')
-                                :{{ $faq->createdAtVi }}
+                    <div class="">
+                        <label class="form-control w-full">
+                            <div class="label">
+                                <span class="label-text text-base text-black font-medium">@lang('admin.faqs.question'):</span>
+                            </div>
+                            <div class="w-full border border-gray-300 bg-white text-black font-medium p-2 rounded-md">
+                                {!! $faq->question !!}
+                            </div>
+                            <p class="text-black mt-1 mb-2 max-w-2xl text-base">
+                                @lang('admin.faqs.created_at'): {{ $faq->createdAtVi }}
                             </p>
-                        </div>
-
-                        <form
-                            action="{{ route('admin.faqs.update', $faq) }}"
-                            method="POST"
-                        >
+                        </label>
+                        <form action="{{ route('admin.faqs.update', $faq) }}" method="POST">
                             @method('PUT')
                             @csrf
                             <div class="flex">
-                                <h3 class="text-gray-900 text-lg font-medium leading-6">
+                                <h3 class="text-black text-lg font-medium leading-6">
                                     @lang('admin.faqs.answer')
                                     :
                                 </h3>
-                                <p class="text-gray-500 ml-auto mt-1 max-w-2xl text-sm">
+                                <p class="text-black ml-auto mt-1 max-w-2xl text-sm">
                                     @lang('admin.faqs.answer_at')
                                     :{{ $faq->answer_at ? $faq->answer_at : 'Not answer yet' }}
                                 </p>
                             </div>
 
-                            <input
-                                type="hidden"
-                                name="id"
-                                value="{{ $faq->id }}"
-                            />
-                            <div class="mt-1 flex items-center text-sm">
-                                <svg
-                                    style="width: 20px; position: absolute"
-                                    class="text-teal-500 mr-2 h-4 w-4 flex-none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                <textarea
-                                    style="margin-left: 30px"
-                                    name="answer"
-                                    class="border-gray-300 h-auto w-full rounded-md shadow-sm"
-                                    required
-                                >
-{!! $faq->answer ?: old('answer') !!}</textarea
-                                >
+                            <input type="hidden" name="id" value="{{ $faq->id }}" />
+                            <div class="mt-1 items-center text-sm">
+                                <textarea name="answer" id="answer" class="form-input rounded-md shadow-sm mt-1 block w-full" rows="5">{{ $faq->answer ?: old('answer') }}</textarea>
                             </div>
-                            <div
-                                class="mt-3"
-                                style="margin-left: 24%"
-                            >
-                                <button
-                                    type="submit"
-                                    class="btn btn-success ml-2"
-                                >
+                            <div class="mt-3 flex justify-end gap-4">
+                                <button type="submit" class="btn bg-blue-700 ml-2 text-white">
                                     @lang('admin.btn.submit')
                                 </button>
                             </div>
@@ -121,4 +75,9 @@
             </div>
         </div>
     </div>
+    @pushonce('bottom_scripts')
+        <x-admin.forms.tinymce-config column="answer" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" />
+        <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.min.js"></script>
+    @endpushonce
 </x-app-layout>

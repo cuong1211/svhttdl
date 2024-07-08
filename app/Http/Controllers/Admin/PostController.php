@@ -10,23 +10,65 @@ use App\Models\Tag;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index($id)
+    public function index(Request $request, $id)
     {
+        $parent_category = [];
         $category = Category::where('id', $id)->firstOrFail();
-        $posts = $category->posts()->orderBy('published_at', 'desc')->paginate(10);
-
+        $all_cate_of_category = Category::where('parent_id', $category->id)->get();
+        foreach ($all_cate_of_category as $cate) {;
+            $parent_category[] = $cate->id;
+        }
+        $child_category = Category::whereIn('parent_id', $parent_category)->get();
+        foreach ($child_category as $cate) {
+            $parent_category[] = $cate->id;
+        }
+        if ($request->search != null && $request->categoryFilter1 != null && $request->categoryFilter != null) {
+            $child_category = Category::where('parent_id', $request->categoryFilter)->get();
+            $posts = Post::where('category_id', $request->categoryFilter1)->where('title', 'like', '%' . $request->search . '%')->latest()->paginate(10);
+        }
+        if ($request->search != null && $request->categoryFilter1 == null && $request->categoryFilter == null) {
+            $posts = Post::where('title', 'like', '%' . $request->search . '%')->latest()->paginate(10);
+        }
+        if ($request->search != null && $request->categoryFilter1 != null && $request->categoryFilter == null) {
+            $child_category = Category::where('parent_id', $request->categoryFilter)->get();
+            $posts = Post::where('category_id', $request->categoryFilter1)->where('title', 'like', '%' . $request->search . '%')->latest()->paginate(10);
+        }
+        if ($request->search != null && $request->categoryFilter1 == null && $request->categoryFilter != null) {
+            $child_category = Post::where('category_id', $request->categoryFilter)->get();
+            $posts = Post::whereIn('category_id', $child_category)->where('title', 'like', '%' . $request->search . '%')->latest()->paginate(10);
+        }
+        if ($request->search == null && $request->categoryFilter1 != null && $request->categoryFilter != null) {
+            $child_category = Category::where('parent_id', $request->categoryFilter)->get();
+            $posts = Post::where('category_id', $request->categoryFilter1)->latest()->paginate(10);
+        }
+        if ($request->search == null && $request->categoryFilter1 == null && $request->categoryFilter != null) {
+            $child_category = Category::where('parent_id', $request->categoryFilter)->get();
+            $posts = Post::whereIn('category_id', $child_category)->latest()->paginate(10);
+        }
+        if ($request->search == null && $request->categoryFilter1 == null && $request->categoryFilter == null) {
+            $posts = Post::whereIn('category_id', $parent_category)->latest()->paginate(10);
+        }
+        // dd($posts);
         return view('admin.categories.posts.index', [
             'category' => $category,
             'posts' => $posts,
+            'filter_cate' => $all_cate_of_category,
+            'filter_child_cate' => $child_category,
+            'request' => $request,
         ]);
     }
 
     public function create($categoryId): View
     {
-        $categories = Category::all();
+        $categories = Category::query()
+            ->with('children')
+            ->where('parent_id', $categoryId)
+            ->where('in_menu', true)
+            ->orderBy('order')->get();
         $tags = Tag::all();
         $category = Category::findOrFail($categoryId);
 
@@ -70,7 +112,7 @@ class PostController extends Controller
             'icon' => 'success',
             'heading' => 'Success',
             'message' => 'Tạo bài viết thành công',
-        
+
         ]);
     }
 
@@ -102,7 +144,7 @@ class PostController extends Controller
                 'published_at' => $request->published_at,
                 'category_id' => $categoryId,
                 'type' => $request->type,
-                
+
             ]);
             if ($request->tags) {
                 $tagIds = collect(json_decode($request->tags, true))->pluck('value')->map(function ($name) {
@@ -155,5 +197,10 @@ class PostController extends Controller
             'heading' => 'Success',
             'message' => trans('admin.alert.deleted-success'),
         ]);
+    }
+    public function getCate($id)
+    {
+        $category =  Category::where('parent_id', $id)->get();
+        return response()->json($category);
     }
 }

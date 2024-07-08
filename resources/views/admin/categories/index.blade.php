@@ -18,7 +18,8 @@
                         <form action="{{ route('admin.categories.index') }}" method="GET" class="w-full">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
-                                    <label class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md items-center gap-2 flex"
+                                    <label
+                                        class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md items-center gap-2 flex"
                                         style="border: 1px solid black;">
                                         <input name="search" type="text" class="grow"
                                             placeholder="Tìm kiếm theo tiêu đề" style="border: unset; color:black"
@@ -33,7 +34,8 @@
                                         </button>
                                     </label>
                                 </div>
-                                <a class=" bg-blue-700 btn border-blue-500 " href="{{ route('admin.categories.create') }}">
+                                <a class=" bg-blue-700 btn border-blue-500 "
+                                    href="{{ route('admin.categories.create') }}">
                                     <x-heroicon-s-plus class="size-4 text-white" />
                                     <span class="text-white">@lang('admin.add')</span>
                                 </a>
@@ -56,7 +58,7 @@
                             @foreach ($categories as $category)
                                 <tr>
                                     <th class="text-center">
-                                        {{ $loop->index + 1 }}
+                                        {{ $categories->firstItem() + $loop->index }}
                                     </th>
                                     <td class="w-12 text-center">
                                         <div class=" bg-blue-700 text-white">{{ $category->order }}</div>

@@ -18,7 +18,8 @@ class Sidebar extends Component
     public function render(): View|Closure|string
     {
         $user_department = auth()->user()->department_id;
-        $menu = Catemodel::query()->where('department_id', $user_department)->with('children')
+        $menu = Catemodel::query()->where('department_id', $user_department)
+            ->with('children')
             ->where('in_menu', true)
             ->orderBy('order')->get();
             // dd($menu);

@@ -24,7 +24,7 @@ class MenuController extends Controller
     }
     public function index(): View
     {
-        $menus = $this->menuservice->getMenuList();
+        $menus = Menu::query()->latest()->paginate(10);
         return view("admin.menus.index", compact("menus"));
     }
 
@@ -56,21 +56,7 @@ class MenuController extends Controller
      */
     public function show(string $id)
     {
-        switch ($id) {
-            case 'cached':
-                $menus = $this->menuservice->cachedMenu();
-                return Datatables::of($menus)->make(true);
-                break;
-            case 'get-list':
-                $menus = $this->menuservice->getMenuList();
-                // dd($menus);
-                return Datatables::of($menus)->make(true);
-                break;
-            default:
-                $menus = $this->menuservice->cachedMenu();
-                return Datatables::of($menus)->make(true);
-                break;
-        }
+
     }
 
     /**

@@ -22,32 +22,52 @@
                 });
             </script>
         @endif
-
-
-
         <div class="mt-6">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="overflow-x-auto">
                     <div class="flex px-6 py-4">
-                        <form action="{{ route('admin.categories.posts.index', $category->slug) }}" method="GET"
+                        <form action="{{ route('admin.categories.posts.index', $category->id) }}" method="GET"
                             class="w-full">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center">
+                            <div class="flex items-center justify-between gird-cols-3 md:grid-cols-1">
+                                <div class="flex items-center gap-4">
                                     <label
-                                        class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md items-center gap-2 flex"
+                                        class="input bg-white text-black  font-semibold p-2 rounded-md items-center gap-2 flex md:col-span-1"
                                         style="border: 1px solid black;">
                                         <input name="search" type="text" class="grow"
                                             placeholder="Tìm kiếm theo tiêu đề" style="border: unset; color:black";
-                                            color:black" value="{{ request()->search }}" />
-                                        <button type="submit">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
-                                                fill="currentColor" class="h-4 w-4 opacity-70">
-                                                <path fill-rule="evenodd"
-                                                    d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                        </button>
+                                            value="{{ request()->search }}" />
                                     </label>
+
+                                    <select id="categoryFilter" name="categoryFilter"
+                                        class="md:col-span-1 input bg-white text-black font-semibold p-2 rounded-md flex"
+                                        style="border: 1px solid black;">
+                                        <option value="">Tất cả</option>
+                                        @foreach ($filter_cate as $filter)
+                                            <option value="{{ $filter->id }}"
+                                                {{ $request->categoryFilter == $filter->id ? 'selected' : '' }}>
+                                                {{ $filter->title }}</option>
+                                        @endforeach
+                                    </select>
+                                    <select id="categoryFilter1" name="categoryFilter1"
+                                        class="md:col-span-1 input borde bg-white text-black  font-semibold p-2 rounded-md  flex"
+                                        style="border: 1px solid black;">
+                                        <option value="">Tất cả</option>
+                                        @if ($request->categoryFilter1)
+                                            @foreach ($filter_child_cate as $filter1)
+                                                <option value="{{ $filter1->id }}"
+                                                    {{ $request->categoryFilter1 == $filter1->id ? 'selected' : '' }}>
+                                                    {{ $filter1->title }}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
+                                    <button type="submit">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
+                                            class="h-4 w-4 opacity-70">
+                                            <path fill-rule="evenodd"
+                                                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
                                 </div>
                                 <a class="bg-blue-700 btn border-blue-500"
                                     href="{{ route('admin.categories.posts.create', ['category' => $category]) }}">
@@ -132,4 +152,45 @@
             {{ $posts->links('pagination.web-tailwind') }}
         </div>
     </div>
+    @push('bottom_scripts')
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+            var selectedCategoryFilter1 = "{{ $request->categoryFilter1 }}";
+            $('#categoryFilter').on('change', function(e) {
+                $('#categoryFilter1').empty();
+                e.preventDefault();
+                let type = 'GET',
+                    id = $(this).val(),
+                    url = "{{ route('admin.categories.posts.getCate', '') }}" + '/' + id;
+                $.ajax({
+                    url: url,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: type,
+                    success: function(data) {
+                        console.log(data);
+
+                        for (let i = 0; i < data.length; i++) {
+                            if (data[i].id == selectedCategoryFilter1) {
+                                var selected = 'selected';
+                                console.log(selected);
+                                $('#categoryFilter1').append('<option value="' + data[i].id + '" ' +
+                                    selected +
+                                    '>' + data[i].title + '</option>');
+                            } else {
+                                $('#categoryFilter1').append('<option value="' + data[i].id + '">' + data[i]
+                                    .title +
+                                    '</option>');
+                            }
+                        }
+
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+                });
+            });
+        </script>
+    @endpush
 </x-app-layout>

@@ -100,6 +100,26 @@
                                         ]) />
                                 </label>
                                 <label class="form-control w-full">
+                                    <div class="label">
+                                        <span
+                                            class="label-text text-base text-black font-medium">@lang('admin.categories.parent')</span>
+                                    </div>
+                                    <select name="parent_id" @class([
+                                        'border',
+                                        'border-gray-300',
+                                        'bg-white',
+                                        'text-black',
+                                        'p-2',
+                                        'rounded-md',
+                                        'w-full',
+                                    ])>
+                                        <option value="">@lang('admin.categories.select_parent')</option>
+                                        @foreach ($categories as $category)
+                                            <x-admin.forms.select.category :category="$category" />
+                                        @endforeach
+                                    </select>
+                                </label>
+                                <label class="form-control w-full">
                                     <div class="label" for="tags">
                                         <span class="label-text text-base text-black font-medium">Bài
                                             viết thuộc các nhóm tin</span>

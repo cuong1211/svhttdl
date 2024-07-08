@@ -40,12 +40,13 @@ Route::middleware('auth')->group(function () {
         Route::resource('tags', TagController::class);
 
         //post of category
-        Route::get('category/{category:id}', [PostController::class, 'index'])->name('categories.posts.index');
-        Route::get('category/{category}/posts/create', [PostController::class, 'create'])->name('categories.posts.create');
-        Route::post('category/{category}/posts', [PostController::class, 'store'])->name('categories.posts.store');
-        Route::get('category/{category}/posts/{post}/edit', [PostController::class, 'edit'])->name('categories.posts.edit');
-        Route::put('category/{category}/posts/{post}', [PostController::class, 'update'])->name('categories.posts.update');
-        Route::delete('category/{category}/posts/{post}', [PostController::class, 'destroy'])->name('categories.posts.destroy');
+        Route::get('/category/{category:id}/post', [PostController::class, 'index'])->name('categories.posts.index');
+        route::get('/cate/{id}', [PostController::class, 'getCate'])->name('categories.posts.getCate');
+        Route::get('/category/{category:id}/posts/create', [PostController::class, 'create'])->name('categories.posts.create');
+        Route::post('/category/{category:id}/posts', [PostController::class, 'store'])->name('categories.posts.store');
+        Route::get('/category/{category:id}/posts/{post}/edit', [PostController::class, 'edit'])->name('categories.posts.edit');
+        Route::put('/category/{category:id}/posts/{post}', [PostController::class, 'update'])->name('categories.posts.update');
+        Route::delete('/category/{category:id}/posts/{post}', [PostController::class, 'destroy'])->name('categories.posts.destroy');
 
         Route::resource('announcements', AnnouncementController::class);
         //album-photo-video

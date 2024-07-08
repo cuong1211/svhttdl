@@ -60,7 +60,7 @@ export default {
 
     plugins: [
         forms,
-        daisyui,
+        require('daisyui'),
         require('tailwind-scrollbar-hide'),
     ],
 };

@@ -136,7 +136,7 @@ return [
     'documents.list' => 'Danh sách văn bản',
     'documents.name' => 'Tên văn bản',
     'documents.types' => 'Loại văn bản',
-    'documents.signers' => 'Người ký',
+    'documents.signers' => 'Thể loại',
     'documents.attachment' => 'Tập tin đính kèm',
     'document.reference.number' => 'Số hiệu văn bản',
 
@@ -163,7 +163,7 @@ return [
     'menus.updated_at' => 'Ngày cập nhập',
 
 
-    'signers.name' => 'Tên người ký',
+    'signers.name' => 'Tên thể loại',
     'signers.list' => 'Người ký',
     'signers.description' => 'Mô tả',
     'types.list' => 'Loại hình văn bản',

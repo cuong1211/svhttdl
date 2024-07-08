@@ -24,6 +24,7 @@ class Menu extends Model
         'link',
         'slug',
     ];
+    protected $table = 'menus';
     public function parent(): BelongsTo
     {
         return $this->belongsTo(Menu::class, 'parent_id');

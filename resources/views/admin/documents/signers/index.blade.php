@@ -6,11 +6,11 @@
             </span>
         </div>
         @if (session('icon') && session('heading') && session('message'))
-        <div class="alert alert-{{ session('icon') === 'success' ? 'success' : 'danger' }}" role="alert">
-            <strong>{{ session('heading') }}:</strong>
-            {{ session('message') }}
-        </div>
-    @endif
+            <div class="alert alert-{{ session('icon') === 'success' ? 'success' : 'danger' }}" role="alert">
+                <strong>{{ session('heading') }}:</strong>
+                {{ session('message') }}
+            </div>
+        @endif
         <div class="mt-6">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="overflow-x-auto">
@@ -18,9 +18,11 @@
                         <form action="{{ route('admin.signers.index') }}" method="GET" class="w-full">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
-                                    <label class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md flex items-center gap-2 bg-white flex items-center gap-2">
+                                    <label
+                                        class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md flex items-center gap-2"
+                                        style="border: 1px solid black;">
                                         <input name="search" type="text" class="grow"
-                                            placeholder="Tìm kiếm theo tiêu đề" style="border: unset; color:black""
+                                            placeholder="Tìm kiếm theo tiêu đề" style="border: unset; color:black"
                                             value="{{ request()->search }}" />
                                         <button type="submit">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
@@ -39,28 +41,28 @@
                             </div>
                         </form>
                     </div>
-                    <table class="table">
+                    <table class="table text-black text-base">
                         <!-- head -->
-                        <thead>
+                        <thead class="text-black text-base">
                             <tr>
-                                <th>#</th>
-                                <th>@lang('admin.signers.name')</th>
-                                <th>@lang('admin.created_at')</th>
-                                <th>@lang('admin.updated_at')</th>
-                                <th>@lang('admin.funtion')</th>
+                                <th class="text-center font-semibold">#</th>
+                                <th class="text-left font-semibold">@lang('admin.signers.name')</th>
+                                <th class="text-center font-semibold">@lang('admin.created_at')</th>
+                                <th class="text-center font-semibold">@lang('admin.updated_at')</th>
+                                <th class="text-center font-semibold">@lang('admin.funtion')</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($signers as $signer)
                                 <tr>
-                                    <th>
-                                        {{ $loop->index + 1 }}
+                                    <th class="text-center">
+                                        {{ $signers->firstItem() + $loop->index }}
                                     </th>
-                                    <td>{{ $signer->name }}</td>
-                                    <td>{{ $signer->createdAtVi }}</td>
-                                    <td>{{ $signer->updatedAtVi }}</td>
+                                    <td class="text-left">{{ $signer->name }}</td>
+                                    <td class="text-center">{{ $signer->createdAtVi }}</td>
+                                    <td class="text-center">{{ $signer->updatedAtVi }}</td>
 
-                                    <td class="flex gap-3">
+                                    <td class="flex gap-3 items-center justify-center">
                                         <a href="{{ route('admin.signers.edit', $signer->id) }}"><x-heroicon-s-pencil-square
                                                 class="size-4 text-green-600" /></a>
                                         <form id="delete-form-{{ $signer->id }}"

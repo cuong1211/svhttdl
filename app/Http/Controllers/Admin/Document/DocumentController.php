@@ -23,7 +23,7 @@ class DocumentController extends Controller
                 fn ($query) => $query->where('name', 'like', '%' . $request->search . '%')
             )
             ->latest()
-            ->get();
+            ->paginate(10);
 
         return view('admin.documents.index', [
             'documents' => $documents,

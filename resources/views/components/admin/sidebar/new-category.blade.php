@@ -17,7 +17,7 @@
     }
 @endphp
 
-{{-- @if ($category->children->isNotEmpty())
+@if ($category->children->isNotEmpty())
     <li>
         <details @if (isCategorySelected($category, request()->route('slug'))) open @endif>
             <summary>{{ app()->getLocale() === 'en' ? $category->title_en : $category->title }}</summary>
@@ -28,7 +28,7 @@
             </ul>
         </details>
     </li>
-@else --}}
+@else
     <li>
         <a @class([
             'active' => isCategorySelected($category, request()->route('slug')),
@@ -37,4 +37,4 @@
             {{ app()->getLocale() === 'en' ? $category->title_en : $category->title }}
         </a>
     </li>
-{{-- @endif --}}
+@endif
