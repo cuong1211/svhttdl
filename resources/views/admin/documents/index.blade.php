@@ -16,25 +16,50 @@
                 <div class="overflow-x-auto">
                     <div class="flex px-6 py-4">
                         <form action="{{ route('admin.documents.index') }}" method="GET" class="w-full">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center">
+                            <div class="flex items-center justify-between gird-cols-3 md:grid-cols-1">
+                                <div class="flex items-center gap-4">
                                     <label
                                         class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md flex items-center gap-2"
                                         style="border: 1px solid black;">
                                         <input name="search" type="text" class="grow"
                                             placeholder="Tìm kiếm theo tiêu đề" style="border: unset; color:black"
                                             value="{{ request()->search }}" />
-                                        <button type="submit">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
-                                                fill="currentColor" class="h-4 w-4 opacity-70">
-                                                <path fill-rule="evenodd"
-                                                    d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                        </button>
+
                                     </label>
+                                    <select id="categoryFilter" name="type_id"
+                                        class="md:col-span-1 input bg-white text-black font-semibold p-2 rounded-md flex"
+                                        style="border: 1px solid black;">
+                                        <option value="">Tất cả</option>
+                                        @foreach ($types as $type)
+                                            <option value="{{ $type->id }}"
+                                                {{ $request->type_id == $type->id ? 'selected' : '' }}>
+                                                {{ $type->name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                    <select id="categoryFilter1" name="kind_id"
+                                        class="md:col-span-1 input borde bg-white text-black  font-semibold p-2 rounded-md  flex"
+                                        style="border: 1px solid black;">
+                                        <option value="">Tất cả</option>
+
+                                        @foreach ($kinds as $kind)
+                                            <option value="{{ $kind->id }}"
+                                                {{ $request->kind_id == $kind->id ? 'selected' : '' }}>
+                                                {{ $kind->name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                    <button type="submit">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
+                                            class="h-4 w-4 opacity-70">
+                                            <path fill-rule="evenodd"
+                                                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
                                 </div>
-                                <a class="bg-blue-700 btn border-blue-500" href="{{ route('admin.documents.create') }}">
+                                <a class="bg-blue-700 btn border-blue-500"
+                                    href="{{ route('admin.documents.create') }}">
                                     <x-heroicon-s-plus class="size-4 text-white" />
                                     <span class="text-white">@lang('admin.add')</span>
                                 </a>

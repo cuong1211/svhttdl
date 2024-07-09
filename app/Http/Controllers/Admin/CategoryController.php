@@ -24,8 +24,7 @@ class CategoryController extends Controller
                 $request->search,
                 fn ($query) => $query->where('title', 'like', '%' . $request->search . '%')
             )
-            ->latest()y]
-            edp
+            ->latest()
             ->paginate(10);
                 // dd($categories);
         return view('admin.categories.index', [

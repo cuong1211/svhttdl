@@ -20,13 +20,26 @@ class DocumentController extends Controller
         $documents = Document::query()
             ->when(
                 $request->search,
-                fn ($query) => $query->where('name', 'like', '%' . $request->search . '%')
+                fn ($query) => $query->where('name', 'like', '%' . $request->search . '%'),
             )
+            ->when(
+                $request->type_id,
+                fn ($query) => $query->where('type_id', $request->type_id),
+            )
+            ->when(
+                $request->kind_id,
+                fn ($query) => $query->where('tag_id', $request->kind_id),
+            )
+            ->with('types', 'signers')
             ->latest()
             ->paginate(10);
-
+        $kinds = Signer::query()->get();
+        $types = Type::query()->get();
         return view('admin.documents.index', [
             'documents' => $documents,
+            'kinds' => $kinds,
+            'types' => $types,
+            'request' => $request,
         ]);
     }
 
