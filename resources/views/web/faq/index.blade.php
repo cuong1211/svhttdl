@@ -21,7 +21,7 @@
 
                     <button type="submit" class="btn btn-primary" id="button">Tìm kiếm</button>
 
-                    <button type="button" class="btn btn-success"
+                    <button type="button" class="btn bg-blue-700 text-white"
                         onclick="window.location.href='index.php?com=hoi-dap'">Hủy</button>
 
                 </form>

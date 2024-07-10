@@ -27,8 +27,9 @@
                             @csrf
 
                             <div class="space-y-4">
-                                <input type="hidden" name="category_id" value="{{ $category->id }}">
-
+                                @if (Auth::user()->category_id == 3)
+                                    <input type="hidden" name="category_id" value="{{ $category->id }}">
+                                @endif
                                 <div class="flex gap-4">
                                     <label class="form-control w-full">
                                         <div class="label">
@@ -50,61 +51,74 @@
                                 <label class="form-control w-full">
                                     <div class="label">
                                         <span class="label-text text-base text-black font-medium">
-                                            Tóm tắt
+                                            Tác giả
                                         </span>
                                     </div>
-                                    <textarea type="text" name="description" placeholder="Nhập tóm tắt bài viết..." value="{{ old('description') }}"
-                                        class="border border-gray-300 bg-white text-black p-2 rounded-md w-full @error('title') input-error @enderror">
-                                    </textarea>
-                                    @error('title')
+                                    <input type="text" name="author" placeholder="Nhập tác giả."
+                                        value="{{ old('author') }}"
+                                        class="border border-gray-300 bg-white text-black p-2 rounded-md w-full @error('author') input-error @enderror" />
+                                    @error('author')
                                         <div class="text-red-500 text-sm">{{ $message }}</div>
                                     @enderror
                                 </label>
                                 <label class="form-control w-full">
                                     <div class="label">
                                         <span class="label-text text-base text-black font-medium">
-                                            Tác giả
+                                            Tóm tắt
                                         </span>
                                     </div>
-                                    <input type="text" name="author" placeholder="Nhập tác giả."
-                                        value="{{ old('title') }}"
-                                        class="border border-gray-300 bg-white text-black p-2 rounded-md w-full @error('title') input-error @enderror" />
-                                    @error('title')
+                                    <textarea type="text" name="description" placeholder="Nhập tóm tắt bài viết..." value="{{ old('description') }}"
+                                        class="border border-gray-300 bg-white text-black p-2 rounded-md w-full @error('description') input-error @enderror">
+</textarea>
+                                    @error('description')
                                         <div class="text-red-500 text-sm">{{ $message }}</div>
                                     @enderror
                                 </label>
+
                                 <label class="form-control w-full">
                                     <div class="label">
                                         <span
                                             class="label-text text-base text-black font-medium">@lang('admin.content')</span>
                                     </div>
-                                    <textarea name="content" id="content" class="form-input rounded-md shadow-sm mt-1 block w-full" rows="5">{{ old('content', $post->content ?? '') }}</textarea>
-
+                                    <textarea name="content" id="content" class="form-input rounded-md shadow-sm mt-1 block w-full" rows="5"
+                                        @error('content') input-error @enderror>{{ old('content') }}</textarea>
+                                    @error('content')
+                                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                                    @enderror
                                 </label>
-                                <label class="form-control w-full">
-                                    <div class="label" for="tags">
-                                        <span
-                                            class="label-text text-base text-black font-medium">@lang('admin.post.tag')</span>
-                                    </div>
-                                    <input type="text" name="tags" id="tags" value="{{ old('tags') }}"
-                                        placeholder="Nhập tag bài viết" @class([
+                                @if (Auth::user()->category_id == 3)
+                                @else
+                                    <label class="form-control w-full">
+                                        <div class="label">
+                                            <span class="label-text text-base text-black font-medium">Chọn danh
+                                                mục</span>
+                                        </div>
+                                        <select name="category_id" @class([
                                             'border',
                                             'border-gray-300',
                                             'bg-white',
                                             'text-black',
                                             'p-2',
                                             'rounded-md',
-                                            'input-error' => $errors->has('tags'),
+                                            'input-error' => $errors->has('category_id'),
                                             'w-full',
-                                            'h-fit',
-                                        ]) />
-                                </label>
+                                        ])>
+                                            <option value="">@lang('admin.categories.select_parent')</option>
+                                            @foreach ($categories as $category)
+                                                <x-admin.forms.select.category :category="$category" />
+                                            @endforeach
+                                            
+                                        </select>
+                                        @error('category_id')
+                                            <div class="text-red-500 text-sm">{{ $message }}</div>
+                                        @enderror
+                                    </label>
+                                @endif
                                 <label class="form-control w-full">
                                     <div class="label">
-                                        <span
-                                            class="label-text text-base text-black font-medium">@lang('admin.categories.parent')</span>
+                                        <span class="label-text text-base text-black font-medium">Trạng thái</span>
                                     </div>
-                                    <select name="parent_id" @class([
+                                    <select name="state" @class([
                                         'border',
                                         'border-gray-300',
                                         'bg-white',
@@ -113,10 +127,9 @@
                                         'rounded-md',
                                         'w-full',
                                     ])>
-                                        <option value="">@lang('admin.categories.select_parent')</option>
-                                        @foreach ($categories as $category)
-                                            <x-admin.forms.select.category :category="$category" />
-                                        @endforeach
+                                        <option value="0">Ẩn</option>
+                                        <option value="1">Hiển thị</option>
+
                                     </select>
                                 </label>
                                 <label class="form-control w-full">
@@ -130,7 +143,7 @@
                                                 value="{{ $type->value }}"
                                                 class="w-4 h-4 text-blue-700 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                             <label for="{{ $type->value }}"
-                                                class="ms-2  text-black dark:text-gray-300 text-base">{{ $type->value }}</label>
+                                                class="ms-2  text-black dark:text-gray-300 text-base">{{ $type->value == 0 ? 'Tin mới' : 'Tin hot' }}</label>
 
                                         </div>
                                     @endforeach
@@ -141,21 +154,20 @@
                                         <div class="label" for="tags">
                                             <span class="label-text text-base text-black font-medium">Thumbnail</span>
                                         </div>
-                                        <span class="sr-only">Choose photo</span>
+                                        <span class="sr-only">Chọn hình ảnh</span>
                                         <input type="file" name="image" onchange="loadFile(event)"
                                             class="file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 block w-full text-sm text-slate-500 file:mr-4 file:rounded-full file:border-0 file:px-4 file:py-2 file:text-sm file:font-semibold" />
                                     </label>
                                 </div>
                                 <div class="shrink-0">
-                                    <img id="preview_img" class="h-32 w-32 object-cover rounded"
-                                        src="https://lh3.googleusercontent.com/a-/AFdZucpC_6WFBIfaAbPHBwGM9z8SxyM1oV4wB4Ngwp_UyQ=s96-c"
-                                        alt="Current photo" />
+                                    <img id="preview_img" class="h-40 w-72 object-cover rounded" src=""
+                                        alt="" style="display:none" />
                                 </div>
 
                                 <div class="flex justify-end gap-4">
                                     <a href="{{ route('admin.categories.posts.index', ['category' => $category->slug]) }}"
                                         class="btn-light btn text-white">@lang('admin.btn.cancel')</a>
-                                    <button type="submit" class="btn btn-success ml-2">
+                                    <button type="submit" class="btn bg-blue-700 text-white ml-2">
                                         @lang('admin.btn.submit')
                                     </button>
                                 </div>
@@ -171,25 +183,8 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" />
         <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.min.js"></script>
         <script>
-            var input = document.querySelector('input[name=tags]');
-            var tagify = new Tagify(input, {
-                delimiters: " ",
-                pattern: /[^ ]+/,
-            });
-            var existingTags = @json($tags);
-            tagify.addTags(existingTags);
-            tagify.on('add', function(e) {
-                if (e.detail.data.value.indexOf(' ') > -1) {
-                    var splitTags = e.detail.data.value.split(' ');
-                    splitTags.forEach(function(tag) {
-                        tagify.addTags(tag.trim());
-                    });
-                    tagify.removeTag(e.detail.data.value);
-                }
-            });
-        </script>
-        <script>
             var loadFile = function(event) {
+                document.getElementById('preview_img').style.display = 'block'
                 var input = event.target
                 var file = input.files[0]
                 var type = file.type

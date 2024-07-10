@@ -39,6 +39,9 @@
                                 'w-full',
                             ])
                                 value="{{ old('title') }}" />
+                            @error('title')
+                                <div class="text-red-500 text-sm">{{ $message }}</div>
+                            @enderror
                         </label>
                         <label class="form-control w-full">
                             <div class="label">
@@ -97,7 +100,7 @@
                             <a href="{{ route('admin.categories.index') }}" class="btn-light btn text-white">
                                 @lang('admin.btn.cancel')
                             </a>
-                            <button type="submit" class="btn bg-blue-700 ml-2 text-white">
+                            <button type="submit" class="btn bg-blue-700 text-white ml-2 text-white">
                                 @lang('admin.btn.submit')
                             </button>
                         </div>

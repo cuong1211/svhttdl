@@ -9,6 +9,15 @@
         </div>
         <div class="mt-6">
             <div class="overflow-hidden bg-white p-6 sm:rounded-lg">
+                @if ($errors->any())
+                    <div class="alert alert-danger text-black">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <form action="{{ route('admin.albums.update', ['album' => $album->id]) }}" method="POST"
                     class="space-y-4 needs-validation" novalidate enctype="multipart/form-data">
                     @csrf
@@ -86,7 +95,7 @@
                     <div class="flex justify-end gap-4">
                         <a href="{{ route('admin.albums.index') }}" class="btn-light btn">@lang('admin.btn.cancel')
                         </a>
-                        <button type="submit" class="btn btn-success ml-2">
+                        <button type="submit" class="btn bg-blue-700 text-white ml-2">
                             @lang('admin.btn.submit')
                         </button>
                     </div>

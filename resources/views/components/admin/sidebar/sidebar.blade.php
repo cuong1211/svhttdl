@@ -1,4 +1,10 @@
-<aside class="w-80 flex-none overflow-y-auto bg-blue-700 transition-width" id="sidebar">
+<style>
+    @media (max-width: 640px) {
+        
+        
+    }
+</style>
+<aside class="w-80 flex-none overflow-y-auto bg-blue-700 transition-width " id="sidebar">
     <div class="h-auto items-end border-blue-950 text-white">
         <h1 class="sticky top-0 flex items-center divide-x bg-blue-900 p-3 shadow">
             <span class="font-roboto text-xl font-extrabold tracking-wider">Sở-VHTTDL</span>
@@ -200,8 +206,8 @@
                             <summary>@lang('admin.categories')</summary>
                             <ul class="menu">
                                 @foreach ($menu as $menu)
-                                    <x-admin.sidebar.category :category="$menu" />
-                                    {{-- <x-admin.sidebar.new-category :category="$menu" /> --}}
+                                    {{-- <x-admin.sidebar.category :category="$menu" /> --}}
+                                    <x-admin.sidebar.new-category :category="$menu" />
                                 @endforeach
                             </ul>
                         </details>

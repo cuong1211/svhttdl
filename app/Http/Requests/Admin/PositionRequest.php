@@ -22,8 +22,11 @@ class PositionRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.unique' => trans('admin.field.unique'),
-            'name.required' => trans('admin.field.required'),
+            'name.unique' => 'Tên đã tồn tại',
+            'name.required' => 'Tên không được để trống',
+            'name.max' => "Tên không được vượt quá 255 ký tự",
+            'description.string' => 'Mô tả phải là chuỗi',
+            'name.string' => 'Tên phải là chuỗi',
         ];
     }
 }

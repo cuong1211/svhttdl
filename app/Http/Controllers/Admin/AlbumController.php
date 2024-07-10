@@ -46,7 +46,11 @@ class AlbumController extends Controller
                 ->toMediaCollection('album_thumb');
         }
 
-        return redirect()->route('admin.albums.index')->with('success', 'Tạo album thành công.');
+        return redirect()->route('admin.albums.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Tạo album thành công',
+        ]);
     }
 
     /**
@@ -77,7 +81,11 @@ class AlbumController extends Controller
                 ->toMediaCollection('album_thumb');
         }
 
-        return redirect()->route('admin.albums.index')->with('success', 'Cập nhập album thành công.');
+        return redirect()->route('admin.albums.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Cập nhập album thành công',
+        ]);
     }
 
     /**
@@ -85,8 +93,13 @@ class AlbumController extends Controller
      */
     public function destroy(Album $album)
     {
+        
         $album->delete();
 
-        return redirect()->route('admin.albums.index')->with('success', 'Xóa album thành công.');
+        return redirect()->route('admin.albums.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'xóa album thành công',
+        ]);
     }
 }

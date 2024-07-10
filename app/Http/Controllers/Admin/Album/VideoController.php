@@ -55,7 +55,11 @@ class VideoController extends Controller
                 ->toMediaCollection('thumbnail_video');
         }
 
-        return redirect()->route('admin.videos.index')->with('success', 'Video created successfully.');
+        return redirect()->route('admin.videos.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Tạo video thành công',
+        ]);
     }
 
     /**
@@ -88,7 +92,11 @@ class VideoController extends Controller
             ->where('album_id', $request->album_id)
             ->update(['is_active' => 0]);
 
-        return redirect()->route('admin.videos.index')->with('success', 'Video updated successfully.');
+        return redirect()->route('admin.videos.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Cập nhập video thành công',
+        ]);
     }
 
     /**
@@ -98,6 +106,10 @@ class VideoController extends Controller
     {
         $video->delete();
 
-        return redirect()->route('admin.videos.index')->with('success', 'Video deleted successfully.');
+        return redirect()->route('admin.videos.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Xóa thành công',
+        ]);
     }
 }

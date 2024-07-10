@@ -14,7 +14,7 @@ class DepartmentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255|unique:departments,name,' . $this->department,
+            'name' => 'required|unique:departments|max:255',
             'description' => 'nullable',
         ];
     }
@@ -24,6 +24,7 @@ class DepartmentRequest extends FormRequest
         return [
             'name.unique' => trans('admin.field.unique'),
             'name.required' => trans('admin.field.required'),
+            'name.max' => "Tên không được vượt quá 255 ký tự"
         ];
     }
 }

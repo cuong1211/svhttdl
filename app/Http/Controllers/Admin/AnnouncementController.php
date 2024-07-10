@@ -17,7 +17,7 @@ class AnnouncementController extends Controller
             'announcements' => Announcement::query()
                 ->when(
                     $request->search,
-                    fn ($query) => $query->where('title', 'like', '%'.$request->search.'%')
+                    fn ($query) => $query->where('title', 'like', '%' . $request->search . '%')
                 )
                 ->latest()
                 ->paginate(10),
@@ -56,7 +56,7 @@ class AnnouncementController extends Controller
         return view('admin.announcements.edit', compact('announcement'));
     }
 
-    public function update(Announcement $announcement, Request $request): RedirectResponse
+    public function update(Announcement $announcement, AnnouncementRequest $request): RedirectResponse
     {
         $announcement->update([
             'title' => $request->title,

@@ -34,10 +34,10 @@
                                         </button>
                                     </label>
                                 </div>
-                                <a class="bg-blue-700 btn border-blue-500" href="{{ route('admin.contacts.create') }}">
+                                {{-- <a class="bg-blue-700 btn border-blue-500" href="{{ route('admin.contacts.create') }}">
                                     <x-heroicon-s-plus class="size-4 text-white" />
                                     <span class="text-white">@lang('admin.add')</span>
-                                </a>
+                                </a> --}}
                             </div>
                         </form>
                     </div>
@@ -66,8 +66,8 @@
                                     <td class="text-center">{{ $contact->createdAtVi }}</td>
 
                                     <td class="flex gap-3 items-center justify-center">
-                                        <a href="{{ route('admin.contacts.edit', $contact->id) }}"><x-heroicon-s-pencil-square
-                                                class="size-4 text-green-600" /></a>
+                                        {{-- <a href="{{ route('admin.contacts.edit', $contact->id) }}"><x-heroicon-s-pencil-square
+                                                class="size-4 text-green-600" /></a> --}}
                                         <a href="{{ route('admin.contacts.show', $contact->id) }}"><x-heroicon-o-eye
                                                 class="size-4 text-green-600" /></a>
                                         <form id="delete-form-{{ $contact->id }}"

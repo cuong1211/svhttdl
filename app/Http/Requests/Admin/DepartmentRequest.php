@@ -14,17 +14,22 @@ class DepartmentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255|unique:departments,name,'.$this->department,
-            'type' => 'nullable|string|max:255', // Add this line
-            'description' => 'nullable',
+            'name' => 'required|string|max:255|unique:departments,name,' . $this->department,
+            'type' => 'required|string|max:255',
+            'description' => 'nullable|string',
         ];
     }
 
     public function messages()
     {
         return [
-            'name.unique' => trans('admin.field.unique'),
-            'name.required' => trans('admin.field.required'),
+            'name.unique' => 'Tên đã tồn tại',
+            'name.required' => 'Tên không được để trống',
+            'name.max' => "Tên không được vượt quá 255 ký tự",
+            'type.required' => 'Loại không được để trống',
+            'type.string' => 'Loại phải là chuỗi',
+            'type.max' => 'Loại không được vượt quá 255 ký tự',
+            'description.string' => 'Mô tả phải là chuỗi',
         ];
     }
 }

@@ -26,17 +26,17 @@ class AlbumRequest extends FormRequest
         switch ($action) {
             case 'store': {
                     return [
-                        'name' => 'required',
-                        'type' => 'required',
-                        'image' => 'required',
+                        'name' => 'required|max:255',
+                        'type' => 'required|max:255',
+                        'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|',
 
                     ];
                 }
             case 'update': {
                     return [
-                        'name' => 'required',
-                        'type' => 'required',
-                        'image' => 'nullable',
+                        'name' => 'required|max:255',
+                        'type' => 'required|max:255',
+                        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048|',
 
                     ];
                 }
@@ -50,6 +50,11 @@ class AlbumRequest extends FormRequest
             'name.required' => 'Tên album không được để trống',
             'type.required' => 'Loại album không được để trống',
             'image.required' => 'Hình ảnh không được để trống',
+            'name.max' => 'Tên album không được vượt quá 255 ký tự',
+            'type.max' => 'Loại album không được vượt quá 255 ký tự',
+            'image.image' => 'Hình ảnh không đúng định dạng',
+            'image.mimes' => 'Hình ảnh phải là định dạng jpeg,png,jpg,gif,svg',
+            
         ];
     }
 }

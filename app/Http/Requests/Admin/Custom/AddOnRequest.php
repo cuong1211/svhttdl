@@ -26,19 +26,19 @@ class AddOnRequest extends FormRequest
         switch ($action) {
             case 'store': {
                     return [
-                        'title' => 'required',
-                        'order' => 'nullable',
-                        'url' => 'required',
-                        'image' => 'required',
+                        'title' => 'required|max:255',
+                        'order' => 'nullable|numeric',
+                        'url' => 'required|max:255',
+                        'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|',
                     
                     ];
                 }
             case 'update': {
                     return [
-                        'title' => 'required',
-                        'order' => 'nullable',
-                        'url' => 'required',
-                        'image' => 'nullable',
+                        'title' => 'required|max:255',
+                        'order' => 'nullable|numeric',
+                        'url' => 'required|max:255',
+                        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048|',
 
                     ];
                 }
@@ -50,9 +50,16 @@ class AddOnRequest extends FormRequest
     {
         return [
             'title.required' => 'Tiêu đề không được để trống',
+            'title.max' => 'Tiêu đề không được vượt quá 255 ký tự',
+            'order.numeric' => 'Thứ tự phải là số',
             'order.required' => 'Thứ tự không được để trống',
             'url.required' => 'Đường dẫn không được để trống',
+            'url.max' => 'Đường dẫn không được vượt quá 255 ký tự',
             'image.required' => 'Hình ảnh không được để trống',
+            'image.image' => 'Hình ảnh không đúng định dạng',
+            'image.mimes' => 'Hình ảnh phải là định dạng jpeg,png,jpg,gif,svg',
+            'image.max' => 'Hình ảnh không được vượt quá 2MB',
+
         ];
     }
 }

@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\Custom\AddOnController;
 use App\Http\Controllers\Admin\Custom\BannerController;
 use App\Http\Controllers\Admin\User\CategorieController;
 use App\Http\Controllers\Admin\User\UserController;
+use App\Http\Middleware\CheckDepartmentAccess;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/dashboard', function () {
@@ -40,14 +41,15 @@ Route::middleware('auth')->group(function () {
         Route::resource('tags', TagController::class);
 
         //post of category
-        Route::get('/category/{category:id}/post', [PostController::class, 'index'])->name('categories.posts.index');
-        route::get('/cate/{id}', [PostController::class, 'getCate'])->name('categories.posts.getCate');
-        Route::get('/category/{category:id}/posts/create', [PostController::class, 'create'])->name('categories.posts.create');
-        Route::post('/category/{category:id}/posts', [PostController::class, 'store'])->name('categories.posts.store');
-        Route::get('/category/{category:id}/posts/{post}/edit', [PostController::class, 'edit'])->name('categories.posts.edit');
-        Route::put('/category/{category:id}/posts/{post}', [PostController::class, 'update'])->name('categories.posts.update');
-        Route::delete('/category/{category:id}/posts/{post}', [PostController::class, 'destroy'])->name('categories.posts.destroy');
-
+        Route::group(['middleware'=> CheckDepartmentAccess::class],function () {
+            Route::get('/category/{category:id}/post', [PostController::class, 'index'])->name('categories.posts.index');
+            route::get('/cate/{id}', [PostController::class, 'getCate'])->name('categories.posts.getCate');
+            Route::get('/category/{category:id}/posts/create', [PostController::class, 'create'])->name('categories.posts.create');
+            Route::post('/category/{category:id}/posts', [PostController::class, 'store'])->name('categories.posts.store');
+            Route::get('/category/{category:id}/posts/{post}/edit', [PostController::class, 'edit'])->name('categories.posts.edit');
+            Route::put('/category/{category:id}/posts/{post}', [PostController::class, 'update'])->name('categories.posts.update');
+            Route::delete('/category/{category:id}/posts/{post}', [PostController::class, 'destroy'])->name('categories.posts.destroy');
+        });
         Route::resource('announcements', AnnouncementController::class);
         //album-photo-video
         Route::resource('albums', AlbumController::class);

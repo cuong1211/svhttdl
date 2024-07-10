@@ -7,14 +7,17 @@
                 @lang('admin.edit')
             </span>
         </div>
-        @if (session('icon') && session('heading') && session('message'))
-            <div class="alert alert-{{ session('icon') === 'success' ? 'success' : 'danger' }}" role="alert">
-                <strong>{{ session('heading') }}:</strong>
-                {{ session('message') }}
-            </div>
-        @endif
         <div class="mt-6">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                @if ($errors->any())
+                    <div class="alert alert-danger text-black">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="bg-white px-8 pb-8 pt-0 shadow sm:rounded-lg">
                     <form action="{{ route('admin.departments.update', $department) }}" method="POST"
                         class="space-y-4 needs-validation" novalidate>
@@ -28,11 +31,11 @@
                             <input type="text" name="name" value="{{ $department->name }}"
                                 @class([
                                     'border',
-                                            'border-gray-300',
-                                            'bg-white',
-                                            'text-black',
-                                            'p-2',
-                                            'rounded-md',
+                                    'border-gray-300',
+                                    'bg-white',
+                                    'text-black',
+                                    'p-2',
+                                    'rounded-md',
                                     'input-error' => $errors->has('name'),
                                     'w-full',
                                 ]) />
@@ -43,17 +46,18 @@
                             </div>
                             <select name="type" required @class([
                                 'border',
-                                            'border-gray-300',
-                                            'bg-white',
-                                            'text-black',
-                                            'p-2',
-                                            'rounded-md',
+                                'border-gray-300',
+                                'bg-white',
+                                'text-black',
+                                'p-2',
+                                'rounded-md',
                                 'input-error' => $errors->has('type'),
                                 'w-full',
                             ])>
                                 <option value="">@lang('admin.select')</option>
                                 @foreach (App\Enums\DepartmentTypeEnum::cases() as $type)
-                                    <option value="{{ $type->value }}" {{ $department->type == $type ? 'selected' : '' }}>
+                                    <option value="{{ $type->value }}"
+                                        {{ $department->type == $type->value ? 'selected' : '' }}>
                                         {{ $type->value }}
                                     </option>
                                 @endforeach
@@ -65,11 +69,11 @@
                             </div>
                             <textarea name="description" id="description" cols="30" rows="10" @class([
                                 'border',
-                                            'border-gray-300',
-                                            'bg-white',
-                                            'text-black',
-                                            'p-2',
-                                            'rounded-md',
+                                'border-gray-300',
+                                'bg-white',
+                                'text-black',
+                                'p-2',
+                                'rounded-md',
                                 'input-error' => $errors->has('description'),
                                 'w-full',
                             ])>{!! $department->description !!}</textarea>
@@ -77,8 +81,10 @@
                         </label>
 
                         <div class="flex justify-end gap-4">
-                            <a href="{{ route('admin.departments.index') }}" class="btn-light btn text-white">@lang('admin.btn.cancel')</a>
-                            <button type="submit" class="btn bg-blue-700 ml-2 text-white">@lang('admin.btn.submit')</button>
+                            <a href="{{ route('admin.departments.index') }}"
+                                class="btn-light btn text-white">@lang('admin.btn.cancel')</a>
+                            <button type="submit"
+                                class="btn bg-blue-700 text-white ml-2 text-white">@lang('admin.btn.submit')</button>
                         </div>
                     </form>
 

@@ -7,14 +7,17 @@
                 @lang('admin.edit')
             </span>
         </div>
-        @if (session('icon') && session('heading') && session('message'))
-            <div class="alert alert-{{ session('icon') === 'success' ? 'success' : 'danger' }}" role="alert">
-                <strong>{{ session('heading') }}:</strong>
-                {{ session('message') }}
-            </div>
-        @endif
         <div class="mt-6">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                @if ($errors->any())
+                    <div class="alert alert-danger text-black">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="bg-white px-8 pb-8 pt-0 shadow sm:rounded-lg">
                     <form action="{{ route('admin.staffs.update', $staff->id) }}" method="POST"
                         class="space-y-4 needs-validation" novalidate enctype="multipart/form-data">
@@ -40,7 +43,7 @@
                             <div class="label" for="departments">
                                 <span class="label-text text-base text-black font-medium">@lang('admin.departments')</span>
                             </div>
-                            <select name="departments[]" id="" required @class([
+                            <select name="department_id" id="" required @class([
                                 'border',
                                 'border-gray-300',
                                 'bg-white',
@@ -66,7 +69,7 @@
                             <div class="label" for="positions">
                                 <span class="label-text text-base text-black font-medium">@lang('admin.positions')</span>
                             </div>
-                            <select name="positions[]" id="" required @class([
+                            <select name="position_id" id="" required @class([
                                 'border',
                                 'border-gray-300',
                                 'bg-white',
@@ -124,7 +127,7 @@
                             <a href="{{ route('admin.staffs.index') }}" class="btn-light btn">
                                 @lang('admin.btn.cancel')
                             </a>
-                            <button type="submit" class="btn bg-blue-700 ml-2 text-white">
+                            <button type="submit" class="btn bg-blue-700 text-white ml-2">
                                 @lang('admin.btn.submit')
                             </button>
                         </div>

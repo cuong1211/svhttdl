@@ -16,42 +16,62 @@ class PostController extends Controller
 {
     public function index(Request $request, $id)
     {
+        // dd($request->all());
         $parent_category = [];
+        $child_category_id = [];
         $category = Category::where('id', $id)->firstOrFail();
-        $all_cate_of_category = Category::where('parent_id', $category->id)->get();
-        foreach ($all_cate_of_category as $cate) {;
+
+        $all_cate_of_category = Category::where('parent_id', $id)->get();
+        switch ($all_cate_of_category->count()) {
+            case 0:
+                $posts = Post::query()->where('category_id', $id)->latest()->paginate(10)->appends($request->all());
+                break;
+            default:
+                $postsQuery = Post::query();
+                break;
+        }
+        foreach ($all_cate_of_category as $cate) {
             $parent_category[] = $cate->id;
         }
-        $child_category = Category::whereIn('parent_id', $parent_category)->get();
+        if ($request->categoryFilter) {
+            $child_category = Category::where('parent_id', $request->categoryFilter)->get();
+        } else {
+            $child_category = Category::whereIn('parent_id', $parent_category)->get();
+        }
         foreach ($child_category as $cate) {
-            $parent_category[] = $cate->id;
+            $child_category_id[] = $cate->id;
         }
-        if ($request->search != null && $request->categoryFilter1 != null && $request->categoryFilter != null) {
-            $child_category = Category::where('parent_id', $request->categoryFilter)->get();
-            $posts = Post::where('category_id', $request->categoryFilter1)->where('title', 'like', '%' . $request->search . '%')->latest()->paginate(10);
+        // dd($child_category_id);
+        $postsQuery = Post::query();
+
+        if ($request->search != null) {
+            $postsQuery->where('title', 'like', '%' . $request->search . '%');
         }
-        if ($request->search != null && $request->categoryFilter1 == null && $request->categoryFilter == null) {
-            $posts = Post::where('title', 'like', '%' . $request->search . '%')->latest()->paginate(10);
+
+        if ($request->categoryFilter1 != null) {
+            $postsQuery->where('category_id', $request->categoryFilter1);
+        } elseif ($request->categoryFilter != null) {
+            $child_categories = Category::where('parent_id', $request->categoryFilter)->pluck('id')->toArray();
+            $postsQuery->whereIn('category_id', $child_categories);
+        } else {
+            $postsQuery->whereIn('category_id', $child_category_id);
         }
-        if ($request->search != null && $request->categoryFilter1 != null && $request->categoryFilter == null) {
-            $child_category = Category::where('parent_id', $request->categoryFilter)->get();
-            $posts = Post::where('category_id', $request->categoryFilter1)->where('title', 'like', '%' . $request->search . '%')->latest()->paginate(10);
+        switch ($all_cate_of_category->count()) {
+            case 0:
+                $posts = Post::query()
+                    ->where('category_id', $id)
+                    ->when($request->search, function ($query, $search) {
+                        return $query->where('title', 'like', '%' . $search . '%');
+                    })
+                    ->latest()
+                    ->paginate(10)
+                    ->appends($request->all());
+                break;
+            default:
+                $posts = $postsQuery->latest()->paginate(10)->appends($request->all());
+                break;
         }
-        if ($request->search != null && $request->categoryFilter1 == null && $request->categoryFilter != null) {
-            $child_category = Post::where('category_id', $request->categoryFilter)->get();
-            $posts = Post::whereIn('category_id', $child_category)->where('title', 'like', '%' . $request->search . '%')->latest()->paginate(10);
-        }
-        if ($request->search == null && $request->categoryFilter1 != null && $request->categoryFilter != null) {
-            $child_category = Category::where('parent_id', $request->categoryFilter)->get();
-            $posts = Post::where('category_id', $request->categoryFilter1)->latest()->paginate(10);
-        }
-        if ($request->search == null && $request->categoryFilter1 == null && $request->categoryFilter != null) {
-            $child_category = Category::where('parent_id', $request->categoryFilter)->get();
-            $posts = Post::whereIn('category_id', $child_category)->latest()->paginate(10);
-        }
-        if ($request->search == null && $request->categoryFilter1 == null && $request->categoryFilter == null) {
-            $posts = Post::whereIn('category_id', $parent_category)->latest()->paginate(10);
-        }
+
         // dd($posts);
         return view('admin.categories.posts.index', [
             'category' => $category,
@@ -61,6 +81,7 @@ class PostController extends Controller
             'request' => $request,
         ]);
     }
+
 
     public function create($categoryId): View
     {
@@ -75,7 +96,7 @@ class PostController extends Controller
         return view('admin.categories.posts.create', compact('tags', 'categories', 'category'));
     }
 
-    public function store(PostRequest $request): RedirectResponse
+    public function store($id, PostRequest $request): RedirectResponse
     {
         $post = new Post([
             'user_id' => auth()->id(),
@@ -106,9 +127,8 @@ class PostController extends Controller
                 ->usingName($imageFile->getClientOriginalName())
                 ->toMediaCollection('featured_image');
         }
-        $category = Category::findOrFail($request->category_id);
 
-        return redirect()->route('admin.categories.posts.index', ['category' => $category->id])->with([
+        return redirect()->route('admin.categories.posts.index', ['category' => $id])->with([
             'icon' => 'success',
             'heading' => 'Success',
             'message' => 'Tạo bài viết thành công',
@@ -121,12 +141,18 @@ class PostController extends Controller
      */
     public function edit($categoryId, $postId): View
     {
-        $category = Category::findOrFail($categoryId);
-        $post = Post::with('tags')->findOrFail($postId);
-        $tags = Tag::all();
-        $tagNames = $post->tags->pluck('name')->toJson();
 
-        return view('admin.categories.posts.edit', compact('category', 'post', 'tags', 'tagNames'));
+        $selectedCategory_id = Post::findOrFail($postId)->category_id;
+        $selectedCategory = Category::findOrFail($selectedCategory_id);
+        $post = Post::findOrFail($postId);
+
+        $categories = Category::query()
+            ->with('children')
+            ->where('parent_id', $categoryId)
+            ->where('in_menu', true)
+            ->orderBy('order')->get();
+        
+        return view('admin.categories.posts.edit', compact('selectedCategory_id', 'post', 'categories', 'selectedCategory', 'categoryId'));
     }
 
     public function update(PostRequest $request, $categoryId, $postId): RedirectResponse
@@ -142,20 +168,10 @@ class PostController extends Controller
                 'content' => $request->content,
                 'author' => $request->author,
                 'published_at' => $request->published_at,
-                'category_id' => $categoryId,
+                'category_id' => $request->category_id,
                 'type' => $request->type,
 
             ]);
-            if ($request->tags) {
-                $tagIds = collect(json_decode($request->tags, true))->pluck('value')->map(function ($name) {
-                    return Tag::firstOrCreate(['name' => trim($name)])->id;
-                });
-                $post->tags()->sync($tagIds);
-                $unusedTags = Tag::whereDoesntHave('posts')->get();
-                foreach ($unusedTags as $unusedTag) {
-                    $unusedTag->delete();
-                }
-            }
             if ($request->hasFile('image')) {
                 $imageFile = $request->file('image');
                 $post->clearMediaCollection('featured_image');
@@ -168,7 +184,7 @@ class PostController extends Controller
             DB::commit();
             $category = Category::findOrFail($categoryId);
 
-            return redirect()->route('admin.categories.posts.index', ['slug' => $category->slug])->with([
+            return redirect()->route('admin.categories.posts.index', ['category' => $categoryId])->with([
                 'icon' => 'success',
                 'heading' => 'Success',
                 'message' => 'Cập nhật bài viết thành công',

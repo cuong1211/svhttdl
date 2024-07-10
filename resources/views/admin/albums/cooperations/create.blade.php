@@ -103,7 +103,7 @@
                         <div class="flex justify-end gap-4">
                             <a href="{{ route('admin.cooperations.index') }}" class="btn-light btn">@lang('admin.btn.cancel')
                             </a>
-                            <button type="submit" class="btn bg-blue-700 ml-2 text-white">
+                            <button type="submit" class="btn bg-blue-700 text-white ml-2 text-white">
                                 @lang('admin.btn.submit')
                             </button>
                         </div>

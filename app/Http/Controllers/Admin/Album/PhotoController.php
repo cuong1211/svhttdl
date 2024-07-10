@@ -55,7 +55,11 @@ class PhotoController extends Controller
                 ->toMediaCollection('album_photo');
         }
 
-        return redirect()->route('admin.photos.index')->with('success', 'Photo created successfully.');
+        return redirect()->route('admin.photos.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Tạo hình ảnh thành công',
+        ]);
     }
 
     /**
@@ -91,7 +95,11 @@ class PhotoController extends Controller
                 ->toMediaCollection('album_photo');
         }
 
-        return redirect()->route('admin.photos.index')->with('success', 'Photo updated successfully.');
+        return redirect()->route('admin.photos.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Cập nhập hình ảnh thành công',
+        ]);
     }
 
     /**
@@ -101,6 +109,10 @@ class PhotoController extends Controller
     {
         $photo->delete();
 
-        return redirect()->route('admin.photos.index')->with('success', 'Photo deleted successfully.');
+        return redirect()->route('admin.photos.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Xóa thành công',
+        ]);
     }
 }

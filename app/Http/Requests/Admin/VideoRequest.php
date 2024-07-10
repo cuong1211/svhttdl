@@ -18,17 +18,22 @@ class VideoRequest extends FormRequest
             'name' => 'required|string|max:255',
             'video_id' => 'required|string',
             'source' => 'required|max:2048',
-            'is_active' => 'required|boolean',
+            'is_active' => 'nullable|boolean',
         ];
     }
 
     public function messages()
     {
         return [
-            'album_id.required' => trans('admin.field.required'),
-            'name.required' => trans('admin.field.required'),
-            'video_id.required' => trans('admin.field.required'),
-            'source.required' => trans('admin.field.required'),
+            'album_id.required' => 'Album không được để trống',
+            'name.required' => 'Tên không được để trống',
+            'video_id.required' => 'ID video không được để trống',
+            'source.required' => 'Nguồn không được để trống',
+            'album_id.exists' => 'Album không tồn tại',
+            'name.string' => 'Tên phải là chuỗi',
+            'name.max' => 'Tên không được vượt quá 255 ký tự',
+            'source.max' => 'Nguồn không được vượt quá 2048 ký tự',
+            'is_active.boolean' => 'Trạng thái phải là boolean',
         ];
     }
 }

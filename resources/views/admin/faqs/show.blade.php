@@ -65,7 +65,7 @@
                                 <textarea name="answer" id="answer" class="form-input rounded-md shadow-sm mt-1 block w-full" rows="5">{{ $faq->answer ?: old('answer') }}</textarea>
                             </div>
                             <div class="mt-3 flex justify-end gap-4">
-                                <button type="submit" class="btn bg-blue-700 ml-2 text-white">
+                                <button type="submit" class="btn bg-blue-700 text-white ml-2 text-white">
                                     @lang('admin.btn.submit')
                                 </button>
                             </div>

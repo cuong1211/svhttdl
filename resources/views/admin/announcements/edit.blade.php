@@ -9,6 +9,15 @@
         </div>
         <div class="mt-6">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                @if ($errors->any())
+                    <div class="alert alert-danger text-black">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="bg-white px-8 pb-8 pt-0 shadow sm:rounded-lg">
                     <form action="{{ route('admin.announcements.update', ['announcement' => $announcement->id]) }}"
                         method="POST" class="space-y-4 needs-validation" novalidate enctype="multipart/form-data">
@@ -30,6 +39,9 @@
                                         'input-error' => $errors->has('title'),
                                         'w-full',
                                     ]) />
+                                @error('title')
+                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                @enderror
                             </label>
                             <x-admin.forms.calendar :publish_at="$announcement->published_at" />
                         </div>
@@ -40,11 +52,14 @@
                             <textarea name="content" id="content" class="hidden">
                                 {!! $announcement->content !!}
                             </textarea>
+                            @error('content')
+                                <div class="text-red-500 text-sm">{{ $message }}</div>
+                            @enderror
                         </label>
                         <div class="flex justify-end gap-4">
                             <a href="{{ route('admin.announcements.index') }}" class="btn-light btn">@lang('admin.btn.cancel')
                             </a>
-                            <button type="submit" class="btn bg-blue-700 ml-2 text-white">
+                            <button type="submit" class="btn bg-blue-700 text-white ml-2 text-white">
                                 @lang('admin.btn.submit')
                             </button>
                         </div>

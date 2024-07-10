@@ -7,12 +7,7 @@
                 @lang('admin.add')
             </span>
         </div>
-        @if (session('icon') && session('heading') && session('message'))
-            <div class="alert alert-{{ session('icon') === 'success' ? 'success' : 'danger' }}" role="alert">
-                <strong>{{ session('heading') }}:</strong>
-                {{ session('message') }}
-            </div>
-        @endif
+        
         <div class="mt-6">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 @if ($errors->any())
@@ -113,7 +108,7 @@
                             <a href="{{ route('admin.staffs.index') }}" class="btn-light btn">
                                 @lang('admin.btn.cancel')
                             </a>
-                            <button type="submit" class="btn bg-blue-700 ml-2 text-white">
+                            <button type="submit" class="btn bg-blue-700 text-white ml-2 text-white">
                                 @lang('admin.btn.submit')
                             </button>
                         </div>

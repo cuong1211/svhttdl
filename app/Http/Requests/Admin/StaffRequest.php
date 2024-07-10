@@ -8,14 +8,14 @@ class StaffRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return (int) $this->user_id === auth()->id();
+        return true;
     }
 
     public function rules(): array
     {
         return [
             'name' => 'required|string|max:255',
-            'content' => 'required|string',
+            'content' => 'nullable|string',
             'department_id' => 'required|exists:departments,id',
             'position_id' => 'required|exists:positions,id',
         ];
@@ -24,11 +24,14 @@ class StaffRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => trans('admin.field.required.name'),
-            'content.required' => trans('admin.field.required.content'),
-            'image.required' => trans('admin.field.required.image'),
-            'departments.required' => trans('admin.field.required.departments'),
-            'positions.required' => trans('admin.field.required.positions'),
+            'name.required' => 'Tên không được để trống',
+            'name.string' => 'Tên phải là chuỗi',
+            'name.max' => 'Tên không được vượt quá 255 ký tự',
+            'content.string' => 'Nội dung phải là chuỗi',
+            'department_id.required' => 'Phòng ban không được để trống',
+            'department_id.exists' => 'Phòng ban không tồn tại',
+            'position_id.required' => 'Chức vụ không được để trống',
+            'position_id.exists' => 'Chức vụ không tồn tại',
         ];
     }
 }

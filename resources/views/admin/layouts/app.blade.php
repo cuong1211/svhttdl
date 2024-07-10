@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
     <style>
         .sidebar-collapsed {
-            width: 0!important
+            width: 0!important;
+            display: block;
             /* Adjust the width when sidebar is collapsed */
         }
         .transition-width {
@@ -29,7 +30,7 @@
     <div class="bg-gray-100 flex min-h-screen ">
         {{-- @include('admin.layouts.navigation') --}}
         <x-admin.sidebar.sidebar />
-        <main class="w-full bg-blue-50 text-base">
+        <main class="w-full bg-blue-50 text-base ">
             <div class="flex h-auto bg-white p-3">
                 <button class="btn btn-square btn-ghost btn-sm" id="toggleButton">
                     <x-heroicon-c-bars-3 class="size-5" />

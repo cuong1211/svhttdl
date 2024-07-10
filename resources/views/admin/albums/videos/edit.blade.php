@@ -9,6 +9,15 @@
         </div>
         <div class="mt-6">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                @if ($errors->any())
+                    <div class="alert alert-danger text-black">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="bg-white px-8 pb-8 pt-0 shadow sm:rounded-lg">
                     <form action="{{ route('admin.videos.update', ['video' => $video->id]) }}" method="POST"
                         class="space-y-4 needs-validation" novalidate enctype="multipart/form-data">
@@ -137,7 +146,7 @@
                             <a href="{{ route('admin.videos.index') }}" class="btn-light btn">
                                 @lang('admin.btn.cancel')
                             </a>
-                            <button type="submit" class="btn bg-blue-700 ml-2 text-white">
+                            <button type="submit" class="btn bg-blue-700 text-white ml-2 text-white">
                                 @lang('admin.btn.submit')
                             </button>
                         </div>

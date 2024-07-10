@@ -16,20 +16,28 @@ class CooperationRequest extends FormRequest
         return [
             'album_id' => 'required|exists:albums,id',
             'name' => 'required|string|max:255',
-            'link_website' => 'required|string',
-            'description' => 'required|string',
-            'image' => 'required|image|max:2048',
+            'link_website' => 'required|string|url',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|max:2048|mimes:jpeg,jpg,png,gif',
         ];
     }
 
     public function messages()
     {
         return [
-            'album_id.required' => trans('admin.field.required'),
-            'name.required' => trans('admin.field.required'),
-            'link_website.required' => trans('admin.field.required'),
-            'description.required' => trans('admin.field.required'),
-            'image.required' => trans('admin.field.required'),
+            'album_id.required' => 'Album không được để trống',
+            'name.required' => 'Tên không được để trống',
+            'link_website.required' => 'Link website không được để trống',
+            'image.required' => 'Ảnh không được để trống',
+            'image.image' => "Ảnh không đúng định dạng",
+            'image.max' => "Ảnh không được vượt quá 2MB",
+            'image.mimes' => "Ảnh phải có định dạng jpeg, jpg, png hoặc gif",
+            'name.max' => "Tên không được vượt quá 255 ký tự",
+            'link_website.url' => 'Link website không đúng định dạng',
+            'link_website.string' => 'Link website phải là chuỗi',
+            'description.string' => 'Mô tả phải là chuỗi',
+            'album_id.exists' => 'Album không tồn tại',
+            'name.string' => 'Tên phải là chuỗi',
         ];
     }
 }

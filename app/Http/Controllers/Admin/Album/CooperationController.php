@@ -52,7 +52,11 @@ class CooperationController extends Controller
                 ->toMediaCollection('album_cooperation');
         }
 
-        return redirect()->route('admin.cooperations.index')->with('success', 'cooperation created successfully.');
+        return redirect()->route('admin.cooperations.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Tạo dự án quân hệ thành công',
+        ]);
     }
 
     /**
@@ -66,7 +70,7 @@ class CooperationController extends Controller
         return view('admin.albums.cooperations.edit', compact('albums', 'cooperation'));
     }
 
-    public function update(Request $request, Cooperation $cooperation)
+    public function update(CooperationRequest $request, Cooperation $cooperation)
     {
 
         $cooperation->update([
@@ -83,7 +87,11 @@ class CooperationController extends Controller
                 ->toMediaCollection('album_cooperation');
         }
 
-        return redirect()->route('admin.cooperations.index')->with('success', 'cooperation updated successfully.');
+        return redirect()->route('admin.cooperations.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Cập nhập dự án thành công',
+        ]);
     }
 
     /**
@@ -93,6 +101,10 @@ class CooperationController extends Controller
     {
         $cooperation->delete();
 
-        return redirect()->route('admin.cooperations.index')->with('success', 'cooperation deleted successfully.');
+        return redirect()->route('admin.cooperations.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Xóa dự án thành công',
+        ]);
     }
 }

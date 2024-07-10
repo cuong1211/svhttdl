@@ -36,7 +36,11 @@
                                     'rounded-md',
                                     'input-error' => $errors->has('title'),
                                     'w-full',
-                                ]) />
+                                ])
+                                    value="{{ old('title') }}" />
+                                @error('title')
+                                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                                @enderror
                             </label>
                             <x-admin.forms.calendar />
                         </div>
@@ -53,7 +57,7 @@
                         <div class="flex justify-end gap-4">
                             <a href="{{ route('admin.announcements.index') }}" class="btn text-white">@lang('admin.btn.cancel')
                             </a>
-                            <button type="submit" class="btn bg-blue-700 ml-2 text-white">
+                            <button type="submit" class="btn bg-blue-700 text-white ml-2">
                                 @lang('admin.btn.submit')
                             </button>
                         </div>

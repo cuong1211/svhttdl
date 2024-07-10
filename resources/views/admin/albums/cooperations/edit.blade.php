@@ -9,6 +9,15 @@
         </div>
         <div class="mt-6">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                @if ($errors->any())
+                    <div class="alert alert-danger text-black">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="bg-white px-8 pb-8 pt-0 shadow sm:rounded-lg">
                     <form action="{{ route('admin.cooperations.update', ['cooperation' => $cooperation->id]) }}"
                         method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
@@ -109,7 +118,7 @@
                         <div class="flex justify-end gap-4">
                             <a href="{{ route('admin.cooperations.index') }}" class="btn-light btn">@lang('admin.btn.cancel')
                             </a>
-                            <button type="submit" class="btn btn-success">
+                            <button type="submit" class="btn bg-blue-700 text-white">
                                 @lang('admin.btn.submit')
                             </button>
                         </div>

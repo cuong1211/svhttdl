@@ -29,12 +29,14 @@
         </details>
     </li>
 @else --}}
-    <li>
-        <a @class([
-            'active' => isCategorySelected($category, request()->route('slug')),
-        ])
-            href="{{ route('admin.categories.posts.index', $category->id) }}">
-            {{ app()->getLocale() === 'en' ? $category->title_en : $category->title }}
-        </a>
-    </li>
+<li>
+    <a @class([
+        'active' =>
+            isCategorySelected($category, request()->route('slug')) &&
+            isCategorySelected($category, request()->route('category')),
+    ]) href="{{ route('admin.categories.posts.index', $category->id) }}">
+        {{ app()->getLocale() === 'en' ? $category->title_en : $category->title }}
+    </a>
+</li>
+
 {{-- @endif --}}

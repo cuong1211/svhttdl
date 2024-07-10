@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\StaffRequest;
 use App\Models\Staff\Department;
 use App\Models\Staff\Position;
 use App\Models\Staff\Staff;
@@ -44,16 +45,16 @@ class StaffController extends Controller
     /**
      * Store a newly created staff in storage.
      */
-    public function store(Request $request)
+    public function store(StaffRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'content' => 'required|string',
-            // 'department_id' => 'required|exists:departments,id',
-            // 'position_id' => 'required|exists:positions,id',
-        ]);
+        $data = $request->validated();
 
-        $staff = Staff::create($request->only(['name', 'content', 'department_id', 'position_id']));
+        $staff = Staff::create([
+            'name' => $data['name'],
+            'content' => $data['content'],
+            'department_id' => $data['department_id'],
+            'position_id' => $data['position_id'],
+        ]);
 
 
         if ($request->hasFile('image')) {
@@ -64,7 +65,11 @@ class StaffController extends Controller
                 ->toMediaCollection('staff_image');
         }
 
-        return redirect()->route('admin.staffs.index')->with('success', 'Staff created successfully.');
+        return redirect()->route('admin.staffs.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Tạo nhân viên thành công',
+        ]);
     }
 
 
@@ -82,18 +87,16 @@ class StaffController extends Controller
     /**
      * Update the specified staff in storage.
      */
-    public function update(Request $request, Staff $staff)
+    public function update(StaffRequest $request, Staff $staff)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'content' => 'required|string',
-            'department_id' => 'required|exists:departments,id',
-            'position_id' => 'required|exists:positions,id',
+        $data = $request->validated();
+        $data = (object) $data;
+        $staff->update([
+            'name' => $data->name,
+            'content' => $data->content,
+            'department_id' => $data->department_id,
+            'position_id' => $data->position_id,
         ]);
-
-        $staff->update($request->only(['name', 'content']));
-        $staff->departments()->sync($request->department_id);
-        $staff->positions()->sync($request->position_id);
 
         if ($request->hasFile('image')) {
             $imageFile = $request->file('image');
@@ -104,7 +107,11 @@ class StaffController extends Controller
                 ->toMediaCollection('staff_image');
         }
 
-        return redirect()->route('admin.staffs.index')->with('success', 'Staff updated successfully.');
+        return redirect()->route('admin.staffs.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Sửa nhân viên thành công',
+        ]);
     }
 
     /**
@@ -118,7 +125,7 @@ class StaffController extends Controller
         return back()->with([
             'icon' => 'success',
             'heading' => 'Success',
-            'message' => trans('admin.alert.deleted-success'),
+            'message' => 'Xóa nhân viên thành công',
         ]);
     }
 }

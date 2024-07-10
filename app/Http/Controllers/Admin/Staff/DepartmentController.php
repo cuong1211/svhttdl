@@ -41,25 +41,17 @@ class DepartmentController extends Controller
 
     public function store(DepartmentRequest $request): RedirectResponse
     {
-        $data = [
-            'name' => $request->name,
-            'description' => $request->description,
-        ];
-        $department = Department::updateOrCreate(
-            ['name' => $request->name],
-            $data
-        );
-        if ($department->wasRecentlyCreated) {
-            return back()->with([
+        $data = $request->validated();
+        $department = Department::create([
+            'name' => $data['name'],
+            'type' => $data['type'], // Add this line
+            'description' => $data['description'],
+        ]);
+        if ($department) {
+            return redirect()->route('admin.departments.index')->with([
                 'icon' => 'success',
                 'heading' => 'Success',
                 'message' => 'Thêm mới phòng ban thành công',
-            ]);
-        } else {
-            return back()->with([
-                'icon' => 'info',
-                'heading' => 'Updated',
-                'message' => 'Cập nhật phòng ban thành công',
             ]);
         }
     }
@@ -81,8 +73,8 @@ class DepartmentController extends Controller
         ]);
 
         return redirect()->route('admin.departments.index')->with([
-            'icon' => 'info',
-            'heading' => 'Updated',
+            'icon' => 'success',
+            'heading' => 'Success',
             'message' => 'Cập nhật phòng ban thành công',
         ]);
     }

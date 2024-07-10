@@ -14,13 +14,6 @@
                 </svg>
                 <span>{{ session('message') }}</span>
             </div>
-            <script>
-                $(document).ready(function() {
-                    setTimeout(function() {
-                        $('#successAlert').fadeOut('slow');
-                    }, 3000);
-                });
-            </script>
         @endif
         <div class="mt-6">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
@@ -37,29 +30,30 @@
                                             placeholder="Tìm kiếm theo tiêu đề" style="border: unset; color:black";
                                             value="{{ request()->search }}" />
                                     </label>
+                                    @if (Auth::user()->category_id == 3)
+                                    @else
+                                        <select id="categoryFilter" name="categoryFilter"
+                                            class="md:col-span-1 input bg-white text-black font-semibold p-2 rounded-md flex"
+                                            style="border: 1px solid black;">
+                                            <option value="">Tất cả</option>
+                                            @foreach ($filter_cate as $filter)
+                                                <option value="{{ $filter->id }}"
+                                                    {{ $request->categoryFilter == $filter->id ? 'selected' : '' }}>
+                                                    {{ $filter->title }}</option>
+                                            @endforeach
+                                        </select>
 
-                                    <select id="categoryFilter" name="categoryFilter"
-                                        class="md:col-span-1 input bg-white text-black font-semibold p-2 rounded-md flex"
-                                        style="border: 1px solid black;">
-                                        <option value="">Tất cả</option>
-                                        @foreach ($filter_cate as $filter)
-                                            <option value="{{ $filter->id }}"
-                                                {{ $request->categoryFilter == $filter->id ? 'selected' : '' }}>
-                                                {{ $filter->title }}</option>
-                                        @endforeach
-                                    </select>
-                                    <select id="categoryFilter1" name="categoryFilter1"
-                                        class="md:col-span-1 input borde bg-white text-black  font-semibold p-2 rounded-md  flex"
-                                        style="border: 1px solid black;">
-                                        <option value="">Tất cả</option>
-                                        @if ($request->categoryFilter1)
+                                        <select id="categoryFilter1" name="categoryFilter1"
+                                            class="md:col-span-1 input borde bg-white text-black  font-semibold p-2 rounded-md  flex "
+                                            style="border: 1px solid black; display: {{ $request->categoryFilter == null ? 'none' : 'block' }}">
+                                            <option value="">Tất cả</option>
                                             @foreach ($filter_child_cate as $filter1)
                                                 <option value="{{ $filter1->id }}"
                                                     {{ $request->categoryFilter1 == $filter1->id ? 'selected' : '' }}>
                                                     {{ $filter1->title }}</option>
                                             @endforeach
-                                        @endif
-                                    </select>
+                                        </select>
+                                    @endif
                                     <button type="submit">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
                                             class="h-4 w-4 opacity-70">
@@ -157,7 +151,9 @@
         <script>
             var selectedCategoryFilter1 = "{{ $request->categoryFilter1 }}";
             $('#categoryFilter').on('change', function(e) {
-                $('#categoryFilter1').empty();
+                if ($(this).val() == '') {
+                    $('#categoryFilter1').hide();
+                }
                 e.preventDefault();
                 let type = 'GET',
                     id = $(this).val(),
@@ -170,21 +166,14 @@
                     type: type,
                     success: function(data) {
                         console.log(data);
-
+                        $('#categoryFilter1').empty();
+                        $('#categoryFilter1').append('<option value="">Tất cả</option>');
                         for (let i = 0; i < data.length; i++) {
-                            if (data[i].id == selectedCategoryFilter1) {
-                                var selected = 'selected';
-                                console.log(selected);
-                                $('#categoryFilter1').append('<option value="' + data[i].id + '" ' +
-                                    selected +
-                                    '>' + data[i].title + '</option>');
-                            } else {
-                                $('#categoryFilter1').append('<option value="' + data[i].id + '">' + data[i]
-                                    .title +
-                                    '</option>');
-                            }
+                            $('#categoryFilter1').append('<option value="' + data[i].id + '">' + data[i]
+                                .title +
+                                '</option>');
                         }
-
+                        $('#categoryFilter1').show();
                     },
                     error: function(data) {
                         console.log(data);

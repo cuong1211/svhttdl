@@ -45,21 +45,15 @@ class PositionController extends Controller
             'name' => $request->name,
             'description' => $request->description,
         ];
-        $position = Position::updateOrCreate(
-            ['name' => $request->name],
-            $data
-        );
-        if ($position->wasRecentlyCreated) {
-            return back()->with([
+        $position = Position::create([
+            'name' => $data['name'],
+            'description' => $data['description'],
+        ]);
+        if ($position) {
+            return redirect()->route('admin.positions.index')->with([
                 'icon' => 'success',
                 'heading' => 'Thêm mới',
                 'message' => 'Thêm mới chức vụ thành công !',
-            ]);
-        } else {
-            return back()->with([
-                'icon' => 'info',
-                'heading' => 'Updated',
-                'message' => 'Cập nhật chức vụ thành công',
             ]);
         }
     }
@@ -82,7 +76,7 @@ class PositionController extends Controller
 
         return redirect()->route('admin.positions.index')->with([
             'icon' => 'success',
-            'heading' => 'Cập nhật',
+            'heading' => 'Thêm mới',
             'message' => ' Cập nhật chức vụ thành công',
         ]);
     }
