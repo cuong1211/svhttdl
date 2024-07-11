@@ -34,10 +34,10 @@
                                         </button>
                                     </label>
                                 </div>
-                                <a class="bg-blue-700 btn border-blue-500" href="{{ route('admin.faqs.create') }}">
+                                {{-- <a class="bg-blue-700 btn border-blue-500" href="{{ route('admin.faqs.create') }}">
                                     <x-heroicon-s-plus class="size-4 text-white" />
                                     <span class="text-white">@lang('admin.add')</span>
-                                </a>
+                                </a> --}}
                             </div>
                         </form>
                     </div>
@@ -62,7 +62,7 @@
                             @foreach ($faqs as $faq)
                                 <tr>
                                     <th class="text-center">{{ $faqs->firstItem() + $loop->index }}</th>
-                                    <td class="text-center">{{ $faq->name }}</td>
+                                    <td class="text-left">{{ $faq->name }}</td>
                                     <td class="text-center">{{ $faq->email }}</td>
                                     <td class="text-center">{!! Str::limit($faq->question, 50) !!}</td>
                                     <td class="text-center">{{ $faq->read_at }}</td>
