@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Album\PhotoController;
 use App\Http\Controllers\Admin\Album\VideoController;
 use App\Http\Controllers\Admin\AlbumController;
 use App\Http\Controllers\Admin\AnnouncementController;
+use App\Http\Controllers\Admin\AnswerController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\FaqController;
@@ -22,6 +23,8 @@ use App\Http\Controllers\Admin\Custom\MenuController;
 use App\Http\Controllers\Admin\Custom\AdController;
 use App\Http\Controllers\Admin\Custom\AddOnController;
 use App\Http\Controllers\Admin\Custom\BannerController;
+use App\Http\Controllers\Admin\Document_Opinion\Document_OpinionController;
+use App\Http\Controllers\Admin\Document_Opinion\OpinionController;
 use App\Http\Controllers\Admin\User\CategorieController;
 use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Middleware\CheckDepartmentAccess;
@@ -61,6 +64,9 @@ Route::middleware('auth')->group(function () {
         Route::resource('contacts', ContactController::class);
         //faq
         Route::resource('faqs', FaqController::class);
+        route::get('faq/{faq:id}/answer/{answer:id}', [AnswerController::class, 'edit'])->name('answer.edit');
+        route::put('faq/{faq:id}/answer/{answer:id}', [AnswerController::class, 'update'])->name('answer.update');
+        route::delete('answer/{answer:id}', [AnswerController::class, 'destroy'])->name('answer.destroy');
 
         Route::post('rich-text-attachment', RichTextAttachmentController::class)->name('rich-text.attachment');
         //Department and staff
@@ -72,6 +78,9 @@ Route::middleware('auth')->group(function () {
         Route::resource('types', TypeDocumentController::class);
         Route::resource('signers', SignerDocumentController::class);
 
+        //Document_Opinion
+        Route::resource('Docs-opis', Document_OpinionController::class);
+        Route::resource('opinions', OpinionController::class);
         //Menu
         Route::resource('menus', MenuController::class);
 

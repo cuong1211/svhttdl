@@ -1,13 +1,25 @@
 <x-app-layout>
+    <style>
+        input:focus {
+            outline: none !important;
+        }
+    </style>
     <div class="p-6">
-        <div class="text-black text-normal font-semibold leading-tight">
-            <span class="text-black text-normal flex items-center gap-2 font-semibold leading-tight">
-                {{ app()->getLocale() === 'en' ? $category->title_en : $category->title }}
-            </span>
+        <div class="flex justify-between">
+            <div class="text-black text-lg font-semibold leading-tight ">
+                <span class="text-black text-lg flex items-center gap-2 font-semibold leading-tight">
+                    {{ app()->getLocale() === 'en' ? $category->title_en : $category->title }}
+                </span>
+            </div>
+            <a class="bg-blue-700 btn border-blue-500 "
+                href="{{ route('admin.categories.posts.create', ['category' => $category]) }}">
+                <x-heroicon-s-plus class="size-4 text-white" />
+                <span class="text-white">@lang('admin.add')</span>
+            </a>
         </div>
         @if (session('icon') && session('heading') && session('message'))
             <div role="alert" class="alert alert-success" id="successAlert">
-                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"
+                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6 fill-white"
                     viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -21,53 +33,58 @@
                     <div class="flex px-6 py-4">
                         <form action="{{ route('admin.categories.posts.index', $category->id) }}" method="GET"
                             class="w-full">
-                            <div class="flex items-center justify-between gird-cols-3 md:grid-cols-1">
-                                <div class="flex items-center gap-4">
-                                    <label
-                                        class="input bg-white text-black  font-semibold p-2 rounded-md items-center gap-2 flex md:col-span-1"
-                                        style="border: 1px solid black;">
-                                        <input name="search" type="text" class="grow"
-                                            placeholder="Tìm kiếm theo tiêu đề" style="border: unset; color:black";
-                                            value="{{ request()->search }}" />
-                                    </label>
+                            <div class="items-center justify-between">
+                                <ul class="menu md:menu-horizontal rounded-box bg-white gap-2">
+                                    <li>
+
+                                        <label
+                                            class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md items-center gap-2 flex w-full "
+                                            style="border: 1px solid black;">
+                                            <input name="search" type="text"
+                                                class="grow placeholder-black font-semibold"
+                                                placeholder="Tìm kiếm theo tiêu đề" style="border: unset; color:black"
+                                                value="{{ request()->search }}" />
+                                        </label>
+                                    </li>
                                     @if (Auth::user()->category_id == 3)
                                     @else
-                                        <select id="categoryFilter" name="categoryFilter"
-                                            class="md:col-span-1 input bg-white text-black font-semibold p-2 rounded-md flex"
-                                            style="border: 1px solid black;">
-                                            <option value="">Tất cả</option>
-                                            @foreach ($filter_cate as $filter)
-                                                <option value="{{ $filter->id }}"
-                                                    {{ $request->categoryFilter == $filter->id ? 'selected' : '' }}>
-                                                    {{ $filter->title }}</option>
-                                            @endforeach
-                                        </select>
-
-                                        <select id="categoryFilter1" name="categoryFilter1"
-                                            class="md:col-span-1 input borde bg-white text-black  font-semibold p-2 rounded-md  flex "
-                                            style="border: 1px solid black; display: {{ $request->categoryFilter == null ? 'none' : 'block' }}">
-                                            <option value="">Tất cả</option>
-                                            @foreach ($filter_child_cate as $filter1)
-                                                <option value="{{ $filter1->id }}"
-                                                    {{ $request->categoryFilter1 == $filter1->id ? 'selected' : '' }}>
-                                                    {{ $filter1->title }}</option>
-                                            @endforeach
-                                        </select>
+                                        <li>
+                                            <select id="categoryFilter" name="categoryFilter"
+                                                class=" select select-bordered w-full bg-white text-black font-semibold"
+                                                style="border: 1px solid black;">
+                                                <option value="">Tất cả</option>
+                                                @foreach ($filter_cate as $filter)
+                                                    <option value="{{ $filter->id }}"
+                                                        {{ $request->categoryFilter == $filter->id ? 'selected' : '' }}>
+                                                        {{ $filter->title }}</option>
+                                                @endforeach
+                                            </select>
+                                        </li>
+                                        <li>
+                                            <select id="categoryFilter1" name="categoryFilter1"
+                                                class="select select-bordered w-full bg-white text-black font-semibold"
+                                                style="border: 1px solid black; display: {{ $request->categoryFilter == null ? 'none' : 'block' }}">
+                                                <option value="">Tất cả</option>
+                                                @foreach ($filter_child_cate as $filter1)
+                                                    <option value="{{ $filter1->id }}"
+                                                        {{ $request->categoryFilter1 == $filter1->id ? 'selected' : '' }}>
+                                                        {{ $filter1->title }}</option>
+                                                @endforeach
+                                            </select>
+                                        </li>
                                     @endif
-                                    <button type="submit">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
-                                            class="h-4 w-4 opacity-70">
-                                            <path fill-rule="evenodd"
-                                                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </button>
-                                </div>
-                                <a class="bg-blue-700 btn border-blue-500"
-                                    href="{{ route('admin.categories.posts.create', ['category' => $category]) }}">
-                                    <x-heroicon-s-plus class="size-4 text-white" />
-                                    <span class="text-white">@lang('admin.add')</span>
-                                </a>
+                                    <li>
+                                        <button type="submit" class="btn bg-blue-700  ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
+                                                class="h-4 w-4 opacity-70 fill-white">
+                                                <path fill-rule="evenodd"
+                                                    d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </button>
+                                    </li>
+                                </ul>
+
                             </div>
                         </form>
                     </div>

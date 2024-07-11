@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Document_Opinion;
 
 use App\Http\Controllers\Controller;
+use App\Models\Document_Opinion;
 use Illuminate\Http\Request;
 
 class Document_OpinionController extends Controller
@@ -12,7 +13,8 @@ class Document_OpinionController extends Controller
      */
     public function index()
     {
-        //
+        $docs = Document_Opinion::query()->latest()->paginate(10);
+        return view('admin.doc_opi.docs.index', compact('docs'));
     }
 
     /**

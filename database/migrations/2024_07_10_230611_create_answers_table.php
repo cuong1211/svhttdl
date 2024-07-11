@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('faq_id')->nullable();
             $table->integer('user_id')->nullable();
-            $table->text('content');
+            $table->text('content')->nullable();
             $table->integer('status')->default(0);
             $table->timestamps();
             $table->softDeletes();

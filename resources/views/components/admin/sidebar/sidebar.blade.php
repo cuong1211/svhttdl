@@ -1,10 +1,4 @@
-<style>
-    @media (max-width: 640px) {
-        
-        
-    }
-</style>
-<aside class="w-80 flex-none overflow-y-auto bg-blue-700 transition-width " id="sidebar">
+<aside class="w-80 h-full flex-none overflow-y-auto bg-blue-700 transition-width">
     <div class="h-auto items-end border-blue-950 text-white">
         <h1 class="sticky top-0 flex items-center divide-x bg-blue-900 p-3 shadow">
             <span class="font-roboto text-xl font-extrabold tracking-wider">Sở-VHTTDL</span>
@@ -133,6 +127,26 @@
                                     <a class="{{ request()->routeIs('admin.signers.*') ? 'active' : '' }}"
                                         href="{{ route('admin.signers.index') }}">
                                         Thể loại
+                                    </a>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li>
+                        <details @if (request()->routeIs('admin.types.*', 'admin.Docs-opis.*', 'admin.signers.*')) open @endif
+                            class="{{ request()->routeIs('admin.types.*', 'admin.Docs-opis.*', 'admin.signers.*') ? 'open' : '' }}">
+                            <summary>Văn bản lấy ý kiến</summary>
+                            <ul>
+                                <li>
+                                    <a class="{{ request()->routeIs('admin.Docs-opis.*') ? 'active' : '' }}"
+                                        href="{{ route('admin.Docs-opis.index') }}">
+                                        Danh sách văn bản lấy ý kiến
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="{{ request()->routeIs('admin.opinions.*') ? 'active' : '' }}"
+                                        href="{{ route('admin.opinions.index') }}">
+                                        Ý kiến
                                     </a>
                                 </li>
                             </ul>

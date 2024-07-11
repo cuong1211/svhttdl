@@ -12,7 +12,7 @@
 
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 @if ($errors->any())
-                    <div class="alert alert-danger text-black">
+                    <div class="alert alert-error text-black">
                         <ul>
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>

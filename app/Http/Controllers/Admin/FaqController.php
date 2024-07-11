@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Answer;
 use App\Models\Faq;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -51,13 +52,14 @@ class FaqController extends Controller
      */
     public function show(Faq $faq): View
     {
+        $faq->with('answers')->first();
         $faq->timestamps = false;
         $faq->update([
             'read_at' => now()->format('d/m/Y h:i'),
         ]);
         $faq->timestamps = true;
-
-        return view('admin.faqs.show', compact('faq'));
+        $answers = $faq->answers()->get();
+        return view('admin.faqs.show', compact('faq', 'answers'));
     }
 
     public function update(Faq $faq, Request $request): RedirectResponse
@@ -66,17 +68,24 @@ class FaqController extends Controller
             'answer' => 'required',
         ]);
 
-        $faq->update(['answer' => $request->answer]);
+        // $faq->update(['answer' => $request->answer]);
+        $answer = Answer::updateOrCreate([
+            'faq_id' => $faq->id,
+            'content' => $request->answer,
+            'user_id' => auth()->id(),
+            'status' => 0,
+        ]);
 
         if (! $faq->answer_at) {
             $faq->update(['answer_at' => now()->format('d.m.Y h:i')]);
         }
-
-        return redirect()->route('admin.faqs.index')->with([
-            'icon' => 'success',
-            'heading' => 'Success',
-            'message' => 'Cập nhập câu hỏi thành công',
-        ]);
+        if($answer) {
+            return redirect()->route('admin.faqs.show',$faq->id)->with([
+                'icon' => 'success',
+                'heading' => 'Success',
+                'message' => 'Trả lời câu hỏi thành công',
+            ]);
+        }
     }
 
     /**

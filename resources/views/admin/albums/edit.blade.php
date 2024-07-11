@@ -10,7 +10,7 @@
         <div class="mt-6">
             <div class="overflow-hidden bg-white p-6 sm:rounded-lg">
                 @if ($errors->any())
-                    <div class="alert alert-danger text-black">
+                    <div class="alert alert-error text-black">
                         <ul>
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>

@@ -1,9 +1,8 @@
 <x-app-layout>
-   
     <div class="p-6">
         <div class="text-black text-normal font-semibold leading-tight">
-            <span class="">
-                @lang('admin.categories.list')
+            <span class="text-black text-normal flex items-center gap-2 font-semibold leading-tight">
+                @lang('admin.documents.list')
             </span>
         </div>
         @if (session('icon') && session('heading') && session('message'))
@@ -16,27 +15,28 @@
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="overflow-x-auto">
                     <div class="flex px-6 py-4">
-                        <form action="{{ route('admin.categories.index') }}" method="GET" class="w-full">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center">
+                        <form action="{{ route('admin.documents.index') }}" method="GET" class="w-full">
+                            <div class="flex items-center justify-between gird-cols-3 md:grid-cols-1">
+                                <div class="flex items-center gap-4">
                                     <label
-                                        class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md items-center gap-2 flex"
+                                        class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md flex items-center gap-2"
                                         style="border: 1px solid black;">
                                         <input name="search" type="text" class="grow"
                                             placeholder="Tìm kiếm theo tiêu đề" style="border: unset; color:black"
                                             value="{{ request()->search }}" />
-                                        <button type="submit">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
-                                                fill="currentColor" class="h-4 w-4 opacity-70">
-                                                <path fill-rule="evenodd"
-                                                    d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                        </button>
+
                                     </label>
+                                    <button type="submit">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
+                                            class="h-4 w-4 opacity-70">
+                                            <path fill-rule="evenodd"
+                                                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
                                 </div>
-                                <a class=" bg-blue-700 btn border-blue-500 "
-                                    href="{{ route('admin.categories.create') }}">
+                                <a class="bg-blue-700 btn border-blue-500"
+                                    href="{{ route('admin.documents.create') }}">
                                     <x-heroicon-s-plus class="size-4 text-white" />
                                     <span class="text-white">@lang('admin.add')</span>
                                 </a>
@@ -48,39 +48,37 @@
                         <thead class="text-black text-base">
                             <tr>
                                 <th class="text-center font-semibold">#</th>
-                                <th class="text-center font-semibold">@lang('admin.categories.order')</th>
-                                <th class="text-center font-semibold">@lang('admin.categories.title')</th>
-                                <th class="text-center font-semibold">@lang('admin.categories.created_at')</th>
-                                <th class="text-center font-semibold">@lang('admin.categories.updated_at')</th>
+                                <th class="text-left font-semibold">@lang('admin.documents.name')</th>
+                                <th class="text-center font-semibold">@lang('admin.documents.types')</th>
+                                <th class="text-center font-semibold">@lang('admin.documents.signers')</th>
+                                <th class="text-center font-semibold">@lang('admin.created_at')</th>
+                                <th class="text-center font-semibold">@lang('admin.updated_at')</th>
                                 <th class="text-center font-semibold">@lang('admin.funtion')</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($categories as $category)
+                            @foreach ($docs as $doc)
                                 <tr>
                                     <th class="text-center">
-                                        {{ $categories->firstItem() + $loop->index }}
+                                        {{ $docs->firstItem() + $loop->index }}
                                     </th>
-                                    <td class="w-12 text-center">
-                                        <div class=" bg-blue-700 text-white">{{ $category->order }}</div>
-                                    </td>
-                                    <td class="text-left">
-                                        {{ app()->getLocale() === 'en' ? $category->title_en : $category->title }}</td>
-                                    <td class="text-center">{{ $category->createdAtVi }}</td>
-                                    <td class="text-center">{{ $category->updatedAtVi }}</td>
+                                    <td class="text-left">{{ $doc->name }}</td>
+                                    <td class="text-center">{{ $doc->createdAtVi }}</td>
+                                    <td class="text-center">{{ $doc->updatedAtVi }}</td>
 
                                     <td class="flex gap-3 items-center justify-center">
-                                        <a href="{{ route('admin.categories.edit', $category->id) }}"><x-heroicon-s-pencil-square
-                                                class="size-4 text-green-600 " /></a>
-                                        <form id="delete-form-{{ $category->id }}"
-                                            action="{{ route('admin.categories.destroy', ['category' => $category->id]) }}"
+                                        <a href="{{ route('admin.documents.edit', $doc->id) }}"><x-heroicon-s-pencil-square
+                                                class="size-4 text-green-600" /></a>
+                                        <form id="delete-form-{{ $doc->id }}"
+                                            action="{{ route('admin.documents.destroy', ['document' => $doc->id]) }}"
                                             method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="button" onclick="confirmDelete({{ $category->id }})">
+                                            <button type="button" onclick="confirmDelete({{ $doc->id }})">
                                                 <x-heroicon-o-trash class="size-4 text-red-500" />
                                             </button>
                                         </form>
+
                                         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                                         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                                         <script>
@@ -90,7 +88,7 @@
                                                 }, 3000); // thông báo sẽ ẩn sau 3 giây
                                             });
 
-                                            function confirmDelete(categoryId) {
+                                            function confirmDelete(documentId) {
                                                 Swal.fire({
                                                     title: 'Bạn có chắc chắn muốn xóa không?',
                                                     text: "Dữ liệu bị xóa sẽ không thể khôi phục lại được!",
@@ -102,12 +100,11 @@
                                                     cancelButtonText: 'Không'
                                                 }).then((result) => {
                                                     if (result.isConfirmed) {
-                                                        $('#delete-form-' + categoryId).submit();
+                                                        $('#delete-form-' + documentId).submit();
                                                     }
                                                 })
                                             }
                                         </script>
-
                                     </td>
                                 </tr>
                             @endforeach
@@ -117,7 +114,7 @@
             </div>
         </div>
         <div class="mt-4">
-            {{ $categories->links('pagination.web-tailwind') }}
+            {{ $docs->links('pagination.web-tailwind') }}
         </div>
     </div>
 </x-app-layout>

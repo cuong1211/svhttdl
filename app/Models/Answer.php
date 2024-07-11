@@ -10,31 +10,36 @@ use Tonysm\RichTextLaravel\Casts\AsRichTextContent;
 use Tonysm\RichTextLaravel\Models\Traits\HasRichText;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Faq extends Model
+
+class Answer extends Model
 {
     use HasFactory;
     use HasRichText;
     use SoftDeletes;
-    protected $table = 'faqs';
+
+    protected $table = 'answers';
 
     protected $guarded = [];
 
     protected $richTextAttributes = [
-        'question',
+        'content',
     ];
 
     protected $casts = [
-        'question' => AsRichTextContent::class,
+        'content' => AsRichTextContent::class,
     ];
 
-    public function answers()
-    {
-        return $this->hasMany(Answer::class);
-    }
     protected function createdAtVi(): Attribute
     {
         return Attribute::make(
             get: fn () => Carbon::parse($this->created_at)->format('d/m/Y h:i'),
         );
     }
+
+    public function faq()
+    {
+        return $this->belongsTo(Faq::class);
+    }
+
+
 }

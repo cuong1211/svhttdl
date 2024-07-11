@@ -1,0 +1,42 @@
+.menu li {
+    list-style: none;
+    /* Loại bỏ dấu đầu dòng của list */
+}
+
+.menu li>*:not(ul, .menu-title, details, .btn):hover,
+.menu li>*:not(ul, .menu-title, details, .btn):focus,
+.menu li>*:not(ul, .menu-title, details, .btn):active {
+    --tw-bg-opacity: 1;
+    background-color: rgb(255, 255, 255);
+    /* Màu nền khi hover */
+    --tw-text-opacity: 1;
+    color: rgb(0, 0, 0);
+    /* Màu chữ khi hover */
+}
+
+.menu li>details>summary:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(255, 255, 255);
+    /* Màu nền khi hover */
+    --tw-text-opacity: 1;
+    color: rgb(0, 0, 0);
+    /* Màu chữ khi hover */
+}
+
+.menu li>*:not(ul, .menu-title, details, .btn):active {
+    --tw-bg-opacity: 1;
+    background-color: rgb(255, 255, 255);
+    /* Màu nền khi active */
+    --tw-text-opacity: 1;
+    color: black;
+    /* Màu chữ khi active */
+}
+
+.menu li>*:not(ul, .menu-title, details, .btn):active,
+.menu li>*:not(ul, .menu-title, details, .btn).active,
+.menu li>details>summary:active {
+    --tw-bg-opacity: 1;
+    background-color: rgb(255, 255, 255) !important;
+    --tw-text-opacity: 1;
+    color: black !important;
+}
