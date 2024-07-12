@@ -17,11 +17,11 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="drawer lg:drawer-open">
+    <div class="drawer md:drawer-open h-full min-h-screen">
         <input id="my-drawer" type="checkbox" class="drawer-toggle" />
         <div class="drawer-content">
             <!-- Page content here -->
-            <main class="w-full h-full bg-blue-50 text-base drawer-content">
+            <main class="w-full h-full bg-blue-50 text-base">
                 <div class="flex h-auto bg-white p-3">
                     <label for="my-drawer" class="btn btn-square btn-ghost btn-sm drawer-button"><x-heroicon-c-bars-3
                             class="size-5" /></label>
@@ -67,7 +67,7 @@
             </main>
 
         </div>
-        <div class="drawer-side">
+        <div class="drawer-side z-10">
             <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
             <x-admin.sidebar.sidebar />
         </div>

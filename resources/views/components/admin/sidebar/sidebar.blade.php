@@ -17,12 +17,12 @@
                         </a>
                     </li>
                     <li>
-                        <details @if (request()->routeIs('admin.categories.*', 'admin.posts.*')) open @endif
-                            class="{{ request()->routeIs('admin.categories.*', 'admin.posts.*') ? 'active' : '' }}">
+                        <details @if (request()->routeIs('admin.categories.*', 'admin.categories.posts.*')) open @endif
+                            class="{{ request()->routeIs('admin.categories.*', 'admin.categories.posts.*') ? 'active' : '' }}">
                             <summary>@lang('admin.categories')</summary>
                             <ul class="menu">
                                 <li>
-                                    <a class="{{ request()->routeIs('admin.categories.index') ? 'active' : '' }}"
+                                    <a class="{{ request()->routeIs('admin.categories.index') || request()->routeIs('admin.categories.edit') || request()->routeIs('admin.categories.create') ? 'active' : '' }}"
                                         href="{{ route('admin.categories.index') }}">
                                         @lang('admin.categories.list')
                                     </a>
@@ -133,13 +133,13 @@
                         </details>
                     </li>
                     <li>
-                        <details @if (request()->routeIs('admin.types.*', 'admin.Docs-opis.*', 'admin.signers.*')) open @endif
-                            class="{{ request()->routeIs('admin.types.*', 'admin.Docs-opis.*', 'admin.signers.*') ? 'open' : '' }}">
+                        <details @if (request()->routeIs('admin.opinions.*', 'admin.docs-opis.*')) open @endif
+                            class="{{ request()->routeIs('admin.opinions.*', 'admin.docs-opis.*') ? 'open' : '' }}">
                             <summary>Văn bản lấy ý kiến</summary>
                             <ul>
                                 <li>
-                                    <a class="{{ request()->routeIs('admin.Docs-opis.*') ? 'active' : '' }}"
-                                        href="{{ route('admin.Docs-opis.index') }}">
+                                    <a class="{{ request()->routeIs('admin.docs-opis.*') ? 'active' : '' }}"
+                                        href="{{ route('admin.docs-opis.index') }}">
                                         Danh sách văn bản lấy ý kiến
                                     </a>
                                 </li>
@@ -153,8 +153,8 @@
                         </details>
                     </li>
                     <li>
-                        <details @if (request()->routeIs('admin.menus.*', 'admin.ads.*', 'admin.addons.*')) open @endif
-                            class="{{ request()->routeIs('admin.menus.*', 'admin.ads.*', 'admin.addons.*') ? 'open' : '' }}">
+                        <details @if (request()->routeIs('admin.menus.*', 'admin.ads.*', 'admin.addons.*', 'admin.banners.*')) open @endif
+                            class="{{ request()->routeIs('admin.menus.*', 'admin.ads.*', 'admin.addons.*', 'admin.banners. *') ? 'open' : '' }}">
                             <summary>Tùy chỉnh</summary>
                             <ul>
                                 <li>
@@ -182,8 +182,8 @@
                         </details>
                     </li>
                     <li>
-                        <details @if (request()->routeIs('admin.menus.*', 'admin.ads.*', 'admin.addons.*')) open @endif
-                            class="{{ request()->routeIs('admin.menus.*', 'admin.ads.*', 'admin.addons.*') ? 'open' : '' }}">
+                        <details @if (request()->routeIs('admin.users.*')) open @endif
+                            class="{{ request()->routeIs('admin.users.*') ? 'open' : '' }}">
                             <summary>Tài khoản</summary>
                             <ul>
                                 <li>

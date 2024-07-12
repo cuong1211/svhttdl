@@ -126,6 +126,9 @@ return [
     'updated_at' => 'Ngày cập nhật',
     'publish_at' => 'Ngày đăng',
     'document.publish_at' => 'Ngày ban hành',
+    'document.start_at' => 'Ngày bắt đầu',
+    'document.end_at' => 'Ngày kết thúc',
+    'document.attachment' => 'Tập tin đính kèm',
     // thành viên
     'administrator' => 'Quản trị hệ thống',
     'users.list' => 'Danh sách tài khoản',

@@ -8,7 +8,16 @@
             </span>
         </div>
         <div class="mt-6">
-            <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+            <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">\
+                @if ($errors->any())
+                    <div class="alert alert-error text-black">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="bg-white p-4 shadow sm:rounded-lg sm:p-8">
                     <div class="space-y-4">
                         <form action="{{ route('admin.addons.update', ['addon' => $addons->id]) }}" method="POST"
@@ -18,7 +27,8 @@
                             <div class="space-y-4">
                                 <label class="form-control w-full">
                                     <div class="label">
-                                        <span class="label-text text-base text-black font-medium">@lang('admin.categories.order')</span>
+                                        <span
+                                            class="label-text text-base text-black font-medium">@lang('admin.categories.order')</span>
                                     </div>
                                     <input type="number" min="0" max="99" name="order"
                                         value="{{ $addons->order }}" @class([

@@ -18,7 +18,7 @@
                     />
                     <label class="form-control w-full max-w-xs">
                         <span class="label">
-                            <span class="label-text text-base text-black font-medium text-base text-black">@lang('admin.' . $field)</span>
+                            <span class="label-text text-base text-black font-medium ">@lang('admin.' . $field)</span>
                         </span>
                         <input
                             type="text"

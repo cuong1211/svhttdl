@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Document_Opinion;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Document_Opinion\Document_OpinionRequest;
 use App\Models\Document_Opinion;
 use Illuminate\Http\Request;
 
@@ -22,15 +23,37 @@ class Document_OpinionController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.doc_opi.docs.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Document_OpinionRequest $request)
     {
-        //
+        dd($request->all());
+        $data  = $request->validated();
+        $document = Document_Opinion::create([
+            'name' => $data['name'],
+            'content' => $data['description'],
+            'note' => $data['note'],
+            'start_at' => $data['start_at'],
+            'end_at' => $data['end_at'],
+
+        ]);
+        if ($request->hasFile('document_file')) {
+            $imageFile = $request->file('document_file');
+            $document->addMedia($imageFile->getRealPath())
+                ->usingFileName($imageFile->getClientOriginalName())
+                ->usingName($imageFile->getClientOriginalName())
+                ->toMediaCollection('document_file');
+        }
+
+        return redirect()->route('admin.docs-opis.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Tạo văn bản thành công',
+        ]);
     }
 
     /**
@@ -44,17 +67,17 @@ class Document_OpinionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Document_Opinion $docs)
     {
-        //
+        return view('admin.documents.edit', compact('docs'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Document_Opinion $docs)
     {
-        //
+        
     }
 
     /**

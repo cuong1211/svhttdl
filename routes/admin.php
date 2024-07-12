@@ -79,7 +79,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('signers', SignerDocumentController::class);
 
         //Document_Opinion
-        Route::resource('Docs-opis', Document_OpinionController::class);
+        Route::resource('docs-opis', Document_OpinionController::class);
         Route::resource('opinions', OpinionController::class);
         //Menu
         Route::resource('menus', MenuController::class);

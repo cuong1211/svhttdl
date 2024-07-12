@@ -37,9 +37,9 @@
                             'w-full',
                         ]) />
                     </label>
-                    <div class="grid grid-cols-2">
+                    <div class="flex justify-between">
                         <div class="flex items-center space-x-6">
-                            <label class="form-control w-20">
+                            <label class="form-control">
                                 <div class="label" for="tags">
                                     <span class="label-text text-base text-black font-medium">Hình ảnh</span>
                                 </div>
@@ -87,7 +87,6 @@
                 </form>
             </div>
         </div>
-    </div>
     </div>
     @pushonce('bottom_scripts')
         <script>

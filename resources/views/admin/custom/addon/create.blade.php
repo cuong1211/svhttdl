@@ -81,8 +81,8 @@
                                     </label>
                                 </div>
                                 <div class="shrink-0">
-                                    <img id="preview_img" class="h-32 w-64 object-cover rounded" src=""
-                                        alt="" />
+                                    <img id="preview_img" class="h-14 w-71 object-cover rounded" src=""
+                                        alt="" style="display: none"/>
                                 </div>
 
                                 <div class="flex justify-end gap-4">
@@ -106,6 +106,7 @@
 
         <script>
             var loadFile = function(event) {
+                document.getElementById('preview_img').style.display = 'block'
                 var input = event.target
                 var file = input.files[0]
                 var type = file.type

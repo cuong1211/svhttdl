@@ -36,7 +36,7 @@
                                     </button>
                                 </div>
                                 <a class="bg-blue-700 btn border-blue-500"
-                                    href="{{ route('admin.documents.create') }}">
+                                    href="{{ route('admin.docs-opis.create') }}">
                                     <x-heroicon-s-plus class="size-4 text-white" />
                                     <span class="text-white">@lang('admin.add')</span>
                                 </a>

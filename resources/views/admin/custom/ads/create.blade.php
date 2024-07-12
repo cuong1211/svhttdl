@@ -51,8 +51,7 @@
                                 </label>
                                 <label class="form-control w-full">
                                     <div class="label">
-                                        <span
-                                            class="label-text text-base text-black font-medium">Đường dẫn</span>
+                                        <span class="label-text text-base text-black font-medium">Đường dẫn</span>
                                     </div>
                                     <input type="text" name="url" placeholder="Nhập đường dẫn"
                                         value="{{ old('url') }}" @class([
@@ -81,8 +80,8 @@
                                     </label>
                                 </div>
                                 <div class="shrink-0">
-                                    <img id="preview_img" class="h-32 w-64 object-cover rounded" src=""
-                                        alt="" />
+                                    <img id="preview_img" class="h-12 w-72 object-cover rounded" src=""
+                                        alt="" style="display:none" />
                                 </div>
 
                                 <div class="flex justify-end gap-4">
@@ -106,6 +105,7 @@
 
         <script>
             var loadFile = function(event) {
+                document.getElementById('preview_img').style.display = 'block'
                 var input = event.target
                 var file = input.files[0]
                 var type = file.type

@@ -1,11 +1,12 @@
 @props([
     'publish_at' => now(),
     'field' => 'document.publish_at',
+    'name' => '',
 ])
 <div>
     <!-- No surplus words or unnecessary actions. - Marcus Aurelius -->
     <div
-        class="float-right max-w-xs"
+        class=" max-w-xs"
         x-data="app()"
         x-init="[initDate(), getNoOfDays()]"
         x-cloak
@@ -22,13 +23,12 @@
                         </span>
                         <input
                             type="text"
-                            id="published_at"
-                            name="published_at"
+                            name= {{$name ?? 'published_at'}}
                             readonly
                             x-model="datepickerValue"
                             @click="showDatepicker = !showDatepicker"
                             @keydown.escape="showDatepicker = false"
-                            class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md flex items-center gap-2 bg-white pr-12"
+                            class="border border-gray-300 bg-white text-black p-2 rounded-md pr-12"
                             placeholder="Select date"
                         />
                         <x-heroicon-s-calendar  class="absolute size-6 bottom-3 right-4 text-slate-500"/>

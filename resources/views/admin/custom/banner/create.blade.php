@@ -98,7 +98,7 @@
                                     </label>
                                 </div>
                                 <div class="shrink-0">
-                                    <img id="preview_img" class="h-32 w-64 object-cover rounded" src=""
+                                    <img id="preview_img" class=" object-cover rounded" src=""
                                         alt="" />
                                 </div>
 

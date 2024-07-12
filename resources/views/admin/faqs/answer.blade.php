@@ -14,6 +14,15 @@
                 @lang('admin.back')
             </a>
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                @if ($errors->any())
+                    <div class="alert alert-error text-black">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="border-gray-200 border-b bg-white p-6">
                     <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                         <div class="col-span-1">
@@ -46,7 +55,8 @@
                                 @lang('admin.faqs.created_at'): {{ $faq->createdAtVi }}
                             </p>
                         </label>
-                        <form action="{{ route('admin.answer.update', ['faq'=>$faq->id,'answer'=>$answer->id]) }}" method="POST">
+                        <form action="{{ route('admin.answer.update', ['faq' => $faq->id, 'answer' => $answer->id]) }}"
+                            method="POST">
                             @method('PUT')
                             @csrf
                             <div class="flex">
@@ -56,7 +66,7 @@
                                 </h3>
                                 <p class="text-black ml-auto mt-1 max-w-2xl text-sm">
                                     @lang('admin.faqs.answer_at')
-                                    :{{ $answer->createdAtVi}}
+                                    :{{ $answer->createdAtVi }}
                                 </p>
                             </div>
 
