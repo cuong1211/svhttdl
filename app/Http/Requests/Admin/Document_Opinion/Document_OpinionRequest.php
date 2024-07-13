@@ -27,9 +27,9 @@ class Document_OpinionRequest extends FormRequest
             case 'store': {
                     return [
                         'name' => 'required| max:255',
-                        'description' => 'nullable',
+                        'content' => 'nullable',
                         'note' => 'nullable',
-                        'document_file' => 'required|file|mimes:pdf|max:2048',
+                        'document_file' => 'required|file|mimes:pdf',
                         'start_at' => 'required|date',
                         'end_at' => 'required|date',
 
@@ -38,9 +38,9 @@ class Document_OpinionRequest extends FormRequest
             case 'update': {
                     return [
                         'name' => 'required| max:255',
-                        'description' => 'nullable',
+                        'content' => 'nullable',
                         'note' => 'nullable',
-                        'document_file' => 'required|file|mimes:pdf|max:2048',
+                        'document_file' => 'required|file|mimes:pdf',
                         'start_at' => 'required|date',
                         'end_at' => 'required|date',
                     ];

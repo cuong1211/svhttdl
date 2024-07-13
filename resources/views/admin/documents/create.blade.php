@@ -91,23 +91,23 @@
                             </select>
                         </label>
                         <label class="form-control w-full">
-                            <div class="label" for="signer_id">
+                            <div class="label" for="tag_id">
                                 <span class="label-text text-base text-black font-medium">@lang('admin.documents.signers')</span>
                             </div>
-                            <select name="signer_id" required @class([
+                            <select name="tag_id" required @class([
                                 'border',
                                 'border-gray-300',
                                 'bg-white',
                                 'text-black',
                                 'p-2',
                                 'rounded-md',
-                                'input-error' => $errors->has('signer_id'),
+                                'input-error' => $errors->has('tag_id'),
                                 'w-full',
                             ])>
                                 <option value="">Select </option>
                                 @foreach ($signers as $signer)
                                     <option value="{{ $signer->id }}"
-                                        {{ old('signer_id') == $signer->id ? 'selected' : '' }}>{{ $signer->name }}
+                                        {{ old('tag_id') == $signer->id ? 'selected' : '' }}>{{ $signer->name }}
                                     </option>
                                 @endforeach
                             </select>

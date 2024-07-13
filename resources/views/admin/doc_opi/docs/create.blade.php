@@ -51,7 +51,7 @@
                             <div class="label">
                                 <span class="label-text text-base text-black font-medium">@lang('admin.notes')</span>
                             </div>
-                            <input type="text" name="notes" placeholder="Nhập nội dung ghi chú..."
+                            <input type="text" name="note" placeholder="Nhập nội dung ghi chú..."
                                 @class([
                                     'border',
                                     'border-gray-300',
@@ -59,9 +59,9 @@
                                     'text-black',
                                     'p-2',
                                     'rounded-md',
-                                    'input-error' => $errors->has('notes'),
+                                    'input-error' => $errors->has('note'),
                                     'w-full',
-                                ]) value="{{ old('notes', $document->notes ?? '') }}" />
+                                ]) value="{{ old('note', $document->notes ?? '') }}" />
                         </label>
                         <label class="form-control w-full">
                             <div class="gap-5 join join-vertical md:join-horizontal">
@@ -81,8 +81,8 @@
                                     <span class="label-text text-base text-black font-medium">Tệp tin</span>
                                 </div>
                                 <span class="sr-only">Chọn tệp tin...</span>
-                                <input type="file" name="document_file" onchange="loadFile(event)"
-                                    value="{{ old('image', $document->document_file ?? '') }}"
+                                <input type="file" name="document_file" id="document_file"
+                                    value="{{ old('document_file', $document->document_file ?? '') }}"
                                     class="file-input file-input-bordered w-full max-w-xs bg-white text-black" />
                             </label>
                         </div>

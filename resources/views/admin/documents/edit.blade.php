@@ -69,10 +69,10 @@
 
                         </label>
                         <label class="form-control w-full">
-                            <div class="label" for="types">
-                                <span class="label-text text-base text-black font-medium">@lang('admin.types')</span>
+                            <div class="label" for="type_id">
+                                <span class="label-text text-base text-black font-medium">Loại văn bản</span>
                             </div>
-                            <select name="types[]" id="" class="form-control">
+                            <select name="type_id" id="type_id" class="form-control">
 
                                 @foreach ($types as $type)
                                     <option value="{{ $type->id }}"
@@ -81,15 +81,15 @@
                                     </option>
                                 @endforeach
                             </select>
-                            @error('types')
+                            @error('type_id')
                                 <p class="text-red-500 text-xs italic">{{ $message }}</p>
                             @enderror
                         </label>
                         <label class="form-control w-full">
-                            <div class="label" for="signers">
-                                <span class="label-text text-base text-black font-medium">@lang('admin.signers')</span>
+                            <div class="label" for="tag_id">
+                                <span class="label-text text-base text-black font-medium">Thể loại</span>
                             </div>
-                            <select name="signers[]" id="" class="form-control">
+                            <select name="tag_id" id="tag_id" class="form-control">
 
                                 @foreach ($signers as $signer)
                                     <option value="{{ $signer->id }}"
@@ -98,50 +98,10 @@
                                     </option>
                                 @endforeach
                             </select>
-                            @error('signers')
+                            @error('tag_id')
                                 <p class="text-red-500 text-xs italic">{{ $message }}</p>
                             @enderror
                         </label>
-                        {{-- <label class="form-control w-full">
-                            <div class="label" for="type_id">
-                                <span class="label-text text-base text-black font-medium">@lang('admin.documents.types')</span>
-                            </div>
-                            <select name="type_id" required @class([
-                                'border',
-                                            'border-gray-300',
-                                            'bg-white',
-                                            'text-black',
-                                            'p-2',
-                                            'rounded-md',
-                                'input-error' => $errors->has('type_id'),
-                                'w-full',
-                            ])>
-                                <option value="">Select </option>
-                                @foreach ($types as $type)
-                                    <option value="{{ $type->id }}" {{ old('type_id') == $type->id ? 'selected' : '' }}>{{ $type->name }}</option>
-                                @endforeach
-                            </select>
-                        </label>
-                        <label class="form-control w-full">
-                            <div class="label" for="signer_id">
-                                <span class="label-text text-base text-black font-medium">@lang('admin.documents.signers')</span>
-                            </div>
-                            <select name="signer_id" required @class([
-                                'border',
-                                            'border-gray-300',
-                                            'bg-white',
-                                            'text-black',
-                                            'p-2',
-                                            'rounded-md',
-                                'input-error' => $errors->has('signer_id'),
-                                'w-full',
-                            ])>
-                                <option value="">Select </option>
-                                @foreach ($signers as $signer)
-                                    <option value="{{ $signer->id }}" {{ old('signer_id') == $signer->id ? 'selected' : '' }}>{{ $signer->name }}</option>
-                                @endforeach
-                            </select>
-                        </label> --}}
                         <label class="form-control w-full">
                             <div class="label">
                                 <span class="label-text text-base text-black font-medium">@lang('admin.notes')</span>

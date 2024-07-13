@@ -21,11 +21,12 @@ class DocumentRequest extends FormRequest
                         'name' => 'required|string|max:255',
                         'content' => 'required|string',
                         'reference_number' => 'required|string|max:255',
-                        'note' => 'nullable|string',
+                        'notes' => 'nullable|string',
+                        'published_at' => 'required|date',
                         'tag_id' => 'required|exists:document_signers,id',
                         'type_id' => 'required|exists:document_types,id',
                         'singer' => 'nullable|string|max:255',
-
+                        'document_file' => 'required|file|mimes:pdf',
                     ];
                 }
             case 'update': {
@@ -33,10 +34,12 @@ class DocumentRequest extends FormRequest
                         'name' => 'required|string|max:255',
                         'content' => 'required|string',
                         'reference_number' => 'required|string|max:255',
-                        'note' => 'nullable|string',
+                        'notes' => 'nullable|string',
+                        'published_at' => 'required|date',
                         'tag_id' => 'required|exists:document_signers,id',
                         'type_id' => 'required|exists:document_types,id',
                         'singer' => 'nullable|string|max:255',
+                        'document_file' => 'nullable|file|mimes:pdf',
                     ];
                 }
             default:

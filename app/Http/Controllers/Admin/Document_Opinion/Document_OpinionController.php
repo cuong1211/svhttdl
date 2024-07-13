@@ -31,14 +31,13 @@ class Document_OpinionController extends Controller
      */
     public function store(Document_OpinionRequest $request)
     {
-        dd($request->all());
         $data  = $request->validated();
         $document = Document_Opinion::create([
             'name' => $data['name'],
-            'content' => $data['description'],
+            'content' => $data['content'],
             'note' => $data['note'],
-            'start_at' => $data['start_at'],
-            'end_at' => $data['end_at'],
+            'start_date' => $data['start_at'],
+            'end_date' => $data['end_at'],
 
         ]);
         if ($request->hasFile('document_file')) {

@@ -22,14 +22,6 @@ class PostController extends Controller
         $category = Category::where('id', $id)->firstOrFail();
 
         $all_cate_of_category = Category::where('parent_id', $id)->get();
-        switch ($all_cate_of_category->count()) {
-            case 0:
-                $posts = Post::query()->where('category_id', $id)->latest()->paginate(10)->appends($request->all());
-                break;
-            default:
-                $postsQuery = Post::query();
-                break;
-        }
         foreach ($all_cate_of_category as $cate) {
             $parent_category[] = $cate->id;
         }
@@ -41,7 +33,6 @@ class PostController extends Controller
         foreach ($child_category as $cate) {
             $child_category_id[] = $cate->id;
         }
-        // dd($child_category_id);
         $postsQuery = Post::query();
 
         if ($request->search != null) {
