@@ -86,6 +86,20 @@ return [
             'visibility' => 'public',
             'throw' => false,
         ],
+        'banner' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/banner'),
+            'url' => env('APP_URL') . '/storage/banner',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+        'document_opinion' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/document_opinion'),
+            'url' => env('APP_URL') . '/storage/document_opinion',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
 
     ],
 

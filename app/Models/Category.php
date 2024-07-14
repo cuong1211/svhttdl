@@ -29,7 +29,7 @@ class Category extends Model
     {
         return $this
             ->hasMany(Post::class)
-            ->select('id', 'slug', 'title', 'category_id', 'published_at');
+            ->select('id', 'slug', 'title', 'category_id', 'published_at','image', 'description','type');
     }
 
     public function newsWithLimit(): HasMany

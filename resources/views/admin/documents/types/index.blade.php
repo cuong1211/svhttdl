@@ -6,7 +6,7 @@
             </span>
         </div>
         @if (session('icon') && session('heading') && session('message'))
-            <div class="alert alert-{{ session('icon') === 'success' ? 'success' : 'danger' }}" role="alert">
+            <div class="alert alert-{{ session('icon') === 'success' ? 'success' : 'error' }}" role="alert">
                 <strong>{{ session('heading') }}:</strong>
                 {{ session('message') }}
             </div>
@@ -46,7 +46,7 @@
                         <thead class="text-black text-base">
                             <tr>
                                 <th class="text-center font-semibold">#</th>
-                                <th class="text-center font-semibold">@lang('admin.documents.types')</th>
+                                <th class="text-left font-semibold">@lang('admin.documents.types')</th>
                                 <th class="text-center font-semibold">@lang('admin.created_at')</th>
                                 <th class="text-center font-semibold">@lang('admin.updated_at')</th>
                                 <th class="text-center font-semibold">@lang('admin.funtion')</th>
@@ -58,7 +58,7 @@
                                     <th class="text-center">
                                         {{ $loop->index + 1 }}
                                     </th>
-                                    <td class="text-center">{{ $type->name }}</td>
+                                    <td class="text-left">{{ $type->name }}</td>
                                     <td class="text-center">{{ $type->createdAtVi }}</td>
                                     <td class="text-center">{{ $type->updatedAtVi }}</td>
 
@@ -109,7 +109,7 @@
             </div>
         </div>
         <div class="mt-4">
-            {{-- {{ $types->links('pagination.web-tailwind') }} --}}
+            {{ $types->links('pagination.web-tailwind') }}
         </div>
     </div>
 </x-app-layout>

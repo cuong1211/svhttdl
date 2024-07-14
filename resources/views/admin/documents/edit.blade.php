@@ -72,11 +72,20 @@
                             <div class="label" for="type_id">
                                 <span class="label-text text-base text-black font-medium">Loại văn bản</span>
                             </div>
-                            <select name="type_id" id="type_id" class="form-control">
+                            <select name="type_id" id="type_id" @class([
+                                'border',
+                                'border-gray-300',
+                                'bg-white',
+                                'text-black',
+                                'p-2',
+                                'rounded-md',
+                                'input-error' => $errors->has('type_id'),
+                                'w-full',
+                            ])>
 
                                 @foreach ($types as $type)
                                     <option value="{{ $type->id }}"
-                                        {{ $type->type_id == $type->id ? 'selected' : '' }}>
+                                        {{ $document->type_id == $type->id ? 'selected' : '' }}>
                                         {{ $type->name }}
                                     </option>
                                 @endforeach
@@ -89,11 +98,20 @@
                             <div class="label" for="tag_id">
                                 <span class="label-text text-base text-black font-medium">Thể loại</span>
                             </div>
-                            <select name="tag_id" id="tag_id" class="form-control">
+                            <select name="tag_id" id="tag_id" @class([
+                                'border',
+                                'border-gray-300',
+                                'bg-white',
+                                'text-black',
+                                'p-2',
+                                'rounded-md',
+                                'input-error' => $errors->has('tag_id'),
+                                'w-full',
+                            ])>
 
                                 @foreach ($signers as $signer)
                                     <option value="{{ $signer->id }}"
-                                        {{ $signer->signer_id == $signer->id ? 'selected' : '' }}>
+                                        {{ $document->tag_id == $signer->id ? 'selected' : '' }}>
                                         {{ $signer->name }}
                                     </option>
                                 @endforeach
@@ -120,17 +138,27 @@
                         </label>
                         <div class="flex items-center space-x-6">
                             <div class="shrink-0">
-                                <img id="preview_img" class="h-16 w-16 rounded-full object-cover"
-                                    src="{{ $document->getFirstMedia('document_file')->getUrl() }}"
-                                    alt="{{ $document->getFirstMedia('document_file')->name }}" />
+                                @if ($document->getFirstMedia('document_file'))
+                                    <img id="preview_img" class="h-16 w-16 rounded-full object-cover"
+                                        src="{{ $document->getFirstMedia('document_file')->getUrl() }}"
+                                        alt="{{ $document->getFirstMedia('document_file')->name }}" />
+                                @else
+                                    <img id="preview_img" class="h-16 w-16 rounded-full object-cover"
+                                        src="{{ asset('/' . $document->document_file) }}" alt="preview image" />
+                                @endif
                             </div>
                             <label class="block">
                                 <span class="sr-only">Choose photo</span>
                                 <div
-                                    class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md flex items-center gap-2 bg-white flex items-center gap-2 border px-3 py-2">
+                                    class="input border-gray-300 text-gray-900 p-2 rounded-md flex items-center gap-2 bg-white border px-3 py-2">
                                     File:
-                                    <span
-                                        id="selected_file_name">{{ $document->getFirstMedia('document_file')->name }}</span>
+                                    @if ($document->getFirstMedia('document_file'))
+                                        <a href="{{ $document->getFirstMedia('document_file')->getUrl() }}"
+                                            target="_blank">{{ $document->getFirstMedia('document_file')->name }}</a>
+                                    @else
+                                        <a href="{{ asset('/' . $document->document_file) }}"
+                                            target="_blank">{{ $document->document_file }}</a>
+                                    @endif
                                 </div>
 
                                 <input class="hidden" type="file" name="image" onchange="loadFile(event)"
@@ -141,7 +169,7 @@
                             <a href="{{ route('admin.documents.index') }}" class="btn-light btn">
                                 @lang('admin.btn.cancel')
                             </a>
-                            <button type="submit" class="btn bg-blue-700 text-white ml-2 text-white">
+                            <button type="submit" class="btn bg-blue-700 text-white ml-2">
                                 @lang('admin.btn.submit')
                             </button>
                         </div>

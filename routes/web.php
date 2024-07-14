@@ -18,7 +18,7 @@ Route::get('/', HomeController::class)->name('home');
 
 Route::get('/tin-tuc/{post:id}', [NewsController::class, 'show'])->name('news.show');
 route::get('/danh-muc/gioi-thieu/thong-tin-chung', fn () => view('web.about'))->name('about');
-route::get('/danh-muc/gioi-thieu/co-cau-to-chuc', [EmployeeController::class, 'index'])->name('employee.index');
+route::get('/danh-muc/gioi-thieu/co-cau-to-chuc', [HomeController::class, 'getIntro'])->name('home.intro');
 route::get('/nhan-vien/{employee:id}', [EmployeeController::class, 'show'])->name('employee.show');
 route::get('/van-ban-qppl', [DocumentController::class, 'index'])->name('document.index');
 Route::get('/lien-he', fn () => view('web.contact'))->name('contact');

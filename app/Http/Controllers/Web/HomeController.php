@@ -13,40 +13,39 @@ class HomeController extends Controller
 {
     public function __invoke(): View
     {
-      
-        $post_van_hoa = Category::query()->where('id',9)->with(['posts' => function ($q) {
+
+        $post_van_hoa = Category::query()->where('id', 9)->with(['posts' => function ($q) {
             $q->published()
                 ->orderByDesc('published_at')
                 ->take(5);
         }])->first();
-        $post_du_lich = Category::query()->where('id',12)->with(['posts' => function ($q) {
+        $post_du_lich = Category::query()->where('id', 12)->with(['posts' => function ($q) {
             $q->published()
                 ->orderByDesc('published_at')
                 ->take(5);
         }])->first();
-        $post_the_thao = Category::query()->where('id',11)->with(['posts' => function ($q) {
+        $post_the_thao = Category::query()->where('id', 11)->with(['posts' => function ($q) {
             $q->published()
                 ->orderByDesc('published_at')
                 ->take(5);
         }])->first();
-        $post_gia_dinh = Category::query()->where('id',19)->with(['posts' => function ($q) {
+        $post_gia_dinh = Category::query()->where('id', 19)->with(['posts' => function ($q) {
             $q->published()
                 ->orderByDesc('published_at')
                 ->take(5);
         }])->first();
         $banner_mid = banner::query()->where('position', 2)->where('is_active', 1)->first();
-       
-        return view('web.home', compact('banner_mid','post_van_hoa','post_du_lich','post_the_thao','post_gia_dinh'));
+        return view('web.home', compact('banner_mid', 'post_van_hoa', 'post_du_lich', 'post_the_thao', 'post_gia_dinh'));
     }
     public function showMenu()
     {
         $menus = Menu::with('children')->whereNull('parent_id')->orderBy('order')->get();
         return view('layouts.website', compact('menus'));
     }
-    public function getChild($category_id, $menu_id){
+    public function getChild($category_id, $menu_id)
+    {
         $posts = Post::query()->where('category_id', $category_id)->paginate(10);
-        // dd($post);
-        return view('web.child',compact('posts', 'menu_id', 'category_id'));
+        return view('web.child', compact('posts', 'menu_id', 'category_id'));
     }
     public function getPost($category_id, $menu_id, $id): View
     {
@@ -59,12 +58,16 @@ class HomeController extends Controller
             ->latest()
             ->take(10)
             ->get();
-            // dd($otherPosts);
+        // dd($otherPosts);
         return view('web.news.show', [
             'post' => $post,
             'category' => $category,
             'otherPosts' => $otherPosts,
         ]);
     }
-             
+    public function getIntro($menu_id)
+    {
+        $menu = Menu::query()->where('id', $menu_id)->first();
+        return view('web.intro', compact('menu'));
+    }
 }

@@ -50,46 +50,29 @@ class Document_Opinion extends Model implements HasMedia
             ->useDisk('document_opinion');
     }
 
-    public function getPublishedAtViAttribute()
+  
+    protected function createdAtVi(): Attribute
     {
-        return ucfirst(Carbon::parse($this->published_at)->translatedFormat('l, d/m/Y'));
+        return Attribute::make(
+            get: fn () => Carbon::parse($this->created_at)->format('d/m/Y h:i'),
+        );
     }
-
     protected function updatedAtVi(): Attribute
     {
         return Attribute::make(
             get: fn () => Carbon::parse($this->updated_at)->format('d/m/Y h:i'),
         );
     }
-
-    protected function publishedPostDate(): Attribute
+    protected function startAtVi(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->published_at->translatedFormat('d/m/Y'),
+            get: fn () => Carbon::parse($this->start_date)->format('d/m/Y'),
         );
     }
-
-    protected function publishedPostDateThumb(): Attribute
+    protected function endAtVi(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->published_at->diffForHumans(),
-        );
-    }
-
-    public function getPublishedDateAttribute()
-    {
-        return Carbon::parse($this->published_at)->format('M d, Y H:i');
-    }
-
-    public function getPublishedDateSearchAttribute()
-    {
-        return Carbon::parse($this->published_at)->diffForHumans();
-    }
-
-    protected function publishedAt(): Attribute
-    {
-        return Attribute::make(
-            set: fn ($value) => \Carbon\Carbon::parse($value)->format('Y-m-d'),
+            get: fn () => Carbon::parse($this->end_date)->format('d/m/Y'),
         );
     }
 }

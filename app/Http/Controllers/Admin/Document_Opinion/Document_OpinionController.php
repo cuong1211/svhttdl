@@ -66,24 +66,57 @@ class Document_OpinionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Document_Opinion $docs)
+    public function edit($id)
     {
-        return view('admin.documents.edit', compact('docs'));
+        $docs = Document_Opinion::findOrFail($id);
+
+        return view('admin.doc_opi.docs.edit', compact('docs'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Document_Opinion $docs)
+    public function update(Document_OpinionRequest $request, $id)
     {
-        
+        $data = $request->validated();
+        $docs = Document_Opinion::findOrFail($id);
+        $docs->update([
+            'name' => $data['name'],
+            'content' => $data['content'],
+            'note' => $data['note'],
+            'start_date' => $data['start_at'],
+            'end_date' => $data['end_at'],
+        ]);
+
+        if ($request->hasFile('document_file')) {
+            $imageFile = $request->file('document_file');
+            $docs->clearMediaCollection('document_file');
+            $docs->addMedia($imageFile->getRealPath())
+                ->usingFileName($imageFile->getClientOriginalName())
+                ->usingName($imageFile->getClientOriginalName())
+                ->toMediaCollection('document_file');
+        }
+
+        return redirect()->route('admin.docs-opis.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Sửa văn bản thành công',
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $document = Document_Opinion::findOrFail($id);
+        $document->clearMediaCollection('document_file');
+        $document->delete();
+
+        return back()->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => trans('admin.alert.deleted-success'),
+        ]);
     }
 }

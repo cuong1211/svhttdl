@@ -49,8 +49,8 @@
                             <tr>
                                 <th class="text-center font-semibold">#</th>
                                 <th class="text-left font-semibold">@lang('admin.documents.name')</th>
-                                <th class="text-center font-semibold">@lang('admin.documents.types')</th>
-                                <th class="text-center font-semibold">@lang('admin.documents.signers')</th>
+                                <th class="text-center font-semibold">Ngày bắt đầu</th>
+                                <th class="text-center font-semibold">Ngày kết thúc</th>
                                 <th class="text-center font-semibold">@lang('admin.created_at')</th>
                                 <th class="text-center font-semibold">@lang('admin.updated_at')</th>
                                 <th class="text-center font-semibold">@lang('admin.funtion')</th>
@@ -63,14 +63,16 @@
                                         {{ $docs->firstItem() + $loop->index }}
                                     </th>
                                     <td class="text-left">{{ $doc->name }}</td>
+                                    <td class="text-center">{{ $doc->startAtVi }}</td>
+                                    <td class="text-center">{{ $doc->endAtVi }}</td>
                                     <td class="text-center">{{ $doc->createdAtVi }}</td>
                                     <td class="text-center">{{ $doc->updatedAtVi }}</td>
 
                                     <td class="flex gap-3 items-center justify-center">
-                                        <a href="{{ route('admin.documents.edit', $doc->id) }}"><x-heroicon-s-pencil-square
+                                        <a href="{{ route('admin.docs-opis.edit', $doc->id) }}"><x-heroicon-s-pencil-square
                                                 class="size-4 text-green-600" /></a>
                                         <form id="delete-form-{{ $doc->id }}"
-                                            action="{{ route('admin.documents.destroy', ['document' => $doc->id]) }}"
+                                            action="{{ route('admin.docs-opis.destroy', ['docs_opi' => $doc->id]) }}"
                                             method="POST">
                                             @csrf
                                             @method('DELETE')
@@ -87,7 +89,6 @@
                                                     $(".alert").fadeOut(2000);
                                                 }, 3000); // thông báo sẽ ẩn sau 3 giây
                                             });
-
                                             function confirmDelete(documentId) {
                                                 Swal.fire({
                                                     title: 'Bạn có chắc chắn muốn xóa không?',

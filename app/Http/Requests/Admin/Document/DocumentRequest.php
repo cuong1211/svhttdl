@@ -19,7 +19,7 @@ class DocumentRequest extends FormRequest
             case 'store': {
                     return [
                         'name' => 'required|string|max:255',
-                        'content' => 'required|string',
+                        'content' => 'nullable|string',
                         'reference_number' => 'required|string|max:255',
                         'notes' => 'nullable|string',
                         'published_at' => 'required|date',
@@ -32,7 +32,7 @@ class DocumentRequest extends FormRequest
             case 'update': {
                     return [
                         'name' => 'required|string|max:255',
-                        'content' => 'required|string',
+                        'content' => 'nullable|string',
                         'reference_number' => 'required|string|max:255',
                         'notes' => 'nullable|string',
                         'published_at' => 'required|date',
@@ -50,11 +50,8 @@ class DocumentRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => trans('admin.field.required.name'),
-            'content.required' => trans('admin.field.required.content'),
-            'image.required' => trans('admin.field.required.image'),
-            'document_types.required' => trans('admin.field.required.document_types'),
-            'signers_id.required' => trans('admin.field.required.signers_id'),
+            'name.required' => "Tên không được để trống",
+            'document_types.required' => "Loại văn bản không được để trống",
             'name.max' => "Tên không được vượt quá 255 ký tự",
             'content.max' => "Nội dung không được vượt quá 255 ký tự",
             'reference_number.required' => "Số văn bản không được để trống",

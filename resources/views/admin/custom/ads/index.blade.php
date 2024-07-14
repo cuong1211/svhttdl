@@ -22,8 +22,8 @@
                                         class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md items-center gap-2 flex"
                                         style="border: 1px solid black;">
                                         <input name="search" type="text" class="grow"
-                                            placeholder="Tìm kiếm theo tiêu đề" style="border: unset; color:black";
-                                            color:black" value="{{ request()->search }}" />
+                                            placeholder="Tìm kiếm theo tiêu đề" style="border: unset; color:black"
+                                            value="{{ request()->search }}" />
                                         <button type="submit">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
                                                 fill="currentColor" class="h-4 w-4 opacity-70">
@@ -48,7 +48,7 @@
                                 <th class="text-center">#</th>
                                 <th class="text-center">Thứ tự</th>
                                 <th class="text-center">Tiêu đề</th>
-                                <th class="text-center">Đường dẫn</th>
+                                <th class="text-left">Đường dẫn</th>
                                 <th class="text-center">Ngày tạo</th>
                                 <th class="text-center">Ngày cập nhập</th>
                                 <th class="text-center">Chức năng</th>
@@ -65,7 +65,7 @@
                                     </td>
                                     <td class="text-center">
                                         {{ $ads->title }}</td>
-                                    <td class="text-center">
+                                    <td class="text-left">
                                         {{ $ads->url }}</td>
 
 
@@ -76,7 +76,7 @@
                                         {{ $ads->updated_at->format('d/m/Y h:i') }}
                                     </td>
                                     <td class="flex gap-3 items-center justify-center">
-                                        <a href="{{ route('admin.ads.edit', ['ad'=>$ads->id]) }}"><x-heroicon-s-pencil-square
+                                        <a href="{{ route('admin.ads.edit', ['ad' => $ads->id]) }}"><x-heroicon-s-pencil-square
                                                 class="size-4 text-green-600 " /></a>
                                         <form id="delete-form-{{ $ads->id }}"
                                             action="{{ route('admin.ads.destroy', ['ad' => $ads->id]) }}"

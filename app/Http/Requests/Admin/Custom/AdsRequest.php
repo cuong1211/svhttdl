@@ -28,7 +28,7 @@ class AdsRequest extends FormRequest
                     return [
                         'title' => 'required|max:255',
                         'order' => 'nullable|numeric',
-                        'url' => 'required|max:255|url',
+                        'url' => 'nullable|max:255|url',
                         'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|',
                     
                     ];
@@ -37,7 +37,7 @@ class AdsRequest extends FormRequest
                     return [
                         'title' => 'required|max:255',
                         'order' => 'nullable|numeric',
-                        'url' => 'required|max:255|url',
+                        'url' => 'nullable|max:255|url',
                         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048|',
                     ];
                 }

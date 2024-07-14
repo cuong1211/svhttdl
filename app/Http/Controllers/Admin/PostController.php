@@ -34,17 +34,19 @@ class PostController extends Controller
             $child_category_id[] = $cate->id;
         }
         $postsQuery = Post::query();
-
+        if ($child_category->count() == 0) {
+            $postsQuery->whereIn('category_id', $all_cate_of_category->pluck('id')->toArray());
+        }
         if ($request->search != null) {
             $postsQuery->where('title', 'like', '%' . $request->search . '%');
         }
-
+        
         if ($request->categoryFilter1 != null) {
             $postsQuery->where('category_id', $request->categoryFilter1);
         } elseif ($request->categoryFilter != null) {
             $child_categories = Category::where('parent_id', $request->categoryFilter)->pluck('id')->toArray();
             $postsQuery->whereIn('category_id', $child_categories);
-        } else {
+        } elseif($child_category_id != null) {
             $postsQuery->whereIn('category_id', $child_category_id);
         }
         switch ($all_cate_of_category->count()) {
@@ -63,7 +65,7 @@ class PostController extends Controller
                 break;
         }
 
-        // dd($posts);
+        
         return view('admin.categories.posts.index', [
             'category' => $category,
             'posts' => $posts,
@@ -142,7 +144,7 @@ class PostController extends Controller
             ->where('parent_id', $categoryId)
             ->where('in_menu', true)
             ->orderBy('order')->get();
-        
+
         return view('admin.categories.posts.edit', compact('selectedCategory_id', 'post', 'categories', 'selectedCategory', 'categoryId'));
     }
 
@@ -189,17 +191,10 @@ class PostController extends Controller
 
     public function destroy($category_id, $post_id)
     {
-        $category = Category::findOrFail($category_id);
-        $post = $category->posts()->findOrFail($post_id);
+        $post = Post::findOrFail($post_id);
         $post->clearMediaCollection('featured_image');
-        $post->tags()->detach();
         $post->delete();
-        $unusedTags = Tag::doesntHave('posts')->get();
-        foreach ($unusedTags as $unusedTag) {
-            $unusedTag->delete();
-        }
-
-        return back()->with([
+        return redirect()->route('admin.categories.posts.index', ['category' => $category_id])->with([
             'icon' => 'success',
             'heading' => 'Success',
             'message' => trans('admin.alert.deleted-success'),

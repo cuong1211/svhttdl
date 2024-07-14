@@ -130,7 +130,7 @@ class DocumentController extends Controller
         return redirect()->route('admin.documents.index')->with([
             'icon' => 'success',
             'heading' => 'Success',
-            'message' => 'Tạo văn bản thành công',
+            'message' => 'Sửa văn bản thành công',
         ]);
     }
 

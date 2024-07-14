@@ -48,14 +48,14 @@
                                 <th class="text-center">#</th>
                                 <th class="text-center w-3">Thứ tự</th>
                                 <th class="text-center">Tiêu đề</th>
-                                <th class="text-center">Đường dẫn</th>
+                                <th class="text-left">Đường dẫn</th>
                                 <th class="text-center">Ngày tạo</th>
                                 <th class="text-center">Ngày cập nhập</th>
                                 <th class="text-center">Chức năng</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($addon as $addon)
+                            @foreach ($addons as $addon)
                                 <tr>
                                     <th class="text-center">
                                         {{ $loop->index + 1 }}
@@ -65,7 +65,7 @@
                                     <td class="text-center">
                                         <div class="text-center">{{ $addon->title }}</div>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-left">
                                         {{ $addon->url }}</td>
                                     <td class="text-center">
                                         {{ $addon->created_at->format('d/m/Y h:i') }}
@@ -121,7 +121,7 @@
             </div>
         </div>
         <div class="mt-4">
-            {{-- {{ $banner->links('pagination.web-tailwind') }} --}}
+            {{ $addons->links('pagination.web-tailwind') }}
         </div>
     </div>
 </x-app-layout>

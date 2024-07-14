@@ -53,6 +53,8 @@
                                 @if ($post->getFirstMedia('featured_image'))
                                     <img src='{{ $post->getFirstMedia('featured_image')->getUrl() }}' alt=''
                                         style="height: 245px" />
+                                @else
+                                    <img src='{{ asset($post->image) }}' alt='' style="height: 245px" />
                                 @endif
 
                             </a>
@@ -81,7 +83,8 @@
         <div class="groupnews_home">
             <div
                 style="font-size: 36px; width: 100%; border-bottom: 3px solid transparent;   border-image: linear-gradient(0.25turn, rgba(38,109,192), rgba(11,143,121));    border-image-slice: 1; ">
-                <a href="{{ route('news.child', ['parentId' => $post_du_lich->parent_id, 'Id' => $post_du_lich->id]) }}">
+                <a
+                    href="{{ route('news.child', ['parentId' => $post_du_lich->parent_id, 'Id' => $post_du_lich->id]) }}">
                     <b>Du lịch</b></a>
             </div>
             <div class="groupnews_home_content">
@@ -92,6 +95,8 @@
                                 @if ($post->getFirstMedia('featured_image'))
                                     <img src='{{ $post->getFirstMedia('featured_image')->getUrl() }}' alt=''
                                         style="height: 245px" />
+                                @else
+                                    <img src='{{ asset($post->image) }}' alt='' style="height: 245px" />
                                 @endif
 
                             </a>
@@ -120,7 +125,8 @@
         <div class="groupnews_home">
             <div
                 style="font-size: 36px; width: 100%; border-bottom: 3px solid transparent;   border-image: linear-gradient(0.25turn, rgba(38,109,192), rgba(11,143,121));    border-image-slice: 1; ">
-                <a href="{{ route('news.child', ['parentId' => $post_the_thao->parent_id, 'Id' => $post_the_thao->id]) }}">
+                <a
+                    href="{{ route('news.child', ['parentId' => $post_the_thao->parent_id, 'Id' => $post_the_thao->id]) }}">
                     <b>Thể thao</b></a>
             </div>
             <div class="groupnews_home_content">
@@ -131,6 +137,8 @@
                                 @if ($post->getFirstMedia('featured_image'))
                                     <img src='{{ $post->getFirstMedia('featured_image')->getUrl() }}' alt=''
                                         style="height: 245px" />
+                                @else
+                                    <img src='{{ asset($post->image) }}' alt='' style="height: 245px" />
                                 @endif
 
                             </a>
@@ -159,19 +167,23 @@
         <div class="groupnews_home">
             <div
                 style="font-size: 36px; width: 100%; border-bottom: 3px solid transparent;   border-image: linear-gradient(0.25turn, rgba(38,109,192), rgba(11,143,121));    border-image-slice: 1; ">
-                <a href="{{ route('news.child', ['parentId' => $post_gia_dinh->parent_id, 'Id' => $post_gia_dinh->id]) }}">
+                <a
+                    href="{{ route('news.child', ['parentId' => $post_gia_dinh->parent_id, 'Id' => $post_gia_dinh->id]) }}">
                     <b>Gia đình</b></a>
             </div>
             <div class="groupnews_home_content">
                 @foreach ($post_gia_dinh->posts as $index => $post)
                     @if ($index == 0)
-                        <div class="groupnews_item">
+                    <div class="groupnews_item">
+                     
                             <a href="{{ route('news.show', $post) }}">
                                 @if ($post->getFirstMedia('featured_image'))
                                     <img src='{{ $post->getFirstMedia('featured_image')->getUrl() }}' alt=''
                                         style="height: 245px" />
+                                @else
+                                    <img src='{{ asset($post->image) }}' alt='' style="height: 245px" />
                                 @endif
-
+                                
                             </a>
                             <h3>
                                 <a href="{{ route('news.show', $post) }}"><span>{{ $post->title }}</span></a>

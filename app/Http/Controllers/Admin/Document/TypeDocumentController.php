@@ -38,25 +38,13 @@ class TypeDocumentController extends Controller
     }
     public function store(TypeDocumentRequest $request): RedirectResponse
     {
-        $data = [
-            'name' => $request->name,
-            'description' => $request->description,
-        ];
-        $type = Type::updateOrCreate(
-            ['name' => $request->name],
-            $data
-        );
-        if ($type->wasRecentlyCreated) {
-            return back()->with([
+        $data = $request->validated();
+        $type = Type::create($data);
+        if ($type) {
+            return redirect()->route('admin.types.index')->with([
                 'icon' => 'success',
-                'heading' => 'Thêm mới',
-                'message' => trans('admin.alert.success'),
-            ]);
-        } else {
-            return back()->with([
-                'icon' => 'info',
-                'heading' => 'Updated',
-                'message' => trans('admin.alert.update'),
+                'heading' => 'success',
+                'message' => 'Thêm mới thành công',
             ]);
         }
     }
@@ -81,9 +69,9 @@ class TypeDocumentController extends Controller
         ]);
 
         return redirect()->route('admin.types.index')->with([
-            'icon' => 'info',
-            'heading' => 'Cập nhật',
-            'message' => trans('admin.alert.update'),
+            'icon' => 'success',
+            'heading' => 'success',
+            'message' => 'Cập nhật thành công',
         ]);
     }
 

@@ -31,14 +31,18 @@
             @foreach ($category->children as $category_title)
                 <div class="khungtin" style=" float: left; width: 100%; margin-bottom: 5px; ">
                     <div class="groupnews_head bg_blue">
-                        <a class='group_header_link' href="">{{ $category_title->title }}</a>
+                        <a class='group_header_link'
+                            href="{{ route('news.child', ['parentId' => $category_title->parent_id, 'Id' => $category_title->id]) }}">{{ $category_title->title }}</a>
                     </div>
                     @foreach ($category_title->posts as $index => $post)
                         @if ($index == 0)
                             <div class="groupnews_item2">
                                 <a href="{{ route('news.show', $post) }}">
                                     @if ($post->getFirstMedia('featured_image'))
-                                        <img src='{{ $post->getFirstMedia('featured_image')->getUrl('') }}' />
+                                        <img src='{{ $post->getFirstMedia('featured_image')->getUrl('') }}'
+                                            alt='' />
+                                    @else
+                                        <img src='{{ asset($post->image) }}' alt='' />
                                     @endif
                                 </a>
                                 <h3>

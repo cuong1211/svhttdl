@@ -40,7 +40,7 @@ class Document_OpinionRequest extends FormRequest
                         'name' => 'required| max:255',
                         'content' => 'nullable',
                         'note' => 'nullable',
-                        'document_file' => 'required|file|mimes:pdf',
+                        'document_file' => 'nullable|file|mimes:pdf',
                         'start_at' => 'required|date',
                         'end_at' => 'required|date',
                     ];

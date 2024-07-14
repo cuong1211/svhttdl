@@ -38,25 +38,13 @@ class SignerDocumentController extends Controller
     }
     public function store(SignerDocumentRequest $request): RedirectResponse
     {
-        $data = [
-            'name' => $request->name,
-            'description' => $request->description,
-        ];
-        $signer = Signer::updateOrCreate(
-            ['name' => $request->name],
-            $data
-        );
-        if ($signer->wasRecentlyCreated) {
-            return back()->with([
+        $data = $request->validated();
+        $signer = Signer::create($data);
+        if ($signer) {
+            return redirect()->route('admin.signers.index')->with([
                 'icon' => 'success',
-                'heading' => 'Thêm mới',
+                'heading' => 'success',
                 'message' => trans('admin.alert.success'),
-            ]);
-        } else {
-            return back()->with([
-                'icon' => 'info',
-                'heading' => 'Updated',
-                'message' => trans('admin.alert.update'),
             ]);
         }
     }
@@ -81,8 +69,8 @@ class SignerDocumentController extends Controller
         ]);
 
         return redirect()->route('admin.signers.index')->with([
-            'icon' => 'info',
-            'heading' => 'Cập nhật',
+            'icon' => 'success',
+            'heading' => 'success',
             'message' => trans('admin.alert.update'),
         ]);
     }
@@ -96,19 +84,14 @@ class SignerDocumentController extends Controller
     public function destroy($id)
     {
         $signer = Signer::findOrFail($id);
-
-        // Kiểm tra xem phòng ban có nhân viên nào không
         if ($signer->documents()->exists()) {
             return back()->with([
                 'icon' => 'error',
                 'heading' => 'Lỗi',
-                'message' => trans('admin.alert.erro.signer.deleted'),
+                'message' => "Không thể xóa thể loại văn bản này vì đang có tài liệu thuộc thể loại này!",
             ]);
         }
-
-        // Xóa phòng ban
         $signer->delete();
-
         return back()->with([
             'icon' => 'success',
             'heading' => 'Success',

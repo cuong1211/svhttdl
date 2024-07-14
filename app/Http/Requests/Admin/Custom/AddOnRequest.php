@@ -28,7 +28,7 @@ class AddOnRequest extends FormRequest
                     return [
                         'title' => 'required|max:255',
                         'order' => 'nullable|numeric',
-                        'url' => 'required|max:255',
+                        'url' => 'nullable|max:255',
                         'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|',
                     
                     ];
@@ -37,7 +37,7 @@ class AddOnRequest extends FormRequest
                     return [
                         'title' => 'required|max:255',
                         'order' => 'nullable|numeric',
-                        'url' => 'required|max:255',
+                        'url' => 'nullable|max:255',
                         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048|',
 
                     ];

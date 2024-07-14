@@ -7,16 +7,20 @@
                 @lang('admin.add')
             </span>
         </div>
-        @if (session('icon') && session('heading') && session('message'))
-            <div class="alert alert-{{ session('icon') === 'success' ? 'success' : 'danger' }}" role="alert">
-                <strong>{{ session('heading') }}:</strong>
-                {{ session('message') }}
-            </div>
-        @endif
         <div class="mt-6">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                @if ($errors->any())
+                    <div class="alert alert-error text-black">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="bg-white px-8 pb-8 pt-0 shadow sm:rounded-lg">
-                    <form action="{{ route('admin.signers.store') }}" method="POST" class="space-y-4 needs-validation" novalidate>
+                    <form action="{{ route('admin.signers.store') }}" method="POST" class="space-y-4 needs-validation"
+                        novalidate>
                         @csrf
                         <label class="form-control w-full">
                             <div class="label">
@@ -24,11 +28,11 @@
                             </div>
                             <input type="text" name="name" placeholder="name..." @class([
                                 'border',
-                                            'border-gray-300',
-                                            'bg-white',
-                                            'text-black',
-                                            'p-2',
-                                            'rounded-md',
+                                'border-gray-300',
+                                'bg-white',
+                                'text-black',
+                                'p-2',
+                                'rounded-md',
                                 'input-error' => $errors->has('name'),
                                 'w-full',
                             ]) />
@@ -39,15 +43,15 @@
                             </div>
                             <textarea name="description" id="description" cols="30" rows="10" @class([
                                 'border',
-                                            'border-gray-300',
-                                            'bg-white',
-                                            'text-black',
-                                            'p-2',
-                                            'rounded-md',
+                                'border-gray-300',
+                                'bg-white',
+                                'text-black',
+                                'p-2',
+                                'rounded-md',
                                 'input-error' => $errors->has('description'),
                                 'w-full',
                             ])></textarea>
-                            
+
                         </label>
 
                         <div class="flex justify-end gap-4">

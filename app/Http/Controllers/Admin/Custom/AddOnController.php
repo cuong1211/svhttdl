@@ -14,8 +14,8 @@ class AddOnController extends Controller
      */
     public function index()
     {
-        $addon = addon::query()->latest()->paginate(10);
-        return view('admin.custom.addon.index', ['addon' => $addon]);
+        $addons = addon::query()->latest()->paginate(10);
+        return view('admin.custom.addon.index', ['addons' => $addons]);
     }
 
     /**

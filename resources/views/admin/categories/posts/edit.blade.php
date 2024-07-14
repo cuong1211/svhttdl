@@ -84,7 +84,7 @@
                                             'w-full',
                                             'input-error' => $errors->has('description'),
                                         ])>
-{{ $post->author }}
+{{ $post->description }}
                                     </textarea>
                                     @error('description')
                                         <div class="text-red-500 text-sm">{{ $message }}</div>
