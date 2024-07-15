@@ -68,16 +68,7 @@
                             </table>
                         </div>
                         <div class="kv-panel-after"></div>
-                        <div class="panel-footer">
-                            <div class="kv-panel-pager">
-                                <ul class="pagination" style="float: right;">
-                                    <li class="active"><a href="index.php?com=hoi-dap&amp;page=1">1</a></li>
-                                    <li><a href="index.php?com=hoi-dap&amp;page=2">2</a></li>
-                                </ul>
-                            </div>
-                            <div class="clearfix">
-                            </div>
-                        </div>
+                        {{ $faqs->render('web.paginate') }}
                     </div>
                 </div>
             </div>

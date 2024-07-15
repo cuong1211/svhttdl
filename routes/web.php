@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\Album\VideoController;
 use App\Http\Controllers\Web\DocumentController;
 use App\Http\Controllers\Web\CategoryController;
 use App\Http\Controllers\Web\ContactController;
+use App\Http\Controllers\Web\Document_OpinionController;
 use App\Http\Controllers\Web\EmployeeController;
 use App\Http\Controllers\Web\FaqController;
 use App\Http\Controllers\Web\HomeController;
@@ -13,12 +14,11 @@ use App\Models\Document\Document;
 use App\Http\Controllers\Web\NotificationController;
 use App\Http\Controllers\Web\VideoController as WebVideoController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\Filter;
 
 Route::get('/', HomeController::class)->name('home');
-
 Route::get('/tin-tuc/{post:id}', [NewsController::class, 'show'])->name('news.show');
-route::get('/danh-muc/gioi-thieu/thong-tin-chung', fn () => view('web.about'))->name('about');
-route::get('/danh-muc/gioi-thieu/co-cau-to-chuc', [HomeController::class, 'getIntro'])->name('home.intro');
+route::get('/danh-muc/gioi-thieu/{id}', [HomeController::class, 'getIntro'])->name('home.intro');
 route::get('/nhan-vien/{employee:id}', [EmployeeController::class, 'show'])->name('employee.show');
 route::get('/van-ban-qppl', [DocumentController::class, 'index'])->name('document.index');
 Route::get('/lien-he', fn () => view('web.contact'))->name('contact');
@@ -37,8 +37,12 @@ route::get('/faq/done/success', [FaqController::class, 'success'])->name('faq.su
 route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
 route::get('/contact/done/success', [ContactController::class, 'success'])->name('contact.success');
-route::get('don-vi-su-nghiep/{category:id}/menu/{menu:id}',[HomeController::class,'getChild'])->name('home.child.index');
-route::get('don-vi-su-nghiep/{category:id}/menu/{menu:id}/post/{post:id}',[HomeController::class,'getPost'])->name('home.child.post');
+route::get('/gopy-duthao',[Document_OpinionController::class, 'index'])->name('doc_opi.index');
+route::get('/gopy-duthao/{document_opinion}', [Document_OpinionController::class, 'show'])->name('doc_opi.show');
+route::post('/gopy-duthao/{document_opinion}/store', [Document_OpinionController::class, 'store'])->name('doc_opi.store');
+route::get('/gopy-duthao/done/success', [Document_OpinionController::class, 'success'])->name('doc_opi.success');
+route::get('don-vi-su-nghiep/{category:id}/menu/{menu:id}', [HomeController::class, 'getChild'])->name('home.child.index');
+route::get('don-vi-su-nghiep/{category:id}/menu/{menu:id}/post/{post:id}', [HomeController::class, 'getPost'])->name('home.child.post');
 Route::get('/danh-muc/{category:id}', [NewsController::class, 'index'])->name('news.index');
 Route::get('/danh-muc/{parentId}/{Id}', [NewsController::class, 'getChild'])->name('news.child');
 

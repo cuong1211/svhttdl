@@ -16,35 +16,10 @@
             </div>
             <a href="https://tinnhiemmang.vn/danh-ba-tin-nhiem/sovhttdlbackangovvn-1658129131"
                 title="Chứng nhận Tin Nhiệm Mạng" target="_blank">
-                <img src="https://tinnhiemmang.vn/handle_cert?id=sovhttdl.backan.gov.vn" width="150px"
-                    height="auto" alt="Chứng nhận Tin Nhiệm Mạng">
+                <img src="https://tinnhiemmang.vn/handle_cert?id=sovhttdl.backan.gov.vn" width="150px" height="auto"
+                    alt="Chứng nhận Tin Nhiệm Mạng">
             </a>
-            <div id="tktruycap" style="float: right;">
-                <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-
-
-
-                <div style="margin-left:5px;">
-                    <div style="float:left;margin-right:5px;"></div>
-                    <div style="float:left; margin-top:5px; font-size:13px; color:#fff;"> Đang online: <b>5 </b>
-                    </div>
-                </div><br />
-                <div style="margin-left:5px;">
-                    <div style="float:left;margin-right:5px;"></div>
-                    <div style="float:left; margin-top:5px; font-size:13px; color:#fff;"> Hôm nay: <b>30</b></div>
-                </div><br />
-                <div style="margin-left:5px;">
-                    <div style="float:left;margin-right:5px;"></div>
-                    <div style="float:left; margin-top:5px; font-size:13px; color:#fff;"> Tháng này: <b>1042</b>
-                    </div>
-                </div><br />
-                <div style="margin-left:5px;">
-                    <div style="float:left;margin-right:5px;"></div>
-                    <div style="float:left; margin-top:5px; font-size:13px; color:#fff;"> Tổng lượt truy cập:
-                        <b>19282</b>
-                    </div>
-                </div><br /></pre>
-            </div>
+            <x-website.counter />
         </div>
     </div>
 </div>

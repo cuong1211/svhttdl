@@ -80,7 +80,17 @@ class UserController extends Controller
 
         // dd($request);
         $data = $request->validated();
-        $user->update($data);
+        $user->update([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'phone' => $data['phone'],
+            'address' => $data['address'],
+            'state' => $data['state'],
+            'department_id' => $data['department_id'],
+            'category_id' => $data['category_id'],
+            'display_name' => $data['display_name'],
+            'password' => bcrypt($data['password']),
+        ]);
         if ($request->hasFile('image')) {
             $imageFile = $request->file('image');
             $user->clearMediaCollection('user_image');

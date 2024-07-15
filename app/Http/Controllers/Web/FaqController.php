@@ -44,7 +44,7 @@ class FaqController extends Controller
     }
     public function show($id)
     {
-        $faq = Faq::query()->where('id', $id)->first();
+        $faq = Faq::query()->where('id', $id)->with('answers')->first();
         return view('web.faq.show',compact('faq'));
     }
     public function success()

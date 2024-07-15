@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Events\PostViewed;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\View\View;
@@ -38,8 +39,14 @@ class NewsController extends Controller
     }
     public function show(Post $post): View
     {
+        $session = request()->session();
+        if (!$this->isPostViewed($post, $session)) {
+            $post->update(['view' => $post->view + 1]);
+            $this->storePost($post, $session);
+            event(new PostViewed($post));
+        }
+
         $category = Category::query()->where('id', $post->category_id)->first();
-        // dd($category);
         $otherPosts = Post::query()
             ->where('category_id', $post->category_id)
             ->where('id', '!=', $post->id)
@@ -47,11 +54,26 @@ class NewsController extends Controller
             ->latest()
             ->take(10)
             ->get();
-            // dd($otherPosts);
+
         return view('web.news.show', [
             'post' => $post,
             'category' => $category,
             'otherPosts' => $otherPosts,
         ]);
+    }
+
+    private function isPostViewed(Post $post, $session)
+    {
+        $viewed = $session->get('viewed_posts', []);
+
+        return in_array($post->id, $viewed);
+    }
+
+    private function storePost(Post $post, $session)
+    {
+        $viewed = $session->get('viewed_posts', []);
+        $viewed[] = $post->id;
+
+        $session->put('viewed_posts', $viewed);
     }
 }

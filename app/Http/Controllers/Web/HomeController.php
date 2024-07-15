@@ -65,9 +65,9 @@ class HomeController extends Controller
             'otherPosts' => $otherPosts,
         ]);
     }
-    public function getIntro($menu_id)
+    public function getIntro($id)
     {
-        $menu = Menu::query()->where('id', $menu_id)->first();
-        return view('web.intro', compact('menu'));
+        $about = Post::query()->where('id', $id)->first();
+        return view('web.about', compact('about'));
     }
 }

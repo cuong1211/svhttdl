@@ -16,6 +16,7 @@ use App\Observers\Documents\DocumentObserver;
 use App\Observers\CategoryObserver;
 use App\Observers\PostObserver;
 use App\Observers\MenuObserver;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -40,5 +41,6 @@ class AppServiceProvider extends ServiceProvider
         Signer::observe(SignerObserver::class);
         Document::observe(DocumentObserver::class);
         Menu::observe(MenuObserver::class);
+        Event::listen('news.show', 'App\Events\ViewPostHandler');
     }
 }

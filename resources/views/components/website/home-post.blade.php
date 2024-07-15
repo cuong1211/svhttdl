@@ -25,6 +25,8 @@
                             @if ($post->getFirstMedia('featured_image'))
                                 <img src='{{ $post->getFirstMedia('featured_image')->getUrl('') }}'
                                     alt='{{ $post->title }}' />
+                            @else
+                                <img src='{{ asset($post->image) }}' alt='{{ $post->title }}' />
                             @endif
                         </a>
                         <a href='{{ route('news.show', ['post' => $post]) }}'>
@@ -76,9 +78,15 @@
             <div class="column">
                 <div style="float:left;width:100%;margin-top:10px;text-align:justify;padding-bottom:5px;color:#585858">
                     <a href="{{ route('news.show', $post) }}">
-                        <img style="float:left;width:auto;height:50px;margin-right:5px;margin-bottom:3px"
-                            src='{{ $post->getFirstMedia('featured_image')->getUrl('') }}'
-                            alt='{{ $post->title }}' /></a>
+                        @if ($post->getFirstMedia('featured_image'))
+                            <img style="float:left;width:auto;height:50px;margin-right:5px;margin-bottom:3px"
+                                src='{{ $post->getFirstMedia('featured_image')->getUrl('') }}'
+                                alt='{{ $post->title }}' />
+                        @else
+                            <img style="float:left;width:auto;height:50px;margin-right:5px;margin-bottom:3px"
+                                src='{{ asset($post->image) }}' alt='{{ $post->title }}' />
+                        @endif
+                    </a>
                     <h3 style="color:#fff;font-size:10px;margin-right:5px; font-weight: normal;">
                         <a href="{{ route('news.show', $post) }}">
                             <span> {{ $post->title }}</span></a>

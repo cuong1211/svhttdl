@@ -40,14 +40,16 @@
                                     </div>
                                     <div>
                                         <span style="margin-left: 10px;"><b>Trả lời : </b></span>
-                                        <div
-                                            style="margin: 20px auto ; border: 1px solid #d6d6d6; border-radius: 6px; height: auto; width: 95%; font-size: 14px;">
-                                            @if ($faq->answer)
-                                                <p
-                                                    style="margin-top: 5px;margin-left: 10px;margin-right: 1px; font-size: 13px;">
-                                                    {!! $faq->answer !!}</p>
-                                            @endif
-                                        </div>
+                                        @if ($faq->answers)
+                                            @foreach ($faq->answers as $answer)
+                                                <div
+                                                    style="margin: 20px auto ; border: 1px solid #d6d6d6; border-radius: 6px; height: auto; width: 95%; font-size: 14px;">
+                                                    <p
+                                                        style="margin-top: 5px;margin-left: 10px;margin-right: 1px; font-size: 13px;">
+                                                        {!! $answer->content !!}</p>
+                                                </div>
+                                            @endforeach
+                                        @endif
                                     </div>
                                 </div>
                             </div>

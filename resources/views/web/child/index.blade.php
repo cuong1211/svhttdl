@@ -31,7 +31,7 @@
                 {{ $post->description }}
             </div>
             <div class="listnews_item_date">
-                <span> Ngày đăng: {{ $post->published_post_date }}/ Lượt xem: 3</span>
+                <span> Ngày đăng: {{ $post->published_post_date }}/ Lượt xem: {{$post->view}}</span>
             </div>
         </div>
     @endforeach

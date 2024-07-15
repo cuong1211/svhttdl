@@ -140,11 +140,11 @@
                                     @foreach (App\Enums\PostTypeEnum::cases() as $type)
                                         <div class="flex items-center mb-4">
                                             <input id="{{ $type->value }}" type="checkbox"
-                                                value="{{ $type->value }}"
+                                                value="{{ $type->value}}"
+                                                {{$type->value === '0' ? 'checked' : ''}}
                                                 class="w-4 h-4 text-blue-700 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                             <label for="{{ $type->value }}"
                                                 class="ms-2  text-black dark:text-gray-300 text-base">{{ $type->value == 0 ? 'Tin mới' : 'Tin hot' }}</label>
-
                                         </div>
                                     @endforeach
 

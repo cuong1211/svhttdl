@@ -64,7 +64,9 @@ class UserRequest extends FormRequest
                         'provide_id' => 'nullable|integer',
                         'department_id' => 'required| not in:0',
                         'category_id' => 'required| not in:0',
-                        'display_name' => 'required|max:255'
+                        'display_name' => 'required|max:255',
+                        'password' => 'nullable|min:8|max:255|confirmed',
+                        'password_confirmation' => 'nullable|min:8'
                     ];
                 }
             default:

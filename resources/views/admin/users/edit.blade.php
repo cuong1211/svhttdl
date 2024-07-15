@@ -148,6 +148,38 @@
                         </label>
                         <label class="form-control w-full">
                             <div class="label">
+                                <span class="label-text text-base text-black font-medium">Mật khẩu</span>
+                            </div>
+                            <input type="text" name="password" placeholder="Mật khẩu..."
+                                @class([
+                                    'border',
+                                    'border-gray-300',
+                                    'bg-white',
+                                    'text-black',
+                                    'p-2',
+                                    'rounded-md',
+                                    'input-error' => $errors->has('password'),
+                                    'w-full',
+                                ]) />
+                        </label>
+                        <label class="form-control w-full">
+                            <div class="label">
+                                <span class="label-text text-base text-black font-medium">Nhập lại mật khẩu</span>
+                            </div>
+                            <input type="text" name="password_confirmation" placeholder="Nhập lại mật khẩu..."
+                                @class([
+                                    'border',
+                                    'border-gray-300',
+                                    'bg-white',
+                                    'text-black',
+                                    'p-2',
+                                    'rounded-md',
+                                    'input-error' => $errors->has('password_confirmation'),
+                                    'w-full',
+                                ]) />
+                        </label>
+                        <label class="form-control w-full">
+                            <div class="label">
                                 <span class="label-text text-base text-black font-medium">SĐT</span>
                             </div>
                             <input type="text" name="phone" value="{{ old('phone', $user->phone) }}"

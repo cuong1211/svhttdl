@@ -13,11 +13,12 @@ class HomePost extends Component
     {
         $posts = Post::query()
             ->with('category')
+            ->where('type',0)
             ->latest()->take(6)->get();
         // $latestPost = $posts->first();
         $hotnews = Post::query()
             ->with('category')
-            ->where('type', 'Tin nổi bật')
+            ->where('type', 1)
             ->latest()->take(3)->get();
         return view('components.website.home-post', [
             'posts' => $posts,
