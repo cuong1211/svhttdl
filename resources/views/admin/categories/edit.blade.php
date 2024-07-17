@@ -121,7 +121,7 @@
                             <a href="{{ route('admin.categories.index') }}"
                                 class="btn-light btn text-white">@lang('admin.btn.cancel')</a>
                             <button type="submit"
-                                class="btn bg-blue-700 text-white ml-2 text-white">@lang('admin.btn.submit')</button>
+                                class="btn bg-blue-700 text-white ml-2">@lang('admin.btn.submit')</button>
                         </div>
                     </form>
 

@@ -116,7 +116,7 @@
                             </div>
                         </div>
                         <div class="flex justify-end gap-4">
-                            <a href="{{ route('admin.cooperations.index') }}" class="btn-light btn">@lang('admin.btn.cancel')
+                            <a href="{{ route('admin.cooperations.index') }}" class="btn-light btn text-white">@lang('admin.btn.cancel')
                             </a>
                             <button type="submit" class="btn bg-blue-700 text-white">
                                 @lang('admin.btn.submit')
@@ -137,7 +137,20 @@
                 var type = file.type
 
                 var output = document.getElementById('preview_img')
+                const allowedExtensions = /(\.png|\.jpeg|\.jpg|\.gif)$/i;
+                const maxFileSize = 5 * 1024 * 1024; // 5MB in bytes
 
+                if (!allowedExtensions.exec(input.value)) {
+                    alert('Vui lòng chọn tệp tin định dạng ảnh.');
+                    input.value = '';
+                    return false;
+                }
+
+                if (input.files[0].size > maxFileSize) {
+                    alert('Tệp tin tải lên không được vượt quá 5MB.');
+                    input.value = '';
+                    return false;
+                }
                 output.src = URL.createObjectURL(event.target.files[0])
                 output.onload = function() {
                     URL.revokeObjectURL(output.src) // free memory

@@ -5,7 +5,7 @@
 <div>
     <!-- No surplus words or unnecessary actions. - Marcus Aurelius -->
     <div
-        class="float-right max-w-xs"
+        class="w-full max-w-xs"
         x-data="app()"
         x-init="[initDate(), getNoOfDays()]"
         x-cloak

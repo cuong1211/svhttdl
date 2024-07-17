@@ -10,6 +10,7 @@
                                 <i class="glyphicon glyphicon-list"></i> <b style="font-size: 14px;">Danh sách Thông
                                     báo</b>
                             </h3>
+                            <br>
                             <div class="clearfix"></div>
                         </div>
                         <div id="crud-datatable-container" class="table-responsive kv-grid-container">
@@ -22,12 +23,9 @@
                                     <td style="background:#007bff ; color: #fff;"><strong>Ngày đăng</strong></td>
                                     <td style="background:#007bff ; color: #fff;"><strong>Chi tiết</strong></td>
                                 </tr>
-                                @php
-                                    $index = 1;
-                                @endphp
-                                @foreach ($noti as $noti)
+                                @foreach ($notis as $noti)
                                     <tr style="color: #333333;">
-                                        <td style="font-size: 13px;">{{ $index }}</td>
+                                        <td style="font-size: 13px;">{{ $notis->firstItem() + $loop->index }}</td>
                                         <td style="text-align: left; margin-left: 10px; font-size: 13px; width: 55%;">
                                             <a href="{{ route('noti.show', ['Announcement' => $noti->slug]) }}"
                                                 target="blank" style="color:#000;">{{ $noti->title }}</a>
@@ -37,25 +35,12 @@
                                         <td style="font-size: 13px;"><a class="fa fa-info"
                                                 href="{{ route('noti.show', ['Announcement' => $noti->slug]) }}"></a></td>
                                     </tr>
-                                    @php
-                                        $index++;
-                                    @endphp
                                 @endforeach
 
                             </table>
                         </div>
                         <div class="kv-panel-after"></div>
-                        <div class="panel-footer">
-                            <div class="kv-panel-pager">
-                                <ul class="pagination" style="float: right;">
-                                    <li class='active'><a href='index7986.html?com=thong-bao&amp;page=1'>1</a></li>
-                                    <li><a href='index0985.html?com=thong-bao&amp;page=2'>2</a></li>
-                                    <li><a href='index43e7.html?com=thong-bao&amp;page=3'>3</a></li>
-                                </ul>
-                            </div>
-                            <div class="clearfix">
-                            </div>
-                        </div>
+                        {{ $notis->render('web.paginate') }}
                     </div>
                 </div>
             </div>

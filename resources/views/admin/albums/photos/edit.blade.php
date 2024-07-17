@@ -119,7 +119,20 @@
 
                 var output = document.getElementById('preview_img')
                 var fileNameSpan = document.getElementById('selected_file_name')
+                const allowedExtensions = /(\.png|\.jpeg|\.jpg|\.gif)$/i;
+                const maxFileSize = 5 * 1024 * 1024; // 5MB in bytes
 
+                if (!allowedExtensions.exec(input.value)) {
+                    alert('Vui lòng chọn tệp tin định dạng ảnh.');
+                    input.value = '';
+                    return false;
+                }
+
+                if (input.files[0].size > maxFileSize) {
+                    alert('Tệp tin tải lên không được vượt quá 5MB.');
+                    input.value = '';
+                    return false;
+                }
                 output.src = URL.createObjectURL(event.target.files[0])
                 output.onload = function() {
                     URL.revokeObjectURL(output.src) // free memory

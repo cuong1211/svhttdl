@@ -27,6 +27,14 @@ class Document_OpinionController extends Controller
     }
     public function store($id, Request $request)
     {
+        $request->validate([
+            'name' => 'required | min:3 | max:255 ',
+            'email' => 'required|email | max:255 ',
+            'phone' => 'required | min:10 | max:11 ',
+            'address' => 'required | min:3 | max:255',
+            'title' => 'required | min:3',
+            'content' => 'required',
+        ]);
         Opinion::query()->create([
             'document_id' => $id,
             'name' => $request->name,

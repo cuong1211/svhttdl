@@ -30,7 +30,8 @@
     </li>
 @else --}}
 <li>
-    <a class="{{ request()->routeIs('admin.categories.posts.index') && request()->route('category') == $category->id ? 'active' : '' }}" href="{{ route('admin.categories.posts.index', $category->id) }}">
+    <a class="{{ request()->routeIs('admin.categories.posts.*') && request()->route('category') == $category->id ? 'active' : '' }}"
+        href="{{ route('admin.categories.posts.index', $category->id) }}">
         {{ app()->getLocale() === 'en' ? $category->title_en : $category->title }}
     </a>
 </li>

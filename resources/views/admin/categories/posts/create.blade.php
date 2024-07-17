@@ -30,8 +30,8 @@
                                 @if (Auth::user()->category_id == 3)
                                     <input type="hidden" name="category_id" value="{{ $category->id }}">
                                 @endif
-                                <div class="flex gap-4">
-                                    <label class="form-control w-full">
+                                <div class="join join-vertical lg:join-horizontal gap-4 w-full">
+                                    <label class="join-item form-control w-full">
                                         <div class="label">
                                             <span class="label-text text-base text-black font-medium">
                                                 @lang('admin.post.title')
@@ -44,7 +44,7 @@
                                             <div class="text-red-500 text-sm">{{ $message }}</div>
                                         @enderror
                                     </label>
-                                    <div class="flex">
+                                    <div class="join-item w-auto">
                                         <x-admin.forms.calendar />
                                     </div>
                                 </div>
@@ -107,7 +107,7 @@
                                             @foreach ($categories as $category)
                                                 <x-admin.forms.select.category :category="$category" />
                                             @endforeach
-                                            
+
                                         </select>
                                         @error('category_id')
                                             <div class="text-red-500 text-sm">{{ $message }}</div>
@@ -140,8 +140,8 @@
                                     @foreach (App\Enums\PostTypeEnum::cases() as $type)
                                         <div class="flex items-center mb-4">
                                             <input id="{{ $type->value }}" type="checkbox"
-                                                value="{{ $type->value}}"
-                                                {{$type->value === '0' ? 'checked' : ''}}
+                                                value="{{ $type->value }}"
+                                                {{ $type->value === '0' ? 'checked' : '' }}
                                                 class="w-4 h-4 text-blue-700 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                             <label for="{{ $type->value }}"
                                                 class="ms-2  text-black dark:text-gray-300 text-base">{{ $type->value == 0 ? 'Tin mới' : 'Tin hot' }}</label>
@@ -186,9 +186,23 @@
                 var input = event.target
                 var file = input.files[0]
                 var type = file.type
-
+                
                 var output = document.getElementById('preview_img')
+                
+                const allowedExtensions = /(\.png|\.jpeg|\.jpg|\.gif)$/i;
+                const maxFileSize = 5 * 1024 * 1024; // 5MB in bytes
 
+                if (!allowedExtensions.exec(input.value)) {
+                    alert('Vui lòng chọn tệp tin định dạng ảnh.');
+                    input.value = '';
+                    return false;
+                }
+
+                if (input.files[0].size > maxFileSize) {
+                    alert('Tệp tin tải lên không được vượt quá 5MB.');
+                    input.value = '';
+                    return false;
+                }
                 output.src = URL.createObjectURL(event.target.files[0])
                 output.onload = function() {
                     URL.revokeObjectURL(output.src) // free memory

@@ -33,12 +33,11 @@
                     <div class="flex px-6 py-4">
                         <form action="{{ route('admin.categories.posts.index', $category->id) }}" method="GET"
                             class="w-full">
-                            <div class="items-center justify-between">
-                                <ul class="menu md:menu-horizontal rounded-box bg-white gap-2">
+                            <div class="items-center">
+                                <ul class="menu md:menu-horizontal rounded-box bg-white gap-1">
                                     <li>
-
                                         <label
-                                            class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md items-center gap-2 flex w-full "
+                                            class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md items-center gap-2 flex w-auto md:w-full "
                                             style="border: 1px solid black;">
                                             <input name="search" type="text"
                                                 class="grow placeholder-black font-semibold"
@@ -84,7 +83,6 @@
                                         </button>
                                     </li>
                                 </ul>
-
                             </div>
                         </form>
                     </div>

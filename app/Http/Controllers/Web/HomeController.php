@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Events\PostViewed;
 use App\Models\banner;
 use Illuminate\View\View;
 use App\Models\Menu;
@@ -49,6 +50,8 @@ class HomeController extends Controller
     }
     public function getPost($category_id, $menu_id, $id): View
     {
+
+
         $category = Category::query()->where('id', $category_id)->first();
         $post = Post::query()->where('id', $id)->first();
         $otherPosts = Post::query()
@@ -59,6 +62,12 @@ class HomeController extends Controller
             ->take(10)
             ->get();
         // dd($otherPosts);
+        $session = request()->session();
+        if (!$this->isPostViewed($post, $session)) {
+            $post->update(['view' => $post->view + 1]);
+            $this->storePost($post, $session);
+            event(new PostViewed($post));
+        }
         return view('web.news.show', [
             'post' => $post,
             'category' => $category,
@@ -69,5 +78,24 @@ class HomeController extends Controller
     {
         $about = Post::query()->where('id', $id)->first();
         return view('web.about', compact('about'));
+    }
+    public function getChildIntro($id)
+    {
+        $about = Post::query()->where('id', $id)->first();
+        return view('web.about_child', compact('about'));
+    }
+    private function isPostViewed(Post $post, $session)
+    {
+        $viewed = $session->get('viewed_posts', []);
+
+        return in_array($post->id, $viewed);
+    }
+
+    private function storePost(Post $post, $session)
+    {
+        $viewed = $session->get('viewed_posts', []);
+        $viewed[] = $post->id;
+
+        $session->put('viewed_posts', $viewed);
     }
 }

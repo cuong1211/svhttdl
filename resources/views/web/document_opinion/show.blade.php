@@ -192,9 +192,9 @@
                                 </tr>
                                 @foreach ($opinions as $opinion)
                                     <tr>
-                                        <td>{{ $opinion->id }}</td>
-                                        <td>{{ $opinion->name }}</td>
-                                        <td>{{ $opinion->address }}</td>
+                                        <td>{{ $opinions->firstItem() + $loop->index }}</td>
+                                        <td width="175">{{ $opinion->name }}</td>
+                                        <td width="175">{{ $opinion->address }}</td>
                                         <td>{{ $opinion->title }}</td>
                                     </tr>
                                 @endforeach

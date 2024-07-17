@@ -40,7 +40,7 @@
                                     </tr>
                                     @foreach ($docs as $doc)
                                         <tr>
-                                            <td>{{ $doc->id }}</td>
+                                            <td>{{ $docs->firstItem() + $loop->index }}</td>
                                             <td>{{ $doc->name }}</td>
                                             <td>{{ $doc->start_date }}</td>
                                             <td>{{ $doc->end_date }}</td>

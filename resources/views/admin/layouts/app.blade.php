@@ -25,11 +25,11 @@
                 <div class="flex h-auto bg-white p-3">
                     <label for="my-drawer" class="btn btn-square btn-ghost btn-sm drawer-button"><x-heroicon-c-bars-3
                             class="size-5" /></label>
-                    <div class="hidden sm:ms-6 sm:flex sm:items-center" style="margin-left: auto">
-                        <x-dropdown align="right" width="48">
+                    <div class="hidden sm:ms-6 sm:flex sm:items-center text-black" style="margin-left: auto">
+                        <x-dropdown width="48">
                             <x-slot name="trigger">
                                 <button
-                                    class="text-gray-500 hover:text-gray-700 inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 transition duration-150 ease-in-out focus:outline-none">
+                                    class=" inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 transition duration-150 ease-in-out focus:outline-none">
                                     <div>{{ Auth::user()->name }}</div>
 
                                     <div class="ms-1">
@@ -42,7 +42,7 @@
                                     </div>
                                 </button>
                             </x-slot>
-                            <x-slot name="content">
+                            <x-slot name="content" >
                                 <x-dropdown-link :href="route('profile.edit')">
                                     @lang('admin.profile')
                                 </x-dropdown-link>

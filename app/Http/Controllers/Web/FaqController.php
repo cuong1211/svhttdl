@@ -8,10 +8,15 @@ use Illuminate\Http\Request;
 
 class FaqController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $faqs = Faq::query()->latest()->paginate(5);
-        return view('web.faq.index',compact('faqs'));
+        $faqs = Faq::query()
+            ->when($request->search, function ($query) use ($request) {
+                return $query->where('title', 'like', '%' . $request->search . '%');
+            })
+            ->latest()
+            ->paginate(5);
+        return view('web.faq.index', compact('faqs'));
     }
     public function create()
     {
@@ -45,7 +50,7 @@ class FaqController extends Controller
     public function show($id)
     {
         $faq = Faq::query()->where('id', $id)->with('answers')->first();
-        return view('web.faq.show',compact('faq'));
+        return view('web.faq.show', compact('faq'));
     }
     public function success()
     {

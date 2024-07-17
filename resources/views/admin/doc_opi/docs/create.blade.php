@@ -23,23 +23,51 @@
                     <form action="{{ route('admin.docs-opis.store') }}" method="POST" class="space-y-4 needs-validation"
                         novalidate enctype="multipart/form-data">
                         @csrf
-                        <label class="form-control w-full">
-                            <div class="label">
-                                <span class="label-text text-base text-black font-medium">@lang('admin.documents.name')</span>
-                            </div>
-                            <input type="text" name="name" placeholder="Tên văn bản..."
-                                value="{{ old('name', $document->name ?? '') }}" @class([
-                                    'border',
-                                    'border-gray-300',
-                                    'bg-white',
-                                    'text-black',
-                                    'p-2',
-                                    'rounded-md',
-                                    'input-error' => $errors->has('name'),
-                                    'w-full',
-                                ]) />
-                        </label>
+                        <div class="join join-vertical lg:join-horizontal gap-4 w-full">
+                            <label class="join-item form-control w-full">
+                                <div class="label">
+                                    <span class="label-text text-base text-black font-medium">@lang('admin.documents.name')</span>
+                                </div>
+                                <input type="text" name="name" value="{{ old('name') }}"
+                                    @class([
+                                        'border',
+                                        'border-gray-300',
+                                        'bg-white',
+                                        'text-black',
+                                        'p-2',
+                                        'rounded-md',
+                                        'input-error' => $errors->has('name'),
+                                        'w-full',
+                                    ]) />
 
+                                <div class="flex items-center space-x-6">
+                                    <label class="block">
+                                        <div class="label">
+                                            <span class="label-text text-base text-black font-medium">Tệp tin</span>
+                                        </div>
+                                        <span class="sr-only">Chọn tệp tin...</span>
+                                        <input type="file" name="document_file" id="document_file"
+                                            onchange="loadFile(event)"
+                                            value="{{ old('document_file', $document->document_file ?? '') }}"
+                                            class="file-input file-input-bordered w-full max-w-xs bg-white text-black" />
+                                    </label>
+                                </div>
+                            </label>
+                            <div class="join-item">
+                                <label class="form-control w-full">
+                                    <div class="gap-5 join join-vertical md:join-horizontal">
+                                        <x-admin.forms.document :field="'document.start_at'" :name="'start_at'"
+                                            value="{{ old('start_at') }}" />
+                                    </div>
+                                </label>
+                                <label class="form-control w-full">
+                                    <div class="gap-5 join join-vertical md:join-horizontal">
+                                        <x-admin.forms.document :field="'document.end_at'" :name="'end_at'"
+                                            value="{{ old('end_at') }}" />
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
                         <label class="form-control w-full">
                             <div class="label">
                                 <span class="label-text text-base text-black font-medium">@lang('admin.content')</span>
@@ -63,29 +91,8 @@
                                     'w-full',
                                 ]) value="{{ old('note', $document->notes ?? '') }}" />
                         </label>
-                        <label class="form-control w-full">
-                            <div class="gap-5 join join-vertical md:join-horizontal">
-                                <x-admin.forms.document :field="'document.start_at'" :name="'start_at'"
-                                    value="{{ old('start_at') }}" />
-                            </div>
-                        </label>
-                        <label class="form-control w-full">
-                            <div class="gap-5 join join-vertical md:join-horizontal">
-                                <x-admin.forms.document :field="'document.end_at'" :name="'end_at'"
-                                    value="{{ old('end_at') }}" />
-                            </div>
-                        </label>
-                        <div class="flex items-center space-x-6">
-                            <label class="block">
-                                <div class="label">
-                                    <span class="label-text text-base text-black font-medium">Tệp tin</span>
-                                </div>
-                                <span class="sr-only">Chọn tệp tin...</span>
-                                <input type="file" name="document_file" id="document_file"
-                                    value="{{ old('document_file', $document->document_file ?? '') }}"
-                                    class="file-input file-input-bordered w-full max-w-xs bg-white text-black" />
-                            </label>
-                        </div>
+
+
                         <div class="flex justify-end gap-4">
                             <a href="{{ route('admin.documents.index') }}" class="btn-light text-white btn">
                                 @lang('admin.btn.cancel')
@@ -107,12 +114,19 @@
                 var input = event.target
                 var file = input.files[0]
                 var type = file.type
+                const allowedExtensions = /(\.pdf|\.doc)$/i;
+                const maxFileSize = 5 * 1024 * 1024; // 5MB in bytes
 
-                var output = document.getElementById('preview_img')
+                if (!allowedExtensions.exec(input.value)) {
+                    alert('Vui lòng chọn tệp tin định dạng .pdf hoặc .doc.');
+                    input.value = '';
+                    return false;
+                }
 
-                output.src = URL.createObjectURL(event.target.files[0])
-                output.onload = function() {
-                    URL.revokeObjectURL(output.src) // free memory
+                if (input.files[0].size > maxFileSize) {
+                    alert('Tệp tin tải lên không được vượt quá 5MB.');
+                    input.value = '';
+                    return false;
                 }
             }
         </script>

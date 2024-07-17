@@ -26,16 +26,17 @@
                             <div class="label">
                                 <span class="label-text text-base text-black font-medium">@lang('admin.signers.name')</span>
                             </div>
-                            <input type="text" name="name" placeholder="name..." @class([
-                                'border',
-                                'border-gray-300',
-                                'bg-white',
-                                'text-black',
-                                'p-2',
-                                'rounded-md',
-                                'input-error' => $errors->has('name'),
-                                'w-full',
-                            ]) />
+                            <input type="text" name="name" placeholder="Tên thể loại..."
+                                @class([
+                                    'border',
+                                    'border-gray-300',
+                                    'bg-white',
+                                    'text-black',
+                                    'p-2',
+                                    'rounded-md',
+                                    'input-error' => $errors->has('name'),
+                                    'w-full',
+                                ]) value="{{ old('name') }}" />
                         </label>
                         <label class="form-control w-full">
                             <div class="label">
@@ -50,7 +51,7 @@
                                 'rounded-md',
                                 'input-error' => $errors->has('description'),
                                 'w-full',
-                            ])></textarea>
+                            ])>{!! old('description') !!}</textarea>
 
                         </label>
 

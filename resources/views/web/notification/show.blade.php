@@ -18,7 +18,7 @@
         <div class="Around_News_Content">
             <div style="float: left; width: 100%;">
                 <span class="News_Time_Post">
-                    Ngày đăng: {{ $noti->published_post_date }} / Lượt xem: 74 </span>
+                    Ngày đăng: {{ $noti->published_post_date }} </span>
             </div>
             <div class="title">
                 <h1 class="News_Detail_Title">

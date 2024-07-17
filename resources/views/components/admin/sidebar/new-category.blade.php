@@ -19,7 +19,7 @@
 
 @if ($category->children->isNotEmpty())
     <li>
-        <details @if (isCategorySelected($category, request()->route('slug'))) open @endif>
+        <details open>
             <summary>{{ app()->getLocale() === 'en' ? $category->title_en : $category->title }}</summary>
             <ul>
                 @foreach ($category->children as $child)
@@ -27,14 +27,5 @@
                 @endforeach
             </ul>
         </details>
-    </li>
-@else
-    <li>
-        <a @class([
-            'active' => isCategorySelected($category, request()->route('slug')),
-        ])
-            href="{{ route('admin.categories.posts.index', $category->id) }}">
-            {{ app()->getLocale() === 'en' ? $category->title_en : $category->title }}
-        </a>
     </li>
 @endif

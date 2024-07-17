@@ -10,13 +10,13 @@ class NotificationController extends Controller
 {
     public function index()
     {
-        $noti = Announcement::query()
+        $notis = Announcement::query()
             ->published()
             ->latest()
             ->paginate(15);
             
         return view('web.notification.index', [
-            'noti' => $noti,
+            'notis' => $notis,
         ]);
     }
     public function show($announcement)

@@ -26,29 +26,29 @@ class Document_OpinionRequest extends FormRequest
         switch ($action) {
             case 'store': {
                     return [
-                        'name' => 'required| max:255',
+                        'name' => 'required|max:255',
                         'content' => 'nullable',
                         'note' => 'nullable',
                         'document_file' => 'required|file|mimes:pdf',
                         'start_at' => 'required|date',
-                        'end_at' => 'required|date',
-
+                        'end_at' => 'required|date|after:start_at',
                     ];
                 }
             case 'update': {
                     return [
-                        'name' => 'required| max:255',
+                        'name' => 'required|max:255',
                         'content' => 'nullable',
                         'note' => 'nullable',
                         'document_file' => 'nullable|file|mimes:pdf',
                         'start_at' => 'required|date',
-                        'end_at' => 'required|date',
+                        'end_at' => 'required|date|after:start_at',
                     ];
                 }
             default:
-                break;
+                return [];
         }
     }
+
     public function messages()
     {
         return [
@@ -64,6 +64,7 @@ class Document_OpinionRequest extends FormRequest
             'start_at.date' => 'Ngày bắt đầu không đúng định dạng',
             'end_at.required' => 'Ngày kết thúc không được để trống',
             'end_at.date' => 'Ngày kết thúc không đúng định dạng',
+            'end_at.after' => 'Ngày kết thúc phải sau ngày bắt đầu',
 
         ];
     }

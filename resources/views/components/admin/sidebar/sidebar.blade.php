@@ -1,7 +1,7 @@
 <aside class="w-80 h-full flex-none overflow-y-auto bg-blue-700 transition-width">
     <div class="h-auto items-end border-blue-950 text-white">
         <h1 class="sticky top-0 flex items-center divide-x bg-blue-900 p-3 shadow">
-            <span class="font-roboto text-xl font-extrabold tracking-wider">Sở-VHTTDL</span>
+            <span class="font-roboto text-xl font-extrabold tracking-wider">SO-VHTTDL </span>
             <span class="text-blue-500"> Quản trị hệ thống</span>
         </h1>
 
@@ -182,7 +182,7 @@
                         </details>
                     </li>
                     <li>
-                        <details @if (request()->routeIs('admin.users.*')) open @endif
+                        <details @if (request()->routeIs('admin.users.*','admin.roles.*')) open @endif
                             class="{{ request()->routeIs('admin.users.*') ? 'open' : '' }}">
                             <summary>Tài khoản</summary>
                             <ul>

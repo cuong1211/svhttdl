@@ -58,12 +58,10 @@
                         <td style="background:#2A3F54 ; color: #fff;"><strong>Ngày ban hành</strong></td>
                         <td style="background:#2A3F54 ; color: #fff;text-align: center;"><strong>Tải về</strong></td>
                     </tr>
-                    @php
-                        $index = 1;
-                    @endphp
+                
                     @foreach ($docs as $item)
                         <tr style="color: #333333; ">
-                            <td>{{ $index }}</td>
+                            <td>{{ $docs->firstItem() + $loop->index }}</td>
                             <td style="text-align: left; margin-left: 10px; text-align: justify;"><a
                                     href="index141a.html?com=chitiet_vb&amp;id_vanban=26">{{ $item->reference_number }}</a>
                             </td>
@@ -83,9 +81,7 @@
                                 @endif
                             </td>
                         </tr>
-                        @php
-                            $index++;
-                        @endphp
+                    
                     @endforeach
 
                 </table>

@@ -13,16 +13,15 @@
                 </div>
             </div>
             <div class="panel-body">
-                <form id="form1" name="form1" method="get" action="index.php"
+                <form action="{{ route('faq.index') }}" method="GET"
                     style="margin-top: 20px; text-align: center;">
-                    <input type="hidden" name="com" value="hoi-dap">
                     <label><b>Nội dung:</b></label>
-                    <input style="width: 200px;" type="text" name="string" id="string" value="">
+                    <input style="width: 200px;" type="text" name="search" id="string" value="">
 
                     <button type="submit" class="btn btn-primary" id="button">Tìm kiếm</button>
 
                     <button type="button" class="btn bg-blue-700 text-white"
-                        onclick="window.location.href='index.php?com=hoi-dap'">Hủy</button>
+                        onclick="window.location.href='{{route('faq.index')}}'">Hủy</button>
 
                 </form>
             </div>
@@ -30,7 +29,7 @@
 
     </div>
     <div class="col-lg-12">
-        <a href="{{ route('faq.create') }}" class="btn btn-primary" style="float: right; ">Đặt câu
+        <a href="{{ route('faq.create') }}" class="btn btn-primary justify-end flex">Đặt câu
             hỏi</a>
     </div>
     <div class="col-lg-12">

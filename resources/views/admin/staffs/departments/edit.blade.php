@@ -54,7 +54,6 @@
                                 'input-error' => $errors->has('type'),
                                 'w-full',
                             ])>
-                                <option value="">@lang('admin.select')</option>
                                 @foreach (App\Enums\DepartmentTypeEnum::cases() as $type)
                                     <option value="{{ $type->value }}"
                                         {{ $department->type == $type->value ? 'selected' : '' }}>
@@ -84,13 +83,12 @@
                             <a href="{{ route('admin.departments.index') }}"
                                 class="btn-light btn text-white">@lang('admin.btn.cancel')</a>
                             <button type="submit"
-                                class="btn bg-blue-700 text-white ml-2 text-white">@lang('admin.btn.submit')</button>
+                                class="btn bg-blue-700 text-white ml-2">@lang('admin.btn.submit')</button>
                         </div>
                     </form>
 
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </x-app-layout>

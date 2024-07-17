@@ -38,7 +38,8 @@
                             ])>
                                 <option value="">Select Album</option>
                                 @foreach ($albums as $album)
-                                    <option value="{{ $album->id }}">{{ $album->name }}</option>
+                                    <option value="{{ $album->id }}" @selected(old('album_id') == $album->id)>{{ $album->name }}
+                                    </option>
                                 @endforeach
                             </select>
                         </label>
@@ -56,7 +57,7 @@
                                     'rounded-md',
                                     'input-error' => $errors->has('name'),
                                     'w-full',
-                                ]) />
+                                ]) value="{{ old('name') }}" />
                         </label>
                         <label class="form-control w-full">
                             <div class="label">
@@ -67,7 +68,7 @@
                             </textarea>
                         </label>
                         <div class="flex items-center space-x-6">
-                            <label class="form-control w-20">
+                            <label class="form-control">
                                 <div class="label" for="tags">
                                     <span class="label-text text-base text-black font-medium">Hình ảnh</span>
                                 </div>
@@ -81,9 +82,9 @@
                                 style="display:none" />
                         </div>
                         <div class="flex justify-end gap-4">
-                            <a href="{{ route('admin.photos.index') }}" class="btn-light btn">@lang('admin.btn.cancel')
+                            <a href="{{ route('admin.photos.index') }}" class="btn-light btn text-white">@lang('admin.btn.cancel')
                             </a>
-                            <button type="submit" class="btn bg-blue-700 text-white ml-2 text-white">
+                            <button type="submit" class="btn bg-blue-700 text-white ml-2">
                                 @lang('admin.btn.submit')
                             </button>
                         </div>
@@ -102,7 +103,20 @@
                 var type = file.type
 
                 var output = document.getElementById('preview_img')
+                const allowedExtensions = /(\.png|\.jpeg|\.jpg|\.gif)$/i;
+                const maxFileSize = 5 * 1024 * 1024; // 5MB in bytes
 
+                if (!allowedExtensions.exec(input.value)) {
+                    alert('Vui lòng chọn tệp tin định dạng ảnh.');
+                    input.value = '';
+                    return false;
+                }
+
+                if (input.files[0].size > maxFileSize) {
+                    alert('Tệp tin tải lên không được vượt quá 5MB.');
+                    input.value = '';
+                    return false;
+                }
                 output.src = URL.createObjectURL(event.target.files[0])
                 output.onload = function() {
                     URL.revokeObjectURL(output.src)

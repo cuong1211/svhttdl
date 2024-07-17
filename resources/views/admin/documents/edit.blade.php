@@ -27,7 +27,7 @@
                             <div class="label">
                                 <span class="label-text text-base text-black font-medium">@lang('admin.documents.name')</span>
                             </div>
-                            <input type="text" name="name" placeholder="name..."
+                            <input type="text" name="name" placeholder="Tên văn bản..."
                                 value="{{ old('name', $document->name ?? '') }}" @class([
                                     'border',
                                     'border-gray-300',

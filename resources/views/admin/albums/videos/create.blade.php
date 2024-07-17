@@ -38,7 +38,8 @@
                             ])>
                                 <option value="">Select Album</option>
                                 @foreach ($albums as $album)
-                                    <option value="{{ $album->id }}">{{ $album->name }}</option>
+                                    <option value="{{ $album->id }} "@selected(old('album_id') == $album->id)>
+                                        {{ $album->name }}</option>
                                 @endforeach
                             </select>
                         </label>
@@ -56,7 +57,7 @@
                                     'rounded-md',
                                     'input-error' => $errors->has('name'),
                                     'w-full',
-                                ]) />
+                                ]) value="{{ old('name') }}" />
                         </label>
                         <label class="form-control w-full">
                             <div class="label" for="source">
@@ -73,7 +74,8 @@
                                 'w-full',
                             ])>
                                 @foreach (App\Enums\VideoSourceEnum::cases() as $source)
-                                    <option value="{{ $source->value }}">@lang('admin.' . $source->value)</option>
+                                    <option value="{{ $source->value }}" @selected(old('source') == $source->value)>@lang('admin.' . $source->value)
+                                    </option>
                                 @endforeach
                             </select>
                         </label>
@@ -91,7 +93,7 @@
                                     'rounded-md',
                                     'input-error' => $errors->has('video_id'),
                                     'w-full',
-                                ]) />
+                                ]) value="{{ old('video_id') }}" />
                         </label>
                         <label class="form-control w-full">
                             <div class="label">
@@ -100,6 +102,7 @@
                             </div>
                             <div class="flex items-center mb-4">
                                 <input id="true" type="checkbox" value="1" name="is_active"
+                                    @selected(old('is_active') == 1)
                                     class="w-4 h-4 text-blue-700 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                 <label for="true" class="ms-2  text-black dark:text-gray-300 text-base">Hiển
                                     thị</label>
@@ -107,7 +110,7 @@
                             </div>
                         </label>
                         <div class="flex items-center space-x-6">
-                            <label class="form-control w-20">
+                            <label class="form-control">
                                 <div class="label" for="tags">
                                     <span class="label-text text-base text-black font-medium">Hình ảnh</span>
                                 </div>
@@ -121,10 +124,10 @@
                                 style="display:none" />
                         </div>
                         <div class="flex justify-end gap-4">
-                            <a href="{{ route('admin.videos.index') }}" class="btn-light btn">
+                            <a href="{{ route('admin.videos.index') }}" class="btn-light btn text-white">
                                 @lang('admin.btn.cancel')
                             </a>
-                            <button type="submit" class="btn bg-blue-700 text-white ml-2 text-white">
+                            <button type="submit" class="btn bg-blue-700 text-white ml-2">
                                 @lang('admin.btn.submit')
                             </button>
                         </div>
@@ -136,13 +139,27 @@
     @pushonce('bottom_scripts')
         <script>
             var loadFile = function(event) {
+
                 document.getElementById('preview_img').style.display = 'block'
                 var input = event.target
                 var file = input.files[0]
                 var type = file.type
 
                 var output = document.getElementById('preview_img')
+                const allowedExtensions = /(\.png|\.jpeg|\.jpg|\.gif)$/i;
+                const maxFileSize = 5 * 1024 * 1024; // 5MB in bytes
 
+                if (!allowedExtensions.exec(input.value)) {
+                    alert('Vui lòng chọn tệp tin định dạng ảnh.');
+                    input.value = '';
+                    return false;
+                }
+
+                if (input.files[0].size > maxFileSize) {
+                    alert('Tệp tin tải lên không được vượt quá 5MB.');
+                    input.value = '';
+                    return false;
+                }
                 output.src = URL.createObjectURL(event.target.files[0])
                 output.onload = function() {
                     URL.revokeObjectURL(output.src) // free memory

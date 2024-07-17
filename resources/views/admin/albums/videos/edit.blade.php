@@ -143,10 +143,10 @@
                                 alt="{{ $video->getFirstMedia('thumbnail_video')->name }}" />
                         </div>
                         <div class="flex justify-end gap-4">
-                            <a href="{{ route('admin.videos.index') }}" class="btn-light btn">
+                            <a href="{{ route('admin.videos.index') }}" class="btn-light btn text-white">
                                 @lang('admin.btn.cancel')
                             </a>
-                            <button type="submit" class="btn bg-blue-700 text-white ml-2 text-white">
+                            <button type="submit" class="btn bg-blue-700 text-white ml-2">
                                 @lang('admin.btn.submit')
                             </button>
                         </div>
@@ -155,5 +155,35 @@
             </div>
         </div>
     </div>
-    </div>
+    @pushonce('bottom_scripts')
+        <script>
+            var loadFile = function(event) {
+
+                document.getElementById('preview_img').style.display = 'block'
+                var input = event.target
+                var file = input.files[0]
+                var type = file.type
+
+                var output = document.getElementById('preview_img')
+                const allowedExtensions = /(\.png|\.jpeg|\.jpg|\.gif)$/i;
+                const maxFileSize = 5 * 1024 * 1024; // 5MB in bytes
+
+                if (!allowedExtensions.exec(input.value)) {
+                    alert('Vui lòng chọn tệp tin định dạng ảnh.');
+                    input.value = '';
+                    return false;
+                }
+
+                if (input.files[0].size > maxFileSize) {
+                    alert('Tệp tin tải lên không được vượt quá 5MB.');
+                    input.value = '';
+                    return false;
+                }
+                output.src = URL.createObjectURL(event.target.files[0])
+                output.onload = function() {
+                    URL.revokeObjectURL(output.src) // free memory
+                }
+            }
+        </script>
+    @endpushonce
 </x-app-layout>

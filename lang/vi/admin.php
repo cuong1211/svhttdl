@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'create' => 'Tạo mới',
     'content' => 'Nội dung',
     'dashboard' => 'Bảng điều khiển',
     'btn.cancel' => 'Huỷ',

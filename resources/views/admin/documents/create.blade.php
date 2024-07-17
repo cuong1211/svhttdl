@@ -27,8 +27,8 @@
                             <div class="label">
                                 <span class="label-text text-base text-black font-medium">@lang('admin.documents.name')</span>
                             </div>
-                            <input type="text" name="name" placeholder="name..."
-                                value="{{ old('name', $document->name ?? '') }}" @class([
+                            <input type="text" name="name" placeholder="Tên văn bản..."
+                                value="{{ old('name') }}" @class([
                                     'border',
                                     'border-gray-300',
                                     'bg-white',
@@ -55,8 +55,7 @@
                                         'rounded-md',
                                         'input-error' => $errors->has('reference_number'),
                                         'w-full',
-                                    ])
-                                    value="{{ old('reference_number', $document->reference_number ?? '') }}" />
+                                    ]) value="{{ old('reference_number') }}" />
                             </label>
                             <x-admin.forms.document name="published_at" value="{{ old('published_at') }}" />
                         </div>
@@ -83,7 +82,7 @@
                                 'input-error' => $errors->has('type_id'),
                                 'w-full',
                             ])>
-                                <option value="">Select </option>
+                                <option value="">Chọn loại văn bản </option>
                                 @foreach ($types as $type)
                                     <option value="{{ $type->id }}"
                                         {{ old('type_id') == $type->id ? 'selected' : '' }}>{{ $type->name }}</option>
@@ -104,7 +103,7 @@
                                 'input-error' => $errors->has('tag_id'),
                                 'w-full',
                             ])>
-                                <option value="">Select </option>
+                                <option value="">Chọn thể loại </option>
                                 @foreach ($signers as $signer)
                                     <option value="{{ $signer->id }}"
                                         {{ old('tag_id') == $signer->id ? 'selected' : '' }}>{{ $signer->name }}
@@ -130,6 +129,9 @@
                         </label>
                         <div class="flex items-center space-x-6">
                             <label class="block">
+                                <div class="label">
+                                    <span class="label-text text-base text-black font-medium">File văn bản</span>
+                                </div>
                                 <span class="sr-only">Chọn tệp tin...</span>
                                 <input type="file" name="document_file" onchange="loadFile(event)"
                                     value="{{ old('image', $document->document_file ?? '') }}"
@@ -137,10 +139,10 @@
                             </label>
                         </div>
                         <div class="flex justify-end gap-4">
-                            <a href="{{ route('admin.documents.index') }}" class="btn-light btn">
+                            <a href="{{ route('admin.documents.index') }}" class="btn-light btn text-white">
                                 @lang('admin.btn.cancel')
                             </a>
-                            <button type="submit" class="btn bg-blue-700 text-white ml-2 text-white">
+                            <button type="submit" class="btn bg-blue-700 text-white ml-2 ">
                                 @lang('admin.btn.submit')
                             </button>
                         </div>
@@ -154,15 +156,19 @@
         <x-admin.forms.tinymce-config column="content" />
         <script>
             var loadFile = function(event) {
-                var input = event.target
-                var file = input.files[0]
-                var type = file.type
+                const allowedExtensions = /(\.pdf|\.doc)$/i;
+                const maxFileSize = 5 * 1024 * 1024; // 5MB in bytes
 
-                var output = document.getElementById('preview_img')
+                if (!allowedExtensions.exec(input.value)) {
+                    alert('Vui lòng chọn tệp tin định dạng .pdf hoặc .doc.');
+                    input.value = '';
+                    return false;
+                }
 
-                output.src = URL.createObjectURL(event.target.files[0])
-                output.onload = function() {
-                    URL.revokeObjectURL(output.src) // free memory
+                if (input.files[0].size > maxFileSize) {
+                    alert('Tệp tin tải lên không được vượt quá 5MB.');
+                    input.value = '';
+                    return false;
                 }
             }
         </script>
