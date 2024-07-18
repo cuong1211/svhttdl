@@ -86,7 +86,7 @@ class PostController extends Controller
         
         $category = Category::findOrFail($categoryId);
 
-        return view('admin.categories.posts.create', compact('tags', 'categories', 'category'));
+        return view('admin.categories.posts.create', compact('categories', 'category'));
     }
 
     public function store($id, PostRequest $request): RedirectResponse
