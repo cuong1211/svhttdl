@@ -39,15 +39,24 @@ class MenuController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(MenuRequest $request)
     {
         // dd($request->all());
-        $category = menu::create($request->all());
+        $data = $request->validated();
+        $category = menu::create([
+            'title' => $data['title'],
+            'title_en' => $data['title_en'],
+            'user_id' => $data['user_id'],
+            'in_menu' => $data['in_menu'],
+            'link' => $data['link'],
+            'parent_id' => $data['parent_id'],
+            'order' => $data['order'],
+        ]);
 
         return back()->with([
             'icon' => 'success',
             'heading' => 'Success',
-            'message' => 'Thêm mới danh mục thành công',
+            'message' => 'Thêm mới menu thành công',
         ]);
     }
 
@@ -56,7 +65,6 @@ class MenuController extends Controller
      */
     public function show(string $id)
     {
-
     }
 
     /**
@@ -76,11 +84,21 @@ class MenuController extends Controller
      */
     public function update(MenuRequest $request, Menu $menu): RedirectResponse
     {
-        $menu->update($request->all());
+        $data = $request->validated();
+        $menu->update([
+            'title' => $data['title'],
+            'title_en' => $data['title_en'],
+            'user_id' => $data['user_id'],
+            'in_menu' => $data['in_menu'],
+            'link' => $data['link'],
+            'parent_id' => $data['parent_id'],
+            'order' => $data['order'],
+        ]);
 
         return redirect()->route('admin.menus.index')->with([
             'icon' => 'success',
-            'message' => 'Cập nhật danh mục thành công',
+            'heading' => 'Success',
+            'message' => 'Sửa menu thành công',
         ]);
     }
 
@@ -89,12 +107,19 @@ class MenuController extends Controller
      */
     public function destroy(Menu $menu): RedirectResponse
     {
-        $menu->delete();
-
-        return back()->with([
-            'icon' => 'success',
-            'heading' => 'Success',
-            'message' => trans('Xóa thành công'),
-        ]);
+        if ($menu->children->count() > 0) {
+            return back()->with([
+                'icon' => 'error',
+                'heading' => 'Error',
+                'message' => 'Menu này có menu con, không thể xóa',
+            ]);
+        } else {
+            $menu->delete();
+            return back()->with([
+                'icon' => 'success',
+                'heading' => 'Success',
+                'message' => 'Xóa menu thành công',
+            ]);
+        }
     }
 }

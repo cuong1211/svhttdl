@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Document_Opinion;
 
 use App\Http\Controllers\Controller;
+use App\Models\Opinion;
 use Illuminate\Http\Request;
 
 class OpinionController extends Controller
@@ -12,7 +13,14 @@ class OpinionController extends Controller
      */
     public function index()
     {
-        //
+        $opinions = Opinion::query()
+            ->with('document_opinion')
+            ->when(request('search'), function ($query) {
+                $query->where('name', 'like', '%' . request('search') . '%');
+            })
+            ->latest()->paginate(10);
+        // dd($opinions);
+        return view('admin.doc_opi.opinions.index', compact('opinions'));
     }
 
     /**
@@ -36,7 +44,8 @@ class OpinionController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $opinion = Opinion::query()->findOrFail($id);;
+        return view('admin.doc_opi.opinions.show', compact('opinion'));
     }
 
     /**
@@ -60,6 +69,12 @@ class OpinionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $opinion = Opinion::findOrFail($id);
+        $opinion->delete();
+        return redirect()->route('admin.opinions.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Xóa ý kiến thành công',
+        ]);
     }
 }

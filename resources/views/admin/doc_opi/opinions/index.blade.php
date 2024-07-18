@@ -7,10 +7,7 @@
                     @lang('admin.documents.list')
                 </span>
             </div>
-            <a class="bg-blue-700 btn border-blue-500" href="{{ route('admin.docs-opis.create') }}">
-                <x-heroicon-s-plus class="size-4 text-white" />
-                <span class="text-white">@lang('admin.add')</span>
-            </a>
+           
         </div>
         @if (session('icon') && session('heading') && session('message'))
             <div class="alert alert-{{ session('icon') === 'success' ? 'success' : 'danger' }}" role="alert">
@@ -22,7 +19,7 @@
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="overflow-x-auto">
                     <div class="flex px-6 py-4">
-                        <form action="{{ route('admin.documents.index') }}" method="GET" class="w-full">
+                        <form action="{{ route('admin.opinions.index') }}" method="GET" class="w-full">
                             <div class="flex items-center justify-between gird-cols-3 md:grid-cols-1">
                                 <ul class="menu md:menu-horizontal rounded-box bg-white gap-1">
                                     <li>
@@ -55,35 +52,34 @@
                         <thead class="text-black text-base">
                             <tr>
                                 <th class="text-center font-semibold">#</th>
-                                <th class="text-left font-semibold">@lang('admin.documents.name')</th>
-                                <th class="text-center font-semibold">Ngày bắt đầu</th>
-                                <th class="text-center font-semibold">Ngày kết thúc</th>
-                                <th class="text-center font-semibold">@lang('admin.created_at')</th>
-                                <th class="text-center font-semibold">@lang('admin.updated_at')</th>
+                                <th class="text-left font-semibold">Văn bản</th>
+                                <th class="text-left font-semibold">Họ và tên</th>
+                                <th class="text-center font-semibold">SĐT</th>
+                                <th class="text-center font-semibold">Email</th>
+                                <th class="text-center font-semibold">Ngày gửi</th>
                                 <th class="text-center font-semibold">@lang('admin.funtion')</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($docs as $doc)
+                            @foreach ($opinions as $opinion)
                                 <tr>
                                     <th class="text-center">
-                                        {{ $docs->firstItem() + $loop->index }}
+                                        {{ $opinions->firstItem() + $loop->index }}
                                     </th>
-                                    <td class="text-left">{{ $doc->name }}</td>
-                                    <td class="text-center">{{ $doc->startAtVi }}</td>
-                                    <td class="text-center">{{ $doc->endAtVi }}</td>
-                                    <td class="text-center">{{ $doc->createdAtVi }}</td>
-                                    <td class="text-center">{{ $doc->updatedAtVi }}</td>
-
+                                    <td class="text-left">{{ $opinion->document_opinion[0]->name}}</td>
+                                    <td class="text-left">{{ $opinion->name }}</td>
+                                    <td class="text-center">{{ $opinion->phone }}</td>
+                                    <td class="text-center">{{ $opinion->email }}</td>
+                                    <td class="text-center">{{ $opinion->created_at }}</td>
                                     <td class="flex gap-3 items-center justify-center">
-                                        <a href="{{ route('admin.docs-opis.edit', $doc->id) }}"><x-heroicon-s-pencil-square
+                                        <a href="{{ route('admin.opinions.show', $opinion->id) }}"><x-heroicon-o-eye
                                                 class="size-4 text-green-600" /></a>
-                                        <form id="delete-form-{{ $doc->id }}"
-                                            action="{{ route('admin.docs-opis.destroy', ['docs_opi' => $doc->id]) }}"
+                                        <form id="delete-form-{{ $opinion->id }}"
+                                            action="{{ route('admin.opinions.destroy', ['opinion' => $opinion->id]) }}"
                                             method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="button" onclick="confirmDelete({{ $doc->id }})">
+                                            <button type="button" onclick="confirmDelete({{ $opinion->id }})">
                                                 <x-heroicon-o-trash class="size-4 text-red-500" />
                                             </button>
                                         </form>
@@ -97,7 +93,7 @@
                                                 }, 3000); // thông báo sẽ ẩn sau 3 giây
                                             });
 
-                                            function confirmDelete(documentId) {
+                                            function confirmDelete(opinionId) {
                                                 Swal.fire({
                                                     title: 'Bạn có chắc chắn muốn xóa không?',
                                                     text: "Dữ liệu bị xóa sẽ không thể khôi phục lại được!",
@@ -109,7 +105,7 @@
                                                     cancelButtonText: 'Không'
                                                 }).then((result) => {
                                                     if (result.isConfirmed) {
-                                                        $('#delete-form-' + documentId).submit();
+                                                        $('#delete-form-' + opinionId).submit();
                                                     }
                                                 })
                                             }
@@ -123,7 +119,7 @@
             </div>
         </div>
         <div class="mt-4">
-            {{ $docs->links('pagination.web-tailwind') }}
+            {{ $opinions->links('pagination.web-tailwind') }}
         </div>
     </div>
 </x-app-layout>

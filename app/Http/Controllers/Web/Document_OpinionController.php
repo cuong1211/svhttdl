@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Document_Opinion\OpinionRequest;
 use App\Models\Document_Opinion;
 use App\Models\Opinion;
 use Illuminate\Http\Request;
@@ -25,24 +26,18 @@ class Document_OpinionController extends Controller
             'opinions' => $opinions,
         ]);
     }
-    public function store($id, Request $request)
+    public function store($id, OpinionRequest $request)
     {
-        $request->validate([
-            'name' => 'required | min:3 | max:255 ',
-            'email' => 'required|email | max:255 ',
-            'phone' => 'required | min:10 | max:11 ',
-            'address' => 'required | min:3 | max:255',
-            'title' => 'required | min:3',
-            'content' => 'required',
-        ]);
+        // dd($request->all());
+        $data = $request->validated();
         Opinion::query()->create([
             'document_id' => $id,
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'address' => $request->address,
-            'title' => $request->title,
-            'content' => $request->content,
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'phone' => $data['phone'],
+            'address' => $data['address'],
+            'title' => $data['title'],
+            'content' => $data['content'],
         ]);
         return redirect()->route('doc_opi.success');
     }

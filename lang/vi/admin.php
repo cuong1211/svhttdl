@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'back' => 'Quay lại',
     'create' => 'Tạo mới',
     'content' => 'Nội dung',
     'dashboard' => 'Bảng điều khiển',
@@ -60,6 +61,7 @@ return [
     'contacts.show' => 'Xem',
     'contacts.content' => 'Nội dung',
     'contacts.phone' => 'Số điện thoại',
+    'contacts.address' => 'Địa chỉ',
     'contacts.read_at' => 'Ngày đọc',
     'contacts.created_at' => 'Ngày gửi',
 

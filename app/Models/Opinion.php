@@ -20,7 +20,7 @@ class Opinion extends Model
 
     public function document_opinion()
     {
-        return $this->hasMany(Document_Opinion::class, 'document_id', 'id');
+        return $this->hasMany(Document_Opinion::class, 'id', 'document_id');
     }
 
     protected $richTextAttributes = [
@@ -30,12 +30,6 @@ class Opinion extends Model
     protected $casts = [
         'content' => AsRichTextContent::class,
     ];
-    protected function createdAtVi(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => Carbon::parse($this->created_at)->format('d/m/Y h:i'),
-        );
-    }
     public function getCreatedAtAttribute($value)
     {
         return date('d/m/Y H:i', strtotime($value));

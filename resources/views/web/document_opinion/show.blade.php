@@ -123,9 +123,18 @@
     <div class="col-lg-12">
         <div class="panel panel-primary">
             <div id="demo1" class="collapse">
+                @if ($errors->any())
+                    <div class="alert alert-error text-black">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div id="lienhe">
                     <div class="form">
-                        <form method="post" action="{{ route('doc_opi.store',['document_opinion'=>$doc->id]) }}">
+                        <form method="post" action="{{ route('doc_opi.store', ['document_opinion' => $doc->id]) }}">
                             @csrf
                             <div class="top-form">
                                 <div class="inner-form">
@@ -158,7 +167,7 @@
                             <div class="bottom-form" style="margin-left: 10px;">
                                 <div class="inner-form">
                                     <div class="label" style="color:#000; font-size: 12px;">Nội dung (*)</div>
-                                    <textarea id="text" name="question" required=""></textarea>
+                                    <textarea id="text" name="content" required=""></textarea>
                                 </div>
                             </div>
                             <input type="submit" value="Gửi câu hỏi" class="btn1 blue">
