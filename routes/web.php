@@ -43,9 +43,9 @@ route::get('/gopy-duthao/{document_opinion}', [Document_OpinionController::class
 route::post('/gopy-duthao/{document_opinion}/store', [Document_OpinionController::class, 'store'])->name('doc_opi.store');
 route::get('/gopy-duthao/done/success', [Document_OpinionController::class, 'success'])->name('doc_opi.success');
 route::get('don-vi-su-nghiep/{category:id}/menu/{menu:id}', [HomeController::class, 'getChild'])->name('home.child.index');
-route::get('don-vi-su-nghiep/{category:id}/gioi-thieu-chung', [HomeController::class, 'getChildIntro'])->name('home.child.intro');
+route::get('don-vi-su-nghiep/{category:id}/menu/{menu:id}/gioi-thieu-chung/{id}', [HomeController::class, 'getChildIntro'])->name('home.child.intro');
 route::get('don-vi-su-nghiep/{category:id}/menu/{menu:id}/post/{post:id}', [HomeController::class, 'getPost'])->name('home.child.post');
 Route::get('/danh-muc/{category:id}', [NewsController::class, 'index'])->name('news.index');
-Route::get('/danh-muc/{parentId}/{Id}', [NewsController::class, 'getChild'])->name('news.child');
+Route::get('/danh-muc-con/{Id}', [NewsController::class, 'getChild'])->name('news.child');
 
 require __DIR__ . '/admin.php';

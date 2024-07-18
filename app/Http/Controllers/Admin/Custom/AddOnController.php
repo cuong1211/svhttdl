@@ -12,9 +12,13 @@ class AddOnController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $addons = addon::query()->latest()->paginate(10);
+        $addons = addon::query()
+            ->when(
+                $request->search,
+                fn ($query) => $query->where('title', 'like', '%' . $request->search . '%')
+            )->latest()->paginate(10);
         return view('admin.custom.addon.index', ['addons' => $addons]);
     }
 
@@ -91,7 +95,9 @@ class AddOnController extends Controller
      */
     public function destroy(string $id)
     {
-        addon::findOrFail($id)->delete();
+        $addon = addon::findOrFail($id);
+        $addon->clearMediaCollection('addon_image');
+        $addon->delete();
         return redirect()->route('admin.addons.index')->with([
             'icon' => 'success',
             'heading' => 'Success',

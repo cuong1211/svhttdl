@@ -22,9 +22,13 @@ class MenuController extends Controller
     {
         $this->menuservice = $menuservice;
     }
-    public function index(): View
+    public function index(Request $request): View
     {
-        $menus = Menu::query()->latest()->paginate(10);
+        $menus = Menu::query()
+            ->when(
+                $request->search,
+                fn ($query) => $query->where('title', 'like', '%' . $request->search . '%')
+            )->latest()->paginate(10);
         return view("admin.menus.index", compact("menus"));
     }
 

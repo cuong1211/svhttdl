@@ -15,17 +15,11 @@ class NewsController extends Controller
         $posts = Category::query()->where('parent_id', $id)->with(['children' => function ($query) {
             $query->with('posts')->take(10);
         }])->get();
-        // dd($posts);
-        // Post::query()
-        //         ->with('category')
-        //         ->published()
-        //         ->orderByDesc('published_at')
-        //         ->paginate(10)
         return view('web.news.index', [
             'posts' => $posts,
         ]);
     }
-    public function getChild($parentId, $Id): View
+    public function getChild($Id): View
     {
         $category = Category::query()->where('id', $Id)->first();
         $category_title = $category->title;

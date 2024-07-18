@@ -26,6 +26,7 @@ class CategoryRequest extends FormRequest
             'parent_id' => 'nullable|exists:categories,id',
             'title_en' => 'nullable|string|min:3|max:255',
             'user_id' => 'required|integer|exists:users,id',
+            'department_id' => 'nullable|integer|exists:departments,id',
         ];
     }
 

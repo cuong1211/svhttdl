@@ -93,7 +93,7 @@ class AlbumController extends Controller
      */
     public function destroy(Album $album)
     {
-        
+        $album->clearMediaCollection('album_thumb');
         $album->delete();
 
         return redirect()->route('admin.albums.index')->with([

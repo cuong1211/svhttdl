@@ -120,6 +120,7 @@ class StaffController extends Controller
     public function destroy($id)
     {
         $staff = Staff::findOrFail($id);
+        $staff->clearMediaCollection('staff_image');
         $staff->delete();
 
         return back()->with([

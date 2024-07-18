@@ -71,11 +71,11 @@
                                             'text-black',
                                             'p-2',
                                             'rounded-md',
-                                            'input-error' => $errors->has('title'),
+                                            'input-error' => $errors->has('url'),
                                             'w-full',
                                         ]) />
-                                    @if ($errors->has('title'))
-                                        <div class="text-red-500 text-sm">{{ $errors->first('title') }}</div>
+                                    @if ($errors->has('url'))
+                                        <div class="text-red-500 text-sm">{{ $errors->first('url') }}</div>
                                     @endif
 
                                 </label>
@@ -97,7 +97,7 @@
                                     </label>
                                 </div>
                                 <div class="shrink-0">
-                                    <img id="preview_img" class="h-32 w-64 object-cover rounded"
+                                    <img id="preview_img" class="h-14 w-71 object-cover rounded"
                                         src="{{ $addons->getFirstMedia('addon_image')->getUrl('') }}"
                                         alt="{{ $addons->getFirstMedia('addon_image')->name }}" />
                                 </div>

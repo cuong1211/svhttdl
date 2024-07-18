@@ -2,7 +2,7 @@
     <div class="p-6">
         <div class="text-black text-normal font-semibold leading-tight">
             <span class="text-black text-normal flex items-center gap-2 font-semibold leading-tight">
-                {{-- {{ app()->getLocale() === 'en' ? $category->title_en : $category->title }} --}}
+                Quản lý Quảng cáo
                 <x-heroicon-m-arrow-small-right class="size-4" />
                 @lang('admin.add')
             </span>
@@ -61,11 +61,11 @@
                                             'text-black',
                                             'p-2',
                                             'rounded-md',
-                                            'input-error' => $errors->has('title'),
+                                            'input-error' => $errors->has('url'),
                                             'w-full',
                                         ]) />
-                                    @if ($errors->has('title'))
-                                        <div class="text-red-500 text-sm">{{ $errors->first('title') }}</div>
+                                    @if ($errors->has('url'))
+                                        <div class="text-red-500 text-sm">{{ $errors->first('url') }}</div>
                                     @endif
 
                                 </label>

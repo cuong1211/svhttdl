@@ -35,16 +35,28 @@
                                                 kiến</strong></td>
                                         <td style="background:#007bff ; color: #fff;"><strong>Ngày hết hạn lấy ý
                                                 kiến</strong></td>
-                                        <td style="background:#007bff ; color: #fff;text-align: center;"><strong>Chi
-                                                tiết</strong></td>
+                                        <td style="background:#007bff ; color: #fff;"><strong>Chi tiết</strong></td>
+                                        <td style="background:#007bff ; color: #fff;text-align: center;">
+                                            <strong></strong>
+                                        </td>
                                     </tr>
                                     @foreach ($docs as $doc)
                                         <tr>
                                             <td>{{ $docs->firstItem() + $loop->index }}</td>
                                             <td>{{ $doc->name }}</td>
-                                            <td>{{ $doc->start_date }}</td>
-                                            <td>{{ $doc->end_date }}</td>
-                                            <td><a href="{{ route('doc_opi.show',['document_opinion'=>$doc->id]) }}">Xem chi tiết</a></td>
+                                            <td>{{ $doc->startAtVi }}</td>
+                                            <td>{{ $doc->endAtVi }}</td>
+                                            <td>
+                                                @if ($doc->getFirstMedia('document_file'))
+                                                    <a class="fa fa-download" target="_blank"
+                                                        href="{{ $doc->getFirstMedia('document_file')->getUrl() }}"></a>
+                                                @else
+                                                    {{-- make url form host + $item->document_file --}}
+                                                    <a class="fa fa-download" target="_blank"
+                                                        href="{{ asset('/' . $doc->document_file) }}"></a>
+                                                @endif
+                                            </td>
+                                            <td><a href="{{ route('doc_opi.show', ['document_opinion' => $doc->id]) }}">Gửi ý kiến</a></td>
                                         </tr>
                                     @endforeach
                                 </table>

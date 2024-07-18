@@ -79,7 +79,7 @@ class HomeController extends Controller
         $about = Post::query()->where('id', $id)->first();
         return view('web.about', compact('about'));
     }
-    public function getChildIntro($id)
+    public function getChildIntro($category_id,$menu_id,$id)
     {
         $about = Post::query()->where('id', $id)->first();
         return view('web.about_child', compact('about'));

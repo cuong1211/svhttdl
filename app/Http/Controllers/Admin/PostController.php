@@ -83,7 +83,7 @@ class PostController extends Controller
             ->where('parent_id', $categoryId)
             ->where('in_menu', true)
             ->orderBy('order')->get();
-        $tags = Tag::all();
+        
         $category = Category::findOrFail($categoryId);
 
         return view('admin.categories.posts.create', compact('tags', 'categories', 'category'));
@@ -103,16 +103,6 @@ class PostController extends Controller
         ]);
 
         $post->save();
-
-        if ($request->tags) {
-            $tagIds = [];
-            $tags = json_decode($request->tags);
-            foreach ($tags as $tagObj) {
-                $tag = Tag::firstOrCreate(['name' => trim($tagObj->value)]);
-                $tagIds[] = $tag->id;
-            }
-            $post->tags()->sync($tagIds);
-        }
         if ($request->hasFile('image')) {
             $imageFile = $request->file('image');
             $post->addMedia($imageFile->getRealPath())

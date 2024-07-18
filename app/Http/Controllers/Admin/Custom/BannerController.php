@@ -12,9 +12,13 @@ class BannerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $banner = banner::query()->latest()->paginate(10);
+        $banner = banner::query()
+            ->when(
+                $request->search,
+                fn ($query) => $query->where('title', 'like', '%' . $request->search . '%')
+            )->latest()->paginate(10);
         return view('admin.custom.banner.index', ['banner' => $banner]);
     }
 
@@ -31,7 +35,6 @@ class BannerController extends Controller
      */
     public function store(BannerRequest $request)
     {
-        dd($request->all());
         $data = $request->validated();
         $banner = banner::create($data);
         if ($request->hasFile('image')) {
@@ -92,7 +95,9 @@ class BannerController extends Controller
      */
     public function destroy(string $id)
     {
-        banner::findOrFail($id)->delete();
+        $banner = banner::findOrFail($id);
+        $banner->clearMediaCollection('banner_image');
+        $banner->delete();
         return redirect()->route('admin.banners.index')->with([
             'icon' => 'success',
             'heading' => 'Success',

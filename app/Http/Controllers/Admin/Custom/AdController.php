@@ -12,9 +12,14 @@ class AdController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $ads = ads::query()->latest()->paginate(10);
+        $ads = ads::query()
+            ->when(
+                $request->search,
+                fn ($query) => $query->where('title', 'like', '%' . $request->search . '%')
+            )
+            ->latest()->paginate(10);
         return view('admin.custom.ads.index', ['ads' => $ads]);
     }
 
@@ -90,7 +95,9 @@ class AdController extends Controller
      */
     public function destroy(string $id)
     {
-        ads::findOrFail($id)->delete();
+        $ads = ads::findOrFail($id);
+        $ads->clearMediaCollection('ads_image');
+        $ads->delete();
         return redirect()->route('admin.ads.index')->with([
             'icon' => 'success',
             'heading' => 'Success',

@@ -32,7 +32,11 @@
     {{-- banner --}}
     <div class="banner_top">
         <div class="_banner fade">
-            <img style="width: 100%;" src="{{ $banner_mid->getFirstMedia('banner_image')->getUrl() }}" />
+            @if ($banner_mid)
+                <img style="width: 100%;" src="{{ $banner_mid->getFirstMedia('banner_image')->getUrl() }}" />
+            @else
+                <img style="width: 100%;" src="{{ asset($banner_mid->image) }}" />
+            @endif
         </div>
     </div>
 
@@ -42,7 +46,7 @@
         <div class="groupnews_home">
             <div
                 style="font-size: 36px; width: 100%; border-bottom: 3px solid transparent;   border-image: linear-gradient(0.25turn, rgba(38,109,192), rgba(11,143,121));    border-image-slice: 1; ">
-                <a href="{{ route('news.child', ['parentId' => $post_van_hoa->parent_id, 'Id' => $post_van_hoa->id]) }}">
+                <a href="{{ route('news.child', ['Id' => $post_van_hoa->id]) }}">
                     <b>Văn hóa</b></a>
             </div>
             <div class="groupnews_home_content">
@@ -84,7 +88,7 @@
             <div
                 style="font-size: 36px; width: 100%; border-bottom: 3px solid transparent;   border-image: linear-gradient(0.25turn, rgba(38,109,192), rgba(11,143,121));    border-image-slice: 1; ">
                 <a
-                    href="{{ route('news.child', ['parentId' => $post_du_lich->parent_id, 'Id' => $post_du_lich->id]) }}">
+                    href="{{ route('news.child', ['Id' => $post_du_lich->id]) }}">
                     <b>Du lịch</b></a>
             </div>
             <div class="groupnews_home_content">
@@ -126,7 +130,7 @@
             <div
                 style="font-size: 36px; width: 100%; border-bottom: 3px solid transparent;   border-image: linear-gradient(0.25turn, rgba(38,109,192), rgba(11,143,121));    border-image-slice: 1; ">
                 <a
-                    href="{{ route('news.child', ['parentId' => $post_the_thao->parent_id, 'Id' => $post_the_thao->id]) }}">
+                    href="{{ route('news.child', ['Id' => $post_the_thao->id]) }}">
                     <b>Thể thao</b></a>
             </div>
             <div class="groupnews_home_content">
@@ -168,14 +172,14 @@
             <div
                 style="font-size: 36px; width: 100%; border-bottom: 3px solid transparent;   border-image: linear-gradient(0.25turn, rgba(38,109,192), rgba(11,143,121));    border-image-slice: 1; ">
                 <a
-                    href="{{ route('news.child', ['parentId' => $post_gia_dinh->parent_id, 'Id' => $post_gia_dinh->id]) }}">
+                    href="{{ route('news.child', ['Id' => $post_gia_dinh->id]) }}">
                     <b>Gia đình</b></a>
             </div>
             <div class="groupnews_home_content">
                 @foreach ($post_gia_dinh->posts as $index => $post)
                     @if ($index == 0)
-                    <div class="groupnews_item">
-                     
+                        <div class="groupnews_item">
+
                             <a href="{{ route('news.show', $post) }}">
                                 @if ($post->getFirstMedia('featured_image'))
                                     <img src='{{ $post->getFirstMedia('featured_image')->getUrl() }}' alt=''
@@ -183,7 +187,7 @@
                                 @else
                                     <img src='{{ asset($post->image) }}' alt='' style="height: 245px" />
                                 @endif
-                                
+
                             </a>
                             <h3>
                                 <a href="{{ route('news.show', $post) }}"><span>{{ $post->title }}</span></a>

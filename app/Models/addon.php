@@ -39,6 +39,13 @@ class addon extends Model implements HasMedia
             ->height(276)
             ->sharpen(10)
             ->format('jpg')
+           
             ->performOnCollections('addon_image');
+    }
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('addon_image')
+            ->singleFile()
+            ->useDisk('custom');
     }
 }

@@ -32,7 +32,7 @@
                 <div class="khungtin" style=" float: left; width: 100%; margin-bottom: 5px; ">
                     <div class="groupnews_head bg_blue">
                         <a class='group_header_link'
-                            href="{{ route('news.child', ['parentId' => $category_title->parent_id, 'Id' => $category_title->id]) }}">{{ $category_title->title }}</a>
+                            href="{{ route('news.child', ['Id' => $category_title->id]) }}">{{ $category_title->title }}</a>
                     </div>
                     @foreach ($category_title->posts as $index => $post)
                         @if ($index == 0)

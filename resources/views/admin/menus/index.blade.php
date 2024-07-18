@@ -21,7 +21,7 @@
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="overflow-x-auto">
                     <div class="flex px-6 py-4">
-                        <form action="{{ route('admin.categories.index') }}" method="GET" class="w-full">
+                        <form action="{{ route('admin.menus.index') }}" method="GET" class="w-full">
                             <div class="flex items-center justify-between">
                                 <ul class="menu md:menu-horizontal rounded-box bg-white gap-1">
                                     <li>
@@ -56,6 +56,7 @@
                                 <th class="text-center font-semibold">#</th>
                                 <th class="text-center font-semibold">@lang('admin.menus.order')</th>
                                 <th class="text-center font-semibold">@lang('admin.menus.title')</th>
+                                <th class="text-left font-semibold">Đường dẫn</th>
                                 <th class="text-center font-semibold">@lang('admin.menus.position')</th>
                                 <th class="text-center font-semibold">@lang('admin.menus.created_at')</th>
                                 <th class="text-center font-semibold">@lang('admin.menus.updated_at')</th>
@@ -73,6 +74,7 @@
                                     </td>
                                     <td class="text-center">
                                         {{ app()->getLocale() === 'en' ? $menu->title_en : $menu->title }}</td>
+                                    <td class="text-left">{{ $menu->link }}</td>
                                     <td class="text-center">
                                         @if ($menu->parent_id)
                                             <span class="">@lang('admin.menus.children')</span>

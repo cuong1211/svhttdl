@@ -2,7 +2,7 @@
     <div class="p-6">
         <div class="text-black text-normal font-semibold leading-tight">
             <span class="text-black text-normal flex items-center gap-2 font-semibold leading-tight">
-                {{-- {{ app()->getLocale() === 'en' ? $category->title_en : $category->title }} --}}
+                Quản lý Quảng cáo
                 <x-heroicon-m-arrow-small-right class="size-4" />
                 @lang('admin.edit')
             </span>
@@ -27,7 +27,8 @@
                             <div class="space-y-4">
                                 <label class="form-control w-full">
                                     <div class="label">
-                                        <span class="label-text text-base text-black font-medium">@lang('admin.categories.order')</span>
+                                        <span
+                                            class="label-text text-base text-black font-medium">@lang('admin.categories.order')</span>
                                     </div>
                                     <input type="number" min="0" max="99" name="order"
                                         value="{{ $ads->order }}" @class([
@@ -57,6 +58,9 @@
                                             'w-full',
                                             'input-error' => $errors->has('title'),
                                         ]) />
+                                    @if ($errors->has('title'))
+                                        <div class="text-red-500 text-sm">{{ $errors->first('title') }}</div>
+                                    @endif
                                 </label>
                                 <label class="form-control w-full">
                                     <div class="label">
@@ -70,11 +74,11 @@
                                             'text-black',
                                             'p-2',
                                             'rounded-md',
-                                            'input-error' => $errors->has('title'),
+                                            'input-error' => $errors->has('url'),
                                             'w-full',
                                         ]) />
-                                    @if ($errors->has('title'))
-                                        <div class="text-red-500 text-sm">{{ $errors->first('title') }}</div>
+                                    @if ($errors->has('url'))
+                                        <div class="text-red-500 text-sm">{{ $errors->first('url') }}</div>
                                     @endif
 
                                 </label>
@@ -96,7 +100,7 @@
                                     </label>
                                 </div>
                                 <div class="shrink-0">
-                                    <img id="preview_img" class="h-32 w-64 object-cover rounded"
+                                    <img id="preview_img" class="h-12 w-72 object-cover rounded"
                                         src="{{ $ads->getFirstMedia('ads_image')->getUrl('') }}"
                                         alt="{{ $ads->getFirstMedia('ads_image')->name }}" />
                                 </div>

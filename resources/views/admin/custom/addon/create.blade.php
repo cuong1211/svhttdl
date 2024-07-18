@@ -51,8 +51,7 @@
                                 </label>
                                 <label class="form-control w-full">
                                     <div class="label">
-                                        <span
-                                            class="label-text text-base text-black font-medium">Đường dẫn</span>
+                                        <span class="label-text text-base text-black font-medium">Đường dẫn</span>
                                     </div>
                                     <input type="text" name="url" placeholder="Nhập đường dẫn"
                                         value="{{ old('url') }}" @class([
@@ -62,11 +61,11 @@
                                             'text-black',
                                             'p-2',
                                             'rounded-md',
-                                            'input-error' => $errors->has('title'),
+                                            'input-error' => $errors->has('url'),
                                             'w-full',
                                         ]) />
-                                    @if ($errors->has('title'))
-                                        <div class="text-red-500 text-sm">{{ $errors->first('title') }}</div>
+                                    @if ($errors->has('url'))
+                                        <div class="text-red-500 text-sm">{{ $errors->first('url') }}</div>
                                     @endif
 
                                 </label>
@@ -82,7 +81,7 @@
                                 </div>
                                 <div class="shrink-0">
                                     <img id="preview_img" class="h-14 w-71 object-cover rounded" src=""
-                                        alt="" style="display: none"/>
+                                        alt="" style="display: none" />
                                 </div>
 
                                 <div class="flex justify-end gap-4">

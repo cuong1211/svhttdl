@@ -94,7 +94,27 @@
                                 @endforeach
                             </select>
                         </label>
-
+                        <label class="form-control w-full">
+                            <div class="label">
+                                <span class="label-text text-base text-black font-medium">Phòng ban</span>
+                            </div>
+                            <select name="department_id" @class([
+                                'border',
+                                'border-gray-300',
+                                'bg-white',
+                                'text-black',
+                                'p-2',
+                                'rounded-md',
+                                'w-full',
+                            ])>
+                                <option value="">Chọn phòng ban</option>
+                                @foreach ($departments as $name => $index)
+                                    <option value="{{ $index }}"
+                                        {{ $selectedCategory->department_id == $index ? 'selected' : '' }}>
+                                        {{ $name }}</option>
+                                @endforeach
+                            </select>
+                        </label>
                         <label class="form-control w-full">
                             <div class="label">
                                 <span class="label-text text-base text-black font-medium">@lang('admin.categories.in_menu')</span>
@@ -120,8 +140,7 @@
                         <div class="flex justify-end gap-4">
                             <a href="{{ route('admin.categories.index') }}"
                                 class="btn-light btn text-white">@lang('admin.btn.cancel')</a>
-                            <button type="submit"
-                                class="btn bg-blue-700 text-white ml-2">@lang('admin.btn.submit')</button>
+                            <button type="submit" class="btn bg-blue-700 text-white ml-2">@lang('admin.btn.submit')</button>
                         </div>
                     </form>
 

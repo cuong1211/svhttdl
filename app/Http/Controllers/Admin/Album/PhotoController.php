@@ -19,7 +19,7 @@ class PhotoController extends Controller
             'photos' => Photo::query()
                 ->when(
                     $request->search,
-                    fn ($query) => $query->where('name', 'like', '%'.$request->search.'%')
+                    fn ($query) => $query->where('name', 'like', '%' . $request->search . '%')
                 )
                 ->latest()
                 ->paginate(10),
@@ -107,8 +107,8 @@ class PhotoController extends Controller
      */
     public function destroy(Photo $photo)
     {
+        $photo->clearMediaCollection('album_photo');
         $photo->delete();
-
         return redirect()->route('admin.photos.index')->with([
             'icon' => 'success',
             'heading' => 'Success',

@@ -37,21 +37,27 @@ class Video extends Model implements HasMedia
             ->height(603)
             ->sharpen(5)
             ->format('jpg')
-            ->performOnCollections('featured_image');
+            ->performOnCollections('thumbnail_video');
 
         $this->addMediaConversion('md')
             ->width(541)
             ->height(320)
             ->sharpen(5)
             ->format('jpg')
-            ->performOnCollections('featured_image');
+            ->performOnCollections('thumbnail_video');
 
         $this->addMediaConversion('thumb')
             ->width(368)
             ->height(276)
             ->sharpen(10)
             ->format('jpg')
-            ->performOnCollections('featured_image');
+            ->performOnCollections('thumbnail_video');
+    }
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('thumbnail_video')
+            ->singleFile()
+            ->useDisk('album');
     }
     protected function createddAtVi(): Attribute
     {

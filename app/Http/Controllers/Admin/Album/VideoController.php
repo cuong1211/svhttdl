@@ -41,7 +41,7 @@ class VideoController extends Controller
 
     public function store(VideoRequest $request): RedirectResponse
     {
-        if($request->is_active == 1) {
+        if ($request->is_active == 1) {
             Video::query()
                 ->where('album_id', $request->album_id)
                 ->update(['is_active' => 0]);
@@ -91,7 +91,14 @@ class VideoController extends Controller
             ->where('id', '!=', $video->id)
             ->where('album_id', $request->album_id)
             ->update(['is_active' => 0]);
-
+        if ($request->hasFile('image')) {
+            $imageFile = $request->file('image');
+            $video->clearMediaCollection('thumbnail_video');
+            $video->addMedia($imageFile->getRealPath())
+                ->usingFileName($imageFile->getClientOriginalName())
+                ->usingName($imageFile->getClientOriginalName())
+                ->toMediaCollection('thumbnail_video');
+        }
         return redirect()->route('admin.videos.index')->with([
             'icon' => 'success',
             'heading' => 'Success',
@@ -104,8 +111,8 @@ class VideoController extends Controller
      */
     public function destroy(Video $video)
     {
+        $video->clearMediaCollection('thumbnail_video');
         $video->delete();
-
         return redirect()->route('admin.videos.index')->with([
             'icon' => 'success',
             'heading' => 'Success',

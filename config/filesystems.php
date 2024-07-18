@@ -100,6 +100,15 @@ return [
             'visibility' => 'public',
             'throw' => false,
         ],
+        'custom' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/custom'),
+            'url' => env('APP_URL') . '/storage/custom',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+        
+
 
     ],
 

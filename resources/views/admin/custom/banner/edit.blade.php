@@ -2,7 +2,7 @@
     <div class="p-6">
         <div class="text-black text-normal font-semibold leading-tight">
             <span class="text-black text-normal flex items-center gap-2 font-semibold leading-tight">
-                {{-- {{ app()->getLocale() === 'en' ? $category->title_en : $category->title }} --}}
+                Quản lý Banner
                 <x-heroicon-m-arrow-small-right class="size-4" />
                 @lang('admin.edit')
             </span>
@@ -57,8 +57,8 @@
                                         'rounded-md',
                                         'w-full',
                                     ])>
-                                        <option @selected(old('in_menu') == 0) value="0">@lang('admin.false')</option>
-                                        <option @selected(old('in_menu') == 1) value="1">@lang('admin.true')</option>
+                                        <option @selected($banner->is_active == 0) value="0">@lang('admin.false')</option>
+                                        <option @selected($banner->is_active == 1) value="1">@lang('admin.true')</option>
                                     </select>
                                 </label>
                                 <label class="form-control w-full">
@@ -68,13 +68,14 @@
 
                                     <div class="flex items-center mb-4">
                                         <input id="default-radio-1" type="radio" value="1" name="position"
+                                            {{ $banner->position == 1 ? 'checked' : '' }}
                                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="default-radio-1"
                                             class="ms-2  text-black dark:text-gray-300 text-base">Đầu trang</label>
                                     </div>
                                     <div class="flex items-center">
-                                        <input checked id="default-radio-2" type="radio" value="2"
-                                            name="position"
+                                        <input  id="default-radio-2" type="radio" value="2"
+                                            {{ $banner->position == 2 ? 'checked' : '' }} name="position"
                                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="default-radio-2"
                                             class="ms-2  text-black dark:text-gray-300 text-base">Giữa Trang</label>
@@ -100,7 +101,7 @@
                                     </label>
                                 </div>
                                 <div class="shrink-0">
-                                    <img id="preview_img" class="h-32 w-64 object-cover rounded"
+                                    <img id="preview_img" class=" object-cover rounded"
                                         src="{{ $banner->getFirstMedia('banner_image')->getUrl('') }}"
                                         alt="{{ $banner->getFirstMedia('banner_image')->name }}" />
                                 </div>

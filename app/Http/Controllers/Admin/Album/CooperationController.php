@@ -18,7 +18,7 @@ class CooperationController extends Controller
             'cooperations' => Cooperation::query()
                 ->when(
                     $request->search,
-                    fn ($query) => $query->where('name', 'like', '%'.$request->search.'%')
+                    fn ($query) => $query->where('name', 'like', '%' . $request->search . '%')
                 )
                 ->latest()
                 ->paginate(10),
@@ -99,8 +99,8 @@ class CooperationController extends Controller
      */
     public function destroy(Cooperation $cooperation)
     {
+        $cooperation->clearMediaCollection('album_cooperation');
         $cooperation->delete();
-
         return redirect()->route('admin.cooperations.index')->with([
             'icon' => 'success',
             'heading' => 'Success',

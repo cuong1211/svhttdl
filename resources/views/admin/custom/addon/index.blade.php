@@ -1,9 +1,15 @@
 <x-app-layout>
     <div class="p-6">
-        <div class="text-black text-normal font-semibold leading-tight">
-            <span class="">
-                @lang('admin.banner.list')
-            </span>
+        <div class="flex justify-between">
+            <div class="text-black text-normal font-semibold leading-tight">
+                <span class="">
+                    Quản lý liên kết
+                </span>
+            </div>
+            <a class=" bg-blue-700 btn border-blue-500 " href="{{ route('admin.addons.create') }}">
+                <x-heroicon-s-plus class="size-4 text-white" />
+                <span class="text-white">@lang('admin.add')</span>
+            </a>
         </div>
         @if (session('icon') && session('heading') && session('message'))
             <div class="alert alert-{{ session('icon') === 'success' ? 'success' : 'danger' }}" role="alert">
@@ -17,27 +23,29 @@
                     <div class="flex px-6 py-4">
                         <form action="{{ route('admin.addons.index') }}" method="GET" class="w-full">
                             <div class="flex items-center justify-between">
-                                <div class="flex items-center">
-                                    <label
-                                        class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md items-center gap-2 flex"
-                                        style="border: 1px solid black;">
-                                        <input name="search" type="text" class="grow"
-                                            placeholder="Tìm kiếm theo tiêu đề" style="border: unset; color:black";
-                                            color:black" value="{{ request()->search }}" />
-                                        <button type="submit">
+                                <ul class="menu md:menu-horizontal rounded-box bg-white gap-1">
+                                    <li>
+                                        <label
+                                            class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md items-center gap-2 flex md:w-full "
+                                            style="border: 1px solid black;">
+                                            <input name="search" type="text"
+                                                class="grow placeholder-black font-semibold"
+                                                placeholder="Tìm kiếm theo tiêu đề" style="border: unset; color:black"
+                                                value="{{ request()->search }}" />
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <button type="submit" class="btn bg-blue-700 w-full ">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
-                                                fill="currentColor" class="h-4 w-4 opacity-70">
+                                                class="h-4 w-4 opacity-70 fill-white">
                                                 <path fill-rule="evenodd"
                                                     d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
                                                     clip-rule="evenodd" />
                                             </svg>
                                         </button>
-                                    </label>
-                                </div>
-                                <a class=" bg-blue-700 btn border-blue-500 " href="{{ route('admin.addons.create') }}">
-                                    <x-heroicon-s-plus class="size-4 text-white" />
-                                    <span class="text-white">@lang('admin.add')</span>
-                                </a>
+                                    </li>
+                                </ul>
+
                             </div>
                         </form>
                     </div>
@@ -47,7 +55,7 @@
                             <tr>
                                 <th class="text-center">#</th>
                                 <th class="text-center w-3">Thứ tự</th>
-                                <th class="text-center">Tiêu đề</th>
+                                <th class="text-left">Tiêu đề</th>
                                 <th class="text-left">Đường dẫn</th>
                                 <th class="text-center">Ngày tạo</th>
                                 <th class="text-center">Ngày cập nhập</th>
@@ -61,9 +69,10 @@
                                         {{ $loop->index + 1 }}
                                     </th>
                                     <td class="text-center">
-                                        {{ $addon->order }}</td>
-                                    <td class="text-center">
-                                        <div class="text-center">{{ $addon->title }}</div>
+                                        <div class=" bg-blue-700 text-white">{{ $addon->order }}
+                                    </td>
+                                    <td class="text-left">
+                                        {{ $addon->title }}
                                     </td>
                                     <td class="text-left">
                                         {{ $addon->url }}</td>

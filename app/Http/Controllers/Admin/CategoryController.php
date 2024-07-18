@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CategoryRequest;
 use App\Models\Category;
+use App\Models\Staff\Department;
 use App\Services\CategoryService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -24,10 +25,10 @@ class CategoryController extends Controller
                 $request->search,
                 fn ($query) => $query->where('title', 'like', '%' . $request->search . '%')
             )
-            ->with('parent')
+            ->with('parent', 'department')
             ->latest()
             ->paginate(10);
-                // dd($categories);
+        // dd($categories);
         return view('admin.categories.index', [
             'categories' => $categories,
         ]);
@@ -39,6 +40,7 @@ class CategoryController extends Controller
             'admin.categories.create',
             [
                 'categories' => $this->categoryService->cachedCategoriesForMenu(),
+                'departments' => Department::query()->pluck('id', 'name')
             ]
         );
     }
@@ -47,7 +49,14 @@ class CategoryController extends Controller
     {
         $data = $request->validated();
         // dd($data);
-        $category = Category::create($request->all());
+        $category = Category::create([
+            'title' => $data['title'],
+            'title_en' => $data['title_en'],
+            'in_menu' => $data['in_menu'],
+            'parent_id' => $data['parent_id'],
+            'user_id' => $data['user_id'],
+            'department_id' => $data['department_id'],
+        ]);
 
         return redirect()->route('admin.categories.index')->with([
             'icon' => 'success',
@@ -61,12 +70,22 @@ class CategoryController extends Controller
         return view('admin.categories.edit', [
             'categories' => $this->categoryService->cachedCategoriesForMenu(),
             'selectedCategory' => $category,
+            'departments' => Department::query()->pluck('id', 'name')
         ]);
     }
 
     public function update(CategoryRequest $request, Category $category): RedirectResponse
     {
-        $category->update($request->all());
+        $data = $request->validated();
+        $category->update([
+            'title' => $data['title'],
+            'title_en' => $data['title_en'],
+            'order' => $data['order'],
+            'in_menu' => $data['in_menu'],
+            'parent_id' => $data['parent_id'],
+            'user_id' => $data['user_id'],
+            'department_id' => $data['department_id'],
+        ]);
 
         return redirect()->route('admin.categories.index')->with([
             'icon' => 'success',
@@ -80,7 +99,7 @@ class CategoryController extends Controller
         if ($category->posts()->exists()) {
             return back()->with([
                 'icon' => 'error',
-                'heading' => 'Lỗi:',
+                'heading' => 'error',
                 'message' => 'Danh mục không thể xóa bởi có bài viết bên trong danh mục này',
             ]);
         }

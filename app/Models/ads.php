@@ -41,4 +41,10 @@ class ads extends Model implements HasMedia
             ->format('jpg')
             ->performOnCollections('ads_image');
     }
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('ads_image')
+            ->singleFile()
+            ->useDisk('custom');
+    }
 }
