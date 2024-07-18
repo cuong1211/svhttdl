@@ -180,18 +180,20 @@
                     },
                     type: type,
                     success: function(data) {
-                        console.log(data);
-                        $('#categoryFilter1').empty();
-                        $('#categoryFilter1').append('<option value="">Tất cả</option>');
-                        for (let i = 0; i < data.length; i++) {
-                            $('#categoryFilter1').append('<option value="' + data[i].id + '">' + data[i]
-                                .title +
-                                '</option>');
+                        if(data.length == 0){
+                            $('#categoryFilter1').hide();
+                        }else{
+                            $('#categoryFilter1').empty();
+                            $('#categoryFilter1').append('<option value="">Tất cả</option>');
+                            for (let i = 0; i < data.length; i++) {
+                                $('#categoryFilter1').append('<option value="' + data[i].id + '">' + data[i]
+                                    .title +
+                                    '</option>');
+                            }
+                            $('#categoryFilter1').show();
                         }
-                        $('#categoryFilter1').show();
                     },
                     error: function(data) {
-                        console.log(data);
                     }
                 });
             });
