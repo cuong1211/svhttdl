@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\admin\forms\select;
+namespace App\View\Components\Admin\Forms\select;
 
 use Closure;
 use Illuminate\Contracts\View\View;

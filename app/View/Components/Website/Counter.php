@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\website;
+namespace App\View\Components\Website;
 
 use App\Models\Counter as ModelsCounter;
 use Closure;
