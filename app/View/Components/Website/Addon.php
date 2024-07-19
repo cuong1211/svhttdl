@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 use App\Models\Addon as AddonModel;
+
 class Addon extends Component
 {
     /**
@@ -22,6 +23,6 @@ class Addon extends Component
     public function render(): View|Closure|string
     {
         $addon = AddonModel::query()->orderBy('order')->limit(10)->get();
-        return view('components.website.addon', ['addon' => $addon]);
+        return view('components.website.addon', compact('addon'));
     }
 }
