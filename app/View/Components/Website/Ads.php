@@ -22,6 +22,6 @@ class Ads extends Component
     public function render(): View|Closure|string
     {
         $ads = AdsModel::query()->orderBy('order')->limit(6)->get();
-        return view('components.website.ads', compact('ads'));
+        return view('components.website.ads', ['ads' => $ads]);
     }
 }
