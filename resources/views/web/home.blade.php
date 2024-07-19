@@ -246,5 +246,5 @@
         <b>&nbsp; </b>
     </div>
     {{-- add-on --}}
-    <x-website.ads />
+    {{--  <x-website.ads /> --}}
 </x-website-layout>
