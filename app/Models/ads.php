@@ -9,7 +9,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ads extends Model implements HasMedia
+class Ads extends Model implements HasMedia
 {
     use HasFactory;
     use InteractsWithMedia;

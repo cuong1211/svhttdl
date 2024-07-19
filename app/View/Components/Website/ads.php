@@ -5,8 +5,8 @@ namespace App\View\Components\website;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
-use App\Models\ads as AdsModel;
-class ads extends Component
+use App\Models\Ads as AdsModel;
+class Ads extends Component
 {
     /**
      * Create a new component instance.

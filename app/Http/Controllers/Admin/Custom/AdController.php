@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Custom;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Custom\AdsRequest;
-use App\Models\ads;
+use App\Models\Ads;
 use Illuminate\Http\Request;
 
 class AdController extends Controller
@@ -14,7 +14,7 @@ class AdController extends Controller
      */
     public function index(Request $request)
     {
-        $ads = ads::query()
+        $ads = Ads::query()
             ->when(
                 $request->search,
                 fn ($query) => $query->where('title', 'like', '%' . $request->search . '%')
@@ -37,7 +37,7 @@ class AdController extends Controller
     public function store(AdsRequest $request)
     {
         $data = $request->validated();
-        $ads = ads::create($data);
+        $ads = Ads::create($data);
         if ($request->hasFile('image')) {
             $imageFile = $request->file('image');
             $ads->addMedia($imageFile->getRealPath())
@@ -64,7 +64,7 @@ class AdController extends Controller
      */
     public function edit(string $id)
     {
-        return view('admin.custom.ads.edit', ['ads' => ads::findOrFail($id)]);
+        return view('admin.custom.ads.edit', ['ads' => Ads::findOrFail($id)]);
     }
 
     /**
@@ -73,7 +73,7 @@ class AdController extends Controller
     public function update(AdsRequest $request, string $id)
     {
         $data = $request->validated();
-        $ads = ads::findOrFail($id);
+        $ads = Ads::findOrFail($id);
         $ads->update($data);
         if ($request->hasFile('image')) {
             $imageFile = $request->file('image');
@@ -95,7 +95,7 @@ class AdController extends Controller
      */
     public function destroy(string $id)
     {
-        $ads = ads::findOrFail($id);
+        $ads = Ads::findOrFail($id);
         $ads->clearMediaCollection('ads_image');
         $ads->delete();
         return redirect()->route('admin.ads.index')->with([

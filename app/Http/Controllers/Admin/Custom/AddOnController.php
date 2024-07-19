@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Custom;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Custom\AddOnRequest;
 use Illuminate\Http\Request;
-use App\Models\addon;
+use App\Models\Addon;
 
 class AddOnController extends Controller
 {
@@ -14,7 +14,7 @@ class AddOnController extends Controller
      */
     public function index(Request $request)
     {
-        $addons = addon::query()
+        $addons = Addon::query()
             ->when(
                 $request->search,
                 fn ($query) => $query->where('title', 'like', '%' . $request->search . '%')
@@ -36,7 +36,7 @@ class AddOnController extends Controller
     public function store(AddOnRequest $request)
     {
         $data = $request->validated();
-        $addon = addon::create($data);
+        $addon = Addon::create($data);
         if ($request->hasFile('image')) {
             $imageFile = $request->file('image');
             $addon->addMedia($imageFile->getRealPath())
@@ -64,7 +64,7 @@ class AddOnController extends Controller
      */
     public function edit(string $id)
     {
-        return view('admin.custom.addon.edit', ['addons' => addon::findOrFail($id)]);
+        return view('admin.custom.addon.edit', ['addons' => Addon::findOrFail($id)]);
     }
 
     /**
@@ -73,7 +73,7 @@ class AddOnController extends Controller
     public function update(AddOnRequest $request, string $id)
     {
         $data = $request->validated();
-        $addon = addon::findOrFail($id);
+        $addon = Addon::findOrFail($id);
         $addon->update($data);
         if ($request->hasFile('image')) {
             $imageFile = $request->file('image');
@@ -95,7 +95,7 @@ class AddOnController extends Controller
      */
     public function destroy(string $id)
     {
-        $addon = addon::findOrFail($id);
+        $addon = Addon::findOrFail($id);
         $addon->clearMediaCollection('addon_image');
         $addon->delete();
         return redirect()->route('admin.addons.index')->with([

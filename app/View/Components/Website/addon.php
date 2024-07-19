@@ -5,8 +5,8 @@ namespace App\View\Components\website;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
-use App\Models\addon as AddonModel;
-class addon extends Component
+use App\Models\Addon as AddonModel;
+class Addon extends Component
 {
     /**
      * Create a new component instance.

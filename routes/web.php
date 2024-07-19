@@ -22,7 +22,6 @@ route::get('/danh-muc/gioi-thieu/co-cau-to-chuc', [EmployeeController::class, 'i
 route::get('/danh-muc/gioi-thieu/{id}', [HomeController::class, 'getIntro'])->name('home.intro');
 route::get('/nhan-vien/{employee:id}', [EmployeeController::class, 'show'])->name('employee.show');
 route::get('/van-ban-qppl', [DocumentController::class, 'index'])->name('document.index');
-Route::get('/lien-he', fn () => view('web.contact'))->name('contact');
 Route::get('/gioi-thieu', fn () => view('web.about'))->name('about');
 route::get('/thong-bao', [NotificationController::class, 'index'])->name('noti.index');
 route::get('/thong-bao/{Announcement:id}', [NotificationController::class, 'show'])->name('noti.show');
