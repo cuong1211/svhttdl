@@ -300,7 +300,7 @@
 
                 <x-website.video />
                 <x-website.announcement />
-                {{-- <x-website.addon /> --}}
+                <x-website.addon />
             </div>
 
         </div>
