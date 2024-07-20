@@ -1,15 +1,15 @@
 <x-website-layout>
     <div>
+        @if ($video)
+            <div class="title-video"> <span style="font-size: 18px">{{ $video->name }}</span></div>
 
-        <div class="title-video"> <span style="font-size: 18px">{{ $video->name }}</span></div>
-        {{-- compare with enum --}}
-
-        @if ($video->source->value == 'google_drive')
-            <iframe src="https://drive.google.com/file/d/{{ $video->video_id }}/preview" width="99%" height="400px"
-                allowfullscreen></iframe>
-        @else
-            <iframe src="https://www.youtube.com/embed/{{ $video->video_id }}" width="99%" height="400px"
-                allowfullscreen></iframe>
+            @if ($video->source->value == 'google_drive')
+                <iframe src="https://drive.google.com/file/d/{{ $video->video_id }}/preview" width="99%" height="400px"
+                    allowfullscreen></iframe>
+            @else
+                <iframe src="https://www.youtube.com/embed/{{ $video->video_id }}" width="99%" height="400px"
+                    allowfullscreen></iframe>
+            @endif
         @endif
     </div>
     </br>

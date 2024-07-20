@@ -10,8 +10,11 @@ class VideoController extends Controller
 {
     public function index()
     {
-        $video = Video::query()->where('is_active',1)->first();
-        $other_videos = Video::query()->paginate(6);
+        $video = Video::query()->where('is_active', 1)->first();
+        if (!$video) {
+            $video = Video::query()->first();
+        }
+        $other_videos = Video::query()->paginate(9);
         return view('web.video.index', compact('video', 'other_videos'));
     }
 }
