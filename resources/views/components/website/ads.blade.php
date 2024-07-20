@@ -1,5 +1,4 @@
 <div style="width: 100%; height: auto; background-color: #fff; float: left;">
-    @dd($ads)
     @foreach ($ads as $ad)
         <div class="column_link">
             @php
