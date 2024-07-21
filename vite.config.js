@@ -15,10 +15,10 @@ export default defineConfig({
         outDir: 'public/build',
     },
     server: {
-        host: '0.0.0.0',
-        port: 5173,
+        host: '198.54.114.151',
+        port: 21098,
         hmr: {
-            host: 'khuyennongvanho.tuaf.edu.vn',
+            host: 'svhttdl.thaivancuong.studio',
             protocol: 'wss',
         },
     },
