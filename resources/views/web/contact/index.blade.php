@@ -80,7 +80,7 @@
                 text-decoration: none;
                 font: 14px/100% Arial, Helvetica, sans-serif;
                 padding: .5em 2em .55em;
-                margin-left: 420px;
+                margin-left: 10px; 
                 text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
                 -webkit-border-radius: .5em;
                 -moz-border-radius: .5em;
@@ -118,13 +118,15 @@
             }
         </style>
     @endpush
+    <script src="https://www.google.com/recaptcha/api.js?hl=vi"></script>
     <div class="col-lg-12">
         <div class="panel panel-primary">
             <div id="demo1" class="collapse">
                 <div id="lienhe">
                     <div style="font-size: 16px; text-align: center">
                         <h2>SỞ VĂN HÓA, THỂ THAO & DU LỊCH TỈNH BẮC KẠN</h2>
-                        <strong>Địa chỉ: </strong> Tổ 7, phường Nguyễn Thị Minh Khai, thành phố Bắc Kạn, tỉnh Bắc Kạn <br>
+                        <strong>Địa chỉ: </strong> Tổ 7, phường Nguyễn Thị Minh Khai, thành phố Bắc Kạn, tỉnh Bắc Kạn
+                        <br>
                         <strong>Điện thoại: </strong>0209.3872.652; <br>
                         <strong>Email: </strong>svhttdl@backan.gov.vn
                     </div>
@@ -162,6 +164,19 @@
                                     <textarea id="text" name="content" required=""></textarea>
                                 </div>
                             </div>
+                            <div class="g-recaptcha" data-sitekey="6LcPBrojAAAAAE9KlDVhspZHiLZtwxZQnmSuTCTU"
+                                style="margin-left: 10px;">
+                                <div style="width: 304px; height: 78px;">
+                                    <div><iframe title="reCAPTCHA" width="304" height="78" role="presentation"
+                                            name="a-d7s9106k610t" frameborder="0" scrolling="no"
+                                            sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation"
+                                            src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6LcPBrojAAAAAE9KlDVhspZHiLZtwxZQnmSuTCTU&amp;co=aHR0cHM6Ly9zb3ZodHRkbC5iYWNrYW4uZ292LnZuOjQ0Mw..&amp;hl=vi&amp;v=rKbTvxTxwcw5VqzrtN-ICwWt&amp;size=normal&amp;cb=850ft27z93zr"></iframe>
+                                    </div>
+                                    <textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response"
+                                        style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea>
+                                </div><iframe style="display: none;"></iframe>
+                            </div>
+                            <br>
                             <input type="submit" value="Gửi liên hệ" class="btn1 blue">
                         </form>
                         <br>
@@ -171,4 +186,8 @@
             </div>
         </div>
     </div>
+    <iframe
+        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d8600.455617662767!2d105.84422204042693!3d22.15542304622473!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x2576094c478ea43f!2zU-G7nyBWxINuIGjDs2EsIFRo4buDIHRoYW8gdsOgIER1IGzhu4tjaCBC4bqvYyBL4bqhbg!5e0!3m2!1svi!2s!4v1671508661808!5m2!1svi!2s"
+        width="100%" height="550" style="border:0;" allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
 </x-website-layout>

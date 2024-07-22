@@ -126,7 +126,7 @@
                         <h2 style="font-weight: bold; font-family: Times New Roman;">Câu hỏi của bạn đã được gửi thành
                             công</h2>
                         <a style="font-weight: bold; font-family: Times New Roman; color; white"
-                            href="{{ route('faq.index') }}">Quay lại trang hỏi đáp</a>
+                            href="{{ route('home') }}">Quay lại trang chủ</a>
                     </div>
                 </div>
             </div>
