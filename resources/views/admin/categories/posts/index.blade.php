@@ -29,63 +29,65 @@
         @endif
         <div class="mt-6">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                <div class="overflow-x-auto">
-                    <div class="flex px-6 py-4">
-                        <form action="{{ route('admin.categories.posts.index', $category->id) }}" method="GET"
-                            class="w-full">
-                            <div class="items-center">
-                                <ul class="menu md:menu-horizontal rounded-box bg-white gap-1">
+                <div class="flex px-6 py-4">
+                    <form action="{{ route('admin.categories.posts.index', $category->id) }}" method="GET"
+                        class="w-full">
+                        <div class="items-center">
+                            <ul class="menu md:menu-horizontal rounded-box bg-white gap-1">
+                                <li>
+                                    <label
+                                        class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md items-center gap-2 flex w-auto md:w-full "
+                                        style="border: 1px solid black;">
+                                        <input name="search" type="text"
+                                            class="grow placeholder-black font-semibold"
+                                            placeholder="Tìm kiếm theo tiêu đề" style="border: unset; color:black"
+                                            value="{{ request()->search }}" />
+                                    </label>
+                                </li>
+                                @if (Auth::user()->category_id == 3)
+                                @else
                                     <li>
-                                        <label
-                                            class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md items-center gap-2 flex w-auto md:w-full "
+                                        <select id="categoryFilter" name="categoryFilter"
+                                            class=" select select-bordered w-full bg-white text-black font-semibold"
                                             style="border: 1px solid black;">
-                                            <input name="search" type="text"
-                                                class="grow placeholder-black font-semibold"
-                                                placeholder="Tìm kiếm theo tiêu đề" style="border: unset; color:black"
-                                                value="{{ request()->search }}" />
-                                        </label>
+                                            <option value="">Tất cả</option>
+                                            @foreach ($filter_cate as $filter)
+                                                <option value="{{ $filter->id }}"
+                                                    {{ $request->categoryFilter == $filter->id ? 'selected' : '' }}>
+                                                    {{ $filter->title }}</option>
+                                            @endforeach
+                                        </select>
                                     </li>
-                                    @if (Auth::user()->category_id == 3)
-                                    @else
-                                        <li>
-                                            <select id="categoryFilter" name="categoryFilter"
-                                                class=" select select-bordered w-full bg-white text-black font-semibold"
-                                                style="border: 1px solid black;">
-                                                <option value="">Tất cả</option>
-                                                @foreach ($filter_cate as $filter)
-                                                    <option value="{{ $filter->id }}"
-                                                        {{ $request->categoryFilter == $filter->id ? 'selected' : '' }}>
-                                                        {{ $filter->title }}</option>
-                                                @endforeach
-                                            </select>
-                                        </li>
-                                        <li>
-                                            <select id="categoryFilter1" name="categoryFilter1"
-                                                class="select select-bordered w-full bg-white text-black font-semibold"
-                                                style="border: 1px solid black; display: {{ $request->categoryFilter == null ? 'none' : 'block' }}">
-                                                <option value="">Tất cả</option>
-                                                @foreach ($filter_child_cate as $filter1)
-                                                    <option value="{{ $filter1->id }}"
-                                                        {{ $request->categoryFilter1 == $filter1->id ? 'selected' : '' }}>
-                                                        {{ $filter1->title }}</option>
-                                                @endforeach
-                                            </select>
-                                        </li>
-                                    @endif
+
                                     <li>
-                                        <button type="submit" class="btn bg-blue-700  ">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
-                                                class="h-4 w-4 opacity-70 fill-white">
-                                                <path fill-rule="evenodd"
-                                                    d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                        </button>
+                                        <select id="categoryFilter1" name="categoryFilter1"
+                                            class="select select-bordered w-full bg-white text-black font-semibold"
+                                            style="border: 1px solid black; display: {{ $request->categoryFilter == null ? 'none' : 'block' }}">
+                                            <option value="">Tất cả</option>
+                                            @foreach ($filter_child_cate as $filter1)
+                                                <option value="{{ $filter1->id }}"
+                                                    {{ $request->categoryFilter1 == $filter1->id ? 'selected' : '' }}>
+                                                    {{ $filter1->title }}</option>
+                                            @endforeach
+                                        </select>
                                     </li>
-                                </ul>
-                            </div>
-                        </form>
-                    </div>
+
+                                @endif
+                                <li>
+                                    <button type="submit" class="btn bg-blue-700  ">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
+                                            class="h-4 w-4 opacity-70 fill-white">
+                                            <path fill-rule="evenodd"
+                                                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+                <div class="overflow-x-auto">
                     <table class="table text-black text-base text-center">
                         <!-- head -->
                         <thead class="text-black text-base">
@@ -180,9 +182,9 @@
                     },
                     type: type,
                     success: function(data) {
-                        if(data.length == 0){
+                        if (data.length == 0) {
                             $('#categoryFilter1').hide();
-                        }else{
+                        } else {
                             $('#categoryFilter1').empty();
                             $('#categoryFilter1').append('<option value="">Tất cả</option>');
                             for (let i = 0; i < data.length; i++) {
@@ -193,8 +195,7 @@
                             $('#categoryFilter1').show();
                         }
                     },
-                    error: function(data) {
-                    }
+                    error: function(data) {}
                 });
             });
         </script>

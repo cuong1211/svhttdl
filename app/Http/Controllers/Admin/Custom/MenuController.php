@@ -28,7 +28,7 @@ class MenuController extends Controller
             ->when(
                 $request->search,
                 fn ($query) => $query->where('title', 'like', '%' . $request->search . '%')
-            )->latest()->paginate(10);
+            )->latest()->paginate(10)->appends($request->all());
         return view("admin.menus.index", compact("menus"));
     }
 

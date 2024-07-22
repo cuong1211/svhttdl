@@ -15,7 +15,7 @@ class FaqController extends Controller
                 return $query->where('title', 'like', '%' . $request->search . '%');
             })
             ->latest()
-            ->paginate(5);
+            ->paginate(5)->appends($request->all());
         return view('web.faq.index', compact('faqs'));
     }
     public function create()

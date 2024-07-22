@@ -19,7 +19,7 @@ class DepartmentController extends Controller
                 fn ($query) => $query->where('name', 'like', '%' . $request->search . '%')
             )
             ->latest()
-            ->get();
+            ->paginate(10)->appends($request->all());
 
         return view('admin.staffs.departments.index', [
             'departments' => $departments,
@@ -97,7 +97,20 @@ class DepartmentController extends Controller
                 'message' => trans('admin.alert.erro.department.deleted'),
             ]);
         }
-
+        if ($department->users()->exists()) {
+            return back()->with([
+                'icon' => 'error',
+                'heading' => 'Failed',
+                'message' => 'Phòng ban này đang liên kết đến một tài khoản',
+            ]);
+        }
+        if ($department->categories()->exists()) {
+            return back()->with([
+                'icon' => 'error',
+                'heading' => 'Failed',
+                'message' => 'Phòng ban này đang liên kết đến một danh mục',
+            ]);
+        }
         // Xóa phòng ban
         $department->delete();
 

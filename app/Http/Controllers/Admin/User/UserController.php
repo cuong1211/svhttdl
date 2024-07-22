@@ -23,8 +23,7 @@ class UserController extends Controller
             )
             ->with('departments', 'categories')
             ->latest()
-            ->get();
-        // dd($users);
+            ->paginate(10)->appends($request->all());
         return view('admin.users.index', [
             'users' => $users,
         ]);
@@ -37,7 +36,7 @@ class UserController extends Controller
     {
         $departments = Department::query()->get();
         $role = Categorie::query()->get();
-        return view('admin.users.create', compact('departments','role'));
+        return view('admin.users.create', compact('departments', 'role'));
     }
 
     /**
@@ -45,19 +44,13 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        // dd($request->all());
         $data = $request->validated();
         $user = User::create($data);
-        // $user->departments()->attach($request->departments);
-        // if ($request->hasFile('image')) {
-        //     $imageFile = $request->file('image');
-        //     $user->addMedia($imageFile->getRealPath())
-        //         ->usingFileName($imageFile->getClientOriginalName())
-        //         ->usingName($imageFile->getClientOriginalName())
-        //         ->toMediaCollection('user_image');
-        // }
-
-        return redirect()->route('admin.users.index')->with('success', 'Tạo tài khoản thành công.');
+        return redirect()->route('admin.users.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Thêm tài khoản thành công',
+        ]);
     }
 
     /**
@@ -68,7 +61,7 @@ class UserController extends Controller
         $departments = Department::all();
         // $positions = Position::all();
         $role = Categorie::query()->get();
-        return view('admin.users.edit', compact('user', 'departments','role'));
+        return view('admin.users.edit', compact('user', 'departments', 'role'));
     }
 
     /**
@@ -76,7 +69,7 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
-        
+
 
         // dd($request);
         $data = $request->validated();
@@ -91,16 +84,11 @@ class UserController extends Controller
             'display_name' => $data['display_name'],
             'password' => bcrypt($data['password']),
         ]);
-        if ($request->hasFile('image')) {
-            $imageFile = $request->file('image');
-            $user->clearMediaCollection('user_image');
-            $user->addMedia($imageFile->getRealPath())
-                ->usingFileName($imageFile->getClientOriginalName())
-                ->usingName($imageFile->getClientOriginalName())
-                ->toMediaCollection('user_image');
-        }
-
-        return redirect()->route('admin.users.index')->with('success', 'Cập nhập tài khoản thành công.');
+        return redirect()->route('admin.users.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Cập nhật tài khoản thành công',
+        ]);
     }
 
     /**
@@ -110,6 +98,10 @@ class UserController extends Controller
     {
         $user->delete();
 
-        return redirect()->route('admin.users.index')->with('success', 'Xóa tài khoản thành công.');
+        return redirect()->route('admin.users.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Xóa tài khoản thành công',
+        ]);
     }
 }

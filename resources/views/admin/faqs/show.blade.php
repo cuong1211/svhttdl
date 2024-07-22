@@ -8,7 +8,7 @@
             </span>
         </div>
         @if (session('icon') && session('heading') && session('message'))
-            <div class="alert alert-{{ session('icon') === 'success' ? 'success' : 'danger' }}" role="alert">
+            <div class="alert alert-{{ session('icon') === 'success' ? 'success' : 'error' }}" role="alert">
                 <strong>{{ session('heading') }}:</strong>
                 {{ session('message') }}
             </div>

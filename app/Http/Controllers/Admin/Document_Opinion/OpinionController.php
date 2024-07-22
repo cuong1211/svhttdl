@@ -11,14 +11,14 @@ class OpinionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $opinions = Opinion::query()
             ->with('document_opinion')
             ->when(request('search'), function ($query) {
                 $query->where('name', 'like', '%' . request('search') . '%');
             })
-            ->latest()->paginate(10);
+            ->latest()->paginate(10)->appends($request->all());
         // dd($opinions);
         return view('admin.doc_opi.opinions.index', compact('opinions'));
     }

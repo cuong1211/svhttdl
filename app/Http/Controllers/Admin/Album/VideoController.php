@@ -22,7 +22,7 @@ class VideoController extends Controller
                     fn ($query) => $query->where('name', 'like', '%' . $request->search . '%')
                 )
                 ->latest()
-                ->paginate(10),
+                ->paginate(10)->appends($request->all()),
         ]);
     }
 

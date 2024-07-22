@@ -33,7 +33,7 @@ class DocumentController extends Controller
             )
             ->with('types', 'signers')
             ->latest()
-            ->paginate(10);
+            ->paginate(10)->appends($request->all());
         $kinds = Signer::query()->get();
         $types = Type::query()->get();
         return view('admin.documents.index', [

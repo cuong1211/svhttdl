@@ -20,7 +20,7 @@ class AlbumController extends Controller
                     fn ($query) => $query->where('name', 'like', '%' . $request->search . '%')
                 )
                 ->latest()
-                ->paginate(10),
+                ->paginate(10)->appends($request->all()),
         ]);
     }
 
@@ -93,9 +93,22 @@ class AlbumController extends Controller
      */
     public function destroy(Album $album)
     {
+        if ($album->photos()->exists()) {
+            return back()->with([
+                'icon' => 'error',
+                'heading' => 'Failed',
+                'message' => 'Album này đang liên kết đến một hình ảnh, vui lòng xóa ảnh trước',
+            ]);
+        }
+        if ($album->videos()->exists()) {
+            return back()->with([
+                'icon' => 'error',
+                'heading' => 'Failed',
+                'message' => 'Album này đang liên kết đến một video, vui lòng xóa video trước',
+            ]);
+        }
         $album->clearMediaCollection('album_thumb');
         $album->delete();
-
         return redirect()->route('admin.albums.index')->with([
             'icon' => 'success',
             'heading' => 'Success',

@@ -16,10 +16,10 @@ class ContactController extends Controller
             'contacts' => Contact::query()
                 ->when(
                     $request->search,
-                    fn ($query) => $query->where('name', 'like', '%'.$request->search.'%')
+                    fn ($query) => $query->where('name', 'like', '%' . $request->search . '%')
                 )
                 ->latest()
-                ->paginate(10),
+                ->paginate(10)->appends($request->all()),
         ]);
     }
 

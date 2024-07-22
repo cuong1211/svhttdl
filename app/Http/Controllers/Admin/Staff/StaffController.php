@@ -24,7 +24,7 @@ class StaffController extends Controller
                 fn ($query) => $query->where('name', 'like', '%' . $request->search . '%')
             )
             ->latest()
-            ->get();
+            ->paginate(10)->appends($request->all());
 
         return view('admin.staffs.staff.index', [
             'staffs' => $staffs,

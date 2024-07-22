@@ -15,7 +15,8 @@
                     @foreach ($employees as $employee)
                         @if ($employee->type == 'Quản lý nhà nước')
                             <li>
-                                <a href="{{ route('employee.show', ['employee' => $employee->id]) }}" style="color: white">
+                                <a href="{{ route('employee.show', ['employee' => $employee->id]) }}"
+                                    style="color: white">
                                     <h3 class="level-3 rectangle employee-node" data-name="{{ $employee->name }}">
                                         {{ $employee->name }}</h3>
                                 </a>
@@ -30,7 +31,8 @@
                     @foreach ($employees as $employee)
                         @if ($employee->type == 'Đơn vị sự nghiệp')
                             <li>
-                                <a href="{{ route('employee.show', ['employee' => $employee->id]) }}" style="color: white">
+                                <a href="{{ route('employee.show', ['employee' => $employee->id]) }}"
+                                    style="color: white">
                                     <h3 class="level-3 rectangle employee-node" data-name="{{ $employee->name }}">
                                         {{ $employee->name }}</h3>
                                 </a>
@@ -41,8 +43,14 @@
             </li>
         </ol>
     </div>
-
-    <!-- Modal -->
+    @push('scripts')
+        <script>
+            const wrappers = document.querySelectorAll('.level-2-wrapper');
+            if (wrappers.length > 0) {
+                wrappers[wrappers.length - 1].classList.add('hidden');
+            }
+        </script>
+    @endpush
 
 
 </x-website-layout>

@@ -7,46 +7,46 @@
                     @lang('admin.documents.list')
                 </span>
             </div>
-           
+
         </div>
         @if (session('icon') && session('heading') && session('message'))
-            <div class="alert alert-{{ session('icon') === 'success' ? 'success' : 'danger' }}" role="alert">
+            <div class="alert alert-{{ session('icon') === 'success' ? 'success' : 'error' }}" role="alert">
                 <strong>{{ session('heading') }}:</strong>
                 {{ session('message') }}
             </div>
         @endif
         <div class="mt-6">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                <div class="overflow-x-auto">
-                    <div class="flex px-6 py-4">
-                        <form action="{{ route('admin.opinions.index') }}" method="GET" class="w-full">
-                            <div class="flex items-center justify-between gird-cols-3 md:grid-cols-1">
-                                <ul class="menu md:menu-horizontal rounded-box bg-white gap-1">
-                                    <li>
-                                        <label
-                                            class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md items-center gap-2 flex md:w-full "
-                                            style="border: 1px solid black;">
-                                            <input name="search" type="text"
-                                                class="grow placeholder-black font-semibold"
-                                                placeholder="Tìm kiếm theo tiêu đề" style="border: unset; color:black"
-                                                value="{{ request()->search }}" />
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <button type="submit" class="btn bg-blue-700 w-full ">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
-                                                class="h-4 w-4 opacity-70 fill-white">
-                                                <path fill-rule="evenodd"
-                                                    d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                        </button>
-                                    </li>
-                                </ul>
+                <div class="flex px-6 py-4">
+                    <form action="{{ route('admin.opinions.index') }}" method="GET" class="w-full">
+                        <div class=" items-center gird-cols-3 md:grid-cols-1">
+                            <ul class="menu md:menu-horizontal rounded-box bg-white gap-1">
+                                <li>
+                                    <label
+                                        class="input border border-gray-300 bg-white text-gray-900 p-2 rounded-md items-center gap-2 flex md:w-full "
+                                        style="border: 1px solid black;">
+                                        <input name="search" type="text"
+                                            class="grow placeholder-black font-semibold"
+                                            placeholder="Tìm kiếm theo tiêu đề" style="border: unset; color:black"
+                                            value="{{ request()->search }}" />
+                                    </label>
+                                </li>
+                                <li>
+                                    <button type="submit" class="btn bg-blue-700 w-full ">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
+                                            class="h-4 w-4 opacity-70 fill-white">
+                                            <path fill-rule="evenodd"
+                                                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </li>
+                            </ul>
 
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="overflow-x-auto">
                     <table class="table text-black text-base">
                         <!-- head -->
                         <thead class="text-black text-base">
@@ -66,7 +66,7 @@
                                     <th class="text-center">
                                         {{ $opinions->firstItem() + $loop->index }}
                                     </th>
-                                    <td class="text-left">{{ $opinion->document_opinion[0]->name}}</td>
+                                    <td class="text-left">{{ $opinion->document_opinion[0]->name }}</td>
                                     <td class="text-left">{{ $opinion->name }}</td>
                                     <td class="text-center">{{ $opinion->phone }}</td>
                                     <td class="text-center">{{ $opinion->email }}</td>

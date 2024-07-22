@@ -20,7 +20,7 @@ class AnnouncementController extends Controller
                     fn ($query) => $query->where('title', 'like', '%' . $request->search . '%')
                 )
                 ->latest()
-                ->paginate(10),
+                ->paginate(10)->appends($request->all()),
         ]);
     }
 

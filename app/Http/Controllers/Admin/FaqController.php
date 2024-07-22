@@ -17,10 +17,10 @@ class FaqController extends Controller
             'faqs' => Faq::query()
                 ->when(
                     $request->search,
-                    fn ($query) => $query->where('name', 'like', '%'.$request->search.'%')
+                    fn ($query) => $query->where('name', 'like', '%' . $request->search . '%')
                 )
                 ->latest()
-                ->paginate(10),
+                ->paginate(10)->appends($request->all()),
         ]);
     }
 
@@ -76,11 +76,11 @@ class FaqController extends Controller
             'status' => 0,
         ]);
 
-        if (! $faq->answer_at) {
+        if (!$faq->answer_at) {
             $faq->update(['answer_at' => now()->format('d.m.Y h:i')]);
         }
-        if($answer) {
-            return redirect()->route('admin.faqs.show',$faq->id)->with([
+        if ($answer) {
+            return redirect()->route('admin.faqs.show', $faq->id)->with([
                 'icon' => 'success',
                 'heading' => 'Success',
                 'message' => 'Trả lời câu hỏi thành công',
@@ -94,6 +94,7 @@ class FaqController extends Controller
     public function destroy($id)
     {
         $faq = Faq::findOrFail($id);
+        $faq->answers()->delete();
         $faq->delete();
 
         return back()->with([

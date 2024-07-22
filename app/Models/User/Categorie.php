@@ -23,7 +23,7 @@ class Categorie extends Model implements HasMedia
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'category_id');
+        return $this->hasMany(User::class, 'category_id', 'id');
     }
 
     protected function updatedAtVi(): Attribute

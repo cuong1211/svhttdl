@@ -14,7 +14,7 @@ class CategorieRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|unique:departments|max:255',
+            'name' => 'required|max:255',
             'description' => 'nullable',
         ];
     }
@@ -22,8 +22,7 @@ class CategorieRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.unique' => trans('admin.field.unique'),
-            'name.required' => trans('admin.field.required'),
+            'name.required' => 'Tên không được để trống',
             'name.max' => "Tên không được vượt quá 255 ký tự"
         ];
     }

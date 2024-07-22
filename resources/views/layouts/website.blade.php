@@ -355,7 +355,6 @@
             speed: 1
         });
     </script>
-
     <script>
         $(function() {
             $('#rs').on('click', function() {
@@ -366,11 +365,7 @@
             })
         })
     </script>
-
+    @stack('scripts')
 </body>
-
-
-
-<!-- Mirrored from sovhttdl.backan.gov.vn/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 15 Jun 2024 03:41:38 GMT -->
 
 </html>

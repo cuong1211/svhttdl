@@ -30,14 +30,13 @@ class UserRequest extends FormRequest
             case 'store': {
                     return [
                         'name' => 'required|regex: /^[ a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/|max:255|min:2',
-                        // 'name'=>['required','alpha','max:255','min:2'],
                         'email' => 'required|max:255|email|unique:users|regex:/^[A-Za-z0-9.@+]*$/|email:rfc,dns',
                         'phone' => 'nullable|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|max:15',
                         'address' => 'nullable|max:255',
                         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                         'state' => 'required|boolean',
                         'provide_id' => 'nullable|integer',
-                        'department_id' => 'required| not in:0',
+                        'department_id' => 'nullable',
                         'category_id' => 'required| not in:0',
                         'display_name' => 'required|max:255',
                         'password' => 'required|min:8|max:255|confirmed',
@@ -47,7 +46,6 @@ class UserRequest extends FormRequest
             case 'update': {
                     return [
                         'name' => 'required|regex: /^[ a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/|max:255|min:2',
-                        // 'name'=>['required','max:255','min:2','alpha'],
                         'email' => [
                             'required',
                             'max:255',
@@ -62,7 +60,7 @@ class UserRequest extends FormRequest
                         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                         'state' => 'required|boolean',
                         'provide_id' => 'nullable|integer',
-                        'department_id' => 'required| not in:0',
+                        'department_id' => 'nullable',
                         'category_id' => 'required| not in:0',
                         'display_name' => 'required|max:255',
                         'password' => 'nullable|min:8|max:255|confirmed',

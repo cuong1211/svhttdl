@@ -2,17 +2,11 @@
     <div class="p-6">
         <div class="text-black text-normal font-semibold leading-tight">
             <span class="text-black text-normal flex items-center gap-2 font-semibold leading-tight">
-                @lang('admin.staffs.list')
+                Tài khoản
                 <x-heroicon-m-arrow-small-right class="size-4" />
                 @lang('admin.add')
             </span>
         </div>
-        @if (session('icon') && session('heading') && session('message'))
-            <div class="alert alert-{{ session('icon') === 'success' ? 'success' : 'danger' }}" role="alert">
-                <strong>{{ session('heading') }}:</strong>
-                {{ session('message') }}
-            </div>
-        @endif
         <div class="mt-6">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 @if ($errors->any())
@@ -30,9 +24,9 @@
                         @csrf
                         <label class="form-control w-full">
                             <div class="label">
-                                <span class="label-text text-base text-black font-medium">Tên</span>
+                                <span class="label-text text-base text-black font-medium">Họ và tên</span>
                             </div>
-                            <input type="text" name="name" placeholder="Tên..." @class([
+                            <input type="text" name="name" placeholder="Họ và tên..." @class([
                                 'border',
                                 'border-gray-300',
                                 'bg-white',
@@ -41,7 +35,8 @@
                                 'rounded-md',
                                 'input-error' => $errors->has('name'),
                                 'w-full',
-                            ]) />
+                            ])
+                                value="{{ old('name') }}" />
                             @error('name')
                                 <p class="text-red-500 text-xs italic">{{ $message }}</p>
                             @enderror
@@ -60,7 +55,7 @@
                                     'rounded-md',
                                     'input-error' => $errors->has('display_name'),
                                     'w-full',
-                                ]) />
+                                ]) value="{{ old('display_name') }}" />
                             @error('display_name')
                                 <p class="text-red-500 text-xs italic">{{ $message }}</p>
                             @enderror
@@ -78,7 +73,8 @@
                                 'rounded-md',
                                 'input-error' => $errors->has('email'),
                                 'w-full',
-                            ]) />
+                            ])
+                                value="{{ old('email') }}" />
                             @error('email')
                                 <p class="text-red-500 text-xs italic">{{ $message }}</p>
                             @enderror
@@ -99,7 +95,7 @@
                             ])>
                                 <option value="0">Chọn phòng ban</option>
                                 @foreach ($departments as $department)
-                                    <option value="{{ $department->id }}">
+                                    <option value="{{ $department->id }}" @selected(old('department_id') == $department->id)>
                                         {{ $department->name }}</option>
                                 @endforeach
                             </select>
@@ -123,7 +119,7 @@
                             ])>
                                 <option value="0">Chọn</option>
                                 @foreach ($role as $role)
-                                    <option value="{{ $role->id }}">
+                                    <option value="{{ $role->id }}" @selected(old('category_id') == $role->id)>
                                         {{ $role->name }}
                                     </option>
                                 @endforeach
@@ -146,14 +142,11 @@
                                 'input-error' => $errors->has('state'),
                                 'w-full',
                             ])>
-                                <option value="0">Ẩn</option>
-                                <option value="1" selected>
+                                <option value="0" @selected(old('state') == 0)>Ẩn</option>
+                                <option value="1" @selected(old('state') == 1)>
                                     Kích hoạt
                                 </option>
                             </select>
-                            @error('state')
-                                <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                            @enderror
                         </label>
                         <label class="form-control w-full">
                             <div class="label">
@@ -169,7 +162,7 @@
                                     'rounded-md',
                                     'input-error' => $errors->has('password'),
                                     'w-full',
-                                ]) />
+                                ]) value="{{ old('password') }}" />
                         </label>
                         <label class="form-control w-full">
                             <div class="label">
@@ -185,7 +178,7 @@
                                     'rounded-md',
                                     'input-error' => $errors->has('password_confirmation'),
                                     'w-full',
-                                ]) />
+                                ]) value="{{ old('password_confirmation') }}" />
                         </label>
                         <label class="form-control w-full">
                             <div class="label">
@@ -200,23 +193,24 @@
                                 'rounded-md',
                                 'input-error' => $errors->has('phone'),
                                 'w-full',
-                            ]) />
+                            ])
+                                value="{{ old('phone') }}" />
                         </label>
                         <label class="form-control w-full">
                             <div class="label">
                                 <span class="label-text text-base text-black font-medium">Địa chỉ</span>
                             </div>
-                            <input type="text" name="address" placeholder="Địa chỉ..."
-                                @class([
-                                    'border',
-                                    'border-gray-300',
-                                    'bg-white',
-                                    'text-black',
-                                    'p-2',
-                                    'rounded-md',
-                                    'input-error' => $errors->has('address'),
-                                    'w-full',
-                                ]) />
+                            <input type="text" name="address" placeholder="Địa chỉ..." @class([
+                                'border',
+                                'border-gray-300',
+                                'bg-white',
+                                'text-black',
+                                'p-2',
+                                'rounded-md',
+                                'input-error' => $errors->has('address'),
+                                'w-full',
+                            ])
+                                value="{{ old('address') }}" />
                         </label>
                         <div class="flex justify-end gap-4">
                             <a href="{{ route('admin.staffs.index') }}" class="btn-light btn">

@@ -50,8 +50,6 @@ class HomeController extends Controller
     }
     public function getPost($category_id, $menu_id, $id): View
     {
-
-
         $category = Category::query()->where('id', $category_id)->first();
         $post = Post::query()->where('id', $id)->first();
         $otherPosts = Post::query()
@@ -79,7 +77,7 @@ class HomeController extends Controller
         $about = Post::query()->where('id', $id)->first();
         return view('web.about', compact('about'));
     }
-    public function getChildIntro($category_id,$menu_id,$id)
+    public function getChildIntro($category_id, $menu_id, $id)
     {
         $about = Post::query()->where('id', $id)->first();
         return view('web.about_child', compact('about'));

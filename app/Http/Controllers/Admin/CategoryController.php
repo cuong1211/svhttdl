@@ -27,7 +27,7 @@ class CategoryController extends Controller
             )
             ->with('parent', 'department')
             ->latest()
-            ->paginate(10);
+            ->paginate(10)->appends($request->all());;
         // dd($categories);
         return view('admin.categories.index', [
             'categories' => $categories,
@@ -96,14 +96,20 @@ class CategoryController extends Controller
 
     public function destroy(Category $category): RedirectResponse
     {
+        if ($category->children()->exists()) {
+            return back()->with([
+                'icon' => 'error',
+                'heading' => 'Error',
+                'message' => 'Danh mục không thể xóa bởi có danh mục khác liên kết với danh mục này',
+            ]);
+        }
         if ($category->posts()->exists()) {
             return back()->with([
                 'icon' => 'error',
-                'heading' => 'error',
+                'heading' => 'Error',
                 'message' => 'Danh mục không thể xóa bởi có bài viết bên trong danh mục này',
             ]);
         }
-
         $category->delete();
         return back()->with([
             'icon' => 'success',

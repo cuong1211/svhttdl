@@ -2,19 +2,22 @@
     <div class="p-6">
         <div class="text-black text-normal font-semibold leading-tight">
             <span class="text-black text-normal flex items-center gap-2 font-semibold leading-tight">
-                @lang('admin.staffs.list')
+                Tài khoản
                 <x-heroicon-m-arrow-small-right class="size-4" />
                 @lang('admin.edit')
             </span>
         </div>
-        @if (session('icon') && session('heading') && session('message'))
-            <div class="alert alert-{{ session('icon') === 'success' ? 'success' : 'danger' }}" role="alert">
-                <strong>{{ session('heading') }}:</strong>
-                {{ session('message') }}
-            </div>
-        @endif
         <div class="mt-6">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                @if ($errors->any())
+                    <div class="alert alert-error text-black">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="bg-white px-8 pb-8 pt-0 shadow sm:rounded-lg">
                     <form action="{{ route('admin.users.update', $user->id) }}" method="POST"
                         class="space-y-4 needs-validation" novalidate enctype="multipart/form-data">
@@ -24,8 +27,8 @@
                             <div class="label">
                                 <span class="label-text text-base text-black font-medium">@lang('admin.staffs.name')</span>
                             </div>
-                            <input type="text" name="name" value="{{ old('name', $user->name) }}"
-                                placeholder="name..." @class([
+                            <input type="text" name="name" value="{{ $user->name }}" placeholder="name..."
+                                @class([
                                     'border',
                                     'border-gray-300',
                                     'bg-white',
@@ -40,8 +43,8 @@
                             <div class="label">
                                 <span class="label-text text-base text-black font-medium">Tên hiển thị</span>
                             </div>
-                            <input type="text" name="display_name"
-                                value="{{ old('display_name', $user->display_name) }}" @class([
+                            <input type="text" name="display_name" value="{{ $user->display_name }}"
+                                @class([
                                     'border',
                                     'border-gray-300',
                                     'bg-white',
@@ -59,7 +62,7 @@
                             <div class="label">
                                 <span class="label-text text-base text-black font-medium">Email</span>
                             </div>
-                            <input type="text" name="email" value="{{ old('email', $user->email) }}"
+                            <input type="text" name="email" value="{{ $user->email }}"
                                 @class([
                                     'border',
                                     'border-gray-300',
@@ -91,7 +94,7 @@
                                 <option value="0">Chọn phòng ban</option>
                                 @foreach ($departments as $department)
                                     <option value="{{ $department->id }}"
-                                        {{ $user->department_id == $department->id ? '' : 'selected' }}>
+                                        {{ $user->department_id == $department->id ? 'selected' : '' }}>
                                         {{ $department->name }}</option>
                                 @endforeach
                             </select>
@@ -116,7 +119,7 @@
                                 <option value="0">Chọn</option>
                                 @foreach ($role as $role)
                                     <option value="{{ $role->id }}"
-                                        {{ $user->category_id == $role->id ? '' : 'selected' }}>
+                                        {{ $user->category_id == $role->id ? 'selected' : '' }}>
                                         {{ $role->name }}
                                     </option>
                                 @endforeach
@@ -139,8 +142,8 @@
                                 'input-error' => $errors->has('state'),
                                 'w-full',
                             ])>
-                                <option value="0" {{ $user->state == 0 ? '' : 'selected' }}>Ẩn</option>
-                                <option value="1" {{ $user->state == 1 ? '' : 'selected' }}>Kích hoạt</option>
+                                <option value="0" {{ $user->state == 0 ? 'selected' : '' }}>Ẩn</option>
+                                <option value="1" {{ $user->state == 1 ? 'selected' : '' }}>Kích hoạt</option>
                             </select>
                             @error('state')
                                 <p class="text-red-500 text-xs italic">{{ $message }}</p>

@@ -8,6 +8,7 @@ use App\Models\User\Categorie;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 
 class CategorieController extends Controller
 {
@@ -19,7 +20,7 @@ class CategorieController extends Controller
                 fn ($query) => $query->where('name', 'like', '%' . $request->search . '%')
             )
             ->latest()
-            ->get();
+            ->paginate(10)->appends($request->all());
 
         return view('admin.users.categories.index', [
             'categories' => $categories,
@@ -41,25 +42,16 @@ class CategorieController extends Controller
 
     public function store(CategorieRequest $request): RedirectResponse
     {
-        $data = [
-            'name' => $request->name,
-            'description' => $request->description,
-        ];
-        $Categorie = Categorie::updateOrCreate(
-            ['name' => $request->name],
-            $data
-        );
-        if ($categorie->wasRecentlyCreated) {
-            return back()->with([
+        $data = $request->validated();
+        $categorie =  Categorie::create([
+            'name' => $data['name'],
+            'slug' => Str::slug($data['name']),
+        ]);
+        if ($categorie) {
+            return redirect()->route('admin.roles.index')->with([
                 'icon' => 'success',
                 'heading' => 'Success',
-                'message' => 'Thêm mới phòng ban thành công',
-            ]);
-        } else {
-            return back()->with([
-                'icon' => 'info',
-                'heading' => 'Updated',
-                'message' => 'Cập nhật phòng ban thành công',
+                'message' => 'Thêm loại tài khoản thành công',
             ]);
         }
     }
@@ -73,17 +65,18 @@ class CategorieController extends Controller
 
     public function update(CategorieRequest $request, $id): RedirectResponse
     {
+        $data = $request->validated();
         $categorie = Categorie::findOrFail($id);
 
         $categorie->update([
-            'name' => $request->name,
-            'description' => $request->description,
+            'name' => $data['name'],
+            'slug' => Str::slug($data['name']),
         ]);
 
-        return redirect()->route('admin.categories.index')->with([
-            'icon' => 'info',
-            'heading' => 'Updated',
-            'message' => 'Cập nhật phòng ban thành công',
+        return redirect()->route('admin.roles.index')->with([
+            'icon' => 'success',
+            'heading' => 'Success',
+            'message' => 'Cập nhật loại tài khoản thành công',
         ]);
     }
 
@@ -99,8 +92,8 @@ class CategorieController extends Controller
         if ($categorie->users()->exists()) {
             return back()->with([
                 'icon' => 'error',
-                'heading' => 'Failed',
-                'message' => 'categorie cannot be deleted because it has posts associated with it.',
+                'heading' => 'Error',
+                'message' => 'Loại tài khoản này ko thể xóa bởi vì đang có tài khoản liên kết.',
             ]);
         }
         $categorie->delete();

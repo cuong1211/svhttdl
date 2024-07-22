@@ -9,15 +9,17 @@
             --white: white;
         }
 
-       .container{
+        .container {
             width: 100%;
             color: var(--white);
             justify-content: center;
             text-align: center;
-       }
+        }
+
         ol {
             list-style: none;
         }
+
         .rectangle {
             position: relative;
             padding: 10px;
@@ -27,7 +29,7 @@
 
 
         /* LEVEL-1 STYLES
-                –––––––––––––––––––––––––––––––––––––––––––––––––– */
+                    –––––––––––––––––––––––––––––––––––––––––––––––––– */
         .level-1 {
             width: 20%;
             margin: 0 auto 40px;
@@ -47,7 +49,7 @@
 
 
         /* LEVEL-2 STYLES
-                –––––––––––––––––––––––––––––––––––––––––––––––––– */
+                    –––––––––––––––––––––––––––––––––––––––––––––––––– */
         .level-2-wrapper {
             position: relative;
             display: grid;
@@ -121,7 +123,7 @@
 
 
         /* LEVEL-3 STYLES
-                –––––––––––––––––––––––––––––––––––––––––––––––––– */
+                    –––––––––––––––––––––––––––––––––––––––––––––––––– */
         .level-3-wrapper {
             position: relative;
             display: grid;
@@ -167,7 +169,7 @@
 
 
         /* LEVEL-4 STYLES
-                –––––––––––––––––––––––––––––––––––––––––––––––––– */
+                    –––––––––––––––––––––––––––––––––––––––––––––––––– */
         .level-4-wrapper {
             position: relative;
             width: 80%;
@@ -206,8 +208,8 @@
 
 
         /* MQ STYLES
-                –––––––––––––––––––––––––––––––––––––––––––––––––– */
-        @media screen and (max-width: 700px) {
+                    –––––––––––––––––––––––––––––––––––––––––––––––––– */
+        @media screen and (max-width: 900px) {
             .rectangle {
                 padding: 20px 10px;
             }
@@ -232,6 +234,10 @@
                 display: block;
             }
 
+            .level-2-wrapper.hidden::after {
+                display: none;
+            }
+
             .level-2-wrapper {
                 width: 90%;
                 margin-left: 10%;
@@ -240,7 +246,7 @@
             .level-2-wrapper::before {
                 left: -20px;
                 width: 2px;
-                height: calc(100% + 40px);
+                height: 100%;
             }
 
             .level-2-wrapper>li:not(:first-child) {

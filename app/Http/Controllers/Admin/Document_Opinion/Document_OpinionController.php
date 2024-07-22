@@ -12,9 +12,16 @@ class Document_OpinionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $docs = Document_Opinion::query()->latest()->paginate(10);
+        $docs = Document_Opinion::query()
+            ->when(
+                $request->search,
+                fn ($query) => $query->where('title', 'like', '%' . $request->search . '%')
+            )
+            ->latest()
+            ->paginate(10)
+            ->appends($request->all());
         return view('admin.doc_opi.docs.index', compact('docs'));
     }
 

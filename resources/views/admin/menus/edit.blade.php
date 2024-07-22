@@ -129,7 +129,7 @@
                                     'rounded-md',
                                     'w-full',
                                 ])>
-                                    <option value="0" {{ $selectedMenu->in_menu ? '' : 'selected' }}>
+                                    <option value="0" {{ $selectedMenu->in_menu ? 'selected' : '' }}>
                                         @lang('admin.false')
                                     </option>
                                     <option value="1" {{ $selectedMenu->in_menu ? 'selected' : '' }}>

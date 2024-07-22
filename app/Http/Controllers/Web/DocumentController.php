@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 
 class DocumentController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $docs = Document::query()->paginate(10);
-        // dd($docs->getFirstMedia('document_file')->getUrl());
-        return view("web.document.index",compact("docs"));
+        return view("web.document.index", compact("docs"));
     }
 }

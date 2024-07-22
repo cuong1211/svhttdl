@@ -70,7 +70,14 @@
         </table>
     </div>
 
-    <!-- Modal -->
+    @push('scripts')
+        <script>
+            const wrappers = document.querySelectorAll('.level-2-wrapper');
+            if (wrappers.length > 0) {
+                wrappers[wrappers.length - 1].classList.add('hidden');
+            }
+        </script>
+    @endpush
 
 
 </x-website-layout>
