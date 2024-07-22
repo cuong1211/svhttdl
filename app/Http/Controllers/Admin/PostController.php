@@ -20,7 +20,6 @@ class PostController extends Controller
         $parent_category = [];
         $child_category_id = [];
         $category = Category::where('id', $id)->firstOrFail();
-
         $all_cate_of_category = Category::where('parent_id', $id)->get();
         foreach ($all_cate_of_category as $cate) {
             $parent_category[] = $cate->id;
@@ -40,13 +39,13 @@ class PostController extends Controller
         if ($request->search != null) {
             $postsQuery->where('title', 'like', '%' . $request->search . '%');
         }
-        
+
         if ($request->categoryFilter1 != null) {
             $postsQuery->where('category_id', $request->categoryFilter1);
         } elseif ($request->categoryFilter != null) {
             $child_categories = Category::where('parent_id', $request->categoryFilter)->pluck('id')->toArray();
             $postsQuery->whereIn('category_id', $child_categories);
-        } elseif($child_category_id != null) {
+        } elseif ($child_category_id != null) {
             $postsQuery->whereIn('category_id', $child_category_id);
         }
         switch ($all_cate_of_category->count()) {
@@ -65,7 +64,7 @@ class PostController extends Controller
                 break;
         }
 
-        
+
         return view('admin.categories.posts.index', [
             'category' => $category,
             'posts' => $posts,
@@ -83,7 +82,7 @@ class PostController extends Controller
             ->where('parent_id', $categoryId)
             ->where('in_menu', true)
             ->orderBy('order')->get();
-        
+
         $category = Category::findOrFail($categoryId);
 
         return view('admin.categories.posts.create', compact('categories', 'category'));
@@ -165,8 +164,6 @@ class PostController extends Controller
             }
             // dd($post);
             DB::commit();
-            $category = Category::findOrFail($categoryId);
-
             return redirect()->route('admin.categories.posts.index', ['category' => $categoryId])->with([
                 'icon' => 'success',
                 'heading' => 'Success',
@@ -175,7 +172,11 @@ class PostController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
 
-            return redirect()->back()->with('error', 'Error updating post: ' . $e->getMessage());
+            return redirect()->back()->with([
+                'icon' => 'error',
+                'heading' => 'Error',
+                'message' => 'Cập nhật bài viết thất bại',
+            ]);
         }
     }
 

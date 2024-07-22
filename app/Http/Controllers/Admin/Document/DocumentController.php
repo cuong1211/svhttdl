@@ -114,10 +114,6 @@ class DocumentController extends Controller
             'type_id' => $data['type_id'],
             'tag_id' => $data['tag_id'],
         ]);
-
-        // Assuming document has `signers` and `types` relationships
-        // If these relationships are many-to-many
-        // You should ensure your Document model has these relationships defined
         if ($request->hasFile('document_file')) {
             $imageFile = $request->file('document_file');
             $document->clearMediaCollection('document_file');

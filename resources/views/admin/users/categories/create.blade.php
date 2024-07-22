@@ -38,23 +38,6 @@
                                     'w-full',
                                 ]) />
                         </label>
-                        <label class="form-control w-full">
-                            <div class="label">
-                                <span class="label-text text-base text-black font-medium">Mô tả</span>
-                            </div>
-                            <textarea name="description" id="description" cols="30" rows="10" @class([
-                                'border',
-                                'border-gray-300',
-                                'bg-white',
-                                'text-black',
-                                'p-2',
-                                'rounded-md',
-                                'input-error' => $errors->has('description'),
-                                'w-full',
-                            ])></textarea>
-
-                        </label>
-
                         <div class="flex justify-end gap-4">
                             <a href="{{ route('admin.departments.index') }}" class="btn-light btn text-white">
                                 @lang('admin.btn.cancel')

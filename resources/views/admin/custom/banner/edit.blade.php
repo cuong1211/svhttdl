@@ -74,7 +74,7 @@
                                             class="ms-2  text-black dark:text-gray-300 text-base">Đầu trang</label>
                                     </div>
                                     <div class="flex items-center">
-                                        <input  id="default-radio-2" type="radio" value="2"
+                                        <input id="default-radio-2" type="radio" value="2"
                                             {{ $banner->position == 2 ? 'checked' : '' }} name="position"
                                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="default-radio-2"
@@ -130,20 +130,40 @@
     </div>
     @pushonce('bottom_scripts')
         <x-admin.forms.tinymce-config column="content" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" />
-        <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.min.js"></script>
-
+       
         <script>
             var loadFile = function(event) {
+                document.getElementById('preview_img').style.display = 'block'
                 var input = event.target
                 var file = input.files[0]
                 var type = file.type
 
                 var output = document.getElementById('preview_img')
+                const allowedExtensions = /(\.png|\.jpeg|\.jpg)$/i;
+                const maxFileSize = 5 * 1024 * 1024; // 5MB in bytes
 
+                if (!allowedExtensions.exec(input.value)) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Chỉ chấp nhận tệp tin PNG, JPEG, JPG .",
+                    });
+                    input.value = '';
+                    return false;
+                }
+
+                if (input.files[0].size > maxFileSize) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Dung lượng tệp tin không được vượt quá 5MB.",
+                    });
+                    input.value = '';
+                    return false;
+                }
                 output.src = URL.createObjectURL(event.target.files[0])
                 output.onload = function() {
-                    URL.revokeObjectURL(output.src) // free memory
+                    URL.revokeObjectURL(output.src)
                 }
             }
         </script>

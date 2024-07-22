@@ -67,7 +67,7 @@
                             @foreach ($menus as $menu)
                                 <tr>
                                     <th class="text-center">
-                                        {{ $loop->index + 1 }}
+                                        {{ $menus->firstItem() + $loop->index }}
                                     </th>
                                     <td class="w-12 text-center">
                                         <div class=" bg-blue-700 text-white">{{ $menu->order }}</div>

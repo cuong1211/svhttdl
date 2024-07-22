@@ -56,6 +56,7 @@
                             <tr>
                                 <th class="text-center font-semibold">#</th>
                                 <th class="text-center font-semibold">@lang('admin.categories.order')</th>
+                                <th class="text-center font-semibold">ID</th>
                                 <th class="text-left font-semibold">@lang('admin.categories.title')</th>
                                 <th class="text-left font-semibold">Danh mục thuộc</th>
                                 <th class="text-center font-semibold">@lang('admin.categories.created_at')</th>
@@ -72,6 +73,7 @@
                                     <td class="w-12 text-center">
                                         <div class=" bg-blue-700 text-white">{{ $category->order }}</div>
                                     </td>
+                                    <td class="text-center">{{ $category->id }}</td>
                                     <td class="text-left">
                                         {{ app()->getLocale() === 'en' ? $category->title_en : $category->title }}</td>
                                     <td class="text-left">{{ $category->parent->title ?? 'Danh mục cha' }}</td>

@@ -66,7 +66,7 @@
                             @foreach ($addons as $addon)
                                 <tr>
                                     <th class="text-center">
-                                        {{ $loop->index + 1 }}
+                                        {{ $addons->firstItem() + $loop->index }}
                                     </th>
                                     <td class="text-center">
                                         <div class=" bg-blue-700 text-white">{{ $addon->order }}

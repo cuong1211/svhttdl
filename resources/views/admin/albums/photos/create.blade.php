@@ -82,7 +82,8 @@
                                 style="display:none" />
                         </div>
                         <div class="flex justify-end gap-4">
-                            <a href="{{ route('admin.photos.index') }}" class="btn-light btn text-white">@lang('admin.btn.cancel')
+                            <a href="{{ route('admin.photos.index') }}"
+                                class="btn-light btn text-white">@lang('admin.btn.cancel')
                             </a>
                             <button type="submit" class="btn bg-blue-700 text-white ml-2">
                                 @lang('admin.btn.submit')
@@ -95,6 +96,7 @@
     </div>
     @pushonce('bottom_scripts')
         <x-admin.forms.tinymce-config column="content" />
+       
         <script>
             var loadFile = function(event) {
                 document.getElementById('preview_img').style.display = 'block'
@@ -103,17 +105,25 @@
                 var type = file.type
 
                 var output = document.getElementById('preview_img')
-                const allowedExtensions = /(\.png|\.jpeg|\.jpg|\.gif)$/i;
+                const allowedExtensions = /(\.png|\.jpeg|\.jpg)$/i;
                 const maxFileSize = 5 * 1024 * 1024; // 5MB in bytes
 
                 if (!allowedExtensions.exec(input.value)) {
-                    alert('Vui lòng chọn tệp tin định dạng ảnh.');
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Chỉ chấp nhận tệp tin PNG, JPEG, JPG .",
+                    });
                     input.value = '';
                     return false;
                 }
 
                 if (input.files[0].size > maxFileSize) {
-                    alert('Tệp tin tải lên không được vượt quá 5MB.');
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Dung lượng tệp tin không được vượt quá 5MB.",
+                    });
                     input.value = '';
                     return false;
                 }

@@ -4,7 +4,8 @@
     'name' => '',
 ])
 <div>
-    <div class="max-w-xs" x-data="app_start()" x-init="[initDate(), getNoOfDays()]" x-cloak>
+    <!-- No surplus words or unnecessary actions. - Marcus Aurelius -->
+    <div class=" max-w-xs" x-data="app_end()" x-init="[initDate(), getNoOfDays()]" x-cloak>
         <div class="relative">
             <input type="hidden" name="{{ $name }}" x-ref="date" />
             <label class="form-control w-full max-w-xs">
@@ -16,11 +17,13 @@
                     class="border border-gray-300 bg-white text-black p-2 rounded-md pr-12" placeholder="Select date" />
                 <x-heroicon-s-calendar class="absolute size-6 bottom-3 right-4 text-slate-500" />
             </label>
+
+
             <div class="absolute right-0 top-24 rounded-lg bg-white p-4 shadow-lg z-10 w-64"
                 x-show.transition="showDatepicker" @click.away="showDatepicker = false">
                 <div class="mb-2 flex items-center justify-between">
                     <div>
-                        <span x-text="MONTH_NAMES_START[month]" class="text-black text-lg font-bold"></span>
+                        <span x-text="MONTH_NAMES_END[month]" class="text-black text-lg font-bold"></span>
                         <span x-text="year" class="text-gray-600 ml-1 text-lg font-normal"></span>
                     </div>
                     <div>
@@ -46,13 +49,15 @@
                         </button>
                     </div>
                 </div>
+
                 <div class="-mx-1 mb-3 flex flex-wrap">
-                    <template x-for="(day, index) in DAYS_START" :key="index">
+                    <template x-for="(day, index) in DAYS_END" :key="index">
                         <div style="width: 14.26%" class="px-1">
                             <div x-text="day" class="text-black text-center text-xs font-medium"></div>
                         </div>
                     </template>
                 </div>
+
                 <div class="-mx-1 flex flex-wrap">
                     <template x-for="blankday in blankdays">
                         <div style="width: 14.28%" class="border border-transparent p-1 text-center text-sm"></div>
@@ -62,8 +67,10 @@
                             <div @click="getDateValue(date)" x-text="date"
                                 class="cursor-pointer rounded-full text-center text-sm transition duration-100 ease-in-out"
                                 :class="{
-                                    'bg-blue-500 text-white': isToday(date),
-                                    'text-gray-700 hover:bg-blue-200': !isToday(date)
+                                    'bg-blue-500 text-white': isToday(date) ==
+                                        true,
+                                    'text-gray-700 hover:bg-blue-200': isToday(
+                                        date) == false
                                 }">
                             </div>
                         </div>
@@ -73,76 +80,73 @@
         </div>
     </div>
 </div>
-
 <style>
     [x-cloak] {
         display: none;
     }
 </style>
-
 <script>
-    const MONTH_NAMES_START = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8',
+    const MONTH_NAMES_END = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8',
         'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'
     ]
-    const DAYS_START = ['Chủ nhật', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7']
+    const DAYS_END = ['Chủ nhật', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7']
 
-    function app_start() {
+    function app_end() {
         return {
             showDatepicker: false,
             datepickerValue: '',
+
             month: '',
             year: '',
             no_of_days: [],
             blankdays: [],
-            days: DAYS_START,
+            days: ['Chủ nhật', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7'],
 
             initDate() {
-                let today = new Date('{{ $publish_at }}');
-                this.month = today.getMonth();
-                this.year = today.getFullYear();
-                this.datepickerValue = new Date(this.year, this.month, today.getDate()).toDateString();
-                this.$refs.date.value =
-                    today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate())
-                    .slice(-2);
+                let today = new Date('{{ $publish_at }}')
+                console.log();
+                this.month = today.getMonth()
+                this.year = today.getFullYear()
+                this.datepickerValue = new Date(this.year, this.month, today.getDate()).toDateString()
             },
 
             isToday(date) {
-                const today = new Date();
-                const d = new Date(this.year, this.month, date);
+                const today = new Date()
+                const d = new Date(this.year, this.month, date)
 
-                return today.toDateString() === d.toDateString();
+                return today.toDateString() === d.toDateString() ? true : false
             },
 
             getDateValue(date) {
-                let selectedDate = new Date(this.year, this.month, date);
-                this.datepickerValue = selectedDate.toDateString();
+                let selectedDate = new Date(this.year, this.month, date)
+                this.datepickerValue = selectedDate.toDateString()
 
                 this.$refs.date.value =
-                    selectedDate.getFullYear() + '-' + ('0' + (selectedDate.getMonth() + 1)).slice(-2) + '-' + ('0' +
-                        selectedDate.getDate()).slice(-2);
+                    selectedDate.getFullYear() + '-' + ('0' + selectedDate.getMonth()).slice(-2) + '-' + ('0' +
+                        selectedDate.getDate()).slice(-2)
 
-                console.log(this.$refs.date.value);
+                console.log(this.$refs.date.value)
 
-                this.showDatepicker = false;
+                this.showDatepicker = false
             },
 
             getNoOfDays() {
-                let daysInMonth = new Date(this.year, this.month + 1, 0).getDate();
+                let daysInMonth = new Date(this.year, this.month + 1, 0).getDate()
 
                 // find where to start calendar day of week
-                let dayOfWeek = new Date(this.year, this.month).getDay();
-                let blankdaysArray = [];
-                for (let i = 1; i <= dayOfWeek; i++) {
-                    blankdaysArray.push(i);
+                let dayOfWeek = new Date(this.year, this.month).getDay()
+                let blankdaysArray = []
+                for (var i = 1; i <= dayOfWeek; i++) {
+                    blankdaysArray.push(i)
                 }
 
-                let daysArray = [];
-                for (let i = 1; i <= daysInMonth; i++) {
-                    daysArray.push(i);
+                let daysArray = []
+                for (var i = 1; i <= daysInMonth; i++) {
+                    daysArray.push(i)
                 }
 
-                this.blankdays = blankdaysArray;
-                this.no_of_days = daysArray;
+                this.blankdays = blankdaysArray
+                this.no_of_days = daysArray
             },
         }
     }

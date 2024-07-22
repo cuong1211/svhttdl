@@ -64,7 +64,7 @@
                             @foreach ($departments as $department)
                                 <tr>
                                     <th class="text-center">
-                                        {{ $loop->index + 1 }}
+                                        {{ $departments->firstItem() + $loop->index }}
                                     </th>
                                     <td class="text-left">{{ $department->name }}</td>
                                     <td class="text-center">{{ $department->createdAtVi }}</td>
@@ -119,7 +119,7 @@
             </div>
         </div>
         <div class="mt-4">
-            {{--            {{ $departments->links('pagination.web-tailwind') }} --}}
+            {{ $departments->links('pagination.web-tailwind') }}
         </div>
     </div>
 </x-app-layout>

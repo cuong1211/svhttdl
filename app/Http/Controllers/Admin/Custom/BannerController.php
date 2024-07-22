@@ -14,12 +14,12 @@ class BannerController extends Controller
      */
     public function index(Request $request)
     {
-        $banner = banner::query()
+        $banners = banner::query()
             ->when(
                 $request->search,
                 fn ($query) => $query->where('title', 'like', '%' . $request->search . '%')
             )->latest()->paginate(10)->appends($request->all());;
-        return view('admin.custom.banner.index', ['banner' => $banner]);
+        return view('admin.custom.banner.index', ['banners' => $banners]);
     }
 
     /**

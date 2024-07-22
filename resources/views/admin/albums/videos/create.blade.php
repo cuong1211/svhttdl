@@ -137,32 +137,40 @@
         </div>
     </div>
     @pushonce('bottom_scripts')
+       
         <script>
             var loadFile = function(event) {
-
                 document.getElementById('preview_img').style.display = 'block'
                 var input = event.target
                 var file = input.files[0]
                 var type = file.type
 
                 var output = document.getElementById('preview_img')
-                const allowedExtensions = /(\.png|\.jpeg|\.jpg|\.gif)$/i;
+                const allowedExtensions = /(\.png|\.jpeg|\.jpg)$/i;
                 const maxFileSize = 5 * 1024 * 1024; // 5MB in bytes
 
                 if (!allowedExtensions.exec(input.value)) {
-                    alert('Vui lòng chọn tệp tin định dạng ảnh.');
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Chỉ chấp nhận tệp tin PNG, JPEG, JPG .",
+                    });
                     input.value = '';
                     return false;
                 }
 
                 if (input.files[0].size > maxFileSize) {
-                    alert('Tệp tin tải lên không được vượt quá 5MB.');
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Dung lượng tệp tin không được vượt quá 5MB.",
+                    });
                     input.value = '';
                     return false;
                 }
                 output.src = URL.createObjectURL(event.target.files[0])
                 output.onload = function() {
-                    URL.revokeObjectURL(output.src) // free memory
+                    URL.revokeObjectURL(output.src)
                 }
             }
         </script>

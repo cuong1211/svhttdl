@@ -63,10 +63,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($banner as $banner)
+                            @foreach ($banners as $banner)
                                 <tr>
                                     <th class="text-center">
-                                        {{ $loop->index + 1 }}
+                                        {{ $banners->firstItem() + $loop->index }}
                                     </th>
                                     <td class="text-center">
                                         <div class="text-center">{{ $banner->title }}</div>
@@ -131,7 +131,7 @@
             </div>
         </div>
         <div class="mt-4">
-            {{-- {{ $banner->links('pagination.web-tailwind') }} --}}
+            {{ $banners->links('pagination.web-tailwind') }}
         </div>
     </div>
 </x-app-layout>

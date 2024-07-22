@@ -37,7 +37,7 @@ class MenuService
     }
     public function getMenuList()
     {
-        $menu = MenuModel::query()->latest()->paginate(10)->appends($request->all());;
+        $menu = MenuModel::query()->latest()->paginate(10);
         return $menu;
     }
     public function create($data)

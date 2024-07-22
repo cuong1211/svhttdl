@@ -62,7 +62,7 @@
                                     <li>
                                         <select id="categoryFilter1" name="categoryFilter1"
                                             class="select select-bordered w-full bg-white text-black font-semibold"
-                                            style="border: 1px solid black; display: {{ $request->categoryFilter == null ? 'none' : 'block' }}">
+                                            style="border: 1px solid black; display: {{ $request->categoryFilter == null || $request->categoryFilter1 == null ? 'none' : 'block' }}">
                                             <option value="">Tất cả</option>
                                             @foreach ($filter_child_cate as $filter1)
                                                 <option value="{{ $filter1->id }}"
@@ -93,8 +93,9 @@
                         <thead class="text-black text-base">
                             <tr>
                                 <th class="text-center font-semibold">#</th>
-                                <th class="text-center font-semibold">@lang('admin.post.title')</th>
-                                <th class="text-center font-semibold">@lang('admin.post.category_of')</th>
+                                <th class="text-center font-semibold">ID</th>
+                                <th class="text-left font-semibold">@lang('admin.post.title')</th>
+                                <th class="text-left font-semibold">Bài viết thuộc</th>
                                 <th class="text-center font-semibold">@lang('admin.post.published_at')</th>
                                 {{-- ngày đăng --}}
                                 <th>@lang('admin.post.updated_at')</th>
@@ -106,8 +107,10 @@
                             @foreach ($posts as $post)
                                 <tr>
                                     <th class="text-center">{{ $posts->firstItem() + $loop->index }}</th>
+                                    <td class="text-center">{{ $post->id }}</td>
                                     <td class="text-left">{{ $post->title }}</td>
-                                    <td class="text-center">{{ $post->category->title }}</td>
+                                    <td class="text-left">{{ $post->category->parent->title }} /
+                                        {{ $post->category->title }}</td>
                                     <td class="text-center">{{ $post->publishedAtVi }}</td>
                                     <td class="text-center">{{ $post->updatedAtVi }}</td>
 
@@ -166,9 +169,9 @@
     @push('bottom_scripts')
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script>
-            var selectedCategoryFilter1 = "{{ $request->categoryFilter1 }}";
             $('#categoryFilter').on('change', function(e) {
                 if ($(this).val() == '') {
+                    $('#categoryFilter1').empty();
                     $('#categoryFilter1').hide();
                 }
                 e.preventDefault();

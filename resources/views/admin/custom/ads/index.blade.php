@@ -62,30 +62,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($ads as $ads)
+                            @foreach ($ads as $ad)
                                 <tr>
                                     <th class="text-center">
-                                        {{ $loop->index + 1 }}
+                                        {{ $ads->firstItem() + $loop->index }}
                                     </th>
                                     <td class="w-12 text-center">
-                                        <div class=" bg-blue-700 text-white">{{ $ads->order }}</div>
+                                        <div class=" bg-blue-700 text-white">{{ $ad->order }}</div>
                                     </td>
                                     <td class="text-left">
-                                        {{ $ads->title }}</td>
+                                        {{ $ad->title }}</td>
                                     <td class="text-left">
-                                        {{ $ads->url }}</td>
+                                        {{ $ad->url }}</td>
 
 
                                     <td class="text-center">
-                                        {{ $ads->created_at->format('d/m/Y h:i') }}
+                                        {{ $ad->created_at->format('d/m/Y h:i') }}
                                     </td>
                                     <td class="text-center">
-                                        {{ $ads->updated_at->format('d/m/Y h:i') }}
+                                        {{ $ad->updated_at->format('d/m/Y h:i') }}
                                     </td>
                                     <td class="flex gap-3 items-center justify-center">
-                                        <a href="{{ route('admin.ads.edit', ['ad' => $ads->id]) }}"><x-heroicon-s-pencil-square
+                                        <a href="{{ route('admin.ads.edit', ['ad' => $ad->id]) }}"><x-heroicon-s-pencil-square
                                                 class="size-4 text-green-600 " /></a>
-                                        <form id="delete-form-{{ $ads->id }}"
+                                        <form id="delete-form-{{ $ad->id }}"
                                             action="{{ route('admin.ads.destroy', ['ad' => $ads->id]) }}"
                                             method="POST">
                                             @csrf
@@ -130,7 +130,7 @@
             </div>
         </div>
         <div class="mt-4">
-            {{-- {{ $ads->links('pagination.web-tailwind') }} --}}
+            {{ $ads->links('pagination.web-tailwind') }}
         </div>
     </div>
 </x-app-layout>

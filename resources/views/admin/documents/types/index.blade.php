@@ -64,7 +64,7 @@
                             @foreach ($types as $type)
                                 <tr>
                                     <th class="text-center">
-                                        {{ $loop->index + 1 }}
+                                        {{ $types->firstItem() + $loop->index }}
                                     </th>
                                     <td class="text-left">{{ $type->name }}</td>
                                     <td class="text-center">{{ $type->createdAtVi }}</td>

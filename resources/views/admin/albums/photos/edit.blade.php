@@ -100,7 +100,7 @@
                         <div class="flex justify-end gap-4">
                             <a href="{{ route('admin.photos.index') }}" class="btn-light btn">@lang('admin.btn.cancel')
                             </a>
-                            <button type="submit" class="btn bg-blue-700 text-white ml-2 text-white">
+                            <button type="submit" class="btn bg-blue-700 ml-2 text-white">
                                 @lang('admin.btn.submit')
                             </button>
                         </div>
@@ -111,34 +111,41 @@
     </div>
     @pushonce('bottom_scripts')
         <x-admin.forms.tinymce-config column="content" />
+       
         <script>
             var loadFile = function(event) {
+                document.getElementById('preview_img').style.display = 'block'
                 var input = event.target
                 var file = input.files[0]
                 var type = file.type
 
                 var output = document.getElementById('preview_img')
-                var fileNameSpan = document.getElementById('selected_file_name')
-                const allowedExtensions = /(\.png|\.jpeg|\.jpg|\.gif)$/i;
+                const allowedExtensions = /(\.png|\.jpeg|\.jpg)$/i;
                 const maxFileSize = 5 * 1024 * 1024; // 5MB in bytes
 
                 if (!allowedExtensions.exec(input.value)) {
-                    alert('Vui lòng chọn tệp tin định dạng ảnh.');
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Chỉ chấp nhận tệp tin PNG, JPEG, JPG .",
+                    });
                     input.value = '';
                     return false;
                 }
 
                 if (input.files[0].size > maxFileSize) {
-                    alert('Tệp tin tải lên không được vượt quá 5MB.');
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Dung lượng tệp tin không được vượt quá 5MB.",
+                    });
                     input.value = '';
                     return false;
                 }
                 output.src = URL.createObjectURL(event.target.files[0])
                 output.onload = function() {
-                    URL.revokeObjectURL(output.src) // free memory
+                    URL.revokeObjectURL(output.src)
                 }
-
-                fileNameSpan.innerText = file.name
             }
         </script>
     @endpushonce

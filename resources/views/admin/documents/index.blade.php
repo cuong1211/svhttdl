@@ -82,7 +82,7 @@
                                 <th class="text-left font-semibold">@lang('admin.documents.name')</th>
                                 <th class="text-center font-semibold">@lang('admin.documents.types')</th>
                                 <th class="text-center font-semibold">@lang('admin.documents.signers')</th>
-                                <th class="text-center font-semibold">@lang('admin.created_at')</th>
+                                <th class="text-center font-semibold">Ngày ban hành</th>
                                 <th class="text-center font-semibold">@lang('admin.updated_at')</th>
                                 <th class="text-center font-semibold">@lang('admin.funtion')</th>
                             </tr>
@@ -96,7 +96,7 @@
                                     <td class="text-left">{{ $document->name }}</td>
                                     <td class="text-center">{{ optional($document->types)->name }}</td>
                                     <td class="text-center">{{ optional($document->signers)->name }}</td>
-                                    <td class="text-center">{{ $document->createdAtVi }}</td>
+                                    <td class="text-center">{{ $document->publishedPostDate }}</td>
                                     <td class="text-center">{{ $document->updatedAtVi }}</td>
 
                                     <td class="flex gap-3 items-center justify-center">

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class DepartmentRequest extends FormRequest
 {
@@ -14,7 +15,11 @@ class DepartmentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255|unique:departments,name,' . $this->department,
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+            ],
             'type' => 'required|string|max:255',
             'description' => 'nullable|string',
         ];

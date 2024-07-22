@@ -42,7 +42,7 @@
                                     </div>
                                 </button>
                             </x-slot>
-                            <x-slot name="content" >
+                            <x-slot name="content">
                                 <x-dropdown-link :href="route('profile.edit')">
                                     @lang('admin.profile')
                                 </x-dropdown-link>
@@ -72,6 +72,8 @@
             <x-admin.sidebar.sidebar />
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     @stack('bottom_scripts')
 </body>
 

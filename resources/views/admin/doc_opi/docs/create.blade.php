@@ -47,8 +47,7 @@
                                         </div>
                                         <span class="sr-only">Chọn tệp tin...</span>
                                         <input type="file" name="document_file" id="document_file"
-                                            onchange="loadFile(event)"
-                                            value="{{ old('document_file', $document->document_file ?? '') }}"
+                                            onchange="loadFile(event)" value="{{ old('document_file') }}"
                                             class="file-input file-input-bordered w-full max-w-xs bg-white text-black" />
                                     </label>
                                 </div>
@@ -89,7 +88,7 @@
                                     'rounded-md',
                                     'input-error' => $errors->has('note'),
                                     'w-full',
-                                ]) value="{{ old('note', $document->notes ?? '') }}" />
+                                ]) value="{{ old('note') }}" />
                         </label>
 
 
@@ -109,22 +108,31 @@
     </div>
     @pushonce('bottom_scripts')
         <x-admin.forms.tinymce-config column="content" />
+
         <script>
             var loadFile = function(event) {
                 var input = event.target
                 var file = input.files[0]
                 var type = file.type
-                const allowedExtensions = /(\.pdf|\.doc)$/i;
+                const allowedExtensions = /(\.pdf)$/i;
                 const maxFileSize = 5 * 1024 * 1024; // 5MB in bytes
 
                 if (!allowedExtensions.exec(input.value)) {
-                    alert('Vui lòng chọn tệp tin định dạng .pdf hoặc .doc.');
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Chỉ chấp nhận tệp tin PDF.",
+                    });
                     input.value = '';
                     return false;
                 }
 
                 if (input.files[0].size > maxFileSize) {
-                    alert('Tệp tin tải lên không được vượt quá 5MB.');
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Dung lượng tệp tin không được vượt quá 5MB.",
+                    });
                     input.value = '';
                     return false;
                 }

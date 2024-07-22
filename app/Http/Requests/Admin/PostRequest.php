@@ -19,7 +19,7 @@ class PostRequest extends FormRequest
         switch ($action) {
             case 'store': {
                     return [
-                        'category_id' => 'required|exists:categories,id',
+                        'category_id' => 'nullable|exists:categories,id',
                         'title' => 'required|string|max:255',
                         'description' => 'nullable|string',
                         'content' => 'required',
@@ -32,7 +32,7 @@ class PostRequest extends FormRequest
                 }
             case 'update': {
                     return [
-                        'category_id' => 'required|exists:categories,id',
+                        'category_id' => 'nullable|exists:categories,id',
                         'title' => 'required|string|max:255',
                         'description' => 'nullable|string',
                         'content' => 'required',

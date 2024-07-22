@@ -98,8 +98,7 @@
                                     </label>
                                 </div>
                                 <div class="shrink-0">
-                                    <img id="preview_img" class=" object-cover rounded" src=""
-                                        alt="" />
+                                    <img id="preview_img" class=" object-cover rounded" src="" alt="" />
                                 </div>
 
                                 <div class="flex justify-end gap-4">
@@ -118,20 +117,40 @@
     </div>
     @pushonce('bottom_scripts')
         <x-admin.forms.tinymce-config column="content" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" />
-        <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.min.js"></script>
-
+       
         <script>
             var loadFile = function(event) {
+                document.getElementById('preview_img').style.display = 'block'
                 var input = event.target
                 var file = input.files[0]
                 var type = file.type
 
                 var output = document.getElementById('preview_img')
+                const allowedExtensions = /(\.png|\.jpeg|\.jpg)$/i;
+                const maxFileSize = 5 * 1024 * 1024; // 5MB in bytes
 
+                if (!allowedExtensions.exec(input.value)) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Chỉ chấp nhận tệp tin PNG, JPEG, JPG .",
+                    });
+                    input.value = '';
+                    return false;
+                }
+
+                if (input.files[0].size > maxFileSize) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Dung lượng tệp tin không được vượt quá 5MB.",
+                    });
+                    input.value = '';
+                    return false;
+                }
                 output.src = URL.createObjectURL(event.target.files[0])
                 output.onload = function() {
-                    URL.revokeObjectURL(output.src) // free memory
+                    URL.revokeObjectURL(output.src)
                 }
             }
         </script>

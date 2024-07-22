@@ -66,7 +66,7 @@
                             @foreach ($positions as $position)
                                 <tr>
                                     <th class="text-center">
-                                        {{ $loop->index + 1 }}
+                                        {{ $positions->firstItem() + $loop->index }}
                                     </th>
                                     <td class="text-left">{{ $position->name }}</td>
                                     <td class="text-center">{{ $position->createdAtVi }}</td>
@@ -121,7 +121,7 @@
             </div>
         </div>
         <div class="mt-4">
-            {{--            {{ $positions->links('pagination.web-tailwind') }} --}}
+            {{ $positions->links('pagination.web-tailwind') }}
         </div>
     </div>
 </x-app-layout>

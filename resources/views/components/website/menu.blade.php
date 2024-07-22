@@ -37,7 +37,6 @@
                         <span class="BorderGradient"></span>
                     </li>
                 @endif
-
             </ul>
         </nav>
     </div>

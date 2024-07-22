@@ -67,7 +67,7 @@
                         <tbody>
                             @foreach ($staffs as $staff)
                                 <tr>
-                                    <th class="text-center">{{ $loop->index + 1 }}</th>
+                                    <th class="text-center">{{ $staffs->firstItem() + $loop->index }}</th>
                                     <td class="text-center">
                                         @if ($staff->getFirstMedia('staff_image'))
                                             <img id="preview_img" class="h-10 w-10 rounded object-cover"
@@ -132,7 +132,7 @@
             </div>
         </div>
         <div class="mt-4">
-            {{--            {{ $staffs->links('pagination.web-tailwind') }} --}}
+            {{ $staffs->links('pagination.web-tailwind') }}
         </div>
     </div>
 </x-app-layout>
