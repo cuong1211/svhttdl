@@ -18,28 +18,23 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        Department::factory(10)->create();
-        Position::factory(20)->create();
-        Staff::factory(30)->create();
+        // Department::factory(10)->create();
+        // Position::factory(20)->create();
+        // Staff::factory(30)->create();
         // User::factory(10)->create();
 
-        // UserCategorie::create([
-        //     'name'=> 'Admin',
-        //     'slug'=>'admin',
-        // ]);
-        // User::factory()->create([
-        //     'name' => 'Cuong',
-        //     'email' => 'Cuong1@gmail.com',
-        //     'password' => 'cuong1211',
-        //     'display_name' => 'Cuong',
-        //     'category_id' => 1,
-        // ]);
-
-        // $this->call([
-        //     CategoriesTableSeeder::class,
-        //     PostsTableSeeder::class,
-        //     TagsTableSeeder::class,
-        //     PostTagsTableSeeder::class,
-        // ]);
+        UserCategorie::create([
+            'id' => 1,    
+            'name'=> 'Tài khoản quản trị hệ thống',
+            'slug'=>'t-i-khoa-n-qua-n-tra-ha-tha-ng',
+        ]);
+        User::factory()->create([
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
+            'password' => 'admin123',
+            'display_name' => 'admin',
+            'category_id' => 1,
+            'state' => 1,
+        ]);
     }
 }

@@ -64,10 +64,14 @@
                                     </th>
                                     <td class="text-center">{{ $user->name }}</td>
                                     <td class="text-center">{{ $user->email }}</td>
-                         
+
                                     <td class="text-center">{{ $user->display_name }}</td>
                                     <td class="text-center">{{ $user->categories->name }}</td>
-                                    <td class="text-center">{{ $user->departments->name}}</td>
+                                    @if ($user->departments)
+                                        <td class="text-center">{{ $user->departments->name }}</td>
+                                    @else
+                                        <td class="text-center"></td>
+                                    @endif
                                     <td class="text-center">{{ $user->createddAtVi }}</td>
                                     <td class="text-center">{{ $user->updatedAtVi }}</td>
 

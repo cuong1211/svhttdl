@@ -11,15 +11,15 @@ export default defineConfig({
             refresh: true,
         }),
     ],
-    build: {
-        outDir: 'public/build',
-    },
-    server: {
-        host: '198.54.114.151',
-        port: 21098,
-        hmr: {
-            host: 'svhttdl.thaivancuong.studio',
-            protocol: 'wss',
-        },
-    },
+    // build: {
+    //     outDir: 'public/build',
+    // },
+    // server: {
+    //     host: '198.54.114.151',
+    //     port: 21098,
+    //     hmr: {
+    //         host: 'svhttdl.thaivancuong.studio',
+    //         protocol: 'wss',
+    //     },
+    // },
 });
