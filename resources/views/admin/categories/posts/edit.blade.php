@@ -25,7 +25,9 @@
                             method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
-
+                            @if (Auth::user()->category_id == 3)
+                                <input type="hidden" name="category_id" value="{{ $post->category_id }}">
+                            @endif
                             <div class="space-y-4">
                                 <div class="flex gap-4">
                                     <label class="form-control w-full">
@@ -100,29 +102,33 @@
                                         <div class="text-red-500 text-sm">{{ $message }}</div>
                                     @enderror
                                 </label>
-                                <label class="form-control w-full">
-                                    <div class="label">
-                                        <span
-                                            class="label-text text-base text-black font-medium">@lang('admin.categories.parent')</span>
-                                    </div>
-                                    <select name="category_id" @class([
-                                        'border',
-                                        'border-gray-300',
-                                        'bg-white',
-                                        'text-black',
-                                        'p-2',
-                                        'rounded-md',
-                                        'w-full',
-                                    ])>
-                                        <option value="">@lang('admin.categories.select_parent')</option>
-                                        @foreach ($categories as $category)
-                                            <x-admin.forms.select.category_post :category="$category" :selectedCategory="$selectedCategory" />
-                                        @endforeach
-                                    </select>
-                                    @error('category_id')
-                                        <div class="text-red-500 text-sm">{{ $message }}</div>
-                                    @enderror
-                                </label>
+                                @if (Auth::user()->category_id == 3)
+                                @else
+                                    <label class="form-control w-full">
+                                        <div class="label">
+                                            <span
+                                                class="label-text text-base text-black font-medium">@lang('admin.categories.parent')</span>
+                                        </div>
+                                        <select name="category_id" @class([
+                                            'border',
+                                            'border-gray-300',
+                                            'bg-white',
+                                            'text-black',
+                                            'p-2',
+                                            'rounded-md',
+                                            'w-full',
+                                        ])>
+                                            <option value="">@lang('admin.categories.select_parent')</option>
+                                            @foreach ($categories as $category)
+                                                <x-admin.forms.select.category_post :category="$category"
+                                                    :selectedCategory="$selectedCategory" />
+                                            @endforeach
+                                        </select>
+                                        @error('category_id')
+                                            <div class="text-red-500 text-sm">{{ $message }}</div>
+                                        @enderror
+                                    </label>
+                                @endif
                                 <label class="form-control w-full">
                                     <div class="label">
                                         <span class="label-text text-base text-black font-medium">Trạng thái</span>
