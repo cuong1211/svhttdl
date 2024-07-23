@@ -29,8 +29,12 @@ class PostController extends Controller
         } else {
             $child_category = Category::whereIn('parent_id', $parent_category)->get();
         }
+
         foreach ($child_category as $cate) {
             $child_category_id[] = $cate->id;
+        }
+        if ($request->categoryFilter == null) {
+            $child_category_id =  array_merge($child_category_id, $parent_category);
         }
         $postsQuery = Post::query();
         if ($child_category->count() == 0) {
@@ -42,8 +46,9 @@ class PostController extends Controller
 
         if ($request->categoryFilter1 != null) {
             $postsQuery->where('category_id', $request->categoryFilter1);
-        } elseif ($request->categoryFilter != null) {
+        } elseif ($request->categoryFilter != null && $request->categoryFilter1 == null) {
             $child_categories = Category::where('parent_id', $request->categoryFilter)->pluck('id')->toArray();
+            $child_categories = array_merge($child_categories, array($request->categoryFilter));
             $postsQuery->whereIn('category_id', $child_categories);
         } elseif ($child_category_id != null) {
             $postsQuery->whereIn('category_id', $child_category_id);

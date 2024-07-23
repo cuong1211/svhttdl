@@ -43,7 +43,7 @@
                                                 'rounded-md',
                                                 'w-full',
                                                 'input-error' => $errors->has('title'),
-                                            ]) value="{{ old('title', $post->title) }}" />
+                                            ]) value="{{ $post->title }}" />
                                         @error('title')
                                             <div class="text-red-500 text-sm">{{ $message }}</div>
                                         @enderror
@@ -55,7 +55,7 @@
                                         <span class="label-text text-base text-black font-medium">Tác giả</span>
                                     </div>
                                     <input type="text" name="author" placeholder="Nhập tác giả"
-                                        value="{{ old('author', $post->author) }}" @class([
+                                        value="{{ $post->author }}" @class([
                                             'border',
                                             'border-gray-300',
                                             'bg-white',
@@ -206,7 +206,7 @@
     @pushonce('bottom_scripts')
         <x-admin.forms.tinymce-config column="content" />
 
-       
+
         <script>
             var loadFile = function(event) {
                 document.getElementById('preview_img').style.display = 'block'

@@ -5,7 +5,7 @@
     $space = str_repeat('&nbsp;', $level * 3);
 @endphp
 
-<option value="{{ $category->id }}" class="font-semibold" disabled>
+<option value="{{ $category->id }}" class="font-semibold" {{ $category->children->isNotEmpty() ? 'disabled' : '' }}>
     {!! $space !!}{{ app()->getLocale() === 'en' ? $category->title_en : $category->title }}
 </option>
 

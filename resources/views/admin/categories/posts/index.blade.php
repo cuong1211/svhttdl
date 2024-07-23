@@ -62,7 +62,7 @@
                                     <li>
                                         <select id="categoryFilter1" name="categoryFilter1"
                                             class="select select-bordered w-full bg-white text-black font-semibold"
-                                            style="border: 1px solid black; display: {{ $request->categoryFilter == null || $request->categoryFilter1 == null ? 'none' : 'block' }}">
+                                            style="border: 1px solid black; display: {{ $request->categoryFilter == null  ? 'none' : 'block' }}">
                                             <option value="">Tất cả</option>
                                             @foreach ($filter_child_cate as $filter1)
                                                 <option value="{{ $filter1->id }}"
