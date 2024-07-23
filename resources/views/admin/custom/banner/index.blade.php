@@ -53,13 +53,13 @@
                         <!-- head -->
                         <thead class="text-black text-base">
                             <tr>
-                                <th class="text-center">#</th>
-                                <th class="text-center">Tiêu đề</th>
-                                <th class="text-center">Vị trí</th>
-                                <th class="text-center">Trạng thái</th>
-                                <th class="text-center">Ngày tạo</th>
-                                <th class="text-center">Ngày cập nhập</th>
-                                <th class="text-center">Chức năng</th>
+                                <th class="text-center font-semibold">#</th>
+                                <th class="text-center font-semibold">Tiêu đề</th>
+                                <th class="text-center font-semibold">Vị trí</th>
+                                <th class="text-center font-semibold">Trạng thái</th>
+                                <th class="text-center font-semibold">Ngày tạo</th>
+                                <th class="text-center font-semibold">Ngày cập nhập</th>
+                                <th class="text-center font-semibold">Chức năng</th>
                             </tr>
                         </thead>
                         <tbody>
