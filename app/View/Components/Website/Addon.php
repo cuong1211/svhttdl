@@ -22,7 +22,10 @@ class Addon extends Component
      */
     public function render(): View|Closure|string
     {
-        $addon = AddonModel::query()->orderBy('order')->limit(10)->get();
+        $addon = AddonModel::query()->orderBy('order')->where('state', 1)->get();
+        if (request()->routeIs('home.child.*')) {
+            $addon = AddonModel::query()->orderBy('order')->where('state', 1)->where('is_active', 1)->get();
+        }
         return view('components.website.addon', compact('addon'));
     }
 }

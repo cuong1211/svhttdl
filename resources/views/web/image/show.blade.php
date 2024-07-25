@@ -18,25 +18,31 @@
             style="text-align: center; font-family: Kodchasan; font-size: 20px; color: #262d73; line-height: 28px; margin: 10px;">
             {{ $albums }}</h2>
         <div class="galery">
-            @foreach ($images as $images)
+            @foreach ($images as $image)
                 <div class="du_an_galery_top">
                     <div class="hinh_anh_galery">
-                        <a class="modal-content" data-image={{ $images->getFirstMedia('album_photo')->getUrl('') }}
-                            data-toggle="modal" data-target="#myModal">
-                            <img class="example-image" src="{{ $images->getFirstMedia('album_photo')->getUrl('') }}">
-                        </a>
+                        @if ($image->getFirstMedia('album_photo'))
+                            <a class="modal-content" data-image={{ $image->getFirstMedia('album_photo')->getUrl('') }}
+                                data-toggle="modal" data-target="#myModal">
+                                <img class="example-image"
+                                    src="{{ $image->getFirstMedia('album_photo')->getUrl('') }}">
+                            </a>
+                        @else
+                            <a class="modal-content" data-image="{{ asset($image->image) }}" data-toggle="modal"
+                                data-target="#myModal">
+                                <img class="example-image" src="{{ asset($image->image) }}">
+                            </a>
+                        @endif
                     </div>
                     <div class="tieu_de_galery_">
                         <h2 style="color: #1F4EB4; font-size: 16px; text-align: center; margin-top: 7px; width: 270px;">
-                            {{ $images->name }}
+                            {{ $image->name }}
                         </h2>
                     </div>
                 </div>
             @endforeach
             <div style="clear:both"></div>
-            <ul class="pagination" style="float: left;">
-                <li class="active"><a>1</a></li>
-            </ul>
+            {{ $images->render('web.paginate') }}
         </div>
     </div>
     <div id="myModal" class="modal fade" role="dialog">

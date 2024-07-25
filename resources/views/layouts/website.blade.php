@@ -298,8 +298,11 @@
                     </div>
                 </div>
 
-                <x-website.video />
-                <x-website.announcement />
+                @if (request()->routeIs('home.child.*'))
+                @else
+                    <x-website.video />
+                    <x-website.announcement />
+                @endif
                 <x-website.addon />
             </div>
 

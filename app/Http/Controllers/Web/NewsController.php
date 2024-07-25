@@ -13,7 +13,10 @@ class NewsController extends Controller
     public function index($id): View
     {
         $posts = Category::query()->where('parent_id', $id)->with(['children' => function ($query) {
-            $query->with('posts')->take(10);
+            $query->with(['posts' => function ($q) {
+                $q->where('state', 1)
+                    ->orderByDesc('published_at');
+            }])->take(10);
         }])->get();
         return view('web.news.index', [
             'posts' => $posts,
@@ -24,6 +27,7 @@ class NewsController extends Controller
         $category = Category::query()->where('id', $Id)->first();
         $category_title = $category->title;
         $posts =  Post::query()->where('category_id', $Id)
+            ->where('state', 1)
             ->orderByDesc('published_at')
             ->paginate(10);
         return view('web.child.index', [
@@ -44,6 +48,7 @@ class NewsController extends Controller
         $otherPosts = Post::query()
             ->where('category_id', $post->category_id)
             ->where('id', '!=', $post->id)
+            ->where('state', 1)
             ->published()
             ->latest()
             ->take(10)

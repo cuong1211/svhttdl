@@ -54,10 +54,9 @@ class MenuController extends Controller
             'in_menu' => $data['in_menu'],
             'link' => $data['link'],
             'parent_id' => $data['parent_id'],
-            'order' => $data['order'],
         ]);
 
-        return back()->with([
+        return redirect()->route('admin.menus.index')->with([
             'icon' => 'success',
             'heading' => 'Success',
             'message' => 'Thêm mới menu thành công',

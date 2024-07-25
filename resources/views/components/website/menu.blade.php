@@ -8,15 +8,25 @@
                         if ($menu->link == null) {
                             $url = url('');
                         } else {
-                            $url = filter_var($menu->url, FILTER_VALIDATE_URL) ? $menu->link : url($menu->link);
+                            $url = filter_var($menu->link, FILTER_VALIDATE_URL) ? $menu->link : url($menu->link);
                         }
+
                     @endphp
                     <li class="Li_Menu"><a href="{{ $url }}" class="A_Menu"> {{ $menu->title }}</a><span
                             class="BorderGradient"></span>
                         <ul class="UL_Menu_1 UL_News">
                             @foreach ($menu->children as $child)
+                                @php
+                                    if ($child->link == null) {
+                                        $url = url('');
+                                    } else {
+                                        $url = filter_var($child->link, FILTER_VALIDATE_URL)
+                                            ? $child->link
+                                            : url($child->link);
+                                    }
+                                @endphp
                                 <li class="LI_Menu_1">
-                                    <a class="A_Menu_1" href="{{ url($child->link) }}"> {{ $child->title }}</a>
+                                    <a class="A_Menu_1" href="{{ $url }}"> {{ $child->title }}</a>
                                 </li>
                             @endforeach
                         </ul>

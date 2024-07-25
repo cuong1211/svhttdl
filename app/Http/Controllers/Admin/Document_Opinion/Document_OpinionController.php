@@ -117,6 +117,9 @@ class Document_OpinionController extends Controller
     public function destroy($id)
     {
         $document = Document_Opinion::findOrFail($id);
+        if($document->opinion()->exists()){
+            $document->opinion()->delete();
+        }
         $document->clearMediaCollection('document_file');
         $document->delete();
 

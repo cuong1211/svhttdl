@@ -55,9 +55,9 @@
                                 <th class="text-center font-semibold">#</th>
                                 <th class="text-center font-semibold">Tên tài khoản</th>
                                 <th class="text-center font-semibold">Email</th>
-                                <th class="text-center font-semibold">Tên hiển thị</th>
-                                <th class="text-center font-semibold">Loại tài khoản</th>
-                                <th class="text-center font-semibold">Phòng ban</th>
+                                <th class="text-left font-semibold">Tên hiển thị</th>
+                                <th class="text-left font-semibold">Loại tài khoản</th>
+                                <th class="text-left font-semibold">Phòng ban</th>
                                 <th class="text-center font-semibold">@lang('admin.created_at')</th>
                                 <th class="text-center font-semibold">@lang('admin.updated_at')</th>
                                 <th class="text-center font-semibold">@lang('admin.funtion')</th>
@@ -72,12 +72,12 @@
                                     <td class="text-center">{{ $user->name }}</td>
                                     <td class="text-center">{{ $user->email }}</td>
 
-                                    <td class="text-center">{{ $user->display_name }}</td>
-                                    <td class="text-center">{{ $user->categories->name }}</td>
+                                    <td class="text-left">{{ $user->display_name }}</td>
+                                    <td class="text-left">{{ $user->categories->name }}</td>
                                     @if ($user->departments)
-                                        <td class="text-center">{{ $user->departments->name }}</td>
+                                        <td class="text-left">{{ $user->departments->name }}</td>
                                     @else
-                                        <td class="text-center"></td>
+                                        <td class="text-leftr"></td>
                                     @endif
                                     <td class="text-center">{{ $user->createddAtVi }}</td>
                                     <td class="text-center">{{ $user->updatedAtVi }}</td>

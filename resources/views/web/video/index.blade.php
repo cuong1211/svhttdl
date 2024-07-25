@@ -24,10 +24,8 @@
                 @foreach ($other_videos as $otherVideo)
                     <li>
                         <div style="position: relative">
-                            <a href="{{ route('video.show', $otherVideo->id) }}">
-                                <img src="{{ $otherVideo->getFirstMedia('thumbnail_video')->getUrl('') }}" />
-                            </a>
-                            <a href="{{ route('video.show', $otherVideo->id) }}" class="iconplay"></a>
+                            <iframe src="https://drive.google.com/file/d/{{ $otherVideo->video_id }}/preview"
+                                width="223px" height="125px"></iframe>
                         </div>
                         <h3><a href="{{ route('video.show', $otherVideo->id) }}">{{ $otherVideo->name }}</a></h3>
                     </li>

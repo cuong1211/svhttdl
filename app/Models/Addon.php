@@ -15,7 +15,7 @@ class Addon extends Model implements HasMedia
     use InteractsWithMedia;
     use SoftDeletes;
 
-    protected $fillable = ['title', 'order', 'url'];
+    protected $fillable = ['title', 'order', 'url', 'state', 'user_id', 'is_active'];
 
     protected $table = 'addons';
     public function registerMediaConversions(?Media $media = null): void

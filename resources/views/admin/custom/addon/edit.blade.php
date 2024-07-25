@@ -8,7 +8,7 @@
             </span>
         </div>
         <div class="mt-6">
-            <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">\
+            <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 @if ($errors->any())
                     <div class="alert alert-error text-black">
                         <ul>
@@ -24,6 +24,7 @@
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
+                            <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                             <div class="space-y-4">
                                 <label class="form-control w-full">
                                     <div class="label">
@@ -79,6 +80,41 @@
                                     @endif
 
                                 </label>
+                                <label class="form-control w-full">
+                                    <div class="label">
+                                        <span class="label-text text-base text-black font-medium">Trạng thái</span>
+                                    </div>
+                                    <select name="state" @class([
+                                        'border',
+                                        'border-gray-300',
+                                        'bg-white',
+                                        'text-black',
+                                        'p-2',
+                                        'rounded-md',
+                                        'w-full',
+                                    ])>
+                                        <option @selected($addons->state == 0) value="0">Ẩn</option>
+                                        <option @selected($addons->state == 1) value="1">Hiện</option>
+                                    </select>
+                                </label>
+                                <label class="form-control w-full">
+                                    <div class="label">
+                                        <span class="label-text text-base text-black font-medium">Hiện thị ở trang đơn
+                                            vị sự nghiệp</span>
+                                    </div>
+                                    <select name="is_active" @class([
+                                        'border',
+                                        'border-gray-300',
+                                        'bg-white',
+                                        'text-black',
+                                        'p-2',
+                                        'rounded-md',
+                                        'w-full',
+                                    ])>
+                                        <option @selected($addons->is_active == 0) value="0">Ẩn</option>
+                                        <option @selected($addons->is_active == 1) value="1">Hiện</option>
+                                    </select>
+                                </label>
                                 <div class="flex items-center space-x-6">
                                     <label class="form-control w-full">
                                         <div class="label" for="tags">
@@ -87,8 +123,12 @@
                                         <div
                                             class="input border border-gray-300 bg-white text-black p-2 rounded-md flex items-center gap-2 px-3 py-2">
                                             File:
-                                            <span
-                                                id="selected_file_name">{{ $addons->getFirstMedia('addon_image')->name }}</span>
+                                            @if ($addons->getFirstMedia('addon_image'))
+                                                <span
+                                                    id="selected_file_name">{{ $addons->getFirstMedia('addon_image')->name }}</span>
+                                            @else
+                                                <span id="selected_file_name">{{ $addons->title }}</span>
+                                            @endif
                                         </div>
                                         <span class="sr-only">Chọn hình ảnh</span>
                                         <input type="file" name="image" onchange="loadFile(event)"
@@ -97,9 +137,14 @@
                                     </label>
                                 </div>
                                 <div class="shrink-0">
-                                    <img id="preview_img" class="h-14 w-71 object-cover rounded"
-                                        src="{{ $addons->getFirstMedia('addon_image')->getUrl('') }}"
-                                        alt="{{ $addons->getFirstMedia('addon_image')->name }}" />
+                                    @if ($addons->getFirstMedia('addon_image'))
+                                        <img id="preview_img" class="h-14 w-71 object-cover rounded"
+                                            src="{{ $addons->getFirstMedia('addon_image')->getUrl('') }}"
+                                            alt="{{ $addons->getFirstMedia('addon_image')->name }}" />
+                                    @else
+                                        <img id="preview_img" class="h-14 w-71 object-cover rounded"
+                                            src="{{ asset($addons->image) }}" alt="{{ $addons->title }}" />
+                                    @endif
                                 </div>
                                 <div class="flex justify-end gap-4">
                                     <a href="{{ route('admin.addons.index') }}"
@@ -126,7 +171,7 @@
     </div>
     @pushonce('bottom_scripts')
         <x-admin.forms.tinymce-config column="content" />
-       
+
         <script>
             var loadFile = function(event) {
                 document.getElementById('preview_img').style.display = 'block'

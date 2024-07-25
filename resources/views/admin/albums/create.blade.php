@@ -35,7 +35,7 @@
                             'rounded-md',
                             'input-error' => $errors->has('name'),
                             'w-full',
-                        ]) />
+                        ]) value="{{old('name')}}"/>
                     </label>
 
 

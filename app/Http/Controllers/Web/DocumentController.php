@@ -10,7 +10,7 @@ class DocumentController extends Controller
 {
     public function index()
     {
-        $docs = Document::query()->paginate(10);
+        $docs = Document::query()->latest()->paginate(10);
         return view("web.document.index", compact("docs"));
     }
 }

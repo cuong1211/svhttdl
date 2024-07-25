@@ -5,6 +5,8 @@
                 <div id="fragment-{{ $post->id }}" class="ui-tabs-panel">
                     @if ($post->getFirstMedia('featured_image'))
                         <img src='{{ $post->getFirstMedia('featured_image')->getUrl('') }}' alt='' />
+                    @else
+                        <img src='{{ asset($post->image) }}' alt='' />
                     @endif
                     <div class="info">
                         <h2>

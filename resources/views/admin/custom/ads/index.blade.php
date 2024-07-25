@@ -86,11 +86,11 @@
                                         <a href="{{ route('admin.ads.edit', ['ad' => $ad->id]) }}"><x-heroicon-s-pencil-square
                                                 class="size-4 text-green-600 " /></a>
                                         <form id="delete-form-{{ $ad->id }}"
-                                            action="{{ route('admin.ads.destroy', ['ad' => $ads->id]) }}"
+                                            action="{{ route('admin.ads.destroy', ['ad' => $ad->id]) }}"
                                             method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="button" onclick="confirmDelete({{ $ads->id }})">
+                                            <button type="button" onclick="confirmDelete({{ $ad->id }})">
                                                 <x-heroicon-o-trash class="size-4 text-red-500" />
                                             </button>
                                         </form>
@@ -100,7 +100,7 @@
                                             $(document).ready(function() {
                                                 setTimeout(function() {
                                                     $(".alert").fadeOut(2000);
-                                                }, 3000); // thông báo sẽ ẩn sau 3 giây
+                                                }, 3000);
                                             });
 
                                             function confirmDelete(adsId) {

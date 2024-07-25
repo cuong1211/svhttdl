@@ -32,6 +32,7 @@ class DocumentController extends Controller
                 fn ($query) => $query->where('tag_id', $request->kind_id),
             )
             ->with('types', 'signers')
+            ->orderBy('published_at', 'desc')
             ->latest()
             ->paginate(10)->appends($request->all());
         $kinds = Signer::query()->get();

@@ -5,11 +5,11 @@
         </li>
         <li class="Lv_3">
             <span class="Arrow_Link_Menu"></span>
-            <a href="{{ route('news.index', ['category' => $category->slug]) }}">{{ $post->category->title }}</a>
+            <a href="javascript:void(0)" disable>Tin tức - sự kiện</a>
         </li>
         <li class="Lv_3">
             <span class="Arrow_Link_Menu"></span>
-            <a href="{{ route('news.index', ['category' => $category->slug]) }}">{{ $post->category->title }}</a>
+            <a href="{{ route('news.child', ['Id' => $category->id]) }}" disable>{{ $post->category->title }}</a>
         </li>
     </ul>
 

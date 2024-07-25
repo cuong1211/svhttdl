@@ -22,7 +22,7 @@ class NotificationController extends Controller
     public function show($announcement)
     {
         $noti = Announcement::query()
-            ->where('slug', $announcement)
+            ->where('id', $announcement)
             ->published()
             ->firstOrFail();
         $other_noti = Announcement::query()

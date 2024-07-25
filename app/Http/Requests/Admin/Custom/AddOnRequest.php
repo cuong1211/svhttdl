@@ -30,7 +30,9 @@ class AddOnRequest extends FormRequest
                         'order' => 'nullable|numeric',
                         'url' => 'nullable|max:255',
                         'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|',
-                    
+                        'state' => 'required|numeric',
+                        'is_active' => 'required|numeric',
+                        'user_id' => 'required|numeric',
                     ];
                 }
             case 'update': {
@@ -39,7 +41,9 @@ class AddOnRequest extends FormRequest
                         'order' => 'nullable|numeric',
                         'url' => 'nullable|max:255',
                         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048|',
-
+                        'state' => 'required|numeric',
+                        'is_active' => 'required|numeric',
+                        'user_id' => 'required|numeric',
                     ];
                 }
             default:

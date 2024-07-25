@@ -28,7 +28,6 @@ class Document_OpinionController extends Controller
     }
     public function store($id, OpinionRequest $request)
     {
-        // dd($request->all());
         $data = $request->validated();
         Opinion::query()->create([
             'document_id' => $id,

@@ -17,21 +17,25 @@ class HomeController extends Controller
 
         $post_van_hoa = Category::query()->where('id', 9)->with(['posts' => function ($q) {
             $q->published()
+                ->where('state', 1)
                 ->orderByDesc('published_at')
                 ->take(5);
         }])->first();
         $post_du_lich = Category::query()->where('id', 12)->with(['posts' => function ($q) {
             $q->published()
+                ->where('state', 1)
                 ->orderByDesc('published_at')
                 ->take(5);
         }])->first();
         $post_the_thao = Category::query()->where('id', 11)->with(['posts' => function ($q) {
             $q->published()
+                ->where('state', 1)
                 ->orderByDesc('published_at')
                 ->take(5);
         }])->first();
         $post_gia_dinh = Category::query()->where('id', 19)->with(['posts' => function ($q) {
             $q->published()
+                ->where('state', 1)
                 ->orderByDesc('published_at')
                 ->take(5);
         }])->first();
@@ -45,7 +49,7 @@ class HomeController extends Controller
     }
     public function getChild($category_id, $menu_id)
     {
-        $posts = Post::query()->where('category_id', $category_id)->paginate(10);
+        $posts = Post::query()->where('category_id', $category_id)->where('state', 1)->paginate(10);
         return view('web.child', compact('posts', 'menu_id', 'category_id'));
     }
     public function getPost($category_id, $menu_id, $id): View

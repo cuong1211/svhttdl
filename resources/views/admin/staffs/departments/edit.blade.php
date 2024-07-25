@@ -75,15 +75,13 @@
                                 'rounded-md',
                                 'input-error' => $errors->has('description'),
                                 'w-full',
-                            ])>{!! $department->description !!}</textarea>
-
+                            ])>
+{!! $department->description !!}</textarea>
                         </label>
-
                         <div class="flex justify-end gap-4">
                             <a href="{{ route('admin.departments.index') }}"
                                 class="btn-light btn text-white">@lang('admin.btn.cancel')</a>
-                            <button type="submit"
-                                class="btn bg-blue-700 text-white ml-2">@lang('admin.btn.submit')</button>
+                            <button type="submit" class="btn bg-blue-700 text-white ml-2">@lang('admin.btn.submit')</button>
                         </div>
                     </form>
 

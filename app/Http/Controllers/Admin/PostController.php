@@ -104,6 +104,7 @@ class PostController extends Controller
             'author' => $request->author,
             'published_at' => $request->published_at,
             'type' => $request->type,
+            'state' => $request->state,
         ]);
 
         $post->save();
@@ -157,6 +158,7 @@ class PostController extends Controller
                 'published_at' => $request->published_at,
                 'category_id' => $request->category_id,
                 'type' => $request->type,
+                'state' => $request->state,
 
             ]);
             if ($request->hasFile('image')) {

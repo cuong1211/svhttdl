@@ -142,8 +142,9 @@
                                         'rounded-md',
                                         'w-full',
                                     ])>
-                                        <option value="0">Ẩn</option>
-                                        <option value="1">Hiển thị</option>
+                                        <option value="0" {{ $post->state == 0 ? 'selected' : '' }}>Ẩn</option>
+                                        <option value="1" {{ $post->state == 1 ? 'selected' : '' }}>Hiển thị
+                                        </option>
 
                                     </select>
                                     @error('state')
@@ -172,6 +173,7 @@
                                                 @if ($post->getFirstMedia('featured_image'))
                                                     {{ $post->getFirstMedia('featured_image')->name }}
                                                 @else
+                                                    {{ $post->image }}
                                                 @endif
                                             </span>
                                         </div>
@@ -191,8 +193,8 @@
                                             src="{{ $post->getFirstMedia('featured_image')->getUrl('') }}"
                                             alt="{{ $post->getFirstMedia('featured_image')->name }}" />
                                     @else
-                                        <img id="preview_img" class="h-32 w-64 object-cover rounded" src=""
-                                            alt="" style="display:none" />
+                                        <img id="preview_img" class="h-32 w-64 object-cover rounded"
+                                            src=" {{ asset($post->image) }}" alt="" />
                                     @endif
                                 </div>
                                 <div class="flex justify-end gap-4">

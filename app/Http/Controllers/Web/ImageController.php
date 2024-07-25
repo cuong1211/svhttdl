@@ -11,14 +11,14 @@ class ImageController extends Controller
 {
     public function index()
     {
-        $albums = Album::query()->where('type', 'photo')->latest()->get();
+        $albums = Album::query()->where('type', 'photo')->latest()->paginate(10);
 
         return view('web.image.index', ['albums' => $albums]);
     }   
     public function show($id)
     {
         $albums = Album::query()->where('id', $id)->first()->name;
-        $images = Photo::query()->where('album_id', $id)->get(); 
+        $images = Photo::query()->where('album_id', $id)->paginate(10); 
         // dd($images);
         return view('web.image.show', ['images' => $images, 'albums' => $albums]);
     }

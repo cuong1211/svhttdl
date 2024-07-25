@@ -83,6 +83,7 @@
                                         @if ($photo->getFirstMedia('album_photo'))
                                             {{ $photo->getFirstMedia('album_photo')->name }}
                                         @else
+                                            {{ $photo->name }}
                                         @endif
                                     </span>
                                 </div>
@@ -93,9 +94,14 @@
                             </label>
                         </div>
                         <div class="shrink-0">
-                            <img id="preview_img" class="h-40 w-72 object-cover rounded"
-                                src="{{ $photo->getFirstMedia('album_photo')->getUrl('') }}"
-                                alt="{{ $photo->getFirstMedia('album_photo')->name }}" />
+                            @if ($photo->getFirstMedia('album_photo'))
+                                <img id="preview_img" class="h-40 w-72 object-cover rounded"
+                                    src="{{ $photo->getFirstMedia('album_photo')->getUrl('') }}"
+                                    alt="{{ $photo->getFirstMedia('album_photo')->name }}" />
+                            @else
+                                <img id="preview_img" class="h-40 w-72 object-cover rounded"
+                                    src="{{ asset($photo->image) }}" alt="{{ $photo->name }}" />
+                            @endif
                         </div>
                         <div class="flex justify-end gap-4">
                             <a href="{{ route('admin.photos.index') }}" class="btn-light btn">@lang('admin.btn.cancel')
@@ -111,7 +117,7 @@
     </div>
     @pushonce('bottom_scripts')
         <x-admin.forms.tinymce-config column="content" />
-       
+
         <script>
             var loadFile = function(event) {
                 document.getElementById('preview_img').style.display = 'block'

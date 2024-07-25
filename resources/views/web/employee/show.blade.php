@@ -54,7 +54,12 @@
             @foreach ($staff as $item)
                 <tr style="color: #333333; ">
                     <td style="margin-left: 10px; align-items: center;">
-                        <img src="{{ $item->getFirstMedia('staff_image')->getUrl('') }}" alt="" width="100px">
+                        @if ($item->getFirstMedia('staff_image'))
+                            <img src="{{ $item->getFirstMedia('staff_image')->getUrl('') }}" alt=""
+                                width="100px">
+                        @else
+                            <img src="{{ asset($item->image) }}" alt="" width="100px">
+                        @endif
                     </td>
                     <td style="text-align: center">
                         <span>{{ $item->name }}</span>

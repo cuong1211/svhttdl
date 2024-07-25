@@ -138,9 +138,11 @@
                             </div>
                         </div>
                         <div class="shrink-0">
-                            <img id="preview_img" class="h-40 w-72 rounded object-cover"
-                                src="{{ $video->getFirstMedia('thumbnail_video')->getUrl('') }}"
-                                alt="{{ $video->getFirstMedia('thumbnail_video')->name }}" />
+                            @if ($video->getFirstMedia('thumbnail_video'))
+                                <img id="preview_img" class="h-40 w-72 rounded object-cover"
+                                    src="{{ $video->getFirstMedia('thumbnail_video')->getUrl('') }}"
+                                    alt="{{ $video->getFirstMedia('thumbnail_video')->name }}" />
+                            @endif
                         </div>
                         <div class="flex justify-end gap-4">
                             <a href="{{ route('admin.videos.index') }}" class="btn-light btn text-white">
@@ -156,7 +158,6 @@
         </div>
     </div>
     @pushonce('bottom_scripts')
-       
         <script>
             var loadFile = function(event) {
                 document.getElementById('preview_img').style.display = 'block'

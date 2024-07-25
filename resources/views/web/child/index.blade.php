@@ -6,7 +6,7 @@
         </li>
         <li class="Lv_3">
             <span class="Arrow_Link_Menu"></span>
-            <a href="indexd5f1.html?com=tin-tuc">Tin tức – sự kiện</a>
+            <a href="{{route('news.index',['category'=>29])}}">Tin tức – sự kiện</a>
         </li>
         <li class="Lv_3">
             <span class="Arrow_Link_Menu"></span>

@@ -27,13 +27,13 @@
                                     <tr style="color: #333333;">
                                         <td style="font-size: 13px;">{{ $notis->firstItem() + $loop->index }}</td>
                                         <td style="text-align: left; margin-left: 10px; font-size: 13px; width: 55%;">
-                                            <a href="{{ route('noti.show', ['Announcement' => $noti->slug]) }}"
+                                            <a href="{{ route('noti.show', ['Announcement' => $noti->id]) }}"
                                                 target="blank" style="color:#000;">{{ $noti->title }}</a>
                                         </td>
                                         <td style="font-size: 13px;">
                                             {{ $noti->published_at->translatedFormat('d/m/Y h:i:s') }}</td>
                                         <td style="font-size: 13px;"><a class="fa fa-info"
-                                                href="{{ route('noti.show', ['Announcement' => $noti->slug]) }}"></a></td>
+                                                href="{{ route('noti.show', ['Announcement' => $noti->id]) }}"></a></td>
                                     </tr>
                                 @endforeach
 

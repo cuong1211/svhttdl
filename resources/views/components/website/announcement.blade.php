@@ -38,7 +38,7 @@
         <div class="notification-body">
             <ul id="notification">
                 @foreach ($announcements as $announcement)
-                    <li><a href="{{ route('noti.show', $announcement->slug) }}"> {{ $announcement->title }}</a>
+                    <li><a href="{{ route('noti.show', $announcement->id) }}"> {{ $announcement->title }}</a>
                     </li>
                 @endforeach
             </ul>

@@ -24,7 +24,7 @@
                     <div class="space-y-4">
                         <form action="{{ route('admin.addons.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-
+                            <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                             <div class="space-y-4">
 
 
@@ -68,6 +68,40 @@
                                         <div class="text-red-500 text-sm">{{ $errors->first('url') }}</div>
                                     @endif
 
+                                </label>
+                                <label class="form-control w-full">
+                                    <div class="label">
+                                        <span class="label-text text-base text-black font-medium">Trạng thái</span>
+                                    </div>
+                                    <select name="state" @class([
+                                        'border',
+                                        'border-gray-300',
+                                        'bg-white',
+                                        'text-black',
+                                        'p-2',
+                                        'rounded-md',
+                                        'w-full',
+                                    ])>
+                                        <option @selected(old('state') == 0) value="0">Ẩn</option>
+                                        <option @selected(old('state') == 1) value="1">Hiện</option>
+                                    </select>
+                                </label>
+                                <label class="form-control w-full">
+                                    <div class="label">
+                                        <span class="label-text text-base text-black font-medium">Hiện thị ở trang đơn vị sự nghiệp</span>
+                                    </div>
+                                    <select name="is_active" @class([
+                                        'border',
+                                        'border-gray-300',
+                                        'bg-white',
+                                        'text-black',
+                                        'p-2',
+                                        'rounded-md',
+                                        'w-full',
+                                    ])>
+                                        <option @selected(old('is_active') == 0) value="0">Ẩn</option>
+                                        <option @selected(old('is_active') == 1) value="1">Hiện</option>
+                                    </select>
                                 </label>
                                 <div class="flex items-center space-x-6">
                                     <label class="form-control w-full">
