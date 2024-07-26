@@ -86,8 +86,8 @@ class CategoryController extends Controller
             'user_id' => $data['user_id'],
             'department_id' => $data['department_id'],
         ]);
-
-        return redirect()->route('admin.categories.index')->with([
+        $queryParams = $request->except(array_keys($data));
+        return redirect()->route('admin.categories.index', $queryParams)->with([
             'icon' => 'success',
             'heading' => 'Success',
             'message' => 'Cập nhật danh mục thành công',

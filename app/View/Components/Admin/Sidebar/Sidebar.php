@@ -22,7 +22,6 @@ class Sidebar extends Component
             ->with('children')
             ->where('in_menu', true)
             ->orderBy('order')->get();
-            // dd($menu);
         return view('components.admin.sidebar.sidebar', [
             'categories' => $this->categoryService->getCachedCategoriesForMenu(),
             'menu' => $menu,

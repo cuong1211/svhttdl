@@ -6,7 +6,7 @@
                     @lang('admin.categories.list')
                 </span>
             </div>
-            <a class="bg-blue-700 btn border-blue-500" href="{{ route('admin.roles.create') }}">
+            <a class="bg-blue-700 btn border-blue-500" href="{{ route('admin.roles.create', request()->query()) }}">
                 <x-heroicon-s-plus class="size-4 text-white" />
                 <span class="text-white">@lang('admin.add')</span>
             </a>
@@ -69,7 +69,7 @@
                                     <td class="text-center">{{ $category->updatedAtVi }}</td>
 
                                     <td class="flex gap-3 items-center justify-center">
-                                        <a href="{{ route('admin.roles.edit', $category->id) }}"><x-heroicon-s-pencil-square
+                                        <a href="{{ route('admin.roles.edit', [$category->id] + request()->query()) }}"><x-heroicon-s-pencil-square
                                                 class="size-4 text-green-600" /></a>
                                         <form id="delete-form-{{ $category->id }}"
                                             action="{{ route('admin.roles.destroy', ['role' => $category->id]) }}"

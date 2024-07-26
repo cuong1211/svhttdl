@@ -74,7 +74,7 @@
                                     <td class="text-center">{{ $faq->answer_at }}</td>
                                     <td class="text-center">{{ $faq->createdAtVi }}</td>
                                     <td class="flex gap-3 items-center justify-center">
-                                        <a href="{{ route('admin.faqs.show', $faq->id) }}"><x-heroicon-o-eye
+                                        <a href="{{ route('admin.faqs.show', [$faq->id] + request()->query()) }}"><x-heroicon-o-eye
                                                 class="size-4 text-green-600" /></a>
                                         <form id="delete-form-{{ $faq->id }}"
                                             action="{{ route('admin.faqs.destroy', ['faq' => $faq->id]) }}"

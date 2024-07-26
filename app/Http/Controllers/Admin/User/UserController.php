@@ -84,7 +84,8 @@ class UserController extends Controller
             'display_name' => $data['display_name'],
             'password' => bcrypt($data['password']),
         ]);
-        return redirect()->route('admin.users.index')->with([
+        $queryParams = $request->except(array_keys($data));
+        return redirect()->route('admin.users.index', $queryParams)->with([
             'icon' => 'success',
             'heading' => 'Success',
             'message' => 'Cập nhật tài khoản thành công',

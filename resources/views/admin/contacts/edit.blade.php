@@ -14,6 +14,9 @@
                         class="space-y-4 needs-validation" novalidate>
                         @csrf
                         @method('patch')
+                        @foreach (request()->query() as $key => $value)
+                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                        @endforeach
                         <label class="form-control w-full">
                             <div class="label">
                                 <span class="label-text text-base text-black font-medium">@lang('admin.contacts.name')</span>

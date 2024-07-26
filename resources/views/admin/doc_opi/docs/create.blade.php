@@ -93,7 +93,8 @@
 
 
                         <div class="flex justify-end gap-4">
-                            <a href="{{ route('admin.documents.index') }}" class="btn-light text-white btn">
+                            <a href="{{ route('admin.docs-opis.index', request()->query()) }}"
+                                class="btn-light text-white btn">
                                 @lang('admin.btn.cancel')
                             </a>
                             <button type="submit" class="btn bg-blue-700 text-white ml-2">

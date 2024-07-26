@@ -8,7 +8,7 @@
             </span>
         </div>
         <div class="mt-6">
-            <a href="{{ route('admin.contacts.index') }}"
+            <a href="{{ route('admin.contacts.index',request()->query()) }}"
                 class="bg-gray-300 text-black hover:bg-gray-400 active:bg-gray-500 focus:border-gray-500 focus:ring-gray-300 inline-flex items-center rounded-md px-4 py-2 text-xs font-semibold uppercase tracking-widest transition focus:outline-none focus:ring disabled:opacity-25">
                 <x-heroicon-o-arrow-left class="mr-2 size-4" />
                 @lang('admin.back')

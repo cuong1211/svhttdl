@@ -23,6 +23,12 @@
                         method="POST" class="space-y-4 needs-validation" novalidate enctype="multipart/form-data">
                         @csrf
                         @method('patch')
+@foreach (request()->query() as $key => $value)
+                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                        @endforeach
+                        @foreach (request()->query() as $key => $value)
+                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                        @endforeach
                         <div class="flex gap-4">
                             <label class="form-control w-full">
                                 <div class="label">
@@ -57,9 +63,10 @@
                             @enderror
                         </label>
                         <div class="flex justify-end gap-4">
-                            <a href="{{ route('admin.announcements.index') }}" class="btn-light btn">@lang('admin.btn.cancel')
+                            <a href="{{ route('admin.announcements.index', request()->query()) }}"
+                                class="btn-light btn">@lang('admin.btn.cancel')
                             </a>
-                            <button type="submit" class="btn bg-blue-700 text-white ml-2 text-white">
+                            <button type="submit" class="btn bg-blue-700  ml-2 text-white">
                                 @lang('admin.btn.submit')
                             </button>
                         </div>

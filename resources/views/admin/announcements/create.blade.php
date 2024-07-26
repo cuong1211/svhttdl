@@ -55,7 +55,7 @@
                         </label>
 
                         <div class="flex justify-end gap-4">
-                            <a href="{{ route('admin.announcements.index') }}" class="btn text-white">@lang('admin.btn.cancel')
+                            <a href="{{ route('admin.announcements.index',request()->query()) }}" class="btn text-white">@lang('admin.btn.cancel')
                             </a>
                             <button type="submit" class="btn bg-blue-700 text-white ml-2">
                                 @lang('admin.btn.submit')

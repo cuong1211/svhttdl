@@ -48,9 +48,10 @@ class HomeController extends Controller
         return view('layouts.website', compact('menus'));
     }
     public function getChild($category_id, $menu_id)
-    {
-        $posts = Post::query()->where('category_id', $category_id)->where('state', 1)->paginate(10);
-        return view('web.child', compact('posts', 'menu_id', 'category_id'));
+    {   
+        $category = Menu::findOrFail($menu_id)->title;
+        $posts = Post::query()->where('category_id', $category_id)->where('state', 1)->latest()->paginate(10);
+        return view('web.child', compact('posts', 'menu_id', 'category_id', 'category'));
     }
     public function getPost($category_id, $menu_id, $id): View
     {

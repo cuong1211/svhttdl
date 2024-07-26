@@ -23,7 +23,12 @@
                         method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
                         @csrf
                         @method('patch')
-
+@foreach (request()->query() as $key => $value)
+                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                        @endforeach
+                        @foreach (request()->query() as $key => $value)
+                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                        @endforeach
                         <div class="space-y-4">
                             <label class="form-control w-full">
                                 <div class="label" for="album_id">
@@ -116,7 +121,7 @@
                             </div>
                         </div>
                         <div class="flex justify-end gap-4">
-                            <a href="{{ route('admin.cooperations.index') }}"
+                            <a href="{{ route('admin.cooperations.index', request()->query()) }}"
                                 class="btn-light btn text-white">@lang('admin.btn.cancel')
                             </a>
                             <button type="submit" class="btn bg-blue-700 text-white">
@@ -130,7 +135,7 @@
     </div>
     @pushonce('bottom_scripts')
         <x-admin.forms.tinymce-config column="description" />
-       
+
         <script>
             var loadFile = function(event) {
                 document.getElementById('preview_img').style.display = 'block'

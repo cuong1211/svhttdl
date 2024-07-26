@@ -41,7 +41,6 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('categories', CategoryController::class);
-        Route::resource('tags', TagController::class);
 
         //post of category
         Route::group(['middleware'=> CheckDepartmentAccess::class],function () {

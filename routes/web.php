@@ -22,6 +22,7 @@ route::get('/danh-muc/gioi-thieu/co-cau-to-chuc', [EmployeeController::class, 'i
 route::get('/danh-muc/gioi-thieu/{id}', [HomeController::class, 'getIntro'])->name('home.intro');
 route::get('/nhan-vien/{employee:id}', [EmployeeController::class, 'show'])->name('employee.show');
 route::get('/van-ban-qppl', [DocumentController::class, 'index'])->name('document.index');
+route::get('/van-ban-qppl/{document:id}', [DocumentController::class, 'show'])->name('document.show');
 route::get('/thong-bao', [NotificationController::class, 'index'])->name('noti.index');
 route::get('/thong-bao/{Announcement:id}', [NotificationController::class, 'show'])->name('noti.show');
 route::get('/video', [WebVideoController::class, 'index'])->name('video.index');

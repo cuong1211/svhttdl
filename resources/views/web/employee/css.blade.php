@@ -29,7 +29,7 @@
 
 
         /* LEVEL-1 STYLES
-                    –––––––––––––––––––––––––––––––––––––––––––––––––– */
+                                    –––––––––––––––––––––––––––––––––––––––––––––––––– */
         .level-1 {
             width: 20%;
             margin: 0 auto 40px;
@@ -49,7 +49,7 @@
 
 
         /* LEVEL-2 STYLES
-                    –––––––––––––––––––––––––––––––––––––––––––––––––– */
+                                    –––––––––––––––––––––––––––––––––––––––––––––––––– */
         .level-2-wrapper {
             position: relative;
             display: grid;
@@ -123,7 +123,7 @@
 
 
         /* LEVEL-3 STYLES
-                    –––––––––––––––––––––––––––––––––––––––––––––––––– */
+                                    –––––––––––––––––––––––––––––––––––––––––––––––––– */
         .level-3-wrapper {
             position: relative;
             display: grid;
@@ -169,7 +169,7 @@
 
 
         /* LEVEL-4 STYLES
-                    –––––––––––––––––––––––––––––––––––––––––––––––––– */
+                                    –––––––––––––––––––––––––––––––––––––––––––––––––– */
         .level-4-wrapper {
             position: relative;
             width: 80%;
@@ -208,18 +208,22 @@
 
 
         /* MQ STYLES
-                    –––––––––––––––––––––––––––––––––––––––––––––––––– */
-        @media screen and (max-width: 900px) {
+                                    –––––––––––––––––––––––––––––––––––––––––––––––––– */
+        @media screen and (max-width: 1156px) {
             .rectangle {
                 padding: 20px 10px;
             }
 
             .level-1,
             .level-2 {
-                width: 100%;
+                width: auto;
             }
 
             .level-1 {
+                margin-bottom: 20px;
+            }
+
+            .level-2 {
                 margin-bottom: 20px;
             }
 
@@ -251,6 +255,58 @@
 
             .level-2-wrapper>li:not(:first-child) {
                 margin-top: 50px;
+            }
+
+            .level-2::before {
+                display: none;
+            }
+
+            .level-3-wrapper {
+                position: relative;
+                width: 80%;
+                display: inline-block;
+                margin-left: 20px;
+            }
+
+            .level-3-wrapper:before {
+                content: "";
+                position: absolute;
+                top: -20px;
+                left: -20px;
+                width: 2px;
+                height: 100%;
+                background: var(--black);
+            }
+
+            .level-3-wrapper li+li {
+                margin-top: 20px;
+            }
+
+            .level-3 {
+                font-weight: normal;
+                width: 100%;
+                background: var(--level-4);
+                height: auto;
+            }
+
+            .level-3::before {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 0%;
+                transform: translate(-100%, -50%);
+                width: 20px;
+                height: 2px;
+                background: var(--black);
+            }
+
+            .level-3-wrapper>li::before {
+                display: none;
+            }
+
+            .level-3-wrapper>li {
+                width: auto;
+                height: auto;
             }
         }
     </style>

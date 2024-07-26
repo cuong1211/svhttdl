@@ -72,7 +72,8 @@
                                     <td class="text-center">{{ $opinion->email }}</td>
                                     <td class="text-center">{{ $opinion->created_at }}</td>
                                     <td class="flex gap-3 items-center justify-center">
-                                        <a href="{{ route('admin.opinions.show', $opinion->id) }}"><x-heroicon-o-eye
+                                        <a
+                                            href="{{ route('admin.opinions.show', [$opinion->id] + request()->query()) }}"><x-heroicon-o-eye
                                                 class="size-4 text-green-600" /></a>
                                         <form id="delete-form-{{ $opinion->id }}"
                                             action="{{ route('admin.opinions.destroy', ['opinion' => $opinion->id]) }}"

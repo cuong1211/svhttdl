@@ -124,7 +124,7 @@
                                 style="display:none" />
                         </div>
                         <div class="flex justify-end gap-4">
-                            <a href="{{ route('admin.videos.index') }}" class="btn-light btn text-white">
+                            <a href="{{ route('admin.videos.index',request()->query()) }}" class="btn-light btn text-white">
                                 @lang('admin.btn.cancel')
                             </a>
                             <button type="submit" class="btn bg-blue-700 text-white ml-2">

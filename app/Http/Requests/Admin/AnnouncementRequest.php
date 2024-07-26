@@ -21,6 +21,7 @@ class AnnouncementRequest extends FormRequest
                     return [
                         'title' => 'required|max:255|unique:announcements',
                         'content' => 'required|string',
+                        'published_at' => 'required|date',
 
                     ];
                 }
@@ -32,6 +33,7 @@ class AnnouncementRequest extends FormRequest
                             Rule::unique('announcements')->ignore($this->announcement->id)
                         ],
                         'content' => 'required|string',
+                        'published_at' => 'required|date',
 
                     ];
                 }

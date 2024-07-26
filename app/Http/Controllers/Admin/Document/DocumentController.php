@@ -32,7 +32,6 @@ class DocumentController extends Controller
                 fn ($query) => $query->where('tag_id', $request->kind_id),
             )
             ->with('types', 'signers')
-            ->orderBy('published_at', 'desc')
             ->latest()
             ->paginate(10)->appends($request->all());
         $kinds = Signer::query()->get();
@@ -123,8 +122,8 @@ class DocumentController extends Controller
                 ->usingName($imageFile->getClientOriginalName())
                 ->toMediaCollection('document_file');
         }
-
-        return redirect()->route('admin.documents.index')->with([
+        $queryParams = $request->except(['_token', '_method', 'name', 'content', 'reference_number', 'notes', 'published_at', 'tag_id','user_id']);
+        return redirect()->route('admin.documents.index', $queryParams)->with([
             'icon' => 'success',
             'heading' => 'Success',
             'message' => 'Sửa văn bản thành công',

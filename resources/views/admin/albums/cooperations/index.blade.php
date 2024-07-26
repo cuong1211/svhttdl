@@ -6,7 +6,7 @@
                     @lang('admin.cooperations.all')
                 </span>
             </div>
-            <a class="bg-blue-700 btn border-blue-500" href="{{ route('admin.cooperations.create') }}">
+            <a class="bg-blue-700 btn border-blue-500" href="{{ route('admin.cooperations.create',request()->query()) }}">
                 <x-heroicon-s-plus class="size-4 text-white" />
                 <span class="text-white">@lang('admin.add')</span>
             </a>
@@ -77,7 +77,7 @@
                                     <td class="text-center">{{ $cooperation->updatedAtVi }}</td>
 
                                     <td class="flex gap-3 items-center justify-center">
-                                        <a href="{{ route('admin.cooperations.edit', $cooperation->id) }}"><x-heroicon-s-pencil-square
+                                        <a href="{{ route('admin.cooperations.edit', [$cooperation->id]+request()->query()) }}"><x-heroicon-s-pencil-square
                                                 class="size-4 text-green-600" /></a>
                                         <form id="delete-form-{{ $cooperation->id }}"
                                             action="{{ route('admin.cooperations.destroy', ['cooperation' => $cooperation->id]) }}"

@@ -58,13 +58,14 @@ class AnnouncementController extends Controller
 
     public function update(Announcement $announcement, AnnouncementRequest $request): RedirectResponse
     {
+        $data = $request->validated();
         $announcement->update([
-            'title' => $request->title,
-            'content' => $request->content,
-            'published_at' => $request->published_at,
+            'title' => $data['title'],
+            'content' => $data['content'],
+            'published_at' => $data['published_at'],
         ]);
-
-        return redirect()->route('admin.announcements.index')->with([
+        $queryParams = $request->except(array_keys($data));
+        return redirect()->route('admin.announcements.index', $queryParams)->with([
             'icon' => 'success',
             'heading' => 'Success',
             'message' => 'Cập nhập thông báo thành công',

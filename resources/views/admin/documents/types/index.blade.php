@@ -6,7 +6,7 @@
                     @lang('admin.types.list')
                 </span>
             </div>
-            <a class="bg-blue-700 btn border-blue-500" href="{{ route('admin.types.create') }}">
+            <a class="bg-blue-700 btn border-blue-500" href="{{ route('admin.types.create', request()->query()) }}">
                 <x-heroicon-s-plus class="size-4 text-white" />
                 <span class="text-white">@lang('admin.add')</span>
             </a>
@@ -71,7 +71,7 @@
                                     <td class="text-center">{{ $type->updatedAtVi }}</td>
 
                                     <td class="flex gap-3 items-center justify-center">
-                                        <a href="{{ route('admin.types.edit', $type->id) }}"><x-heroicon-s-pencil-square
+                                        <a href="{{ route('admin.types.edit', [$type->id] + request()->query()) }}"><x-heroicon-s-pencil-square
                                                 class="size-4 text-green-600" /></a>
                                         <form id="delete-form-{{ $type->id }}"
                                             action="{{ route('admin.types.destroy', ['type' => $type->id]) }}"

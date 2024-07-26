@@ -12,7 +12,7 @@
                 </span>
             </div>
             <a class="bg-blue-700 btn border-blue-500 "
-                href="{{ route('admin.categories.posts.create', ['category' => $category]) }}">
+                href="{{ route('admin.categories.posts.create', ['category' => $category] + request()->query()) }}">
                 <x-heroicon-s-plus class="size-4 text-white" />
                 <span class="text-white">@lang('admin.add')</span>
             </a>
@@ -62,7 +62,7 @@
                                     <li>
                                         <select id="categoryFilter1" name="categoryFilter1"
                                             class="select select-bordered w-full bg-white text-black font-semibold"
-                                            style="border: 1px solid black; display: {{ $request->categoryFilter == null  ? 'none' : 'block' }}">
+                                            style="border: 1px solid black; display: {{ $request->categoryFilter == null ? 'none' : 'block' }}">
                                             <option value="">Tất cả</option>
                                             @foreach ($filter_child_cate as $filter1)
                                                 <option value="{{ $filter1->id }}"
@@ -116,7 +116,7 @@
 
                                     <td class="flex gap-3 items-center justify-center">
                                         <a
-                                            href="{{ route('admin.categories.posts.edit', ['category' => $category->id, 'post' => $post->id]) }}">
+                                            href="{{ route('admin.categories.posts.edit', ['category' => $category->id, 'post' => $post->id] + request()->query()) }}">
                                             <x-heroicon-s-pencil-square class="size-4 text-green-600" />
                                         </a>
                                         <form id="delete-form-{{ $post->id }}"

@@ -90,6 +90,7 @@ class StaffController extends Controller
     public function update(StaffRequest $request, Staff $staff)
     {
         $data = $request->validated();
+        $queryParams = $request->except(array_keys($data));
         $data = (object) $data;
         $staff->update([
             'name' => $data->name,
@@ -106,8 +107,7 @@ class StaffController extends Controller
                 ->usingName($imageFile->getClientOriginalName())
                 ->toMediaCollection('staff_image');
         }
-
-        return redirect()->route('admin.staffs.index')->with([
+        return redirect()->route('admin.staffs.index', $queryParams)->with([
             'icon' => 'success',
             'heading' => 'Success',
             'message' => 'Sửa nhân viên thành công',

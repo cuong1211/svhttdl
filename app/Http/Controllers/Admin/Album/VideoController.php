@@ -79,12 +79,13 @@ class VideoController extends Controller
 
     public function update(VideoRequest $request, Video $video)
     {
+        $data = $request->validated();
         $video->update([
-            'album_id' => $request->album_id,
-            'name' => $request->name,
-            'video_id' => $request->video_id,
-            'source' => $request->source,
-            'is_active' => $request->is_active,
+            'album_id' => $data['album_id'],
+            'name' => $data['name'],
+            'video_id' => $data['video_id'],
+            'source' => $data['source'],
+            'is_active' => $data['is_active'],
         ]);
         // other video update is_active to 0
         Video::query()
@@ -99,7 +100,8 @@ class VideoController extends Controller
                 ->usingName($imageFile->getClientOriginalName())
                 ->toMediaCollection('thumbnail_video');
         }
-        return redirect()->route('admin.videos.index')->with([
+        $queryParams = $request->except(array_keys($data));
+        return redirect()->route('admin.videos.index', $queryParams)->with([
             'icon' => 'success',
             'heading' => 'Success',
             'message' => 'Cập nhập video thành công',

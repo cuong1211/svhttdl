@@ -62,13 +62,13 @@ class TypeDocumentController extends Controller
     public function update(TypeDocumentRequest $request, $id): RedirectResponse
     {
         $type = Type::findOrFail($id);
-
+        $data = $request->validated();
         $type->update([
-            'name' => $request->name,
-            'description' => $request->description,
+            'title' => $data['title'],
+            'description' => $data['description'],
         ]);
-
-        return redirect()->route('admin.types.index')->with([
+        $queryParams = $request->except(array_keys($data));
+        return redirect()->route('admin.types.index', $queryParams)->with([
             'icon' => 'success',
             'heading' => 'success',
             'message' => 'Cập nhật thành công',

@@ -24,6 +24,9 @@
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
+                            @foreach (request()->query() as $key => $value)
+                                <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                            @endforeach
                             <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                             <div class="space-y-4">
                                 <label class="form-control w-full">
@@ -147,7 +150,7 @@
                                     @endif
                                 </div>
                                 <div class="flex justify-end gap-4">
-                                    <a href="{{ route('admin.addons.index') }}"
+                                    <a href="{{ route('admin.addons.index', request()->query()) }}"
                                         class="btn-light btn text-white">@lang('admin.btn.cancel')</a>
                                     <button type="submit" class="btn bg-blue-700 text-white ml-2">
                                         @lang('admin.btn.submit')

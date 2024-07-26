@@ -24,6 +24,9 @@
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
+                            @foreach (request()->query() as $key => $value)
+                                <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                            @endforeach
                             <div class="space-y-4">
                                 <label class="form-control w-full">
                                     <div class="label">
@@ -105,7 +108,7 @@
                                         alt="{{ $ads->getFirstMedia('ads_image')->name }}" />
                                 </div>
                                 <div class="flex justify-end gap-4">
-                                    <a href="{{ route('admin.ads.index') }}"
+                                    <a href="{{ route('admin.ads.index', request()->query()) }}"
                                         class="btn-light btn text-white">@lang('admin.btn.cancel')</a>
                                     <button type="submit" class="btn bg-blue-700 text-white ml-2">
                                         @lang('admin.btn.submit')
@@ -129,7 +132,7 @@
     </div>
     @pushonce('bottom_scripts')
         <x-admin.forms.tinymce-config column="content" />
-       
+
         <script>
             var loadFile = function(event) {
                 document.getElementById('preview_img').style.display = 'block'

@@ -62,13 +62,13 @@ class SignerDocumentController extends Controller
     public function update(SignerDocumentRequest $request, $id): RedirectResponse
     {
         $signer = Signer::findOrFail($id);
-
+        $data = $request->validated();
         $signer->update([
-            'name' => $request->name,
-            'description' => $request->description,
+            'title' => $data['title'],
+            'description' => $data['description'],
         ]);
-
-        return redirect()->route('admin.signers.index')->with([
+        $queryParams = $request->except(array_keys($data));
+        return redirect()->route('admin.signers.index', $queryParams)->with([
             'icon' => 'success',
             'heading' => 'success',
             'message' => trans('admin.alert.update'),

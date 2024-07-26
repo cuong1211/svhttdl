@@ -29,7 +29,7 @@ class UserRequest extends FormRequest
         switch ($action) {
             case 'store': {
                     return [
-                        'name' => 'required|regex: /^[ a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/|max:255|min:2',
+                        'name' => 'required|max:255|min:2',
                         'email' => 'required|max:255|email|unique:users|regex:/^[A-Za-z0-9.@+]*$/|email:rfc,dns',
                         'phone' => 'nullable|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|max:15',
                         'address' => 'nullable|max:255',
@@ -45,7 +45,7 @@ class UserRequest extends FormRequest
                 }
             case 'update': {
                     return [
-                        'name' => 'required|regex: /^[ a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/|max:255|min:2',
+                        'name' => 'required| max:255|min:2',
                         'email' => [
                             'required',
                             'max:255',

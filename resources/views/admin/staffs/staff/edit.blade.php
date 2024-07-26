@@ -22,7 +22,10 @@
                     <form action="{{ route('admin.staffs.update', $staff->id) }}" method="POST"
                         class="space-y-4 needs-validation" novalidate enctype="multipart/form-data">
                         @csrf
-                        @method('PUT') <!-- Đảm bảo sử dụng method PUT hoặc PATCH cho update -->
+                        @method('PUT')
+                        @foreach (request()->query() as $key => $value)
+                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                        @endforeach <!-- Đảm bảo sử dụng method PUT hoặc PATCH cho update -->
                         <label class="form-control w-full">
                             <div class="label">
                                 <span class="label-text text-base text-black font-medium">@lang('admin.staffs.name')</span>
@@ -109,6 +112,7 @@
                                         @if ($staff->getFirstMedia('staff_image'))
                                             {{ $staff->getFirstMedia('staff_image')->name }}
                                         @else
+                                            {{ $staff->image }}
                                         @endif
                                     </span>
                                 </div>
@@ -119,12 +123,17 @@
                             </label>
                         </div>
                         <div class="shrink-0">
-                            <img id="preview_img" class="h-40 w-72 object-cover rounded"
-                                src="{{ $staff->getFirstMedia('staff_image')->getUrl('') }}"
-                                alt="{{ $staff->getFirstMedia('staff_image')->name }}" />
+                            @if ($staff->getFirstMedia('staff_image'))
+                                <img id="preview_img" class="w-52 h-72 object-cover rounded"
+                                    src="{{ $staff->getFirstMedia('staff_image')->getUrl('') }}"
+                                    alt="{{ $staff->getFirstMedia('staff_image')->name }}" />
+                            @else
+                                <img id="preview_img" class=" w-52 h-72 object-cover rounded"
+                                    src="{{ asset($staff->image) }}" alt="" />
+                            @endif
                         </div>
                         <div class="flex justify-end gap-4">
-                            <a href="{{ route('admin.staffs.index') }}" class="btn-light btn">
+                            <a href="{{ route('admin.staffs.index', request()->query()) }}" class="btn-light btn">
                                 @lang('admin.btn.cancel')
                             </a>
                             <button type="submit" class="btn bg-blue-700 text-white ml-2">
@@ -139,7 +148,7 @@
     </div>
     @pushonce('bottom_scripts')
         <x-admin.forms.tinymce-config column="content" />
-       
+
         <script>
             var loadFile = function(event) {
                 document.getElementById('preview_img').style.display = 'block'

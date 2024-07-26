@@ -72,8 +72,8 @@ class CategorieController extends Controller
             'name' => $data['name'],
             'slug' => Str::slug($data['name']),
         ]);
-
-        return redirect()->route('admin.roles.index')->with([
+        $queryParams = $request->except(array_keys($data));
+        return redirect()->route('admin.roles.index', $queryParams)->with([
             'icon' => 'success',
             'heading' => 'Success',
             'message' => 'Cập nhật loại tài khoản thành công',

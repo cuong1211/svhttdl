@@ -2,8 +2,7 @@
     <div>
         <div
             style="font-size: 36px; width: 100%; border-bottom: 3px solid transparent; border-image: linear-gradient(0.25turn, rgba(255,249,34), rgba(255,0,128), rgba(56,2,155,0)); border-image-slice: 1;">
-            <a style="margin-left:24px; color: #000; font-weight: bold;">TIN TỨC HOẠT ĐỘNG - Trung tâm Văn hóa và Xúc
-                tiến du lịch</a>
+            <a style="margin-left:24px; color: #000; font-weight: bold;">TIN TỨC HOẠT ĐỘNG - {{$category}}</a>
         </div>
         <div>
             @foreach ($posts as $post)
@@ -28,7 +27,7 @@
                     </div>
                 </div>
             @endforeach
-            {{ $posts->links() }}
+            {{ $posts->render('web.paginate') }}
         </div>
     </div>
 </x-website-layout>

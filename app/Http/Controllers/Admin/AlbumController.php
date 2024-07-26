@@ -66,12 +66,12 @@ class AlbumController extends Controller
 
     public function update(AlbumRequest $request, Album $album)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'type' => 'required',
-        ]);
+        $data = $request->validated();
 
-        $album->update($request->all());
+        $album->update([
+            'name' => $data['name'],
+            'type' => $data['type'],
+        ]);
         if ($request->hasFile('image')) {
             $imageFile = $request->file('image');
             $album->clearMediaCollection('album_thumb');
@@ -80,8 +80,8 @@ class AlbumController extends Controller
                 ->usingName($imageFile->getClientOriginalName())
                 ->toMediaCollection('album_thumb');
         }
-
-        return redirect()->route('admin.albums.index')->with([
+        $queryParams = $request->except(array_keys($data));
+        return redirect()->route('admin.albums.index', $queryParams)->with([
             'icon' => 'success',
             'heading' => 'Success',
             'message' => 'Cập nhập album thành công',

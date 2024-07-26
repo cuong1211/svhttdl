@@ -16,6 +16,9 @@
     <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6 text-black ">
         @csrf
         @method('patch')
+@foreach (request()->query() as $key => $value)
+                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                        @endforeach
 
         <div>
             <x-input-label for="name" :value="__('Tên hiển thị')" class="font-semibold"/>

@@ -7,7 +7,7 @@
                     @lang('admin.documents.list')
                 </span>
             </div>
-            <a class="bg-blue-700 btn border-blue-500" href="{{ route('admin.docs-opis.create') }}">
+            <a class="bg-blue-700 btn border-blue-500" href="{{ route('admin.docs-opis.create', request()->query()) }}">
                 <x-heroicon-s-plus class="size-4 text-white" />
                 <span class="text-white">@lang('admin.add')</span>
             </a>
@@ -21,7 +21,7 @@
         <div class="mt-6">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="flex px-6 py-4">
-                    <form action="{{ route('admin.documents.index') }}" method="GET" class="w-full">
+                    <form action="{{ route('admin.docs-opis.index') }}" method="GET" class="w-full">
                         <div class=" items-center gird-cols-3 md:grid-cols-1">
                             <ul class="menu md:menu-horizontal rounded-box bg-white gap-1">
                                 <li>
@@ -76,7 +76,7 @@
                                     <td class="text-center">{{ $doc->updatedAtVi }}</td>
 
                                     <td class="flex gap-3 items-center justify-center">
-                                        <a href="{{ route('admin.docs-opis.edit', $doc->id) }}"><x-heroicon-s-pencil-square
+                                        <a href="{{ route('admin.docs-opis.edit', [$doc->id] + request()->query()) }}"><x-heroicon-s-pencil-square
                                                 class="size-4 text-green-600" /></a>
                                         <form id="delete-form-{{ $doc->id }}"
                                             action="{{ route('admin.docs-opis.destroy', ['docs_opi' => $doc->id]) }}"

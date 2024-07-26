@@ -25,6 +25,9 @@
                             method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
+                            @foreach (request()->query() as $key => $value)
+                                <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                            @endforeach
                             @if (Auth::user()->category_id == 3)
                                 <input type="hidden" name="category_id" value="{{ $post->category_id }}">
                             @endif
@@ -153,7 +156,7 @@
                                 </label>
                                 @foreach (App\Enums\PostTypeEnum::cases() as $type)
                                     <div class="flex items-center mb-4">
-                                        <input id="{{ $type->value }}" type="checkbox" value="{{ $type->value }}"
+                                        <input id="{{ $type->value }}" type="radio" value="{{ $type->value }}"
                                             name="type" {{ $post->type === $type->value ? 'checked' : '' }}
                                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="{{ $type->value }}"
@@ -198,7 +201,7 @@
                                     @endif
                                 </div>
                                 <div class="flex justify-end gap-4">
-                                    <a href="{{ route('admin.categories.posts.index', ['category' => $selectedCategory->id]) }}"
+                                    <a href="{{ route('admin.categories.posts.index', ['category' => $categoryId] + request()->query()) }}"
                                         class="btn-light btn text-white">@lang('admin.btn.cancel')</a>
                                     <button type="submit" class="btn bg-blue-700 text-white ml-2">
                                         @lang('admin.btn.submit')

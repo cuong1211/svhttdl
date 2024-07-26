@@ -22,7 +22,10 @@
                     <form action="{{ route('admin.users.update', $user->id) }}" method="POST"
                         class="space-y-4 needs-validation" novalidate enctype="multipart/form-data">
                         @csrf
-                        @method('PUT') <!-- Đảm bảo sử dụng method PUT hoặc PATCH cho update -->
+                        @method('PUT')
+                        @foreach (request()->query() as $key => $value)
+                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                        @endforeach <!-- Đảm bảo sử dụng method PUT hoặc PATCH cho update -->
                         <label class="form-control w-full">
                             <div class="label">
                                 <span class="label-text text-base text-black font-medium">@lang('admin.staffs.name')</span>
@@ -214,7 +217,7 @@
                                 ]) />
                         </label>
                         <div class="flex justify-end gap-4">
-                            <a href="{{ route('admin.users.index') }}" class="btn-light btn">
+                            <a href="{{ route('admin.users.index', request()->query()) }}" class="btn-light btn">
                                 @lang('admin.btn.cancel')
                             </a>
                             <button type="submit" class="btn bg-blue-700 text-white ml-2 text-white">

@@ -67,14 +67,15 @@ class PositionController extends Controller
 
     public function update(PositionRequest $request, $id): RedirectResponse
     {
+        $data = $request->validated();
         $position = Position::findOrFail($id);
 
         $position->update([
-            'name' => $request->name,
-            'description' => $request->description,
+            'name' => $data['name'],
+            'description' => $data['description'],
         ]);
-
-        return redirect()->route('admin.positions.index')->with([
+        $queryParams = $request->except(array_keys($data));
+        return redirect()->route('admin.positions.index', $queryParams)->with([
             'icon' => 'success',
             'heading' => 'Thêm mới',
             'message' => ' Cập nhật chức vụ thành công',

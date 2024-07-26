@@ -17,7 +17,7 @@ class PhotoRequest extends FormRequest
             'album_id' => 'required|exists:albums,id',
             'name' => 'required|string|max:255',
             'content' => 'nullable|string',
-            'image' => 'required|image|max:2048|mimes:jpeg,jpg,png,gif',
+            'image' => 'nullable|image|max:2048|mimes:jpeg,jpg,png,gif',
         ];
     }
 

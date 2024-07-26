@@ -80,12 +80,13 @@ class PhotoController extends Controller
             ]);
     }
 
-    public function update(Request $request, Photo $photo)
+    public function update(PhotoRequest $request, Photo $photo)
     {
+        $data = $request->validated();
         $photo->update([
-            'album_id' => $request->album_id,
-            'name' => $request->name,
-            'content' => $request->content,
+            'album_id' => $data['album_id'],
+            'name' => $data['name'],
+            'content' => $data['content'],
         ]);
         if ($request->hasFile('image')) {
             $photo->clearMediaCollection('album_photo');
@@ -94,8 +95,8 @@ class PhotoController extends Controller
                 ->usingName($request->image->getClientOriginalName())
                 ->toMediaCollection('album_photo');
         }
-
-        return redirect()->route('admin.photos.index')->with([
+        $queryParams = $request->except(array_keys($data));
+        return redirect()->route('admin.photos.index', $queryParams)->with([
             'icon' => 'success',
             'heading' => 'Success',
             'message' => 'Cập nhập hình ảnh thành công',

@@ -6,7 +6,8 @@
                     @lang('admin.announcements')
                 </span>
             </div>
-            <a class="bg-blue-700 btn border-blue-500" href="{{ route('admin.announcements.create') }}">
+            <a class="bg-blue-700 btn border-blue-500"
+                href="{{ route('admin.announcements.create', request()->query()) }}">
                 <x-heroicon-s-plus class="size-4 text-white" />
                 <span class="text-white">@lang('admin.add')</span>
             </a>
@@ -71,10 +72,10 @@
                                     <td class="text-center">{{ $announcement->updatedAtVi }}</td>
 
                                     <td class="flex gap-3 items-center justify-center">
-                                        <a href="{{ route('admin.announcements.edit', $announcement->id) }}"><x-heroicon-s-pencil-square
+                                        <a href="{{ route('admin.announcements.edit', [$announcement->id]+ request()->query()) }}"><x-heroicon-s-pencil-square
                                                 class="size-4 text-green-600" /></a>
                                         <form id="delete-form-{{ $announcement->id }}"
-                                            action="{{ route('admin.announcements.destroy', ['announcement' => $announcement->id]) }}"
+                                            action="{{ route('admin.announcements.destroy', ['announcement' => $announcement->id] + request()->query()) }}"
                                             method="POST">
                                             @csrf
                                             @method('DELETE')

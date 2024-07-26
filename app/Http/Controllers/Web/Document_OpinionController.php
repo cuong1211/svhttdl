@@ -19,11 +19,9 @@ class Document_OpinionController extends Controller
     }
     public function show($id)
     {
-        $opinions = Opinion::query()->where('document_id', $id)->latest()->paginate(10);
         $doc = Document_Opinion::find($id);
         return view('web.document_opinion.show', [
             'doc' => $doc,
-            'opinions' => $opinions,
         ]);
     }
     public function store($id, OpinionRequest $request)

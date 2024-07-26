@@ -23,6 +23,9 @@
                         class="space-y-4 needs-validation" novalidate>
                         @csrf
                         @method('PUT')
+                        @foreach (request()->query() as $key => $value)
+                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                        @endforeach
                         <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                         <label class="form-control w-full">
                             <div class="label">
@@ -45,7 +48,7 @@
                             <div class="label">
                                 <span class="label-text text-base text-black font-medium">@lang('admin.categories.title')</span>
                             </div>
-                            <input type="text" name="title" value="{{ old('title', $selectedCategory->title) }}"
+                            <input type="text" name="title" value="{{ $selectedCategory->title }}"
                                 @class([
                                     'border',
                                     'border-gray-300',
@@ -138,7 +141,7 @@
                         </label>
 
                         <div class="flex justify-end gap-4">
-                            <a href="{{ route('admin.categories.index') }}"
+                            <a href="{{ route('admin.categories.index', request()->query()) }}"
                                 class="btn-light btn text-white">@lang('admin.btn.cancel')</a>
                             <button type="submit" class="btn bg-blue-700 text-white ml-2">@lang('admin.btn.submit')</button>
                         </div>

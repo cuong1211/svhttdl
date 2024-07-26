@@ -83,7 +83,8 @@ class BannerController extends Controller
                 ->usingName($imageFile->getClientOriginalName())
                 ->toMediaCollection('banner_image');
         }
-        return redirect()->route('admin.banners.index')->with([
+        $queryParams = $request->except(array_keys($data));
+        return redirect()->route('admin.banners.index', $queryParams)->with([
             'icon' => 'success',
             'heading' => 'Success',
             'message' => 'Cập nhật banner thành công',

@@ -220,7 +220,6 @@
                             <summary>@lang('admin.categories')</summary>
                             <ul class="menu">
                                 @foreach ($menu as $menu)
-                                    {{-- <x-admin.sidebar.category :category="$menu" /> --}}
                                     <x-admin.sidebar.new-category :category="$menu" />
                                 @endforeach
                             </ul>

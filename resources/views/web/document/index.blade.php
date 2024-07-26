@@ -25,7 +25,8 @@
             background-color: inherit;
             color: inherit;
         }
-        a{
+
+        a {
             color: black;
         }
     </style>
@@ -41,10 +42,12 @@
     <div class="Around_News_Detail">
         <div class="Around_News_Content">
             <div class="w3-bar w3-blue">
-                <button class="w3-bar-item w3-button" onclick="openCity('Tab1')"><b>Văn bản mới</b></button>
-                <button class="w3-bar-item w3-button" onclick="openCity('Tab2')"><b>Văn bản QPPL</b></button>
-                <button class="w3-bar-item w3-button" onclick="openCity('Tab3')"><b>Văn bản QPPL cấp tỉnh & Trung
-                        ương</b></button>
+                @foreach ($kinds as $kind)
+                    <form action="{{ route('document.index') }}" method="GET">
+                        <input type="hidden" name="kind_id" value="{{ $kind->id }}">
+                        <button type="submit" class="w3-bar-item w3-button"><b>{{ $kind->name }}</b></button>
+                    </form>
+                @endforeach
             </div>
 
             <div id="Tab1" class="w3-container city">
@@ -58,30 +61,29 @@
                         <td style="background:#2A3F54 ; color: #fff;"><strong>Ngày ban hành</strong></td>
                         <td style="background:#2A3F54 ; color: #fff;text-align: center;"><strong>Tải về</strong></td>
                     </tr>
-                
+
                     @foreach ($docs as $item)
                         <tr style="color: #333333; ">
                             <td>{{ $docs->firstItem() + $loop->index }}</td>
                             <td style="text-align: left; margin-left: 10px; text-align: justify;"><a
-                                    href="index141a.html?com=chitiet_vb&amp;id_vanban=26">{{ $item->reference_number }}</a>
+                                    href="{{ route('document.show', $item->id) }}">{{ $item->reference_number }}</a>
                             </td>
                             <td style="text-align: left; margin-left: 10px; text-align: justify;"><a
-                                    href="index141a.html?com=chitiet_vb&amp;id_vanban=26">{{ $item->name }}</a></td>
+                                    href="{{ route('document.show', $item->id) }}">{{ $item->name }}</a></td>
                             <td style="text-align: left; margin-left: 10px; text-align: justify;"><a
-                                    href="index141a.html?com=chitiet_vb&amp;id_vanban=26">{{ $item->published_at->translatedFormat('d/m/Y') }}</a>
+                                    href="{{ route('document.show', $item->id) }}">{{ $item->published_at->translatedFormat('d/m/Y') }}</a>
                             </td>
                             <td>
                                 @if ($item->getFirstMedia('document_file'))
                                     <a class="fa fa-download" target="_blank"
                                         href="{{ $item->getFirstMedia('document_file')->getUrl() }}"></a>
                                 @else
-                                {{-- make url form host + $item->document_file --}}
+                                    {{-- make url form host + $item->document_file --}}
                                     <a class="fa fa-download" target="_blank"
                                         href="{{ asset('/' . $item->document_file) }}"></a>
                                 @endif
                             </td>
                         </tr>
-                    
                     @endforeach
 
                 </table>

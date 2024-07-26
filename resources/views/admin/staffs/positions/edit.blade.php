@@ -7,7 +7,7 @@
                 @lang('admin.edit')
             </span>
         </div>
-        
+
         <div class="mt-6">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 @if ($errors->any())
@@ -20,9 +20,13 @@
                     </div>
                 @endif
                 <div class="bg-white px-8 pb-8 pt-0 shadow sm:rounded-lg">
-                    <form action="{{ route('admin.positions.update', $position) }}" method="POST" class="space-y-4 needs-validation" novalidate>
+                    <form action="{{ route('admin.positions.update', $position) }}" method="POST"
+                        class="space-y-4 needs-validation" novalidate>
                         @csrf
                         @method('PUT')
+                        @foreach (request()->query() as $key => $value)
+                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                        @endforeach
 
                         <label class="form-control w-full">
                             <div class="label">
@@ -31,11 +35,11 @@
                             <input type="text" name="name" value="{{ $position->name }}"
                                 @class([
                                     'border',
-                                            'border-gray-300',
-                                            'bg-white',
-                                            'text-black',
-                                            'p-2',
-                                            'rounded-md',
+                                    'border-gray-300',
+                                    'bg-white',
+                                    'text-black',
+                                    'p-2',
+                                    'rounded-md',
                                     'input-error' => $errors->has('name'),
                                     'w-full',
                                 ]) />
@@ -47,21 +51,21 @@
                             </div>
                             <textarea name="description" id="description" cols="30" rows="10" @class([
                                 'border',
-                                            'border-gray-300',
-                                            'bg-white',
-                                            'text-black',
-                                            'p-2',
-                                            'rounded-md',
+                                'border-gray-300',
+                                'bg-white',
+                                'text-black',
+                                'p-2',
+                                'rounded-md',
                                 'input-error' => $errors->has('description'),
                                 'w-full',
                             ])>{!! $position->description !!}</textarea>
-                            
+
                         </label>
 
                         <div class="flex justify-end gap-4">
-                            <a href="{{ route('admin.positions.index') }}"
+                            <a href="{{ route('admin.positions.index', request()->query()) }}"
                                 class="btn-light btn text-white">@lang('admin.btn.cancel')</a>
-                            <button type="submit" class="btn bg-blue-700 text-white ml-2 text-white">@lang('admin.btn.submit')</button>
+                            <button type="submit" class="btn bg-blue-700 text-white ml-2">@lang('admin.btn.submit')</button>
                         </div>
                     </form>
 

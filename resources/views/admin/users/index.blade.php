@@ -6,7 +6,7 @@
                     @lang('admin.users.list')
                 </span>
             </div>
-            <a class="bg-blue-700 btn border-blue-500" href="{{ route('admin.users.create') }}">
+            <a class="bg-blue-700 btn border-blue-500" href="{{ route('admin.users.create', request()->query()) }}">
                 <x-heroicon-s-plus class="size-4 text-white" />
                 <span class="text-white">@lang('admin.add')</span>
             </a>
@@ -83,7 +83,7 @@
                                     <td class="text-center">{{ $user->updatedAtVi }}</td>
 
                                     <td class="flex gap-3 items-center justify-center">
-                                        <a href="{{ route('admin.users.edit', $user->id) }}"><x-heroicon-s-pencil-square
+                                        <a href="{{ route('admin.users.edit', [$user->id] + request()->query()) }}"><x-heroicon-s-pencil-square
                                                 class="size-4 text-green-600" /></a>
                                         <form id="delete-form-{{ $user->id }}"
                                             action="{{ route('admin.users.destroy', ['user' => $user->id]) }}"

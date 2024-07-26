@@ -17,7 +17,7 @@ class Document_OpinionController extends Controller
         $docs = Document_Opinion::query()
             ->when(
                 $request->search,
-                fn ($query) => $query->where('title', 'like', '%' . $request->search . '%')
+                fn ($query) => $query->where('name', 'like', '%' . $request->search . '%')
             )
             ->latest()
             ->paginate(10)
@@ -103,8 +103,8 @@ class Document_OpinionController extends Controller
                 ->usingName($imageFile->getClientOriginalName())
                 ->toMediaCollection('document_file');
         }
-
-        return redirect()->route('admin.docs-opis.index')->with([
+        $queryParams = $request->except(array_keys($data));
+        return redirect()->route('admin.docs-opis.index', $queryParams)->with([
             'icon' => 'success',
             'heading' => 'Success',
             'message' => 'Sửa văn bản thành công',
@@ -117,7 +117,7 @@ class Document_OpinionController extends Controller
     public function destroy($id)
     {
         $document = Document_Opinion::findOrFail($id);
-        if($document->opinion()->exists()){
+        if ($document->opinion()->exists()) {
             $document->opinion()->delete();
         }
         $document->clearMediaCollection('document_file');

@@ -58,6 +58,9 @@
                         <form action="{{ route('admin.answer.update', ['faq' => $faq->id, 'answer' => $answer->id]) }}"
                             method="POST">
                             @method('PUT')
+@foreach (request()->query() as $key => $value)
+                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                        @endforeach
                             @csrf
                             <div class="flex">
                                 <h3 class="text-black text-lg font-medium leading-6">

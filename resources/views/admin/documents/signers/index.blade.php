@@ -6,7 +6,7 @@
                     @lang('admin.signers.list')
                 </span>
             </div>
-            <a class="bg-blue-700 btn border-blue-500" href="{{ route('admin.signers.create') }}">
+            <a class="bg-blue-700 btn border-blue-500" href="{{ route('admin.signers.create', request()->query()) }}">
                 <x-heroicon-s-plus class="size-4 text-white" />
                 <span class="text-white">@lang('admin.add')</span>
             </a>
@@ -70,7 +70,7 @@
                                     <td class="text-center">{{ $signer->updatedAtVi }}</td>
 
                                     <td class="flex gap-3 items-center justify-center">
-                                        <a href="{{ route('admin.signers.edit', $signer->id) }}"><x-heroicon-s-pencil-square
+                                        <a href="{{ route('admin.signers.edit', [$signer->id] + request()->query()) }}"><x-heroicon-s-pencil-square
                                                 class="size-4 text-green-600" /></a>
                                         <form id="delete-form-{{ $signer->id }}"
                                             action="{{ route('admin.signers.destroy', ['signer' => $signer->id]) }}"

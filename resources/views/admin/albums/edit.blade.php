@@ -23,6 +23,12 @@
                     class="space-y-4 needs-validation" novalidate enctype="multipart/form-data">
                     @csrf
                     @method('patch')
+@foreach (request()->query() as $key => $value)
+                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                        @endforeach
+                    @foreach (request()->query() as $key => $value)
+                        <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                    @endforeach
                     <label class="form-control w-full">
                         <div class="label">
                             <span class="label-text text-base text-black font-medium">@lang('admin.albums.name')</span>
@@ -94,7 +100,8 @@
                         @endif
                     </div>
                     <div class="flex justify-end gap-4">
-                        <a href="{{ route('admin.albums.index') }}" class="btn-light btn text-white">@lang('admin.btn.cancel')
+                        <a href="{{ route('admin.albums.index', request()->query()) }}"
+                            class="btn-light btn text-white">@lang('admin.btn.cancel')
                         </a>
                         <button type="submit" class="btn bg-blue-700 text-white ml-2">
                             @lang('admin.btn.submit')
@@ -106,7 +113,7 @@
     </div>
     @pushonce('bottom_scripts')
         <x-admin.forms.tinymce-config column="content" />
-       
+
         <script>
             var loadFile = function(event) {
                 document.getElementById('preview_img').style.display = 'block'

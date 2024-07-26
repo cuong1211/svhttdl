@@ -11,7 +11,10 @@
 
     <form method="post" action="{{ route('password.update') }}" class="mt-6 space-y-6">
         @csrf
-        @method('put')
+        @method('PUT')
+@foreach (request()->query() as $key => $value)
+                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                        @endforeach
 
         <div>
             <x-input-label for="update_password_current_password" :value="__('Mật khẩu hiện tại')" class="font-semibold" />

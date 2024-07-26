@@ -14,7 +14,7 @@
             </div>
         @endif
         <div class="mt-6">
-            <a href="{{ route('admin.faqs.index') }}"
+            <a href="{{ route('admin.faqs.index', request()->query()) }}"
                 class="bg-gray-300 text-black hover:bg-gray-400 active:bg-gray-500 focus:border-gray-500 focus:ring-gray-300 inline-flex items-center rounded-md px-4 py-2 text-xs font-semibold uppercase tracking-widest transition focus:outline-none focus:ring disabled:opacity-25">
                 <x-heroicon-o-arrow-left class="mr-2 size-4" />
                 Quay lại
@@ -75,7 +75,7 @@
                                         {{-- <form  action="{{ route('admin.answer.destroy', ['faq' => $faq->id, 'answer' => $answer->id]) }}" method="POST">
                                             @csrf
                                             @method('DELETE') --}}
-                                        <button type="button" onclick="Delete({{ $answer->id}})">
+                                        <button type="button" onclick="Delete({{ $answer->id }})">
                                             <x-heroicon-o-trash class="size-4 text-red-500" />
                                         </button>
                                         {{-- </form> --}}
@@ -94,7 +94,6 @@
 
                             <div class="mt-3 flex justify-end gap-4">
                                 <div>
-                                    <button class="btn btn-neutral text-white ">Hủy</button>
                                     <button type="submit" class="btn bg-blue-700 text-white ml-2">
                                         @lang('admin.btn.submit')
                                     </button>
@@ -117,7 +116,7 @@
                     $(".alert").fadeOut(2000);
                 }, 3000); // thông báo sẽ ẩn sau 3 giây
             });
-            
+
             function Delete(answerId) {
                 let url = "{{ route('admin.answer.destroy', ['answer' => ':answerId']) }}";
                 url = url.replace(':answerId', answerId);

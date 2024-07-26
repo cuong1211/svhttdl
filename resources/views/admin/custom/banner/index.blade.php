@@ -6,7 +6,7 @@
                     Quản lý Banner
                 </span>
             </div>
-            <a class=" bg-blue-700 btn border-blue-500 " href="{{ route('admin.banners.create') }}">
+            <a class=" bg-blue-700 btn border-blue-500 " href="{{ route('admin.banners.create', request()->query()) }}">
                 <x-heroicon-s-plus class="size-4 text-white" />
                 <span class="text-white">@lang('admin.add')</span>
             </a>
@@ -84,7 +84,7 @@
                                         {{ $banner->updated_at->format('d/m/Y h:i') }}
                                     </td>
                                     <td class="flex gap-3 items-center justify-center">
-                                        <a href="{{ route('admin.banners.edit', $banner->id) }}"><x-heroicon-s-pencil-square
+                                        <a href="{{ route('admin.banners.edit', [$banner->id] + request()->query()) }}"><x-heroicon-s-pencil-square
                                                 class="size-4 text-green-600 " /></a>
                                         <form id="delete-form-{{ $banner->id }}"
                                             action="{{ route('admin.banners.destroy', ['banner' => $banner->id]) }}"

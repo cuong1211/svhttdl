@@ -28,7 +28,7 @@ class MenuController extends Controller
             ->when(
                 $request->search,
                 fn ($query) => $query->where('title', 'like', '%' . $request->search . '%')
-            )->latest()->paginate(10)->appends($request->all());
+            )->with('parent')->latest()->paginate(10)->appends($request->all());
         return view("admin.menus.index", compact("menus"));
     }
 
@@ -97,8 +97,8 @@ class MenuController extends Controller
             'parent_id' => $data['parent_id'],
             'order' => $data['order'],
         ]);
-
-        return redirect()->route('admin.menus.index')->with([
+        $queryParams = $request->except(array_keys($data));
+        return redirect()->route('admin.menus.index', $queryParams)->with([
             'icon' => 'success',
             'heading' => 'Success',
             'message' => 'Sửa menu thành công',

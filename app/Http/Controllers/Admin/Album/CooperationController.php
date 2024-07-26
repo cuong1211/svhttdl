@@ -72,12 +72,12 @@ class CooperationController extends Controller
 
     public function update(CooperationRequest $request, Cooperation $cooperation)
     {
-
+        $data = $request->validated();
         $cooperation->update([
-            'album_id' => $request->album_id,
-            'name' => $request->name,
-            'link_website' => $request->link_website,
-            'description' => $request->description,
+            'album_id' => $data['album_id'],
+            'name' => $data['name'],
+            'link_website' => $data['link_website'],
+            'description' => $data['description'],
         ]);
         if ($request->hasFile('image')) {
             $cooperation->clearMediaCollection('album_cooperation');
@@ -86,8 +86,8 @@ class CooperationController extends Controller
                 ->usingName($request->image->getClientOriginalName())
                 ->toMediaCollection('album_cooperation');
         }
-
-        return redirect()->route('admin.cooperations.index')->with([
+        $queryParams = $request->except(array_keys($data));
+        return redirect()->route('admin.cooperations.index', $queryParams)->with([
             'icon' => 'success',
             'heading' => 'Success',
             'message' => 'Cập nhập dự án thành công',

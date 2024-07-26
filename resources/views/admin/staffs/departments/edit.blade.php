@@ -23,6 +23,9 @@
                         class="space-y-4 needs-validation" novalidate>
                         @csrf
                         @method('PUT')
+                        @foreach (request()->query() as $key => $value)
+                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                        @endforeach
 
                         <label class="form-control w-full">
                             <div class="label">
@@ -79,7 +82,7 @@
 {!! $department->description !!}</textarea>
                         </label>
                         <div class="flex justify-end gap-4">
-                            <a href="{{ route('admin.departments.index') }}"
+                            <a href="{{ route('admin.departments.index', request()->query()) }}"
                                 class="btn-light btn text-white">@lang('admin.btn.cancel')</a>
                             <button type="submit" class="btn bg-blue-700 text-white ml-2">@lang('admin.btn.submit')</button>
                         </div>
@@ -89,4 +92,7 @@
             </div>
         </div>
     </div>
+    @push('bottom_scripts')
+        <x-admin.forms.tinymce-config column="description" />
+    @endpush
 </x-app-layout>

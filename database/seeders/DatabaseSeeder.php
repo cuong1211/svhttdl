@@ -23,14 +23,9 @@ class DatabaseSeeder extends Seeder
         // Staff::factory(30)->create();
         // User::factory(10)->create();
 
-        UserCategorie::create([
-            'id' => 1,    
-            'name'=> 'Tài khoản quản trị hệ thống',
-            'slug'=>'t-i-khoa-n-qua-n-tra-ha-tha-ng',
-        ]);
         User::factory()->create([
             'name' => 'admin',
-            'email' => 'admin@gmail.com',
+            'email' => 'admin123@gmail.com',
             'password' => 'admin123',
             'display_name' => 'admin',
             'category_id' => 1,

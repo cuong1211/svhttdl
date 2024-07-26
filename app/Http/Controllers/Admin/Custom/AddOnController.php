@@ -83,7 +83,8 @@ class AddOnController extends Controller
                 ->usingName($imageFile->getClientOriginalName())
                 ->toMediaCollection('addon_image');
         }
-        return redirect()->route('admin.addons.index')->with([
+        $queryParams = $request->except(array_keys($data));
+        return redirect()->route('admin.addons.index', $queryParams)->with([
             'icon' => 'success',
             'heading' => 'Success',
             'message' => 'Cập nhật quảng cáo thành công',

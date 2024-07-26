@@ -6,7 +6,7 @@
                     @lang('admin.departments.list')
                 </span>
             </div>
-            <a class="bg-blue-700 btn border-blue-500" href="{{ route('admin.departments.create') }}">
+            <a class="bg-blue-700 btn border-blue-500" href="{{ route('admin.departments.create', request()->query()) }}">
                 <x-heroicon-s-plus class="size-4 text-white" />
                 <span class="text-white">@lang('admin.add')</span>
             </a>
@@ -71,7 +71,8 @@
                                     <td class="text-center">{{ $department->updatedAtVi }}</td>
 
                                     <td class="flex gap-3 items-center justify-center">
-                                        <a href="{{ route('admin.departments.edit', $department->id) }}"><x-heroicon-s-pencil-square
+                                        <a
+                                            href="{{ route('admin.departments.edit', [$department->id] + request()->query()) }}"><x-heroicon-s-pencil-square
                                                 class="size-4 text-green-600" /></a>
                                         <form id="delete-form-{{ $department->id }}"
                                             action="{{ route('admin.departments.destroy', ['department' => $department->id]) }}"

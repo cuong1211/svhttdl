@@ -22,8 +22,9 @@ class EmployeeController extends Controller
         $employees = Department::query()->with(['staffs' =>function($q){
             $q->with('position');
         }])->get();
+        $employee_des = Department::query()->where('id',$id)->first()->description;
         $staff = Staff::query()->where('department_id',$id)->with('position')->get();
         // dd($staff);
-        return view('web.employee.show',compact('employees','staff'));
+        return view('web.employee.show',compact('employees','staff','employee_des'));
     }
 }

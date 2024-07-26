@@ -6,7 +6,7 @@
                     @lang('admin.documents.list')
                 </span>
             </div>
-            <a class="bg-blue-700 btn border-blue-500" href="{{ route('admin.documents.create') }}">
+            <a class="bg-blue-700 btn border-blue-500" href="{{ route('admin.documents.create', request()->query()) }}">
                 <x-heroicon-s-plus class="size-4 text-white" />
                 <span class="text-white">@lang('admin.add')</span>
             </a>
@@ -100,7 +100,8 @@
                                     <td class="text-center">{{ $document->updatedAtVi }}</td>
 
                                     <td class="flex gap-3 items-center justify-center">
-                                        <a href="{{ route('admin.documents.edit', $document->id) }}"><x-heroicon-s-pencil-square
+                                        <a
+                                            href="{{ route('admin.documents.edit', [$document->id] + request()->query()) }}"><x-heroicon-s-pencil-square
                                                 class="size-4 text-green-600" /></a>
                                         <form id="delete-form-{{ $document->id }}"
                                             action="{{ route('admin.documents.destroy', ['document' => $document->id]) }}"

@@ -3,11 +3,13 @@
         <div id="featured">
             @foreach ($posts as $post)
                 <div id="fragment-{{ $post->id }}" class="ui-tabs-panel">
-                    @if ($post->getFirstMedia('featured_image'))
-                        <img src='{{ $post->getFirstMedia('featured_image')->getUrl('') }}' alt='' />
-                    @else
-                        <img src='{{ asset($post->image) }}' alt='' />
-                    @endif
+                    <a href="{{ route('news.show', ['post' => $post]) }}">
+                        @if ($post->getFirstMedia('featured_image'))
+                            <img src='{{ $post->getFirstMedia('featured_image')->getUrl('') }}' alt='' />
+                        @else
+                            <img src='{{ asset($post->image) }}' alt='' />
+                        @endif
+                    </a>
                     <div class="info">
                         <h2>
                             <a href='{{ route('news.show', ['post' => $post]) }}'>
@@ -82,16 +84,15 @@
                     <a href="{{ route('news.show', $post) }}">
                         @if ($post->getFirstMedia('featured_image'))
                             <img style="float:left;width:auto;height:50px;margin-right:5px;margin-bottom:3px"
-                                src='{{ $post->getFirstMedia('featured_image')->getUrl('') }}'
-                                alt='{{ $post->title }}' />
+                                src='{{ $post->getFirstMedia('featured_image')->getUrl('') }}' />
                         @else
                             <img style="float:left;width:auto;height:50px;margin-right:5px;margin-bottom:3px"
-                                src='{{ asset($post->image) }}' alt='{{ $post->title }}' />
+                                src='{{ asset($post->image) }}' />
                         @endif
                     </a>
                     <h3 style="color:#fff;font-size:10px;margin-right:5px; font-weight: normal;">
                         <a href="{{ route('news.show', $post) }}">
-                            <span> {{ $post->title }}</span></a>
+                            <span> {{ Str::limit($post->title, 50, '...') }}</span></a>
                     </h3>
                 </div>
             </div>

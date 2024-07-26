@@ -102,7 +102,7 @@
                                 </div>
 
                                 <div class="flex justify-end gap-4">
-                                    <a href="{{ route('admin.banners.index') }}"
+                                    <a href="{{ route('admin.banners.index', request()->query()) }}"
                                         class="btn-light btn text-white">@lang('admin.btn.cancel')</a>
                                     <button type="submit" class="btn bg-blue-700 text-white ml-2">
                                         @lang('admin.btn.submit')
@@ -117,7 +117,7 @@
     </div>
     @pushonce('bottom_scripts')
         <x-admin.forms.tinymce-config column="content" />
-       
+
         <script>
             var loadFile = function(event) {
                 document.getElementById('preview_img').style.display = 'block'

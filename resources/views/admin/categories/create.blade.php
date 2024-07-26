@@ -93,7 +93,7 @@
                             ])>
                                 <option value="">Chọn phòng ban</option>
                                 @foreach ($departments as $name => $index)
-                                    <option value="{{$index}}">{{$name}}</option>
+                                    <option value="{{ $index }}">{{ $name }}</option>
                                 @endforeach
                             </select>
                         </label>
@@ -115,7 +115,8 @@
                             </select>
                         </label>
                         <div class="flex justify-end gap-4">
-                            <a href="{{ route('admin.categories.index') }}" class="btn-light btn text-white">
+                            <a href="{{ route('admin.categories.index',request()->query()) }}"
+                                class="btn-light btn text-white">
                                 @lang('admin.btn.cancel')
                             </a>
                             <button type="submit" class="btn bg-blue-700 text-white ml-2">

@@ -65,14 +65,15 @@ class DepartmentController extends Controller
 
     public function update(DepartmentRequest $request, $id): RedirectResponse
     {
+        $data = $request->validated();
         $department = Department::findOrFail($id);
         $department->update([
-            'name' => $request->name,
-            'type' => $request->type, // Add this line
-            'description' => $request->description,
+            'name' => $data['name'],
+            'type' => $data['type'], // Add this line
+            'description' => $data['description'],
         ]);
-
-        return redirect()->route('admin.departments.index')->with([
+        $queryParams = $request->except(array_keys($data));
+        return redirect()->route('admin.departments.index', $queryParams)->with([
             'icon' => 'success',
             'heading' => 'Success',
             'message' => 'Cập nhật phòng ban thành công',

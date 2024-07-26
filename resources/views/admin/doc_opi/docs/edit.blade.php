@@ -24,6 +24,9 @@
                         class="space-y-4 needs-validation" novalidate enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
+                        @foreach (request()->query() as $key => $value)
+                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                        @endforeach
                         <div class="join join-vertical lg:join-horizontal gap-4 w-full">
                             <label class="form-control w-full">
                                 <div class="label">
@@ -104,7 +107,8 @@
                         </label>
 
                         <div class="flex justify-end gap-4">
-                            <a href="{{ route('admin.documents.index') }}" class="btn-light text-white btn">
+                            <a href="{{ route('admin.docs-opis.index', request()->query()) }}"
+                                class="btn-light text-white btn">
                                 @lang('admin.btn.cancel')
                             </a>
                             <button type="submit" class="btn bg-blue-700 text-white ml-2">

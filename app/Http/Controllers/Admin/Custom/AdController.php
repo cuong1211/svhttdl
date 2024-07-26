@@ -83,7 +83,8 @@ class AdController extends Controller
                 ->usingName($imageFile->getClientOriginalName())
                 ->toMediaCollection('ads_image');
         }
-        return redirect()->route('admin.ads.index')->with([
+        $queryParams = $request->except(array_keys($data));
+        return redirect()->route('admin.ads.index', $queryParams)->with([
             'icon' => 'success',
             'heading' => 'Success',
             'message' => 'Cập nhật liên kết thành công',

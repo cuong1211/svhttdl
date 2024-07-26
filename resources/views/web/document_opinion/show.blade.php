@@ -116,103 +116,140 @@
                 background: -moz-linear-gradient(top, #0078a5, #00adee);
                 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0078a5', endColorstr='#00adee');
             }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                background-color: #fff;
+            }
+
+            th,
+            td {
+                padding: 15px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+
+            th {
+                background-color: #3c6fef;
+                color: white;
+            }
+
+            tr:hover {
+                background-color: #f1f1f1;
+            }
         </style>
     @endpush
-    <h2>Đóng góp ý kiến</h2>
-    <br>
-    <div class="col-lg-12">
-        <div class="panel panel-primary">
-            <div id="demo1" class="collapse">
-                @if ($errors->any())
-                    <div class="alert alert-error text-black">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                <div id="lienhe">
-                    <div class="form">
-                        <form method="post" action="{{ route('doc_opi.store', ['document_opinion' => $doc->id]) }}">
-                            @csrf
-                            <div class="top-form">
-                                <div class="inner-form">
-                                    <div class="label" style="color:#000; font-size: 12px;">Họ và tên (*)</div>
-                                    <input style="height: 20px;" type="text" name="name" required=""
-                                        placeholder="Nguyễn Văn An">
-                                </div>
-                                <div class="inner-form">
-                                    <div class="label" style="color:#000; font-size: 12px;">Email (*)</div>
-                                    <input style="height: 20px;" type="text" name="email"
-                                        placeholder="vanan@gmail.com">
-                                </div>
-                                <div class="inner-form">
-                                    <div class="label" style="color:#000; font-size: 12px;">Điện thoại</div>
-                                    <input style="height: 20px;" type="text" name="phone" placeholder="1234567890">
-                                </div>
-                            </div>
-                            <div class="top-form">
-                                <div class="inner-form">
-                                    <div class="label" style="color:#000; font-size: 12px;">Địa chỉ </div>
-                                    <input style="height: 20px;" type="text" name="address">
-                                </div>
-                            </div>
-                            <div class="middle-form">
-                                <div class="inner-form">
-                                    <div class="label" style="color:#000; font-size: 12px;">Tiêu đề (*)</div>
-                                    <input style="width: 98%;" type="text" name="title" required="">
-                                </div>
-                            </div>
-                            <div class="bottom-form" style="margin-left: 10px;">
-                                <div class="inner-form">
-                                    <div class="label" style="color:#000; font-size: 12px;">Nội dung (*)</div>
-                                    <textarea id="text" name="content" required=""></textarea>
-                                </div>
-                            </div>
-                            <input type="submit" value="Gửi câu hỏi" class="btn1 blue">
-                        </form>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="Around_News_Detail">
+        <table>
+            <tr>
+                <th>Thông tin</th>
+                <th></th>
+            </tr>
+            <tr>
+                <td>Tên văn bản</td>
+                <td>{{ $doc->name }}</td>
+            </tr>
+            <tr>
+                <td>Ngày bắt đầu</td>
+                <td>{{ $doc->startAtVi }}</td>
+            </tr>
+            <tr>
+                <td>Ngày kết thúc</td>
+                <td>{{ $doc->endAtVi }}</td>
+            </tr>
+            <tr>
+                <td>Nội dung</td>
+                <td>{!! $doc->content !!}</td>
+            </tr>
+            <tr>
+                <td>Xem chi tiết</td>
+                <td>
+                    @if ($doc->getFirstMedia('document_file'))
+                        <a class="fa fa-download" target="_blank"
+                            href="{{ $doc->getFirstMedia('document_file')->getUrl() }}"></a>
+                    @else
+                        {{-- make url form host + $item->document_file --}}
+                        <a class="fa fa-download" target="_blank" href="{{ asset('/' . $doc->document_file) }}"></a>
+                    @endif
+                </td>
+            </tr>
+        </table>
     </div>
-    <br>
-    <h2>Ý kiến đóng góp</h2>
-    <br>
-    <div class="col-lg-14">
-        <div class="portlet-body" style="width: 100%;">
-            <div id="ajaxCrudDatatable">
-                <div id="crud-datatable" class="grid-view" data-krajee-grid="kvGridInit_0b96d585">
-                    <div class="panel panel-primary">
 
-                        <div id="crud-datatable-container" class="table-responsive kv-grid-container">
-                            <table border="1" cellspacing="0" cellpadding="4" id="table_articles"
-                                style="width: 100%; text-align: center;">
-                                <tr>
-                                    <td width="50" style="background:#007bff ; color: #fff;">
-                                        <strong>STT</strong>
-                                    </td>
-                                    <td style="background:#007bff ; color: #fff;"><strong>Họ và tên</strong></td>
-                                    <td style="background:#007bff ; color: #fff;"><strong>Địa chỉ</strong></td>
-                                    <td style="background:#007bff ; color: #fff;"><strong>Tiêu đề</strong></td>
-                                </tr>
-                                @foreach ($opinions as $opinion)
-                                    <tr>
-                                        <td>{{ $opinions->firstItem() + $loop->index }}</td>
-                                        <td width="175">{{ $opinion->name }}</td>
-                                        <td width="175">{{ $opinion->address }}</td>
-                                        <td>{{ $opinion->title }}</td>
-                                    </tr>
+    @php
+        $currentDate = \Carbon\Carbon::now();
+        $endDate = \Carbon\Carbon::parse($doc->end_date);
+    @endphp
+
+    @if ($currentDate->greaterThanOrEqualTo($endDate))
+        <h3 style="color: red">Đã hết thời gian lấy ý kiến</h3>
+    @else
+        <h2>Đóng góp ý kiến</h2>
+        <br>
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div id="demo1" class="collapse">
+                    @if ($errors->any())
+                        <div class="alert alert-error text-black">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
                                 @endforeach
-                            </table>
+                            </ul>
                         </div>
-                        {{ $opinions->render('web.paginate') }}
+                    @endif
+                    <div id="lienhe">
+                        <div class="form">
+                            <form method="post"
+                                action="{{ route('doc_opi.store', ['document_opinion' => $doc->id]) }}">
+                                @csrf
+                                <div class="top-form">
+                                    <div class="inner-form">
+                                        <div class="label" style="color:#000; font-size: 12px;">Họ và tên (*)</div>
+                                        <input style="height: 20px;" type="text" name="name" required=""
+                                            placeholder="Nguyễn Văn An">
+                                    </div>
+                                    <div class="inner-form">
+                                        <div class="label" style="color:#000; font-size: 12px;">Email (*)</div>
+                                        <input style="height: 20px;" type="text" name="email"
+                                            placeholder="vanan@gmail.com">
+                                    </div>
+                                    <div class="inner-form">
+                                        <div class="label" style="color:#000; font-size: 12px;">Điện thoại</div>
+                                        <input style="height: 20px;" type="text" name="phone"
+                                            placeholder="1234567890">
+                                    </div>
+                                </div>
+                                <div class="top-form">
+                                    <div class="inner-form">
+                                        <div class="label" style="color:#000; font-size: 12px;">Địa chỉ </div>
+                                        <input style="height: 20px;" type="text" name="address">
+                                    </div>
+                                </div>
+                                <div class="middle-form">
+                                    <div class="inner-form">
+                                        <div class="label" style="color:#000; font-size: 12px;">Tiêu đề (*)</div>
+                                        <input style="width: 98%;" type="text" name="title" required="">
+                                    </div>
+                                </div>
+                                <div class="bottom-form" style="margin-left: 10px;">
+                                    <div class="inner-form">
+                                        <div class="label" style="color:#000; font-size: 12px;">Nội dung (*)</div>
+                                        <textarea id="text" name="content" required=""></textarea>
+                                    </div>
+                                </div>
+                                <input type="submit" value="Gửi câu hỏi" class="btn1 blue">
+                            </form>
+                            <br>
+                            <br>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
+    <br>
+
 </x-website-layout>

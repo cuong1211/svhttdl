@@ -73,7 +73,8 @@
                                     <td class="flex gap-3 items-center justify-center">
                                         {{-- <a href="{{ route('admin.contacts.edit', $contact->id) }}"><x-heroicon-s-pencil-square
                                                 class="size-4 text-green-600" /></a> --}}
-                                        <a href="{{ route('admin.contacts.show', $contact->id) }}"><x-heroicon-o-eye
+                                        <a
+                                            href="{{ route('admin.contacts.show', [$contact->id] + request()->query()) }}"><x-heroicon-o-eye
                                                 class="size-4 text-green-600" /></a>
                                         <form id="delete-form-{{ $contact->id }}"
                                             action="{{ route('admin.contacts.destroy', ['contact' => $contact->id]) }}"

@@ -103,7 +103,7 @@
 
                         </div>
                         <div class="flex justify-end gap-4">
-                            <a href="{{ route('admin.cooperations.index') }}"
+                            <a href="{{ route('admin.cooperations.index',request()->query()) }}"
                                 class="btn-light btn text-white">@lang('admin.btn.cancel')
                             </a>
                             <button type="submit" class="btn bg-blue-700 text-white ml-2 ">

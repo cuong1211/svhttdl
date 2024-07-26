@@ -90,21 +90,22 @@ class PostController extends Controller
 
         $category = Category::findOrFail($categoryId);
 
-        return view('admin.categories.posts.create', compact('categories', 'category'));
+        return view('admin.categories.posts.create', compact('categories', 'category', 'categoryId'));
     }
 
     public function store($id, PostRequest $request): RedirectResponse
     {
+        $data = $request->validated();
         $post = new Post([
+            'title' => $data['title'],
+            'description' => $data['description'],
+            'content' => $data['content'],
+            'author' => $data['author'],
+            'published_at' => $data['published_at'],
+            'category_id' => $data['category_id'],
+            'type' => $data['type'],
+            'state' => $data['state'],
             'user_id' => auth()->id(),
-            'category_id' => $request->category_id,
-            'title' => $request->title,
-            'description' => $request->description,
-            'content' => $request->content,
-            'author' => $request->author,
-            'published_at' => $request->published_at,
-            'type' => $request->type,
-            'state' => $request->state,
         ]);
 
         $post->save();
@@ -115,7 +116,6 @@ class PostController extends Controller
                 ->usingName($imageFile->getClientOriginalName())
                 ->toMediaCollection('featured_image');
         }
-
         return redirect()->route('admin.categories.posts.index', ['category' => $id])->with([
             'icon' => 'success',
             'heading' => 'Success',
@@ -146,20 +146,21 @@ class PostController extends Controller
     public function update(PostRequest $request, $categoryId, $postId): RedirectResponse
     {
         $post = Post::findOrFail($postId);
+        $data = $request->validated();
         // dd($request->all());
         DB::beginTransaction();
         // dd($post->type);
         try {
             $post->update([
-                'title' => $request->title,
-                'description' => $request->description,
-                'content' => $request->content,
-                'author' => $request->author,
-                'published_at' => $request->published_at,
-                'category_id' => $request->category_id,
-                'type' => $request->type,
-                'state' => $request->state,
-
+                'title' => $data['title'],
+                'description' => $data['description'],
+                'content' => $data['content'],
+                'author' => $data['author'],
+                'published_at' => $data['published_at'],
+                'category_id' => $data['category_id'],
+                'type' => $data['type'],
+                'state' => $data['state'],
+                'user_id' => auth()->id(),
             ]);
             if ($request->hasFile('image')) {
                 $imageFile = $request->file('image');
@@ -171,7 +172,8 @@ class PostController extends Controller
             }
             // dd($post);
             DB::commit();
-            return redirect()->route('admin.categories.posts.index', ['category' => $categoryId])->with([
+            $queryParams = $request->except(array_keys($data));
+            return redirect()->route('admin.categories.posts.index', ['category' => $categoryId] + $queryParams)->with([
                 'icon' => 'success',
                 'heading' => 'Success',
                 'message' => 'Cập nhật bài viết thành công',

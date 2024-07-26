@@ -6,7 +6,7 @@
                     Quản lý Menu
                 </span>
             </div>
-            <a class="bg-blue-700 btn border-blue-500" href="{{ route('admin.menus.create') }}">
+            <a class="bg-blue-700 btn border-blue-500" href="{{ route('admin.menus.create', request()->query()) }}">
                 <x-heroicon-s-plus class="size-4 text-white" />
                 <span class="text-white">@lang('admin.add')</span>
             </a>
@@ -76,18 +76,17 @@
                                         {{ app()->getLocale() === 'en' ? $menu->title_en : $menu->title }}</td>
                                     <td class="text-left">{{ $menu->link }}</td>
                                     <td class="text-center">
-                                        @if ($menu->parent_id)
-                                            <span class="">@lang('admin.menus.children')</span>
+                                        @if ($menu->parent()->exists())
+                                            <span class="">{{ $menu->parent->title }}/{{ $menu->title }}</span>
                                         @else
                                             <span class="">@lang('admin.menus.parent')</span>
                                         @endif
-
                                     </td>
                                     <td class="text-center">{{ $menu->createdAtVi }}</td>
                                     <td class="text-center">{{ $menu->updatedAtVi }}</td>
 
                                     <td class="flex gap-3 items-center justify-center">
-                                        <a href="{{ route('admin.menus.edit', $menu->id) }}"><x-heroicon-s-pencil-square
+                                        <a href="{{ route('admin.menus.edit', [$menu->id] + request()->query()) }}"><x-heroicon-s-pencil-square
                                                 class="size-4 text-green-600" /></a>
                                         <form id="delete-form-{{ $menu->id }}"
                                             action="{{ route('admin.menus.destroy', ['menu' => $menu->id]) }}"

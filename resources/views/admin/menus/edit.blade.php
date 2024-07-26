@@ -24,6 +24,9 @@
                         class="space-y-4 needs-validation" novalidate>
                         @csrf
                         @method('PUT')
+                        @foreach (request()->query() as $key => $value)
+                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                        @endforeach
                         @error('title')
                             <div class="alert alert-error">
                                 {{ $message }}
@@ -139,10 +142,9 @@
                             </label>
 
                             <div class="flex justify-end gap-4">
-                                <a href="{{ route('admin.menus.index') }}"
+                                <a href="{{ route('admin.menus.index', request()->query()) }}"
                                     class="btn-light btn text-white">@lang('admin.btn.cancel')</a>
-                                <button type="submit"
-                                    class="btn bg-blue-700 text-white ml-2 text-white">@lang('admin.btn.submit')</button>
+                                <button type="submit" class="btn bg-blue-700 text-white ml-2">@lang('admin.btn.submit')</button>
                             </div>
                         </form>
 
