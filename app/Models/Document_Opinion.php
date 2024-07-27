@@ -12,6 +12,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Tonysm\RichTextLaravel\Casts\AsRichTextContent;
 use Tonysm\RichTextLaravel\Models\Traits\HasRichText;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Tonysm\RichTextLaravel\Models\RichText;
 
 class Document_Opinion extends Model implements HasMedia
 {
@@ -25,14 +26,44 @@ class Document_Opinion extends Model implements HasMedia
     protected $richTextAttributes = [
         'content',
     ];
-
-    protected $casts = [
-        'content' => AsRichTextContent::class,
-    ];
     public function opinion()
     {
         return $this->belongsTo(Opinion::class, 'document_id', 'id');
     }
+    protected $casts = [
+        'content' => AsRichTextContent::class,
+    ];
+    protected static function booted()
+    {
+        static::deleting(function ($docs) {
+            $docs->deleteRichText();
+            if ($docs->opinion) {
+                $docs->opinion->each(function ($opinion) {
+                    $opinion->deleteRichText();
+                    $opinion->delete();
+                });
+            }
+        });
+    }
+
+    public function deleteRichText()
+    {
+        foreach ($this->richTextAttributes as $attribute) {
+            $richText = $this->getRichText($attribute);
+            if ($richText) {
+                $richText->delete();
+            }
+        }
+    }
+
+    public function getRichText($attribute)
+    {
+        return RichText::where('record_type', get_class($this))
+            ->where('record_id', $this->id)
+            ->where('field', $attribute)
+            ->first();
+    }
+
 
 
     public function registerMediaConversions(?Media $media = null): void
@@ -50,7 +81,7 @@ class Document_Opinion extends Model implements HasMedia
             ->useDisk('document_opinion');
     }
 
-  
+
     protected function createdAtVi(): Attribute
     {
         return Attribute::make(

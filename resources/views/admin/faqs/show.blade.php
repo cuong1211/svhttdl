@@ -52,39 +52,42 @@
                                 @lang('admin.faqs.created_at'): {{ $faq->createdAtVi }}
                             </p>
                         </label>
-                        <form action="{{ route('admin.faqs.update', $faq) }}" method="POST">
-                            @method('PUT')
-                            @csrf
-                            <div class="flex">
-                                <h3 class="text-black text-lg font-medium leading-6">
-                                    @lang('admin.faqs.answer')
-                                    :
-                                </h3>
-                            </div>
-                            @foreach ($answers as $answer)
-                                <div class="flex gap-2">
-                                    <div
-                                        class="w-full border border-gray-300 bg-white text-black font-medium p-2 rounded-md">
-                                        {!! $answer->content->tohtml() !!}
-                                    </div>
-                                    <div class="flex gap-2 items-center justify-center">
-                                        <a
-                                            href="{{ route('admin.answer.edit', ['faq' => $faq->id, 'answer' => $answer->id]) }}">
-                                            <x-heroicon-s-pencil-square class="size-4 text-green-600 " />
-                                        </a>
-                                        {{-- <form  action="{{ route('admin.answer.destroy', ['faq' => $faq->id, 'answer' => $answer->id]) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE') --}}
+
+                        <div class="flex">
+                            <h3 class="text-black text-lg font-medium leading-6">
+                                @lang('admin.faqs.answer')
+                                :
+                            </h3>
+                        </div>
+                        @foreach ($answers as $answer)
+                            <div class="flex gap-2">
+                                <div
+                                    class="w-full border border-gray-300 bg-white text-black font-medium p-2 rounded-md">
+                                    {!! $answer->content->tohtml() !!}
+                                </div>
+                                <div class="flex gap-2 items-center justify-center">
+                                    <a
+                                        href="{{ route('admin.answer.edit', ['faq' => $faq->id, 'answer' => $answer->id]) }}">
+                                        <x-heroicon-s-pencil-square class="size-4 text-green-600 " />
+                                    </a>
+                                    <form
+                                        action="{{ route('admin.answer.destroy', ['faq' => $faq->id, 'answer' => $answer->id]) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('DELETE')
                                         <button type="button" onclick="Delete({{ $answer->id }})">
                                             <x-heroicon-o-trash class="size-4 text-red-500" />
                                         </button>
-                                        {{-- </form> --}}
-                                    </div>
+                                    </form>
                                 </div>
-                                <p class="text-black mt-1 mb-2 max-w-2xl text-base">
-                                    @lang('admin.faqs.answer_at'): {{ $answer->createdAtVi }}
-                                </p>
-                            @endforeach
+                            </div>
+                            <p class="text-black mt-1 mb-2 max-w-2xl text-base">
+                                @lang('admin.faqs.answer_at'): {{ $answer->createdAtVi }}
+                            </p>
+                        @endforeach
+                        <form action="{{ route('admin.faqs.update', $faq) }}" method="POST">
+                            @method('PUT')
+                            @csrf
                             <input type="hidden" name="id" value="{{ $faq->id }}" />
                             <div class="answer-input">
                                 <div class="mt-1 items-center text-sm">

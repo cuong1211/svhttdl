@@ -62,7 +62,8 @@ class DocumentRequest extends FormRequest
             'type_id.required' => "Loại văn bản không được để trống",
             'type_id.exists' => "Loại văn bản không tồn tại",
             'singer.max' => "Tên người ký không được vượt quá 255 ký tự",
-
+            'document_file.required' => "File không được để trống",
+            'document_file.mimes' => "File phải có định dạng pdf",
         ];
     }
 }

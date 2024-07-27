@@ -57,6 +57,7 @@
                                 'input-error' => $errors->has('type'),
                                 'w-full',
                             ])>
+                                <option value="">Chọn phòng ban</option>
                                 @foreach (App\Enums\DepartmentTypeEnum::cases() as $type)
                                     <option value="{{ $type->value }}"
                                         {{ $department->type == $type->value ? 'selected' : '' }}>

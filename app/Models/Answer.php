@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Tonysm\RichTextLaravel\Casts\AsRichTextContent;
 use Tonysm\RichTextLaravel\Models\Traits\HasRichText;
+use Tonysm\RichTextLaravel\Models\RichText;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
@@ -28,7 +29,30 @@ class Answer extends Model
     protected $casts = [
         'content' => AsRichTextContent::class,
     ];
+    protected static function booted()
+    {
+        static::deleting(function ($answer) {
+            $answer->deleteRichText();
+        });
+    }
 
+    public function deleteRichText()
+    {
+        foreach ($this->richTextAttributes as $attribute) {
+            $richText = $this->getRichText($attribute);
+            if ($richText) {
+                $richText->delete();
+            }
+        }
+    }
+
+    public function getRichText($attribute)
+    {
+        return RichText::where('record_type', get_class($this))
+            ->where('record_id', $this->id)
+            ->where('field', $attribute)
+            ->first();
+    }
     protected function createdAtVi(): Attribute
     {
         return Attribute::make(
@@ -40,6 +64,4 @@ class Answer extends Model
     {
         return $this->belongsTo(Faq::class);
     }
-
-
 }

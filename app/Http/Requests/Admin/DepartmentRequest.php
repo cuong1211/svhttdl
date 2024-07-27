@@ -20,7 +20,7 @@ class DepartmentRequest extends FormRequest
                 'string',
                 'max:255',
             ],
-            'type' => 'required|string|max:255',
+            'type' => 'nullable|string|max:255',
             'description' => 'nullable|string',
         ];
     }

@@ -28,9 +28,9 @@
                         @endforeach <!-- Đảm bảo sử dụng method PUT hoặc PATCH cho update -->
                         <label class="form-control w-full">
                             <div class="label">
-                                <span class="label-text text-base text-black font-medium">@lang('admin.staffs.name')</span>
+                                <span class="label-text text-base text-black font-medium">Tên tài khoản</span>
                             </div>
-                            <input type="text" name="name" value="{{ $user->name }}" placeholder="name..."
+                            <input type="text" name="name" value="{{ $user->name }}" placeholder="Username..."
                                 @class([
                                     'border',
                                     'border-gray-300',

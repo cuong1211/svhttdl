@@ -94,7 +94,6 @@ class FaqController extends Controller
     public function destroy($id)
     {
         $faq = Faq::findOrFail($id);
-        $faq->answers()->delete();
         $faq->delete();
 
         return back()->with([

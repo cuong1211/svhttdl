@@ -24,9 +24,9 @@
                         @csrf
                         <label class="form-control w-full">
                             <div class="label">
-                                <span class="label-text text-base text-black font-medium">Họ và tên</span>
+                                <span class="label-text text-base text-black font-medium">Tên tài khoản</span>
                             </div>
-                            <input type="text" name="name" placeholder="Họ và tên..." @class([
+                            <input type="text" name="name" placeholder="Username..." @class([
                                 'border',
                                 'border-gray-300',
                                 'bg-white',

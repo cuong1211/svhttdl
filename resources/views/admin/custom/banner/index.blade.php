@@ -72,9 +72,9 @@
                                         <div class="text-center">{{ $banner->title }}</div>
                                     </td>
                                     <td class="text-center">
-                                        {{ $banner->position }}</td>
+                                        {{ $banner->position == 2 ? "Giữa trang" : "Đầu trang"}}</td>
                                     <td class="text-center">
-                                        {{ $banner->is_active }}</td>
+                                        {{ $banner->is_active== 1 ? "Hiện" : "Ẩn" }}</td>
 
 
                                     <td class="text-center">
