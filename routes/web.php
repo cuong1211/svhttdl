@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\Album\VideoController;
+use App\Http\Controllers\Admin\FileController;
 use App\Http\Controllers\Web\DocumentController;
 use App\Http\Controllers\Web\CategoryController;
 use App\Http\Controllers\Web\ContactController;
@@ -26,7 +27,7 @@ route::get('/van-ban-qppl/{document:id}', [DocumentController::class, 'show'])->
 route::get('/thong-bao', [NotificationController::class, 'index'])->name('noti.index');
 route::get('/thong-bao/{Announcement:id}', [NotificationController::class, 'show'])->name('noti.show');
 route::get('/video', [WebVideoController::class, 'index'])->name('video.index');
-route::get('/video/{video:id}', [WebVideoController::class, 'index'])->name('video.show');
+route::get('/video/{video:id}', [WebVideoController::class, 'redirect'])->name('video.show');
 route::get('/image', [ImageController::class, 'index'])->name('image.index');
 route::get('/image/{album:id}', [ImageController::class, 'show'])->name('image.show');
 route::get('/hoi-dap', [FaqController::class, 'index'])->name('faq.index');
@@ -37,7 +38,7 @@ route::get('/hoi-dap/done/success', [FaqController::class, 'success'])->name('fa
 route::get('/lien-he', [ContactController::class, 'index'])->name('contact.index');
 route::post('/lien-he/store', [ContactController::class, 'store'])->name('contact.store');
 route::get('/lien-he/done/success', [ContactController::class, 'success'])->name('contact.success');
-route::get('/gopy-duthao',[Document_OpinionController::class, 'index'])->name('doc_opi.index');
+route::get('/gopy-duthao', [Document_OpinionController::class, 'index'])->name('doc_opi.index');
 route::get('/gopy-duthao/{document_opinion}', [Document_OpinionController::class, 'show'])->name('doc_opi.show');
 route::post('/gopy-duthao/{document_opinion}/store', [Document_OpinionController::class, 'store'])->name('doc_opi.store');
 route::get('/gopy-duthao/done/success', [Document_OpinionController::class, 'success'])->name('doc_opi.success');

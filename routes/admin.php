@@ -29,11 +29,13 @@ use App\Http\Controllers\Admin\User\CategorieController;
 use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Middleware\CheckDepartmentAccess;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\FileController;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
+Route::get('/abc', [FileController::class, 'index'])->name('file.index');
+Route::post('/upload', [FileController::class, 'store'])->name('file.upload');
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -43,7 +45,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('categories', CategoryController::class);
 
         //post of category
-        Route::group(['middleware'=> CheckDepartmentAccess::class],function () {
+        Route::group(['middleware' => CheckDepartmentAccess::class], function () {
             Route::get('/category/{category:id}/post', [PostController::class, 'index'])->name('categories.posts.index');
             route::get('/cate/{id}', [PostController::class, 'getCate'])->name('categories.posts.getCate');
             Route::get('/category/{category:id}/posts/create', [PostController::class, 'create'])->name('categories.posts.create');
@@ -95,6 +97,7 @@ Route::middleware('auth')->group(function () {
         //user
         Route::resource('users', UserController::class);
         route::resource('roles', CategorieController::class);
+        Route::get('admin/categories/{category}/posts/export', [PostController::class, 'export'])->name('categories.posts.export');
     });
 });
 

@@ -26,6 +26,9 @@
     <link rel="stylesheet" href="mix/appaa4caa4c.css?id=aca541bc3119d366502f">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRbbI-IH80_-AgZbiq1lKAkcOoavIWTEc"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Trong layout chính, thêm vào phần head -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.6/viewer.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.6/viewer.min.js"></script>
     @stack('styles')
 
     <style>
@@ -288,10 +291,10 @@
             <div class="Content_Right">
                 <div class="notification-box">
                     <div class="notification-header" style="text-align: center;">
-                        <a href="modules/bando_dulich.html">BẢN ĐỒ DU LỊCH TỈNH BẮC KẠN</a>
+                        <a href="https://thongtincoban.backan.gov.vn/map/du_lich2.php">BẢN ĐỒ DU LỊCH TỈNH BẮC KẠN</a>
                     </div>
                     <div>
-                        <iframe scrolling="no" src="map/du_lich2.html"
+                        <iframe scrolling="no" src="https://thongtincoban.backan.gov.vn/map/du_lich2.php"
                             style="border: 0px none; height: 350px; width: 100%; border: 1px solid #d3d3d3;"
                             allowfullscreen="true">
                         </iframe>

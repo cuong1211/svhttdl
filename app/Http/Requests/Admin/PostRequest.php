@@ -27,7 +27,9 @@ class PostRequest extends FormRequest
                         'published_at' => 'required|date',
                         'type' => 'nullable',
                         'state' => 'required',
-                        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
+                        'audio' => 'nullable|mimes:mp3,wav,ogg|max:10240', // Max 10MB
+                        'document' => 'nullable|mimes:pdf,doc,docx,xls,xlsx|max:10240', // Max 10MB
                     ];
                 }
             case 'update': {
@@ -40,7 +42,8 @@ class PostRequest extends FormRequest
                         'published_at' => 'required|date',
                         'type' => 'nullable',
                         'state' => 'required',
-                        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                        'audio' => 'nullable|mimes:mp3,wav,ogg|max:10240',
+                        'document' => 'nullable|mimes:pdf,doc,docx,xls,xlsx|max:10240',
                     ];
                 }
             default:
@@ -67,7 +70,14 @@ class PostRequest extends FormRequest
             'description.string' => 'Mô tả phải là chuỗi',
             'content.string' => 'Nội dung phải là chuỗi',
             'author.string' => 'Tác giả phải là chuỗi',
-
+            'type.string' => 'Loại phải là chuỗi',
+            'category_id.string' => 'Danh mục phải là chuỗi',
+            'state.string' => 'Trạng thái phải là chuỗi',
+            'published_at.string' => 'Ngày xuất bản phải là chuỗi',
+            'audio.mimes' => 'File âm thanh phải có định dạng mp3, wav hoặc ogg',
+            'audio.max' => 'File âm thanh không được vượt quá 10MB',
+            'document.mimes' => 'File tài liệu phải có định dạng pdf, doc hoặc docx',
+            'document.max' => 'File tài liệu không được vượt quá 10MB',
         ];
     }
 }

@@ -66,6 +66,14 @@ class Post extends Model implements HasMedia
         $this->addMediaCollection('featured_image')
             ->singleFile()
             ->useDisk('post');
+
+        $this->addMediaCollection('audio')
+            ->singleFile()
+            ->useDisk('post');
+
+        $this->addMediaCollection('document')
+            ->singleFile()
+            ->useDisk('post');
     }
 
     /*
@@ -96,21 +104,21 @@ class Post extends Model implements HasMedia
     protected function updatedAtVi(): Attribute
     {
         return Attribute::make(
-            get: fn () => Carbon::parse($this->updated_at)->format('d/m/Y h:i'),
+            get: fn() => Carbon::parse($this->updated_at)->format('d/m/Y h:i'),
         );
     }
 
     protected function publishedPostDate(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->published_at->translatedFormat('d/m/Y'),
+            get: fn() => $this->published_at->translatedFormat('d/m/Y'),
         );
     }
 
     protected function publishedPostDateThumb(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->published_at->diffForHumans(),
+            get: fn() => $this->published_at->diffForHumans(),
         );
     }
 
@@ -127,7 +135,7 @@ class Post extends Model implements HasMedia
     protected function publishedAt(): Attribute
     {
         return Attribute::make(
-            set: fn ($value) => \Carbon\Carbon::parse($value)->format('Y-m-d H:i:s'),
+            set: fn($value) => \Carbon\Carbon::parse($value)->format('Y-m-d H:i:s'),
         );
     }
 }
